@@ -18,17 +18,20 @@
   > - `file` -> `settings` -> `File Types` -> 在编辑框中添加
 ## 自动添加 `serialVersionUID` 的值
 - > `file -> settings...`
-    > - 搜索 `inspections`
-    > - 在右边框中继续搜索 `serialVersionUID`
-    >> - 搜索结果会是: java -> Serialization issues
-    >>> - 然后下面有4 个可选项
-    >>>> 
-    >>>>     Non-Serializable class with serialVersionUID
-    >>>>     Serializable class without serialVersionUID
-    >>>>     Serializable non-'static' inner class without serialVersionUID
-    >>>>     serialVersionUID field not declared 'private static final long'
-    >>> - 在上面的四个选项中勾选第二和第四个即可
-    >>> - 然后在使用的时候，只要继承了`Serializable` 类，就可以使用快捷键`Alt + Enter` 就会弹出"Add 'serialVersionUID' field"
+  >
+  > ![](md-png\2018051010040324.jpg)
+  >
+  > - 搜索 `inspections`
+  > - 在右边框中继续搜索 `serialVersionUID`
+  > > - 搜索结果会是: java -> Serialization issues
+  > >> - 然后下面有4 个可选项
+  >
+  > >>>     Non-Serializable class with serialVersionUID
+  > >>>     Serializable class without serialVersionUID
+  > >>>     Serializable non-'static' inner class without serialVersionUID
+  > >>>     serialVersionUID field not declared 'private static final long'
+  > >> - 在上面的四个选项中勾选第二和第四个即可
+  > >> - 然后在使用的时候，只要继承了`Serializable` 类，就可以使用快捷键`Alt + Enter` 就会弹出"Add 'serialVersionUID' field"
 
 ## 文件默认编码 UTF-8
 - > 设置文件编码
@@ -159,7 +162,9 @@
     >>>>>     }
     >>>>> ```
 
+# dashboard 启动仪表盘
 
+找到.idea下面的workspace.xml文件
 
 
 
