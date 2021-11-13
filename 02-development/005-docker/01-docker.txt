@@ -1,0 +1,140 @@
+容器服务的启动与停止
+	systemctl status docker
+	systemctl start docker
+	systemctl stop docker
+	systemctl restart docker
+刷新配置
+	systemctl daemon-reload
+	systemctl restart docker
+
+验证远程访问docker 服务
+	http://192.168.159.131:2375/version
+
+配置aliyun 镜像加速器
+	https://www.aliyun.com
+	产品与服务 --> 镜像加速器
+
+docker 搜索
+	https://hub.docker.com/
+	$ docker search xxx
+
+查看容器内部细节
+	docker inspect centos1
+
+docker pull mysql 
+	拉取mysql 镜像
+docker pull mysql:5.6
+	拉取指定标签的mysql 镜像
+docker pull rabbitmq:management
+docker rmi 镜像ID
+	删除一个指定镜像
+docker pull centos:7
+
+
+docker info
+	查看详细信息
+
+# 查看当前本地的镜像文件信息
+docker images
+
+
+docker ps 
+docker ps -a
+	查看所有容器
+docker ps -l
+	查看最后一次运行的容器
+docker ps -f status=exited
+	查看已停止的容器
+docker ps -a -q
+	查看所有容器的ID
+
+docker run [OPTIONS] 镜像名:标签名
+	-i 表示交互式运行容器（就是创建容器后，马上会启动容器，并进入容器 ），通常与-t 同时使用 。 
+	-t 启动后会进入其容器命令行, 通常与 -i 同时使用; 加入 -it 两个参数后，容器创建就能登录进去。即 分配一个伪终端。 
+	--name 为创建的容器指定一个名称 。 
+	-d 创建一个守护式容器在后台运行，并返回容器ID；格式为: 主机(宿主)端口: 容器端口 这样创建容器后不会自动登录容器，如果加-i参数，创建后就会运行容器。 
+	-v 表示目录映射, 格式为：-p 宿主机目录:容器目录 注意：最好做目录映射，在宿主机上做修改，然后共享到容器上。 
+	-p 表示端口映射，格式为：-p 宿主机端口:容器端口
+	
+	所有容器的访问都是通过宿主机的IP 进行访问，主要映射一下端口号就可以了
+
+
+docker start 容器名称|容器ID
+	docker start centos1
+docker stop 容器名称|容器ID
+	docker stop centos1
+docker kill 容器名称|容器ID
+	docker kill centos1
+docker rm 容器名称|容器ID
+	只能删除停止的容器
+	docker rm centos1
+
+交互式容器
+	docker run -it --name=centos1 centos:7 /bin/bash
+	
+守护式容器
+	docker run -id --name=centos2 centos:7 /bin/bash
+
+登录容器(已启动)
+	docker exec -it 容器名称|容器ID /bin/bash
+		docker exec -it centos2 /bin/bash
+
+拷贝，容器与宿主机之间的拷贝
+	docker cp <from> <to>
+挂载
+	在创建容器的时候使用 -v 参数
+		docker run -id -v /宿主机绝对路径:/容器内目录 --name=容器名 镜像名
+		docker run -id -v /opt:/opt --name=centos3 centos:7
+	挂载时指定容器中只有只读权限(Read-only)
+		docker run -id -v /宿主机绝对路径:/容器内目录:ro --name=容器名 镜像名
+		docker run -id -v /opt:/opt:ro --name=centos4 centos:7
+
+查看挂载的容器详细挂载信息
+	docker inspect --format='{{.Mounts}}' centos4(容器名、容器ID)
+
+
+mysql 容器的使用
+	启动mysql 容器
+		docker run -id --name=mxg-mysql -p 3333:3306 -eMYSQL_ROOT_PASSWORD=123456 mysql:5.7
+	我们不能直接从外边直接连接到容器中，而是只能通过宿主机去连接。 3333  这个映射的端口
+		$ docker exec -it mxg-mysql /bin/bash
+	在容器中可以使用mysql 命令登录
+		$ mysql -u root -p 123456
+
+redis 容器
+	启动redis 容器
+		docker run -id --name=mxg_redis -p 6379:6379 redis
+
+tomcat 容器
+	docker run -id --name=mxg_tomcat -p 8888:8080 -v /usr/local/project:/usr/local/tomcat/webapps --privileged=true tomcat:8
+		启动容器 映射宿主机的端口为8888 -v 做一个目录的挂载
+		--privileged=true 打开权限(以防万一，有时候不加也没问题)
+		tomcat:8 镜像名
+	docker exec -it mxg_tomcat /bin/bash
+		进入到容器
+
+rabbitmq 容器
+	拉取容器
+		docker pull rabbitmq:management
+		docker pull rabbitmq:3.7.3-management
+	创建容器并运行
+		docker run -id --name=mxg_rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:management
+		rabbitmq 有两个端口需要映射
+
+nginx 容器
+	拉取容器
+		docker pull nginx
+	创建并运行
+		docker run -d -p 8088:80 --name "nginx-suyh-8088" nginx
+		docker run -d -p 8098:80 --name "nginx-suyh-8098" nginx
+	在宿主机测试
+		curl "http://127.0.0.1:8088"
+
+
+
+
+
+
+
+
+

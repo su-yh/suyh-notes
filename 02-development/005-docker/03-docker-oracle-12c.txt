@@ -1,0 +1,30 @@
+# 拉取oracler 12c
+
+# 参考博客：https://blog.csdn.net/zhazhagu/article/details/81807488
+
+$ docker pull mritschel/oracle12cr2_base
+
+# 创建容器
+方式一：创建端口运行，每次退出数据不会保留
+#  $ docker run -d -p 8080:8080 -p 1521:1521 sath89/oracle-12c
+
+方式二：使用数据卷实现容器数据分离，实现数据持久化(本次采用)
+$ docker run -d -p 8080:8080 -p 5500:5500 -p 1521:1521 -v /home/root/oradata:/u01/app/oracle --name oracle-base-12 mritschel/oracle12cr2_base
+	解释:-d后台运行容器，并返回容器id，-p指定端口映射关系 -v指定数据卷位置
+	
+	参数名					默认值													备注
+	DBCA_TOTAL_MEMORY		1024													如果将此值设置得太低，DBCA将失败
+	ORACLE_BASE				/u01/app/oracle											基础路径
+	ORACLE_HOME				/u01/app/oracle/product/12.1.0.2/dbhome_1				主目录
+	PATH					$ORACLE_HOME/bin:$ORACLE_HOME/OPatch/:/usr/sbin:$PATH	无
+	ORACLE_SID				ORCLCDB													SID
+	SOFTWARE_HOME			$ORACLE_BASE/install									安装路径
+	SCRIPTS_HOME			$ORACLE_BASE											脚本路径
+ 
+
+# 查看日志，通过这个似乎可以看到随机生成的密码
+$ docker logs oracle-base-12
+
+
+# 进入系统
+$ docker exec -it oracle-base-12 /bin/bash

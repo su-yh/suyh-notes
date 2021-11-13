@@ -1,0 +1,115 @@
+* mysql 创始人，又开发了一个mysql 的分支mariadb
+	开源社区已经放弃支持mysql, 转为支持mariadb
+
+* mysql 安装
+	* 安装mysql 社区版 community
+	* 安装mariadb 
+	* linux yum 安装 mariadb
+		yum -y install mariadb-server mariadb mariadb-devel
+		systemctl start mariadb   -- 启动
+
+* mysql 登录
+	mysql -h ip -p 3306 -u root -p
+
+	schema 数据库中一组对象的集合，即数据库
+
+* 进入数据库
+	use test;
+	use db1;
+	show tables;
+
+* 引擎 engine
+	mysql 有两种引擎: innodb 、myisam
+	innodb 支持事务，myisam 不支持事务
+
+* 创建数据库
+	Linux:
+		cat /var/lib/mysql/db1/db.opt
+	Windows:
+		mysql安装目录\data
+	create database xxx charset utf-8;
+	CREATE DATABASE IF NOT EXISTS yourdbname DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
+	show databses;
+	* 查看数据库配置文件
+		配置两项内容：
+			*) 数据库使用的默认字符编码
+			*) 字符的排序方法 
+				-- 一般使用'gbk_chinses_ci' 'utf8_general_ci'
+				-- 默认被选择
+	* 查看数据库中的排序方式
+		show collation like 'gbk%';
+		show collation like 'utf8\_%';
+
+* 修改数据库
+	修改编码
+		alter database db1 charset gbk;
+	修改排序
+		alter database db1 collate gbk_bin;
+
+* 创建表
+	column/field 列、字段
+	
+	create database xxx charset utf-8;
+	use db1;
+	create table user(
+		name varchar(16), -- varchar 可变长字符，最长16
+		age int
+	) engine=innodb  -- myisam/innodb 只有这两种引擎  innodb 支持事务，myisam 不支持事务
+	charset=utf8	-- 对表单独指定字符类型
+	;
+
+* 数据库目录中的表文件
+	Linux: /var/lib/mysql/db1
+	Windows: 找到data\db1
+
+	文件：
+		user.frm   		-- 表结构文件
+		user.myd[ata]  	-- 数据存储文件
+		user.myi		-- 索引文件(约束)
+
+	* 存储引擎
+		*) innodb
+			*) 支持数据库高级功能:
+				*) 事务
+				*) 外键
+		*) myisam
+			*) 数据库存储基本功能
+			*) 效率非常高
+	* 在表中插入数据
+		insert into user values('张三', 23);
+		insert into user(age, name) values(24, '李四');
+	* 修改表
+		*) 修改表名
+			rename table user to tb_user;  -- user  ==>  tb_user
+		*) 修改表的属性(引擎、字符编码)
+			alter table tb_user engine=myisam;
+			alter table tb_user charset=utf8;
+			show create table tb_user;	-- 将数据库的建表语句显示出来
+		*) 添加字段
+			*) first  加在第一个
+			*) after  指定加在某个字段之后
+				alter table tb_user add id int first;  -- 在表tb_user 添加一个id 列，放在第一列
+				-- 同时添加两个列，添加到表最后面
+				alter table tb_user add(
+					gender char(1),	-- 性别(m,f)，定长1个字符
+					tel char(11)	-- 电话
+				);
+		*) 修改字段
+			*) 修改字段名
+				-- gender ==> sex
+				alter table tb_user change gender sex varchar(10);
+			*) 修改字段数据类型
+				alter table tb_user modify tel varchar(20);
+			*) 修改顺序
+				-- 将一个字段修改到某个字段的后面
+				alter table tb_user modify tel varchar(20) after age;
+		*) 删除字段
+			alter table tb_user drop sex;
+	* 删除表
+		drop table tb_user;
+	* 删除库
+		drop database db1;
+
+
+
+

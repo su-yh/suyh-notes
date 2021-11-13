@@ -1,0 +1,12 @@
+docker pull mysql       # 拉取最新版mysql镜像
+# -e：配置信息，此处配置mysql的root用户的登陆密码
+# -d: 以守护进程创建
+# 最后面的 mysql 是指定镜像，可以指定版本，如：mysql:5.7
+docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7
+
+
+# 添加权限
+$ docker exec -it mysql bash
+$ mysql -uroot -p
+mysql> grant all privileges on *.* to root@'%' identified by "root";
+mysql> FLUSH PRIVILEGES;

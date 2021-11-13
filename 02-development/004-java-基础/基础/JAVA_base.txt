@@ -1,0 +1,107 @@
+JAVA 分为J2EE，J2SE, J2ME
+	---- J2SE 标准版
+	---- J2EE 企业版
+	---- J2ME 微型版
+	
+JAVA 特性(最大的优势)：跨平台
+	通过JVM JAVA 虚拟机进行跨平台
+	java virtual machine
+JAVA 运行机制：编译执行语言
+	语言分为：编译型语言 解释型语言
+	JAVA 是编译解释型语言   结合了两个特点
+
+	.class 字节码文件
+	.class 字节码文件通过JVM 进行解释执行(即：运行)
+JAVA 环境变量
+	JDK - JAVA Development Kt
+	JRE - JAVA Runtime Enviroment JAVA 运行时环境
+	JVM - JAVA Virtual Machine JAVA 虚拟机
+	JDK 包含JRE, 同时JRE 包含JVM 
+
+JAVA 包命名规范
+	i. 公司域名反写 + 项目名称 + 包的类型
+		cn.tedu.bank.service
+JAVA 变量的命名规范：
+	a) 变量名必须由字母、数字、_、$ 组成；
+	b) 变量名不能由数字开头；
+	c) 变量名严格区分大小写；
+	d) 不能和JAVA 关键字一样；
+	e) 中文可以做为变量名，但是不建议使用；
+
+JAVA 基本数据类型
+	byte short int long
+	float double
+	char
+	boolean
+
+	long: 长整型
+			如果要定义一个long 类型的变量并赋值时，要在直接量后面加L/l；
+			long l = 23L;
+	flout 和double 类型精度问题：
+		double 和float 的计算机中都是以科学计数法保存数据的。
+			eg: 3.13445 是以3.13445E1 即：3.13445*10^1 的形式保存的
+		float: 4 个字节，32 位，在这32 bit 中，
+			# 1 个bit 表示符号位
+			# 8 个bit 表示指数位，
+			# 剩下的23 个bit 是有效数字位
+			# 2 的23 次方是8388608, 即7位十进制有效数字。
+				按照这个表示方法 转化成10进制之后，
+				它能表示的最高精度是8位有效数字。
+		float 尾数位是23位，2^23 = 8.3E6, 7 位，
+			# 不同的编译器规定不同，有些是7位，有些是8位。
+		double 尾数52位，2^52=4.5E15, 16 位，
+			# 所有double 的有效位数是16位，
+			# 编译器不同，有些是15位，有些是6位。
+	float: 在给float 变量赋值的时候必须要在字面值后面加 L/l 表示float 类型
+		因为在JAVA 中给出的一个小数字面值，系统默认它为double 类型。
+
+	double 类型数据进行运行会出现精确问题
+		double d1 = 3.0;
+		double d2 = 2.9;
+		double d3 = d1 - d2;
+		System.out.println(d3);	// 0.10000000009
+			d3 的结果是不精确的
+		计算机底层是二进制，二进制中无法精确的表示1/10, 就好比十进制中无法精确的表示1/3
+
+		BigDecimal 精确浮点数 class 
+
+	char: 
+		'中'：'\u4e2d'  \u 后面跟的一定是十六进制  必须也要用单引号包起来
+		中文: '\u4e00' ~ '\u9af5'  中文的范围, unicode 编码
+		每一个字符都对应Unicode 编码的一个数字；
+		但是每一个数字都对应一个unicode 编码，是不对的，有些数字还没有对应的字符。
+		
+		给char 类型的变量赋直接量：
+			1. 'a';
+			2. 整数值(0~65535); 
+			3. unicode 编码(\u十六进制);
+
+		char c4 = 'a' + 97;	// 没有问题，这个是编译器处理，将'a' + 97 处理为一个最终的结果赋值给c4
+		char c1 = 98;
+		char c2 = 97;
+		char c3 = c1 + c2; 	// 编译错误，c1 和c2 隐式类型提升为int ，int 不能直接赋值给char
+		// c4 是在编译期完成的，而c3 是在运行期完成的。
+
+JAVA 数据类型转换
+	注意点：boolean 类型和其他基本类型不兼容，boolean 类型和其他类型不能相互转换。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	

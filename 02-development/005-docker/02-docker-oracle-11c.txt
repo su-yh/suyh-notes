@@ -1,0 +1,44 @@
+来源博客：https://www.cnblogs.com/seekdream/p/10643544.html
+
+
+创建volume以持久化数据
+　　在命令行输入 docker volume create exeed-db命令创建名称为exeed-db的volume
+
+创建并运行Oracle数据库
+        在命令行中输入：
+		$ docker run -d --name exeed-db -p 1521:1521 -p 8080:8080 --shm-size=1g --restart=always -e ORACLE_PWD=oracle_pwd -v exeed-db:/u01/app/oracle/oradata zerda/oracle-database:11.2.0.2-xe
+这里有几点需要注意的是：
+　　1 --name exeed-db指定创建的volume .
+　　2  --shm-size=1g:设置/dev/shm的大小。格式为:。number必须大于0。unit可选，可以是b,k,m或g。如果不指定unit，系统默认使用字节。如果此参数不指定，默认使用64m。
+　　3  --restart=always  --restart 标志会检查容器的退出代码，并据此来决定是否要重启容器，默认是不会重启。--restart的参数说明  always：无论容器的退出代码是什么，Docker都会自动重启该容器。on-failure：只有当容器的退出代码为非0值的时候才会自动重启。另外，该参数还接受一个可选的重启次数参数，`--restart=on-fialure:5`表示当容器退出代码为非0时，Docker会尝试自动重启该容器，最多5次。（注意：这里如果不限定该重启策略，那么每一次重启电脑后都要手动通过docker start命令来重启当前容器）
+　　4   ORACLE_PWD用于设置当前Oracle数据库密码。
+　　5   -v exeed-db:/u01/app/oracle/oradata zerda/oracle-database:11.2.0.2-xe用于指定使用的Oracle镜像如果本地找不到的话那么就会去联网进行下载。
+
+这里也许对Host有疑问，不应该是localhost，这里其实我们安装的oracle是跑在虚拟机上面的，这里的地址指的是虚拟机的地址，我们可以在命令行中输入 docker-machine ls来查看当前的虚拟机的地址。
+$ docker-machine ls
+这里我们使用sys as sysdba来作为登录用户，这里的密码就是执行docker run 运行时创建的密码，然后点击测试就可以连接自己的oracle数据库了。
+
+
+后续操作
+　　使用sys as sysdba登录后创建新的用户:AfterSales,这里记住要创建默认的表空间，接着我们就可以给刚才创建的用户AfterSales授予权限了，这样下次我们就可以通过新建的账户来进行数据库操作了。
+　　-- Oracle 管理用户
+　　-- 创建用户 用户名：AfterSales 密码：oracle_pwd
+　　	CREATE USER AfterSales IDENTIFIED BY oracle_pwd
+			DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp
+			QUOTA UNLIMITED ON users;
+　　-- 赋予权限
+　　	GRANT CONNECT, CREATE TABLE, CREATE TRIGGER, CREATE PROCEDURE,
+			CREATE VIEW, CREATE SEQUENCE, DEBUG CONNECT SESSION TO AfterSales;
+　　-- 删除用户
+　　	DROP USER AfterSales CASCADE;
+
+创建用户的相关解释
+SQL> CREATE USER AfterSales //用户名：AfterSales
+ IDENTIFIED BY oracle //登陆验证密码：oracle （密码是大小写敏感的）
+ DEFAULT TABLESPACE users //用户的默认表空间：users
+ TEMPORARY TABLESPACE temp //用户使用的临时表空间
+ QUOTA 10M ON USERS //默认表空间中可以使用的空间配额：10MB 或者可以像上面一样不限制(QUOTA UNLIMITED ON users)
+ -- password expire; //密码状态，过期。登陆的时候要求用户修改。
+
+
+

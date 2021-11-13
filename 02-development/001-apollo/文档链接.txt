@@ -1,0 +1,13 @@
+https://github.com/nobodyiam/apollo-build-scripts
+applo 下载
+https://github.com/ctripcorp/apollo.git
+
+
+application.properties 中的apollo配置
+
+MetaServer
+	apollo.meta=http://config-service-url
+自定义缓存路径
+	apollo.cacheDir=/opt/data/some-cache-dir
+集群配置：
+	apollo.cluster=SomeCluster

@@ -1,0 +1,32 @@
+java.lang 		java程序的基础类，如字符串、多线程等，该包的类使用的频率非常高，不需要import, 可以直接使用
+java.util		常用工具类、如集合、随机数产生器、日历、时钟等
+java.io			文件操作’输入/输出操作
+java.net		网络操作
+java.math 		数学运算相关操作
+java.security	安全相关操作
+java.sql		数据库访问
+java.text 		处理文字、日期、数字、信息的格式
+
+
+文档注释
+	以/** 开头，以*/结尾
+	用法：
+		1. 通过javadoc 视图查看
+
+
+
+集合数据结构
+	List: 链表    实现类 ArrayList<E>
+	Queue: 队列        实现类 LinkedList<E>
+	Deque: 双端队列     实现类 LinkedList<E>
+	Stack: 栈
+	Set   实现类 HashSet()
+
+集合的结构分为: Collection 和 Map
+	Collection: 
+		List   实现类： ArrayList  LinkedList
+		Set  实现类：HasSet
+	Map 与Collection 没有任何关系
+
+
+

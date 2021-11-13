@@ -1,0 +1,10 @@
+# 手册链接地址: https://www.jenkins.io/zh/doc/book/installing/
+
+
+下载安装可以查看  06-docker-jenkins.txt 笔记
+
+docker 中每个项目的源代码全存放到 /var/jenkins-home/workspace(/var/jenkins-data/workspace)目录下面
+
+
+
+
