@@ -1,7 +1,0 @@
-<configuration>
-    <property>
-        <!--指定mapreduce运行在yarn上-->
-        <name>mapreduce.framework.name</name>
-        <value>yarn</value>
-    </property>
-</configuration>
