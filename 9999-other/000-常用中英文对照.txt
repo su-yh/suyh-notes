@@ -147,4 +147,6 @@
     verify
 如果需要
     ifNecessary
-
+匹配 - 不匹配
+    Match
+    Mismatch
