@@ -150,3 +150,6 @@
 匹配 - 不匹配
     Match
     Mismatch
+地域 region
+区域 zone
+子区域 sub_zone
