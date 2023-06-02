@@ -1,0 +1,144 @@
+用法示例：
+#####################################################################################################################
+    添加目标名后缀：
+        set(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "Set Debug library postfix" FORCE)
+        set(CMAKE_RELEASE_POSTFIX "" CACHE STRING "Set Release library postfix" FORCE)
+        set(CMAKE_MINSIZEREL_POSTFIX "" CACHE STRING "Set MinSizeRel library postfix" FORCE)
+        set(CMAKE_RelWithDebInfo_POSTFIX "" CACHE STRING "Set RelWithDebInfo library postfix" FORCE)
+        
+        # 为MFCDemo 项目添加DEBUG 版本后缀"d"
+        set_target_properties(MFCDemo PROPERTIES DEBUG_POSIFIX d)
+        
+#####################################################################################################################
+    Wdinwos 系统的多核编译选项：
+        add_definitions(/MP)
+        
+#####################################################################################################################
+    使用FIND_PACKAGE():
+        # 以添加BOOST  库为例：
+        # 指定不同平台的库所在路径
+        SET(BOOST_PLATFORM_LIB_DIR ${CMAKE_SOURCE_DIR}/third/boost_1_55_0/linux64/lib/)
+
+        # boost library
+        SET(BOOST_INCLUDEDIR ${CMAKE_SOURCE_DIR}/third/boost_1_55_0/include/)
+        SET(BOOST_LIBRARYDIR ${BOOST_PLATFORM_LIB_DIR})
+        SET(Boost_USE_STATIC_LIBS ON)
+        SET(Boost_USE_MULTITHREADED ON)
+        UNSET(Boost_INCLUDE_DIR CACHE)
+        UNSET(Boost_LIBRARY_DIRS CACHE)
+        FIND_PACKAGE(Boost REQUIRED COMPONENTS thread program_options system)
+    
+        IF (Boost_FOUND)    # 成功找到boost 库，然后添加boost 库的头文件所在目录以及库的目录
+            INCLUDE_DIRECTORIES("${BOOST_INCLUDEDIR}")
+            SET(PLATFORM_LIBS ${PLATFORM_LIBS} ${Boost_LIBRARIES})
+            SET(PLATFORM_LIB_DIR ${PLATFORM_LIB_DIR} ${BOOST_PLATFORM_LIB_DIR})
+        ENDIF ()
+        
+#####################################################################################################################
+    windows 下，指定DEBUG 和 RELEASE 版本的第三方库:
+        # 这里的debug 指的是debug 版本时调用，optimized 这个就是非debug 版本的时候调用吧(我还暂时没去查太多资料)
+        IF(WIN32)
+            SET(THIRD_LIB_DEBUG
+                    debug ${CMAKE_SOURCE_DIR}/third/protobuf-2.5.0/win64/lib_msvc110/libprotobuf_d.lib
+                    debug ${CMAKE_SOURCE_DIR}/third/protobuf-2.5.0/win64/lib_msvc110/libprotobuf-lite_d.lib
+                    debug ${CMAKE_SOURCE_DIR}/third/protobuf-2.5.0/win64/lib_msvc110/libprotoc_d.lib
+                    debug ${CMAKE_SOURCE_DIR}/third/boost_1_55_0/win64/lib_msvc110/libboost_thread-vc110-mt-gd-1_55.lib
+                    debug ${CMAKE_SOURCE_DIR}/third/boost_1_55_0/win64/lib_msvc110/libboost_system-vc110-mt-gd-1_55.lib
+                    debug ${CMAKE_SOURCE_DIR}/third/boost_1_55_0/win64/lib_msvc110/libboost_program_options-vc110-mt-gd-1_55.lib
+                    debug ${CMAKE_SOURCE_DIR}/third/boost_1_55_0/win64/lib_msvc110/libboost_date_time-vc110-mt-gd-1_55.lib)
+            SET(THIRD_LIB_RELEASE
+                    optimized ${CMAKE_SOURCE_DIR}/third/protobuf-2.5.0/win64/lib_msvc110/libprotobuf.lib
+                    optimized ${CMAKE_SOURCE_DIR}/third/protobuf-2.5.0/win64/lib_msvc110/libprotobuf-lite.lib
+                    optimized ${CMAKE_SOURCE_DIR}/third/protobuf-2.5.0/win64/lib_msvc110/libprotoc.lib
+                    optimized ${CMAKE_SOURCE_DIR}/third/boost_1_55_0/win64/lib_msvc110/libboost_thread-vc110-mt-1_55.lib
+                    optimized ${CMAKE_SOURCE_DIR}/third/boost_1_55_0/win64/lib_msvc110/libboost_system-vc110-mt-1_55.lib
+                    optimized ${CMAKE_SOURCE_DIR}/third/boost_1_55_0/win64/lib_msvc110/libboost_program_options-vc110-mt-1_55.lib
+                    optimized ${CMAKE_SOURCE_DIR}/third/boost_1_55_0/win64/lib_msvc110/libboost_date_time-vc110-mt-1_55.lib)
+            # SET(THIRD_LIB ${THIRD_LIB_DEBUG} ${THIRD_LIB_RELEASE})
+        ENDIF(WIN32)
+        
+#####################################################################################################################
+    解决方案目录(筛选器):
+        # 这个是在顶层的CMakeLists.txt 文件中设置
+
+            # 设置解决方案目录名的全局性变量
+            SET(SOLUTION_DIR_LIB "lib")
+            SET(SOLUTION_DIR_DLL "dll")
+            SET(SOLUTION_DIR_EXE "exe")
+        
+            # 打开或者关闭(ON or OFF) 使用解决方案目录的功能
+            SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS ON)
+        
+            # 这个是ZERO_CHECK 添加一个解决方案目录
+            SET_PROPERTY(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMakeTargets")
+
+        # 在指定的目录工程下面的CMakeLists.txt 文件中
+            IF (WIN32)
+                 # 将该项目添加到指定解决方案的目录下  另外注意就是，这个的设置必须在项目生成之后才可以使用
+                 SET_TARGET_PROPERTIES(${DB_SHARED_SERVER} PROPERTIES FOLDER ${SOLUTION_DIR_EXE})
+            ENDIF(WIN32)
+        
+#####################################################################################################################
+    分组 SOURCE_GROUP: 
+        SET(WORLD_SVR world_server)
+    
+        PROJECT(${WORLD_SVR})
+    
+        FILE(GLOB MAIN_DIR_FILES "*.h" "*.cpp")
+        FILE(GLOB PLAYER_DIR_FILES "player/*.h" "player/*.cpp")
+        FILE(GLOB RANK_DATA_DIR_FILES "rank_data/*.h" "rank_data/*.cpp")
+        FILE(GLOB SRC_FILES
+                  ${PLAYER_DIR_FILES}
+                  ${RANK_DATA_DIR_FILES}
+                  ${MAIN_DIR_FILES})
+        SOURCE_GROUP("main_dir" FILES ${MAIN_DIR_FILES})
+        SOURCE_GROUP("player" FILES ${PLAYER_DIR_FILES})
+        SOURCE_GROUP("rank_data" FILES ${RANK_DATA_DIR_FILES})
+        SOURCE_GROUP(outer\\inner FILES ${RANK_DATA_DIR_FILES})
+    
+        INCLUDE_DIRECTORIES(".")
+        INCLUDE_DIRECTORIES("${CMAKE_SOURCE_DIR}/base/")
+        INCLUDE_DIRECTORIES("${CMAKE_SOURCE_DIR}/common/")
+        INCLUDE_DIRECTORIES("${CMAKE_SOURCE_DIR}/csv_proto/")
+    
+        ADD_EXECUTABLE(${WORLD_SVR} ${SRC_FILES})
+    
+        SET(PLATFORM_LIBS ${PLATFORM_LIBS} "csv_proto" "common" "base")
+        TARGET_LINK_LIBRARIES(${WORLD_SVR} ${PLATFORM_LIBS})
+
+#####################################################################################################################
+    windows 下判断编译32位还是64位程序：
+        IF(CMAKE_CL_64)
+            SET(PLATFORM x64)   
+        ELSE(CMAKE_CL_64)
+            SET(PLATFORM x86)
+        ENDIF(CMAKE_CL_64)
+        
+#####################################################################################################################
+    windows 下拒绝CMAKE 自动将输出目录添加debug 或者release 目录:
+        SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG            "${EXECUTABLE_OUTPUT_PATH}")
+        SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE          "${EXECUTABLE_OUTPUT_PATH}")
+        SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL       "${EXECUTABLE_OUTPUT_PATH}")
+        SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO   "${EXECUTABLE_OUTPUT_PATH}")
+
+        SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG "${OUTPUT_DIRECTORY}")
+        SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_DIRECTORY}")
+
+        SET( CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${OUTPUT_DIRECTORY}")
+        SET( CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_DIRECTORY}") 
+
+#####################################################################################################################
+
+#####################################################################################################################
+
+#####################################################################################################################
+
+#####################################################################################################################
+
+#####################################################################################################################
+
+#####################################################################################################################
+        
+        
+        
+        
