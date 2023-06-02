@@ -128,6 +128,8 @@
     Privilege   
 部门
     department
+参数
+    parameters
 供应商
     supplier
 消费者、客户
