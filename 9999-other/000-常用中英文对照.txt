@@ -134,6 +134,10 @@
     department
 参数
     parameters
+    Argument 和 Parameter 两个词在很多文献中均翻译为参数，这是一个历史遗留问题。
+    但实际上 Argument 专用于 Actual Argument（实际参数，实参），
+    Parameter 专用于 Formal Parameter（形式参数，形参）。
+    在上下文没有歧义的情况下，我个人的习惯会将这两个词均翻译为参数，在其他情况下使用实参和形参来对 Argument 和 Parameter 加以区分。
 供应商
     supplier
 消费者、客户
