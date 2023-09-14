@@ -77,6 +77,8 @@
 分子/分线
     numerator/denominator
 
+重复了，存在了
+    duplicate
 
 外面、外部
     external : 指与其他物体分离或没有关系的外部，不涉及内容，只说明全然是外部的。
