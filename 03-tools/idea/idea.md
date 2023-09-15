@@ -166,5 +166,7 @@
 
 找到.idea下面的workspace.xml文件
 
+# 修改搜索时忽略大小写
 
+![image-20230915151739078](idea.assets/image-20230915151739078.png)
 
