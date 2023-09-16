@@ -94,3 +94,22 @@ Set-ExecutionPolicy Restricted
 
 ```
 
+
+
+
+
+### wsl 中无法启动sshd 服务的处理
+
+```shell
+
+# 安装SSH服务器（如果尚未安装）：在Ubuntu终端中运行以下命令：
+
+sudo apt update
+sudo apt install openssh-server
+
+
+# 启动SSH服务：在Ubuntu终端中运行以下命令：
+
+sudo service ssh start
+```
+
