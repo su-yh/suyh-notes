@@ -1,4 +1,13 @@
- 外网面板地址: https://113.90.33.172:34796/09122d03
- 内网面板地址: https://192.168.152.98:34796/09122d03
- username: m5m0k0tc
- password: 3f8c3e48
+ 外网面板地址: https://113.90.33.172:12156/ce50d29f
+ 内网面板地址: https://192.168.152.98:12156/ce50d29f
+ username: mkqohyft
+ password: 3932b67d
+ 
+ 
+192.168.152.98
+ 
+ 
+ 运行/停止宝塔服务：
+ /etc/init.d/bt start
+ /etc/init.d/bt stop
+ 
