@@ -113,3 +113,30 @@ sudo apt install openssh-server
 sudo service ssh start
 ```
 
+
+
+### wsl 中安装指定版本 的系统
+
+```properties
+# 在安装之前可以通过命令查看，可安装的发行版
+wsl --list --online
+
+# 安装指定版本的系统
+# 经常都会报错，多执行几次就好了，是网络的原因
+# PS C:\Users\admin> wsl --install -d Ubuntu-22.04
+# 正在安装: Ubuntu 22.04 LTS
+# Error: 0x80240438           0.0%                           ]
+# Error code: Wsl/InstallDistro/0x80240438
+wsl --install -d Ubuntu-22.04
+
+# 列出已安装的 Linux 发行版，下面两个命令都是一样的效果
+wsl --list --verbose
+wsl -v -l 
+
+# 进入指定系统
+wsl -d Ubuntu-22.04
+# 进入系统的时候还可以指定登录 用户
+wsl -d Ubuntu-22.04 -u suyunhong
+
+```
+
