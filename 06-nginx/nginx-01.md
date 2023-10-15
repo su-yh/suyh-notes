@@ -17,7 +17,7 @@ tar zxvf nginx-1.22.1.tar.gz
 
 ```properties
 # 运行 ./configure 时会提示没有 C语言的编译器
-suyunhong@DESKTOP-3EJNPV2:~/nginx/nginx-1.22.1$ ./configure
+suyunhong@DESKTOP-3EJNPV2:~/nginx/nginx-1.22.1$ ./configure --prefix=/usr/local/nginx
 checking for OS
  + Linux 5.15.90.1-microsoft-standard-WSL2 x86_64
 checking for C compiler ... not found
@@ -81,6 +81,7 @@ sudo apt install libpcre3 libpcre3-dev
 
 ```properties
  sudo apt-get install zlib1g-dev
+ # yum install -y zlib-devel
 ```
 
 

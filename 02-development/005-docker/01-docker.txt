@@ -71,7 +71,7 @@ docker rm 容器名称|容器ID
 
 交互式容器
 	docker run -it --name=centos1 centos:7 /bin/bash
-	
+
 守护式容器
 	docker run -id --name=centos2 centos:7 /bin/bash
 
