@@ -64,12 +64,19 @@ with nginx by using --with-openssl=<path> option.
 
 # Ubuntu
 # sudo apt -y install openssl openssl-devel
+# 上面个方式好像没啥用
+# 参考博客：https://blog.csdn.net/wu10188/article/details/124970453
+sudo apt-get update
+sudo apt-cache policy libssl-dev
+sudo apt-get install libssl-dev
 ```
+
+![image-20231015221737125](nginx-01-ssl-下载与安装.assets/image-20231015221737125.png)
 
 > 正常情况下，系统都安装过opensll，所以只需要指定一下openssl 的路径即可，如下：
 
 ```properties
-./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-openssl=/usr/bin/openssl
+./configure --prefix=/usr/local/nginx --with-http_ssl_module 
 ```
 
 ### 继续 安装nginx
@@ -77,7 +84,7 @@ with nginx by using --with-openssl=<path> option.
 >  再次执行命令来安装到指定目录下面
 
 ```properties
-./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-openssl=/usr/bin/openssl
+./configure --prefix=/usr/local/nginx --with-http_ssl_module
 ```
 
 这个时候还有报错
