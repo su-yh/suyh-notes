@@ -72,23 +72,17 @@ with nginx by using --with-openssl=<path> option.
 ./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-openssl=/usr/bin/openssl
 ```
 
-![image-20231015220002351](nginx-01-下载与安装.assets/image-20231015220002351.png)
-
-
-
-
-
 ### 继续 安装nginx
 
->  再次执行`./configure --prefix=/usr/local/nginx` 来安装到指定目录下面
+>  再次执行命令来安装到指定目录下面
 
 ```properties
-./configure --prefix=/usr/local/nginx
+./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-openssl=/usr/bin/openssl
 ```
 
 这个时候还有报错
 
-![image-20231004192553713](nginx-01.assets/image-20231004192553713.png)
+![image-20231004192553713](nginx-01-下载与安装.assets/image-20231004192553713.png)
 
 
 
@@ -107,7 +101,7 @@ sudo apt install libpcre3 libpcre3-dev
 
 报错，还需要zlib 库
 
-![image-20231004193134557](nginx-01.assets/image-20231004193134557.png)
+![image-20231004193134557](nginx-01-下载与安装.assets/image-20231004193134557.png)
 
 
 
@@ -122,7 +116,7 @@ sudo apt install libpcre3 libpcre3-dev
 
 ### 安装成功
 
-![image-20231004193258432](nginx-01.assets/image-20231004193258432.png)
+![image-20231004193258432](nginx-01-下载与安装.assets/image-20231004193258432.png)
 
 
 
@@ -133,7 +127,7 @@ make
 sudo make install 
 ```
 
-![image-20231004193429107](nginx-01.assets/image-20231004193429107.png)
+![image-20231004193429107](nginx-01-下载与安装.assets/image-20231004193429107.png)
 
 
 
@@ -159,5 +153,5 @@ sudo ./nginx -s reload
 # 如果 访问不了，可以把防火墙关闭，可能 是防火墙的原因
 ```
 
-![image-20231004193725628](nginx-01.assets/image-20231004193725628.png)
+![image-20231004193725628](nginx-01-下载与安装.assets/image-20231004193725628.png)
 
