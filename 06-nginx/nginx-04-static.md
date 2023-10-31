@@ -2,6 +2,40 @@
 
 
 
+### root与alias 的区别
+
+> 例如：
+>
+> 有一张图片，URL是：/awaimai.com/static/a.jpg
+>
+> 它在服务器的路径是：/var/www/app/static/a.jpg
+
+- 使用`root`配置
+
+  ```txt
+  # 使用root ，则最终的结果就是：root 路径(/var/www/app) + location 路径(/static)
+  # 使用root 的缺点就是url 路径不能随便给，只能在 /var/www/app 下面有的才可以。
+  location /static/ {
+      root /var/www/app/;
+  }
+  ```
+
+- 使用`alias`配置
+
+  ```txt
+  # 使用alias 则最终的结果就是完全使用 alias 的路径替代 location 的路径。
+  # 使用alias 的优点就是 url 路径可以随便给，因为最终的路径由alias 来决定。
+  location /static/ {
+      alias /var/www/app/static/;
+  }
+  ```
+
+  上面两种配置都能达到同样的效果。
+
+
+
+
+
 
 
 ```nginx
