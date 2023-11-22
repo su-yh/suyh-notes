@@ -141,15 +141,15 @@
     >>>> - 在这个文件中添加一个类注释什么的
     >>>>> ```
     >>>>>     /**
-    >>>>>      * @author suyh
-    >>>>>      * @since ${YEAR}-${MONTH}-${DAY}
-    >>>>>      */
+    >>>>>   * @author suyh
+    >>>>>   * @since ${YEAR}-${MONTH}-${DAY}
+    >>>>>   */
     >>>>> ```
     >>> - 新建文件"FileCopyright"
     >>>> ```
     >>>>     /**
-    >>>>      * Copyright XXXXXXXX......
-    >>>>      */
+    >>>>   * Copyright XXXXXXXX......
+    >>>>   */
     >>>> ```
     >> - 选择："Files"
     >>> - 找到并选定："Class" "Interface" "Enum" "AnnotationType"
