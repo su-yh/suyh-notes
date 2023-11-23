@@ -1,4 +1,7 @@
 
+总计 总数
+    aggregate
+    total
 性别
     gender
 男性 male
@@ -58,8 +61,10 @@
     Payee
 开户行
     openning bank
-注册
+登记
     register
+注册
+    registy
 承运人
     Carrier
 全称
@@ -74,12 +79,13 @@
     position  强调人的位置,主要就是人的职位,等级,给人一个合适的定位
     location  一般是地理位置,强调具体的地理方位,具体的位置,例如地方的住宅,住址等
 
-分子/分线
+分子/分母
     numerator/denominator
 
 重复了，存在了
     duplicate
-
+一侧、一边
+    side
 外面、外部
     external : 指与其他物体分离或没有关系的外部，不涉及内容，只说明全然是外部的。
     exterior : 强调位于事物的外表以上，但仍是该事物的一部分，较正式。
@@ -165,3 +171,13 @@
 地域 region
 区域 zone
 子区域 sub_zone
+边界  bound
+左边界 left bound
+右边界  right bound
+下边界  lower bound
+上边界   upper bound
+阈值  thresholding
+限制数  threshold
+标签  flag  tag
+
+
