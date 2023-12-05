@@ -176,8 +176,9 @@
 右边界  right bound
 下边界  lower bound
 上边界   upper bound
-阈值  thresholding
+阈值  thresholding  threshold
 限制数  threshold
 标签  flag  tag
-
-
+员工   employee 
+凭证  credential
+每日 daily
