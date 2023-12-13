@@ -182,3 +182,4 @@
 员工   employee 
 凭证  credential
 每日 daily
+领取任务  claim task
