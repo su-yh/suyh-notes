@@ -10,6 +10,13 @@
 
 > 忽略
 
+## ubuntu 安装 一下lrzsz
+
+```shell
+sudo apt-get update
+sudo apt-get install lrzsz
+```
+
 ## 安装hadoop
 
 ### 解压
@@ -23,8 +30,8 @@ tar -zxvf hadoop-3.2.4.tar.gz  -C /opt/module
 > `vim /etc/profile`
 
 ```shell
+# hadoop 环境配置
 export HADOOP_HOME=/opt/module/hadoop-3.2.4
-
 export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
 ```
@@ -61,14 +68,14 @@ export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 >
 > 即：/opt/module/hadoop-3.2.4/etc/hadoop
 
-| 默认配置文件         | 自定义配置文件  |
-| -------------------- | --------------- |
-| [core-default.xml]   | core-site.xml   |
-| [hdfs-default.xml]   | hdfs-site.xml   |
-| [yarn-default.xml]   | yarn-site.xml   |
-| [mapred-default.xml] | mapred-site.xml |
+| 默认配置文件         | 自定义配置文件             |
+| -------------------- | -------------------------- |
+| [core-default.xml]   | etc/hadoop/core-site.xml   |
+| [hdfs-default.xml]   | etc/hadoop/hdfs-site.xml   |
+| [yarn-default.xml]   | etc/hadoop/yarn-site.xml   |
+| [mapred-default.xml] | etc/hadoop/mapred-site.xml |
 
-- core-site.xml
+- etc/hadoop/core-site.xml
 
   ```xml
   <configuration>
@@ -94,7 +101,7 @@ export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
   
 
-- hdfs-site.xml
+- etc/hadoop/hdfs-site.xml
 
   ```xml
   <configuration>
@@ -113,7 +120,7 @@ export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
   
 
-- yarn-site.xml
+- etc/hadoop/yarn-site.xml
 
   ```xml
   <configuration>
@@ -141,7 +148,7 @@ export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
   
 
-- mapred-site.xml
+- etc/hadoop/mapred-site.xml
 
   ```xml
   <configuration>
@@ -157,7 +164,9 @@ export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
 ### 配置workers
 
-> /opt/module/hadoop-3.2.4/etc/hadoop/worker
+> 所在目录：$HADOOP_HOME/etc/hadoop
+>
+> 即：/opt/module/hadoop-3.2.4/etc/hadoop/worker
 >
 > 要注意不要有任何的其他空格或者空行
 
@@ -169,7 +178,7 @@ hadoop003
 
 ### 首次运行需要格式化 NameNode
 
-> 好像只需要格式化NameNode 所在的那台机器实例
+> 注意：只需要格式化NameNode 所在的那台机器实例
 >
 > ```shell
 > hdfs namenode -format
@@ -183,13 +192,32 @@ hadoop003
 
 ### 启动HDFS
 
-> /opt/module/hadoop-3.2.4/sbin/start-dfs.sh
+> 注意：只需要在hadoop001 上面启动即可
+>
+> 不过，似乎在任意一台机器上面都可以启动呢
+>
+> $HADOOP_HOME/sbin/start-dfs.sh
 >
 > 如果启动报错，用户啥的权限啥的，就需要添加一些环境配置
 >
 > 还有就是JAVA_HOME 的配置
->
-> 在 etc/hadoop/hadoop-env.sh 文件
+
+报错示例：
+
+```txt
+root@hadoop001:/opt/module/hadoop-3.2.4# ./sbin/start-dfs.sh 
+Starting namenodes on [hadoop001]
+ERROR: Attempting to operate on hdfs namenode as root
+ERROR: but there is no HDFS_NAMENODE_USER defined. Aborting operation.
+Starting datanodes
+ERROR: Attempting to operate on hdfs datanode as root
+ERROR: but there is no HDFS_DATANODE_USER defined. Aborting operation.
+Starting secondary namenodes [hadoop003]
+ERROR: Attempting to operate on hdfs secondarynamenode as root
+ERROR: but there is no HDFS_SECONDARYNAMENODE_USER defined. Aborting operation.
+```
+
+> vim  etc/hadoop/hadoop-env.sh 
 
 ```shell
 export JAVA_HOME=/usr/local/java/jdk1.8.0_202
@@ -203,7 +231,7 @@ export YARN_NODEMANAGER_USER=root
 
 ### 停止HDFS
 
-> /opt/module/hadoop-3.2.4/sbin/stop-dfs.sh
+> $HADOOP_HOME/sbin/stop-dfs.sh
 
 #### 成功之后会如配置的一样
 
@@ -239,11 +267,11 @@ export YARN_NODEMANAGER_USER=root
 
 > 规划在hadoop002 上面，那么就需要到对应的机器 实例去运行启动脚本
 >
-> /opt/module/hadoop-3.2.4/sbin/start-yarn.sh
+> $HADOOP_HOME/sbin/start-yarn.sh
 
 ### 停止YARN
 
-> /opt/module/hadoop-3.2.4/sbin/stop-yarn.sh
+> $HADOOP_HOME/sbin/stop-yarn.sh
 
 #### 成功之后会如配置的一样
 
@@ -293,14 +321,33 @@ export YARN_NODEMANAGER_USER=root
 
 ## 历史服务器
 
-### 配置
+### 配置(每一台实例)
 
-> vim mapred-site.xml
+> vim  etc/hadoop/mapred-site.xml
+>
+> ```xml
+> <!-- 历史服务器端地址 -->
+> <property>
+>     <name>mapreduce.jobhistory.address</name>
+>     <value>hadoop001:10020</value>
+> </property>
+> 
+> <!-- 历史服务器web端地址 -->
+> <property>
+>     <name>mapreduce.jobhistory.webapp.address</name>
+>     <value>hadoop001:19888</value>
+> </property>
+> ```
 
-### 启动
+### 启动(在hadoop001 机器上面运行)
 
 > bin/mapred --daemon start historyserver
 
 ### 停止
 
 > bin/mapred --daemon stop historyserver
+
+### 页面访问
+
+> hadoop001:19888
+
