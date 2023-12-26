@@ -10,6 +10,16 @@
 - TaskManger
 - FlinkClient
 
+### 集群规划
+
+| 节点服务器 | hadoop001   | hadoop002   | hadoop003   |
+| ---------- | ----------- | ----------- | ----------- |
+| 角色       | JobManager  | --          | --          |
+|            | TaskManager | TaskManager | TaskManager |
+|            |             |             |             |
+
+
+
 ### 下载安装包
 
 官网：https://flink.apache.org
@@ -21,7 +31,7 @@
  
 
 ```shell
-# 解压
+# 解压在每一台机器
 tar -zxvf flink-1.17.2-bin-scala_2.12.tgz -C /opt/module/
 cd /opt/module/flink-1.17.2
 
@@ -33,20 +43,21 @@ cd /opt/module/flink-1.17.2
 
 #### 修改配置 JobManager
 
-指定一个服务实例为JobManager，然后进入到该主机，修改对应的配置文件
+所有机器实例上面都要配置
 
-> vim conf/flink-conf.yaml
+> vim  ${FLINK_HOME}/conf/flink-conf.yaml
 
 ```properties
 # JobManager节点地址.
-jobmanager.rpc.address: flink01.isuyh.com
+jobmanager.rpc.address: hadoop001
 jobmanager.bind-host: 0.0.0.0
-rest.address: flink01.isuyh.com
+# web-ui 绑定的地址
+rest.address: hadoop001
 rest.bind-address: 0.0.0.0
 # TaskManager节点地址.需要配置为当前机器名
+# 注意：每一台机器都要配置成自己的主机名
+taskmanager.host: hadoop001
 taskmanager.bind-host: 0.0.0.0
-taskmanager.host: flink01.isuyh.com
-
 ```
 
 > 修改workers
@@ -54,51 +65,21 @@ taskmanager.host: flink01.isuyh.com
 > vim conf/workers
 
 ```properties
-flink01.isuyh.com
-flink02.isuyh.com
-flink03.isuyh.com
+hadoop001
+hadoop002
+hadoop003
 ```
 
 > vim conf/masters
 
 ```properties
-flink01.isuyh.com:8081
-```
-
-#### 修改配置TaskManager
-
-将上面JobManager的配置对应修改
-
-> vim conf/flink-conf.yaml
-
-```properties
-# JobManager节点地址.
-jobmanager.rpc.address: flink01.isuyh.com
-jobmanager.bind-host: 0.0.0.0
-rest.address: flink01.isuyh.com
-rest.bind-address: 0.0.0.0
-# TaskManager节点地址.需要配置为当前机器名
-taskmanager.bind-host: 0.0.0.0
-# 主要是这里，自己的服务器域名
-taskmanager.host: flink02.isuyh.com
-```
-
-另一个TaskManager
-
-```properties
-# JobManager节点地址.
-jobmanager.rpc.address: flink01.isuyh.com
-jobmanager.bind-host: 0.0.0.0
-rest.address: flink01.isuyh.com
-rest.bind-address: 0.0.0.0
-# TaskManager节点地址.需要配置为当前机器名
-taskmanager.bind-host: 0.0.0.0
-# 主要是这里，自己的服务器域名
-taskmanager.host: flink03.isuyh.com
+hadoop001:8081
 ```
 
 ### 启动/停止集群
 
+> 这个还是得在hadoop001 上面运行，我试了一下，在其他的机器上面运行的话 StandaloneSessionClusterEntrypoint 就会在该台机器上面启动了。
+>
 > bin/start-cluster.sh
 >
 > bin/stop-cluster.sh
@@ -107,9 +88,9 @@ taskmanager.host: flink03.isuyh.com
 
 ### 网页访问
 
-> http://flink01.isuyh.com:8081
+> hadoop001:8081
 >
-> 而访问flink02.isuyh.com:8081 是访问不通的，看来是只能在JobManager 所在的ip 才能访问。
+> 而访问 hadoop002:8081 是访问不通的，看来是只能在JobManager 所在的ip 才能访问。
 
 ### 命令行提交job
 
@@ -127,15 +108,11 @@ bin/flink run -m hadoop102:8081 -c com.atguigu.wc.SocketStreamWordCount ./FlinkT
   会话模式比较适合于单个规模小、执行时间短的大量作业。
   ```
 
-  
-
 - 单作业模式(Per-Job Mode)  `在新版本中已经被标记为过时了`
 
   ```txt
   一个作业一个flink集群，它需要借助一些外部资源 管理系统，比较yarn 
   ```
-
-  
 
 - 应用模式(Application Mode)
 
@@ -143,7 +120,6 @@ bin/flink run -m hadoop102:8081 -c com.atguigu.wc.SocketStreamWordCount ./FlinkT
   直接把应用提交到JobManager 上运行。而这也就代表着，我们需要为每一个提交的应用单独启动一个JobManager，也就是创建一个集群。这个JobManager 只为执行这一个应用而存在，执行结束之后JobManager 也就关闭了，这就是所谓的应用模式。
   ```
 
-  
 
 ### 运行模式
 
@@ -153,5 +129,120 @@ bin/flink run -m hadoop102:8081 -c com.atguigu.wc.SocketStreamWordCount ./FlinkT
 - YARN(重点)
 - K8S(了解)
 
+#### YARN模式
 
+- 配置环境变量
+
+  > vim /etc/profile
+
+  ```shell
+  # hadoop 环境配置，如下两个一般安装好了hadoop 它们应该是配置好了的
+  # export HADOOP_HOME=/opt/module/hadoop-3.2.4
+  # export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+  
+  # flink yarn 配置
+  export HADOOP_CONF_DIR=${HADOOP_HOME}/etc/hadoop
+  export HADOOP_CLASSPATH=`hadoop classpath`
+  ```
+
+- 启动hdfs（参考hadoop）
+
+- 启动yarn（参考hadoop）
+
+- 其他
+
+#### 会话模式(YARN-SESSION)
+
+> ```shell
+> # 默认方式启动
+> root@hadoop001:/opt/module/flink-1.17.2# ./bin/yarn-session.sh
+> 
+> # 分离模式启动，不占用终端，并指定一个名称
+> root@hadoop001:/opt/module/flink-1.17.2# ./bin/yarn-session.sh -d -nm test
+> ```
+>
+> 停止
+>
+> ```shell
+> echo "stop" | ./bin/yarn-session.sh -id application_1680702304497_0003
+> ```
+>
+> 
+
+
+
+##### 命令提交作业到yarn 模式
+
+> ```shell
+> # 跟上面的比较这里不需要通过 -m 指定IP:PORT 他会自动找到yarn
+> bin/flink run -c com.atguigu.wc.SocketStreamWordCount ./FlinkTutorial-1.0-SNAPSHOT.jar
+> ```
+
+#### 应用模式提交作业
+
+> ```shell
+> bin/flink run-application -t yarn-application -c com.suyh.d01.WordCount03StreamUnboundedDemo ./d01.jar
+> ```
+
+#### hdfs 提交作业
+
+> 
+>
+> ${FLINK_HOME}/lib
+>
+> ${FLINK_HOME}/plugins
+>
+> ```shell
+> # 将flink 的自身依赖上传到hdfs
+> # 在HDFS 上面创建目录
+> root@hadoop001:/opt/module/flink-1.17.2# hadoop fs -mkdir /flink-dist
+> # 将 lib 目录和plugins 目录上传到 hdfs 的/flink-dist 目录下面
+> root@hadoop001:/opt/module/flink-1.17.2# hadoop fs -put lib/ /flink-dist
+> root@hadoop001:/opt/module/flink-1.17.2# hadoop fs -put plugins/ /flink-dist
+> 
+> # 将自己的程序所依赖的包上传到hdfs
+> # 创建一个目录，用来管理自己的jar 包
+> root@hadoop001:/opt/module/flink-1.17.2# hadoop fs -mkdir /flink-jars
+> # 将自己的flink 运行程序包上传
+> root@hadoop001:/opt/module/flink-1.17.2# hadoop fs -put d01.jar /flink-jars
+> 
+> # 提交作业
+> # yarn.provided.lib.dirs 指定是的flink 自身的依赖包
+> bin/flink run-application -t yarn-application -Dyarn.provided.lib.dirs="hdfs://hadoop001:8020/flink-dist" -c com.suyh.d01.WordCount03StreamUnboundedDemo hdfs://hadoop001:8020/flink-jars/d01.jar
+> ```
+
+## 历史服务器
+
+### 创建存储目录
+
+```shell
+hadoop fs -mkdir -p /logs/flink-job
+```
+
+### 配置
+
+> vim conf/flink-conf.yaml
+
+```yaml
+jobmanager.archive.fs.dir: hdfs://hadoop001:8020/logs/flink-job
+historyserver.web.address: hadoop001
+historyserver.web.port: 8082
+historyserver.archive.fs.dir: hdfs://hadoop001:8020/logs/flink-job
+historyserver.archive.fs.refresh-interval: 5000
+```
+
+### 启动/停止历史服务器
+
+> bin/historyserver.sh start
+>
+> bin/historyserver.sh stop
+
+
+
+## 日志
+
+```properties
+# 我也不知道在哪里去找到的这个配置项了。
+-Dlogback.configurationFile=xxx
+```
 

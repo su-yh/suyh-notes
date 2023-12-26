@@ -152,7 +152,7 @@ export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
   ```xml
   <configuration>
-  	<!-- 指定MapReduce程序运行在Yarn上 -->
+      <!-- 指定MapReduce程序运行在Yarn上 -->
       <property>
           <name>mapreduce.framework.name</name>
           <value>yarn</value>
@@ -222,6 +222,7 @@ ERROR: but there is no HDFS_SECONDARYNAMENODE_USER defined. Aborting operation.
 ```shell
 export JAVA_HOME=/usr/local/java/jdk1.8.0_202
 
+# 这里的root 是根据上面的配置来的：hadoop.http.staticuser.user
 export HDFS_NAMENODE_USER=root
 export HDFS_DATANODE_USER=root
 export HDFS_SECONDARYNAMENODE_USER=root

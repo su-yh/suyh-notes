@@ -183,3 +183,4 @@
 凭证  credential
 每日 daily
 领取任务  claim task
+绿色 有机 自然   Organic
