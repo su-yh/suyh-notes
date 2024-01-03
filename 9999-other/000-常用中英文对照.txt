@@ -184,3 +184,5 @@
 每日 daily
 领取任务  claim task
 绿色 有机 自然   Organic
+前端  frontend
+后端  backend
