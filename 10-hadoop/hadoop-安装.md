@@ -1,6 +1,9 @@
+## 下载地址
 
-
-
+```txt
+https://dlcdn.apache.org/hadoop/common/
+https://downloads.apache.org/hadoop/common/
+```
 
 ## 安装好jdk
 
