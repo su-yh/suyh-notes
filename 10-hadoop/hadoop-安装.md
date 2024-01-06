@@ -118,6 +118,11 @@ export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
           <name>dfs.namenode.secondary.http-address</name>
           <value>hadoop003:9868</value>
       </property>
+      <property>
+          <name>dfs.permissions.enabled</name>
+          <value>false</value>
+          <description>如果为"true"，则在HDFS中启用权限检查;如果为"false"，则关闭权限检查;默认值为"true"。</description>
+      </property>
   </configuration>
   ```
 
@@ -330,17 +335,17 @@ export YARN_NODEMANAGER_USER=root
 > vim  etc/hadoop/mapred-site.xml
 >
 > ```xml
-> <!-- 历史服务器端地址 -->
-> <property>
->     <name>mapreduce.jobhistory.address</name>
->     <value>hadoop001:10020</value>
-> </property>
+>     <!-- 历史服务器端地址 -->
+>     <property>
+>            <name>mapreduce.jobhistory.address</name>
+>            <value>hadoop001:10020</value>
+>     </property>
 > 
-> <!-- 历史服务器web端地址 -->
-> <property>
->     <name>mapreduce.jobhistory.webapp.address</name>
->     <value>hadoop001:19888</value>
-> </property>
+>     <!-- 历史服务器web端地址 -->
+>     <property>
+>            <name>mapreduce.jobhistory.webapp.address</name>
+>            <value>hadoop001:19888</value>
+>     </property>
 > ```
 
 ### 启动(在hadoop001 机器上面运行)

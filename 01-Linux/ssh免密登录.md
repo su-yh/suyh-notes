@@ -4,10 +4,18 @@
 
 
 
+
+
 ## 生成自己的密钥
 
 ```shell
+# 交互式生成
 ssh-keygen -t ed25519 -C "your_email@example.com"
+
+# 直接指定参数，一步到位
+# -f 指定路径
+# -N 指定密码为空
+ssh-keygen -t ed25519 -C "hadoopWorker01" -f ~/.ssh/id_ed25519 -N ""
 ```
 
 
