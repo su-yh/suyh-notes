@@ -138,7 +138,7 @@ export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
           <value>mapreduce_shuffle</value>
       </property>
   
-      <!-- 指定ResourceManager的地址-->
+      <!-- 指定yarn ResourceManager的地址-->
       <property>
           <name>yarn.resourcemanager.hostname</name>
           <value>hadoop002</value>
@@ -350,11 +350,11 @@ export YARN_NODEMANAGER_USER=root
 
 ### 启动(在hadoop001 机器上面运行)
 
-> bin/mapred --daemon start historyserver
+> ${HADOOP_HOME}/bin/mapred --daemon start historyserver
 
 ### 停止
 
-> bin/mapred --daemon stop historyserver
+> ${HADOOP_HOME}/bin/mapred --daemon stop historyserver
 
 ### 页面访问
 
