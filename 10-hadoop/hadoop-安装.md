@@ -360,13 +360,13 @@ export YARN_NODEMANAGER_USER=root
 
 - HDFS 提供的NameNode页面
 
-  > hadoop001:9870
+  > hadoopNameNode:9870
   >
   > 查看在HDFS 上存储的数据信息
 
 - YARN 提供的ResourceManager页面
 
-  > hadoop002:8088
+  > hadoopYarnRM:8088
   >
   > 查看YARN 上运行的Job 信息
 
