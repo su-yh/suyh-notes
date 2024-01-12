@@ -1,3 +1,45 @@
+
+
+
+
+
+
+## 特别提醒
+
+> 在使用阿里云时，/etc/hosts 文件会默认有一行主机名对应IP 的记录。这一行记录一定要处理掉，不然就有可能 有问题。
+
+```txt
+127.0.0.1       localhost
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost   ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+127.0.1.1       Aliyun
+
+# 就是这一行
+172.31.3.1      iZwz9hz1tiurpbd2nqbkt6Z iZwz9hz1tiurpbd2nqbkt6Z
+
+```
+
+> 在NameNode 格式化的时候，日志记录大概如下
+
+```txt
+/************************************************************
+SHUTDOWN_MSG: Shutting down NameNode at iZwz9hz1tiurpbd2nqbktbZ/172.31.3.6
+************************************************************/
+```
+
+
+
+
+
+
+
+
+
 ## 下载地址
 
 ```txt

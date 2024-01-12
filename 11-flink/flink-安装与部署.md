@@ -2,6 +2,73 @@
 
 
 
+
+
+
+
+## 特别提醒
+
+> 在使用阿里云时，/etc/hosts 文件会默认有一行主机名对应IP 的记录。这一行记录一定要处理掉，不然就有可能 有问题。
+
+```txt
+127.0.0.1       localhost
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost   ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+127.0.1.1       Aliyun
+
+# 就是这一行
+172.31.3.1      iZwz9hz1tiurpbd2nqbkt6Z iZwz9hz1tiurpbd2nqbkt6Z
+
+```
+
+> 在NameNode 格式化的时候，日志记录大概如下
+
+```txt
+/************************************************************
+SHUTDOWN_MSG: Shutting down NameNode at iZwz9hz1tiurpbd2nqbktbZ/172.31.3.6
+************************************************************/
+```
+
+> 如果要处理log4j 需要将hadoop 在每一台机器实例上的log4j 依赖jar 包都处理掉才行。
+>
+> 所以搞了这么久，还是不管了就使用log4j 而不使用logback 了。太废劲了！！！
+
+
+
+## 报错处理
+
+1. 日志问题
+
+   ```txt
+   Exception in thread "main" java.lang.ExceptionInInitializerError
+   Caused by: org.apache.logging.log4j.LoggingException: log4j-slf4j-impl cannot be present with log4j-to-slf4j
+   	at org.apache.logging.slf4j.Log4jLoggerFactory.validateContext(Log4jLoggerFactory.java:60)
+   	at org.apache.logging.slf4j.Log4jLoggerFactory.newLogger(Log4jLoggerFactory.java:44)
+   	at org.apache.logging.slf4j.Log4jLoggerFactory.newLogger(Log4jLoggerFactory.java:33)
+   	at org.apache.logging.log4j.spi.AbstractLoggerAdapter.getLogger(AbstractLoggerAdapter.java:53)
+   	at org.apache.logging.slf4j.Log4jLoggerFactory.getLogger(Log4jLoggerFactory.java:33)
+   	at org.slf4j.LoggerFactory.getLogger(LoggerFactory.java:363)
+   	at org.slf4j.LoggerFactory.getLogger(LoggerFactory.java:388)
+   	at org.apache.flink.runtime.entrypoint.ClusterEntrypoint.<clinit>(ClusterEntrypoint.java:117)
+   ```
+
+   提交之后报日志包冲突
+
+   处理：将springboot 的log4j 相关的包删除。
+
+2. 其他
+
+
+
+
+
+
+
 ## flink部署
 
 ### 集群角色
@@ -186,14 +253,23 @@ bin/flink run -m hadoop102:8081 -c com.atguigu.wc.SocketStreamWordCount ./FlinkT
 
 #### hdfs 提交作业
 
-> 
+> 四个目录，在flink-jars 根目录下面，提供给flink hdfs 的目录就给flink-jars
 >
+> ```shell
+> root@flinkYarnClient:~/flink-jars# ls flink-jars
+> flink-app  flink-lib  flink-plugins  flink-springboot
+> 
+> bin/flink run-application -t yarn-application -Dyarn.provided.lib.dirs="hdfs://hadoopNameNode:8020/flink-jars"  hdfs://hadoopNameNode:8020/flink-app/d05-flink-app.jar
+> ```
+>
+> 
+
 > ${FLINK_HOME}/lib
 >
 > ${FLINK_HOME}/plugins
 >
 > ```shell
-> # 将flink 的自身依赖上传到hdfs
+># 将flink 的自身依赖上传到hdfs
 > # 在HDFS 上面创建目录
 > root@hadoop001:/opt/module/flink-1.17.2# hadoop fs -mkdir /flink-dist
 > # 将 lib 目录和plugins 目录上传到 hdfs 的/flink-dist 目录下面

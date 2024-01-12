@@ -17,3 +17,34 @@
 上面的这些都要验证测试一下。
 ```
 
+
+
+### 在hdfs 上创建目录
+
+1.  根目录：`/flink`
+
+2. flink 相关的jar 包: `/flink/flink-dist`
+
+   在该目录下面目录名不能随便给，只能给：`lib`、`flink-dist`、`plugin`
+
+3. 用户目录 `/flink/usrlib/`
+
+   该目录名不能随便给，只能是`usrlib`
+
+4. spring boot 的依赖包，放在 `/flink/usrlib/springboot-jars/`目录下面即可。
+
+5. 打包好的flink 运行程序包，放在 `/flink/app-jar/` 目录下即可。
+
+6. 其他
+
+### 提交作业命令
+
+> 提交作业时指定相关文件以及目录
+
+```shell
+# -Dyarn.provided.lib.dirs="hdfs://hadoopNameNode:8020/flink/flink-dist"
+# -Dyarn.provided.usrlib.dir="hdfs://hadoopNameNode:8020/flink/usrlib" 
+# hdfs://hadoopNameNode:8020/flink/app-jar/xxx.jar
+bin/flink run-application -t yarn-application -Dyarn.provided.lib.dirs="hdfs://hadoopNameNode:8020/flink/flink-dist" -Dyarn.provided.usrlib.dir="hdfs://hadoopNameNode:8020/flink/usrlib" hdfs://hadoopNameNode:8020/flink/app-jar/xxx.jar
+```
+
