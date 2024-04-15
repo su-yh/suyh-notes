@@ -189,3 +189,8 @@
 填充 完成 执行 达到(目的) 使结束  fulfill
 新的 收入 到来 进来   incoming
 祖先 祖级 ancestors
+校正属性/规范化属性/去除空格使属性正常
+    normalize properties / sanitize properties / correct properties
+比例 分层比例   proportion
+
+
