@@ -78,6 +78,8 @@
 
 6. 通过接口获取 chat id
 
+   > 先在群组里面给机器人说一句话 @xx_bot
+
    ```http
    https://api.telegram.org/bot{{token}}/getUpdates
    ```
