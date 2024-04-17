@@ -2,25 +2,89 @@
 
 
 
-## 命令
+## 源码安装命令集合
 
-```shell
-# 添加用户组以及用户
-groupadd postgres
-useradd -g postgres postgres
-passwd postgres # 给用户设置密码
+- 创建用户
 
+  ```shell
+  # 添加用户组以及用户
+  groupadd postgres
+  useradd -g postgres postgres
+  passwd postgres # 给用户设置密码
+  ```
 
-# 创建一个目录，并将目录的属主改为postgress
-mkdir /usr/local/pg12.2
-chown postgres:postgres /usr/local/pg12.2
+- 配置postgres 用户的环境
 
-psql -U postgres -d postgres -p 5432
+  ```shell
+  # 切换到postgres 用户
+  su - postgres
+  vim .bash_profile
+  ```
 
-# 启用pg数据库簇，使用-D 来指定数据目录，默认找环境变量：PGDATA
-pg_ctl start -D /usr/local/pg12.2/data
+  补充如下环境配置信息
 
-```
+  ```shell
+  # export PGPORT=5432
+  export PG_HOME=/usr/local/pg12.18
+  export PGDATA=$PG_HOME/data
+  export LD_LIBRARY_PATH=$PG_HOME/lib
+  export LANG=en_US.utf8
+  
+  export PATH=$PG_HOME/bin:$PATH
+  ```
+
+  ```shell
+  # 退出 postgres 用户，回到root 用户
+  exit
+  ```
+
+- root 用户创建目录并授予属主为postgres
+
+  ```shell
+  # 需要root 用户权限
+  
+  # 创建一个目录，并将目录的属主改为postgress
+  mkdir /usr/local/pg12.18
+  chown postgres:postgres /usr/local/pg12.18
+  
+  # 安装所需的依赖软件，这里需要检查一下，如果还有其他必须的依赖，则需要将它们也安装上。
+  yum install -y zlib-devel  readline-devel
+  ```
+
+- 剩下的可以切换到postgres 用户操作
+
+  ```shell
+  # 切换到postgres 用户
+  su - postgres
+  
+  # 解压
+  tar -zxvf postgresql-12.18.tar.gz
+  
+  # 进入目录
+  cd postgresql-12.18/
+  
+  
+  # 编译源码前的环境配置，这里需要注意一下，有没有错误，主要看依赖的软件是否有缺失。
+  ./configure --prefix=/usr/local/pg12.18
+  # 编译且安装
+  make && make install 
+  
+  # 创建数据库集簇数据存放目录
+  mkdir $PGDATA
+  ls $PGDATA
+  
+  # 初始化数据库集簇
+  # -W 参数：配置超级用户postgres 的密码
+  # --data-checksums 参数：在做主从复制时必须指定
+  initdb -D$PGDATA -W --data-checksums
+  
+  psql -U postgres -d postgres -p 5432
+  
+  # 启用pg数据库簇，使用-D 来指定数据目录，默认找环境变量：PGDATA
+  pg_ctl start -D /usr/local/pg12.18/data
+  ```
+
+- 其他
 
 
 
@@ -41,12 +105,12 @@ pg_ctl start -D /usr/local/pg12.2/data
   > ```txt
   > # [postgres@iZwz9ipgwouy25n0w98rcaZ data]$ pg_ctl status 
   > # pg_ctl: server is running (PID: 1621)
-  > # /usr/local/pg12.2/bin/postgres
+  > # /usr/local/pg12.18/bin/postgres
   > ```
 
 - 运行时指定配置路径
 
-  > $ pg_ctl -D $PGDATA -o "-c config_file=/usr/local/pg12.2/data/postgresql.conf" start
+  > $ pg_ctl -D $PGDATA -o "-c config_file=/usr/local/pg12.18/data/postgresql.conf" start
 
 - 使用psql 客户端命令连接到postgres 数据库
 
@@ -72,7 +136,7 @@ pg_ctl start -D /usr/local/pg12.2/data
 
 ```shell
 # export PGPORT=5432
-export PG_HOME=/usr/local/pg12.2
+export PG_HOME=/usr/local/pg12.18
 export PGDATA=$PG_HOME/data
 export LD_LIBRARY_PATH=$PG_HOME/lib
 export LANG=en_US.utf8
