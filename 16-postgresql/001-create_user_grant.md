@@ -5,6 +5,8 @@
 
 
 ```SQL
+-- 这里都是SQL 语句，需要先进入到PGSQL 命令行
+
 -- 如果没有初始化数据库集簇，则需要先进行初始化
 -- initdb -D$PGDATA -W
 
@@ -17,7 +19,7 @@ CREATE USER suyh CREATEDB PASSWORD 'suyunhong';
 -- 创建用户数据库，如：suyh_db，同时指定属主为用户 suyh
 CREATE DATABASE suyh_db OWNER suyh;
 
--- 使用该用户登录并连接到该数据库
+-- 创建成功后就可以使用该用户登录并连接到该数据库
 -- -U 登录用户名
 -- -d 连接的数据库
 -- -W 输入密码

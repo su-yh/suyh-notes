@@ -1,4 +1,4 @@
-
+左操作、右操作 简写  lhs  rhs
 总计 总数
     aggregate
     total
@@ -82,7 +82,7 @@
 分子/分母
     numerator/denominator
 
-重复了，存在了
+重复了 存在了
     duplicate
 一侧、一边
     side
@@ -192,5 +192,5 @@
 校正属性/规范化属性/去除空格使属性正常
     normalize properties / sanitize properties / correct properties
 比例 分层比例   proportion
-
-
+维度 维度计算 大数据中各个维度  dimension
+较小 / 较大   Smaller / Larger

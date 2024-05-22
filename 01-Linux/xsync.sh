@@ -19,10 +19,12 @@ do
         if [ -e $file ]
             then
                 #5. 获取父目录
+                # -P 参数是处理软链接的，使用该参数则会进入到实际的那个目录，而不是软链接的目录下面。
                 pdir=$(cd -P $(dirname $file); pwd)
 
                 #6. 获取当前文件的名称
                 fname=$(basename $file)
+                # mkdir -p 参数，在目录存在时不报错
                 ssh $host "mkdir -p $pdir"
                 rsync -av $pdir/$fname $host:$pdir
             else
