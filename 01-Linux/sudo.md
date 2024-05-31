@@ -23,9 +23,7 @@
 1. 首先，确保你有 root 权限。
 2. 使用以下命令将 `hdp` 用户添加到 `sudo` 组：
 
-```
-bash
-复制代码
+```bash
 sudo usermod -aG sudo hdp
 ```
 
@@ -34,17 +32,15 @@ sudo usermod -aG sudo hdp
 1. 确认 `/etc/sudoers` 文件中包含了 `@includedir /etc/sudoers.d` 这行配置。如果没有，你需要手动添加。
 2. 在 `/etc/sudoers.d` 目录下创建一个文件，比如 `hdp`，并编辑它：
 
-```
-bash
-复制代码
-sudo visudo -f /etc/sudoers.d/hdp
+```bash
+# sudo visudo -f /etc/sudoers.d/hdp
+# 直接使用vim 编辑简单点
+vim /etc/sudoers.d/hdp
 ```
 
 1. 在文件中添加以下行来授予 `hdp` 用户使用 `sudo` 的权限：
 
-```
-bash
-复制代码
+```txt
 hdp ALL=(ALL:ALL) ALL
 ```
 
@@ -52,9 +48,8 @@ hdp ALL=(ALL:ALL) ALL
 
 1. 保存文件并退出编辑器。确保保存的文件权限为 `0440`，这样只有 root 用户才有权修改它：
 
-```
-bash
-复制代码
+```bash
+# 不是必须的
 sudo chmod 440 /etc/sudoers.d/hdp
 ```
 
