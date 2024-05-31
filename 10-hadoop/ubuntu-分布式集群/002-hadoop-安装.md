@@ -1,42 +1,63 @@
 
 
+## 操作系统
+
+> ubuntu 22.04
 
 
 
+## ubuntu 安装 一下lrzsz
 
-## 特别提醒
-
-> 在使用阿里云时，/etc/hosts 文件会默认有一行主机名对应IP 的记录。这一行记录一定要处理掉，不然就有可能 有问题。
-
-```txt
-127.0.0.1       localhost
-
-# The following lines are desirable for IPv6 capable hosts
-::1     ip6-localhost   ip6-loopback
-fe00::0 ip6-localnet
-ff00::0 ip6-mcastprefix
-ff02::1 ip6-allnodes
-ff02::2 ip6-allrouters
-127.0.1.1       Aliyun
-
-# 就是这一行
-172.31.3.1      iZwz9hz1tiurpbd2nqbkt6Z iZwz9hz1tiurpbd2nqbkt6Z
-
+```shell
+sudo apt-get update
+sudo apt-get install lrzsz
 ```
 
-> 在NameNode 格式化的时候，日志记录大概如下
+## 
 
-```txt
-/************************************************************
-SHUTDOWN_MSG: Shutting down NameNode at iZwz9hz1tiurpbd2nqbktbZ/172.31.3.6
-************************************************************/
+## 创建用户 hdp
+
+```shell
+adduser hdp
 ```
 
+## 为hdp 用户添加sudo 权限
+
+> 参考 05-ubuntu/ubunt-添加用户.md 文档
 
 
 
+## 配置hosts
 
-
+> 为所有主机配置对应的主机名，让相互之间能通过内网IP互相访问
+>
+> > vim /etc/hosts
+>
+> ```txt
+> 172.31.3.101 hadoop101
+> 172.31.3.102 hadoop102
+> 172.31.3.103 hadoop103
+> 172.31.3.104 hadoop104
+> 172.31.3.105 hadoop105
+> 172.31.3.106 hadoop106
+> 172.31.3.107 hadoop107
+> 172.31.3.108 hadoop108
+> ```
+>
+> 使用ping 进行测试验证，以防止哪一个写错了。
+>
+> ```shell
+> ping hadoop101 -c 3
+> ping hadoop102 -c 3
+> ping hadoop103 -c 3
+> ping hadoop104 -c 3
+> ping hadoop105 -c 3
+> ping hadoop106 -c 3
+> ping hadoop107 -c 3
+> ping hadoop108 -c 3
+> ```
+>
+> 
 
 
 
@@ -49,20 +70,7 @@ https://downloads.apache.org/hadoop/common/
 
 ## 安装好jdk
 
-> jdk 8  还可以用
-
-## 配置好ssh 免密登录
-
 > 忽略
->
-> 需要注意的是，如果是ubuntu 系统，需要处理 ssh 连接上环境变量没正常处理的情况，需要处理`~/.bashrc` 文件的开关处。
-
-## ubuntu 安装 一下lrzsz
-
-```shell
-sudo apt-get update
-sudo apt-get install lrzsz
-```
 
 ## 安装hadoop
 
@@ -85,18 +93,36 @@ export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
 
 
-## 集群部署规划
+## 主机规划
 
-> NameNode 和SecondaryNameNode 不要安装在同一台服务器
+
+
+| 主机名 | hadoop101    | hadoop102       | hadoop103         |
+| ------ | ------------ | --------------- | ----------------- |
+| IP     | 172.31.3.101 | 172.31.3.102    | 172.31.3.103      |
+| HDFS   | NameNode     |                 | SecondaryNameNode |
+| YARN   |              | ResourceManager |                   |
+|        |              |                 |                   |
+
+
+
+| 主机名 | hadoop104    | hadoop105    | hadoop106    | hadoop107    | hadoop108    |
+| ------ | ------------ | ------------ | ------------ | ------------ | ------------ |
+| IP     | 172.31.3.104 | 172.31.3.105 | 172.31.3.106 | 172.31.3.107 | 172.31.3.108 |
+| HDFS   | DataNode     | DataNode     | DataNode     | DataNode     | DataNode     |
+| YARN   | NodeManager  | NodeManager  | NodeManager  | NodeManager  | NodeManager  |
+
+
+
+## 配置好ssh 免密登录
+
+> 忽略
 >
-> ResourceManager 也很消耗内存，不要和NameNode、SecondaryNameNode 配置在同一台机器上。
+> 需要注意的是，如果是ubuntu 系统，需要处理 ssh 连接上环境变量没正常处理的情况，需要处理`~/.bashrc` 文件的开关处。
+>
+> 不过这里我还想尝试下，hadoop 有自己的 hadoop-env.sh 脚本，是否是他自己所需要的相关的脚本文件。
 
-|      | hadoop001   | hadoop002       | hadoop003         |
-| ---- | ----------- | --------------- | ----------------- |
-| HDFS | NameNode    | --              | SecondaryNameNode |
-|      | DataNode    | DataNode        | DataNode          |
-| YARN | --          | ResourceManager | --                |
-|      | NodeManager | NodeManager     | NodeManager       |
+
 
 ### 默认配置文件
 
@@ -129,19 +155,19 @@ export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
       <!-- 指定NameNode的地址，hadoop 内网之间进行通信的端口 -->
       <property>
           <name>fs.defaultFS</name>
-          <value>hdfs://hadoop001:8020</value>
+          <value>hdfs://hadoop101:8020</value>
       </property>
   
       <!-- 指定hadoop数据的存储目录 -->
       <property>
           <name>hadoop.tmp.dir</name>
+          <!-- 注意一下这个地方换成对应的目录位置 -->
           <value>/opt/module/hadoop-3.2.4/data</value>
       </property>
   
       <!-- 配置HDFS网页登录使用的静态用户 -->
       <property>
           <name>hadoop.http.staticuser.user</name>
-          <!-- <value>root</value> -->
           <value>hdp</value>
       </property>
   </configuration>
@@ -156,12 +182,12 @@ export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
       <!-- nn(NameNode) web端访问地址，提供给用户使用的页面地址-->
       <property>
           <name>dfs.namenode.http-address</name>
-          <value>hadoop001:9870</value>
+          <value>hadoop101:9870</value>
       </property>
   	<!-- 2nn(SecondaryNameNode) web端访问地址-->
       <property>
           <name>dfs.namenode.secondary.http-address</name>
-          <value>hadoop003:9868</value>
+          <value>hadoop103:9868</value>
       </property>
       <!-- 
       <property>
@@ -188,7 +214,7 @@ export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
       <!-- 指定yarn ResourceManager的地址-->
       <property>
           <name>yarn.resourcemanager.hostname</name>
-          <value>hadoop002</value>
+          <value>hadoop102</value>
       </property>
   
       <!-- 环境变量的继承 -->
@@ -247,7 +273,7 @@ hadoop003
 
 ### 启动HDFS
 
-> 注意：只需要在hadoop001 上面启动即可
+> 注意：只需要在hadoop101 上面启动即可
 >
 > 不过，似乎在任意一台机器上面都可以启动呢
 >
