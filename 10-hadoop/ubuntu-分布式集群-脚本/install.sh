@@ -2,17 +2,17 @@
 
 # 所有主机统一的用户名和密码
 # TODO: suyh - 用户名和密码修改成对应的值
-HADOOP_USER=hdp
-HADOOP_PWD=hadoop
+HADOOP_USER="hdp"
+HADOOP_PWD="hadoop"
 
 # Hadoop NameNode 节点的IP
 # TODO: suyh - IP 需要修改成对应的值，主机名建议不动。
-HADOOP_NN_IP=172.31.3.201
-HADOOP_NN_HOST=hadoopnn
-HADOOP_RM_IP=172.31.3.202
-HADOOP_RM_HOST=hadooprm
-HADOOP_2NN_IP=172.31.3.203
-HADOOP_2NN_HOST=hadoop2nn
+HADOOP_NN_IP="172.31.3.201"
+HADOOP_NN_HOST="hadoopnn"
+HADOOP_RM_IP="172.31.3.202"
+HADOOP_RM_HOST="hadooprm"
+HADOOP_2NN_IP="172.31.3.203"
+HADOOP_2NN_HOST="hadoop2nn"
 
 # 以ip host 格式填充
 # TODO: suyh - IP 需要修改成对应的值，主机名也要唯一。如果有多个则可以继续添加。
@@ -78,11 +78,11 @@ CURR_HOST_IPV4=$(nslookup "$HOSTNAME" | grep 'Address:' | grep -v '#' | awk '/Ad
 echo "current host ipv4: ${CURR_HOST_IPV4}"
 HADOOP_HOST_CATEGORY="UNKNOWN"
 if [ "$CURR_HOST_IPV4" = "$HADOOP_NN_IP" ]; then
-    HADOOP_HOST_CATEGORY="NameNode"
+    HADOOP_HOST_CATEGORY="HadoopNameNode"
 elif [ "$CURR_HOST_IPV4" = "$HADOOP_RM_IP" ]; then
-    HADOOP_HOST_CATEGORY="ResourceManager"
+    HADOOP_HOST_CATEGORY="YarnResourceManager"
 elif [ "$CURR_HOST_IPV4" = "$HADOOP_2NN_IP" ]; then
-    HADOOP_HOST_CATEGORY="SecondaryNameNode"
+    HADOOP_HOST_CATEGORY="HadoopSecondaryNameNode"
 else
     for ip in "${HADOOP_DN_IPS[@]}"; do
         if [ "$CURR_HOST_IPV4" = "$ip" ]; then
