@@ -62,10 +62,10 @@ for dn in "${HADOOP_DN_SOURCE[@]}"; do
 
     HADOOP_DN_IPS+=("$ip")
     HADOOP_DN_HOSTS+=("$host")
-
-    echo "dn: $dn"
-    echo "ip: $ip"
-    echo "host: $host"
+#
+#    echo "dn: $dn"
+#    echo "ip: $ip"
+#    echo "host: $host"
 done
 
 # 至此，得到了所有节点的主机IP 以及主机名
@@ -76,17 +76,20 @@ done
 HOSTNAME=$(hostname)
 CURR_HOST_IPV4=$(nslookup "${HOSTNAME}" | grep 'Address:' | grep -v '#' | awk '/Address:/{ if ($2 !~ /:/) {print $2}}')
 CURR_HOST_NAME=
-echo "current host ipv4: ${CURR_HOST_IPV4}"
+
 HADOOP_HOST_CATEGORY="UNKNOWN"
 if [ "${CURR_HOST_IPV4}" = "${HADOOP_NN_IP}" ]; then
     HADOOP_HOST_CATEGORY="HadoopNameNode"
     CURR_HOST_NAME=${HADOOP_NN_HOST}
+    ssh-keygen -t ed25519 -C ${HADOOP_NN_HOST} -f ~/.ssh/id_ed25519 -N ""
 elif [ "${CURR_HOST_IPV4}" = "${HADOOP_RM_IP}" ]; then
     HADOOP_HOST_CATEGORY="YarnResourceManager"
     CURR_HOST_NAME=${HADOOP_RM_HOST}
+    ssh-keygen -t ed25519 -C ${HADOOP_RM_HOST} -f ~/.ssh/id_ed25519 -N ""
 elif [ "${CURR_HOST_IPV4}" = "${HADOOP_2NN_IP}" ]; then
     HADOOP_HOST_CATEGORY="HadoopSecondaryNameNode"
     CURR_HOST_NAME=${HADOOP_2NN_HOST}
+    ssh-keygen -t ed25519 -C ${HADOOP_2NN_HOST} -f ~/.ssh/id_ed25519 -N ""
 else
     for ((i=0; i<${HADOOP_DN_SIZE}; i++)); do
         ip=${HADOOP_DN_IPS[i]}
@@ -100,8 +103,8 @@ else
 fi
 
 echo "current host category is: ${HADOOP_HOST_CATEGORY}"
-echo "current ipv4: ${CURR_HOST_IPV4}"
-echo "current hostname: ${CURR_HOST_NAME}"
+echo "current host ipv4: ${CURR_HOST_IPV4}"
+echo "current host name: ${CURR_HOST_NAME}"
 
 if [ "${HADOOP_HOST_CATEGORY}" = "UNKNOWN" ]; then
   echo "###########################################"
@@ -111,6 +114,18 @@ if [ "${HADOOP_HOST_CATEGORY}" = "UNKNOWN" ]; then
   echo "HADOOP_DN_IPS: ${HADOOP_DN_IPS[@]}"
   echo "config error. current host ipv4: ${CURR_HOST_IPV4}"
   exit
+fi
+
+JDK_PATH=~/software/jdk-8u202-linux-x64.tar.gz
+HADOOP_PATH=~/software/hadoop-3.2.4.tar.gz
+
+if [ ! -f ${JDK_PATH} ]; then
+    echo "WARN: file not exits: ${JDK_PATH}"
+    exit 0
+fi
+if [ ! -f ${HADOOP_PATH} ]; then
+    echo "WARN: file not exits: ${HADOOP_PATH}"
+    exit 0
 fi
 
 # 处理当前节点主机的主机名
@@ -158,8 +173,6 @@ echo "${HADOOP_PWD}" | sudo -S chown ${HADOOP_USER}:${HADOOP_USER} /opt/module
 rm -rf /opt/module/*
 
 # 安装jdk
-JDK_PATH=~/software/jdk-8u202-linux-x64.tar.gz
-HADOOP_PATH=~/software/hadoop-3.2.4.tar.gz
 tar -zxvf ${JDK_PATH} -C /opt/module
 tar -zxvf ${HADOOP_PATH} -C /opt/module
 
@@ -337,6 +350,10 @@ echo "
 </configuration>
 " >> ${HADOOP_MAPRED_SITE_PATH}
 
+# export JAVA_HOME=
+# hadoop-env.sh 配置
+HADOOP_ENV_SH_PATH="${HADOOP_HOME}/etc/hadoop/hadoop-env.sh"
+echo "export JAVA_HOME=${JAVA_HOME}" >> ${HADOOP_ENV_SH_PATH}
 
 
 
@@ -349,3 +366,24 @@ for host in "${HADOOP_DN_HOSTS[@]}"; do
     echo "${host}" >> ${HADOOP_WORKERS_PATH}
 done
 
+# ssh 相关处理
+#sshpass -p "${password}" ssh-copy-id ${host}
+SSH_ENABLED=false
+if [ "${HADOOP_HOST_CATEGORY}" = "HadoopNameNode" ]; then
+    SSH_ENABLED=true
+elif [ "${HADOOP_HOST_CATEGORY}" = "YarnResourceManager" ]; then
+    SSH_ENABLED=true
+elif [ "${HADOOP_HOST_CATEGORY}" = "HadoopSecondaryNameNode" ]; then
+    SSH_ENABLED=true
+else
+    SSH_ENABLED=false
+fi
+
+if [ ${SSH_ENABLED} = "true" ]; then
+    sshpass -p "${HADOOP_PWD}" ssh-copy-id ${HADOOP_NN_HOST}
+    sshpass -p "${HADOOP_PWD}" ssh-copy-id ${HADOOP_RM_HOST}
+    sshpass -p "${HADOOP_PWD}" ssh-copy-id ${HADOOP_2NN_HOST}
+    for host in "${HADOOP_DN_HOSTS[@]}"; do
+        sshpass -p "${HADOOP_PWD}" ssh-copy-id ${host}
+    done
+fi
