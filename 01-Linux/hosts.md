@@ -36,3 +36,11 @@ hadoop001
 
 
 
+## 直接修改主机名，同时直接生效
+
+> ```shell
+> sudo hostnamectl set-hostname "$new_hostname"
+> ```
+>
+> 
+

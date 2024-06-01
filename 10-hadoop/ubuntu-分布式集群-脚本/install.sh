@@ -47,10 +47,9 @@ HADOOP_DN_SOURCE+=("172.31.3.104 hadoop104")
 
 
 
-
-# 解析出来的所有ip 地址
+# 解析出的所有ip 地址
 HADOOP_DN_IPS=()
-# 解析出来的所有host 地址
+# 解析出的所有host 地址
 HADOOP_DN_HOSTS=()
 
 # 整个hadoop data node 的节点数量
@@ -70,52 +69,283 @@ for dn in "${HADOOP_DN_SOURCE[@]}"; do
 done
 
 # 至此，得到了所有节点的主机IP 以及主机名
-# 获取当前系统的主机名
-HOSTNAME=$(hostname)
 
-# 使用 nslookup 查询主机名对应的 IP 地址，并仅获取 IPv4 地址
-CURR_HOST_IPV4=$(nslookup "$HOSTNAME" | grep 'Address:' | grep -v '#' | awk '/Address:/{ if ($2 !~ /:/) {print $2}}')
+
+# 通过查询当前主机的IPV4 地址来匹配当前节点主机是什么角色，以及给配置的主机㕣和IP 地址
+
+HOSTNAME=$(hostname)
+CURR_HOST_IPV4=$(nslookup "${HOSTNAME}" | grep 'Address:' | grep -v '#' | awk '/Address:/{ if ($2 !~ /:/) {print $2}}')
+CURR_HOST_NAME=
 echo "current host ipv4: ${CURR_HOST_IPV4}"
 HADOOP_HOST_CATEGORY="UNKNOWN"
-if [ "$CURR_HOST_IPV4" = "$HADOOP_NN_IP" ]; then
+if [ "${CURR_HOST_IPV4}" = "${HADOOP_NN_IP}" ]; then
     HADOOP_HOST_CATEGORY="HadoopNameNode"
-elif [ "$CURR_HOST_IPV4" = "$HADOOP_RM_IP" ]; then
+    CURR_HOST_NAME=${HADOOP_NN_HOST}
+elif [ "${CURR_HOST_IPV4}" = "${HADOOP_RM_IP}" ]; then
     HADOOP_HOST_CATEGORY="YarnResourceManager"
-elif [ "$CURR_HOST_IPV4" = "$HADOOP_2NN_IP" ]; then
+    CURR_HOST_NAME=${HADOOP_RM_HOST}
+elif [ "${CURR_HOST_IPV4}" = "${HADOOP_2NN_IP}" ]; then
     HADOOP_HOST_CATEGORY="HadoopSecondaryNameNode"
+    CURR_HOST_NAME=${HADOOP_2NN_HOST}
 else
-    for ip in "${HADOOP_DN_IPS[@]}"; do
-        if [ "$CURR_HOST_IPV4" = "$ip" ]; then
+    for ((i=0; i<${HADOOP_DN_SIZE}; i++)); do
+        ip=${HADOOP_DN_IPS[i]}
+        host=${HADOOP_DN_HOSTS[i]}
+        if [ "${CURR_HOST_IPV4}" = "$ip" ]; then
             HADOOP_HOST_CATEGORY="DataNode"
+            CURR_HOST_NAME=${host}
             break
         fi
     done
 fi
 
 echo "current host category is: ${HADOOP_HOST_CATEGORY}"
+echo "current ipv4: ${CURR_HOST_IPV4}"
+echo "current hostname: ${CURR_HOST_NAME}"
 
+if [ "${HADOOP_HOST_CATEGORY}" = "UNKNOWN" ]; then
+  echo "###########################################"
+  echo "HADOOP_NN_IP: ${HADOOP_NN_IP}"
+  echo "HADOOP_RM_IP: ${HADOOP_RM_IP}"
+  echo "HADOOP_2NN_IP: ${HADOOP_2NN_IP}"
+  echo "HADOOP_DN_IPS: ${HADOOP_DN_IPS[@]}"
+  echo "config error. current host ipv4: ${CURR_HOST_IPV4}"
+  exit
+fi
 
+# 处理当前节点主机的主机名
+echo "${HADOOP_PWD}" | sudo -S hostnamectl set-hostname "${CURR_HOST_NAME}"
 
-
-
-
-
-
-
-
-# 输出整个数组
-echo "HADOOP_DN_HOSTS: ${HADOOP_DN_HOSTS[@]}"
-echo "HADOOP_DN_IPS: ${HADOOP_DN_IPS[@]}"
-
-# 以for in 的形式遍历数组元素
-for ip in "${HADOOP_DN_IPS[@]}"; do
-    echo "ip: ${ip}"
+# 内网IP 通过主机名通信，配置/etc/hosts 文件
+echo "${HADOOP_PWD}" | sudo -S sh -c "echo '${HADOOP_NN_IP} ${HADOOP_NN_HOST}' >> /etc/hosts"
+echo "${HADOOP_PWD}" | sudo -S sh -c "echo '${HADOOP_RM_IP} ${HADOOP_RM_HOST}' >> /etc/hosts"
+echo "${HADOOP_PWD}" | sudo -S sh -c "echo '${HADOOP_2NN_IP} ${HADOOP_2NN_HOST}' >> /etc/hosts"
+for ((i=0; i<${HADOOP_DN_SIZE}; i++)); do
+    ip=${HADOOP_DN_IPS[i]}
+    host=${HADOOP_DN_HOSTS[i]}
+    echo "${HADOOP_PWD}" | sudo -S sh -c "echo '${ip} ${host}' >> /etc/hosts"
 done
+
+
+
+
+
+
+
+## 输出整个数组
+#echo "HADOOP_DN_HOSTS: ${HADOOP_DN_HOSTS[@]}"
+#echo "HADOOP_DN_IPS: ${HADOOP_DN_IPS[@]}"
+#
+## 以for in 的形式遍历数组元素
+#for ip in "${HADOOP_DN_IPS[@]}"; do
+#    echo "ip: ${ip}"
+#done
+#for host in "${HADOOP_DN_HOSTS[@]}"; do
+#    echo "host: ${host}"
+#done
+#
+## 以下标的形式遍历数组
+#for ((i=0; i<${HADOOP_DN_SIZE}; i++)); do
+#    echo "Element $i: ip: ${HADOOP_DN_IPS[i]}, host: ${HADOOP_DN_HOSTS[i]}"
+#done
+
+
+# 准备所有软件安装的目录
+echo "${HADOOP_PWD}" | sudo -S mkdir -p /opt/module
+echo "${HADOOP_PWD}" | sudo -S chown ${HADOOP_USER}:${HADOOP_USER} /opt/module
+
+# 先清理该目录
+rm -rf /opt/module/*
+
+# 安装jdk
+JDK_PATH=~/software/jdk-8u202-linux-x64.tar.gz
+HADOOP_PATH=~/software/hadoop-3.2.4.tar.gz
+tar -zxvf ${JDK_PATH} -C /opt/module
+tar -zxvf ${HADOOP_PATH} -C /opt/module
+
+echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "# JDK" >> /etc/profile'
+echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export JAVA_HOME=/opt/module/jdk1.8.0_202" >> /etc/profile'
+echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export PATH=\${PATH}:\${JAVA_HOME}/bin" >> /etc/profile'
+echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "# HADOOP" >> /etc/profile'
+echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export HADOOP_HOME=/opt/module/hadoop-3.2.4" >> /etc/profile'
+echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export PATH=\${PATH}:\${HADOOP_HOME}/bin:\${HADOOP_HOME}/sbin" >> /etc/profile'
+
+
+source /etc/profile
+
+
+# core-site 配置
+HADOOP_CORE_SITE_PATH="${HADOOP_HOME}/etc/hadoop/core-site.xml"
+
+rm -f ${HADOOP_CORE_SITE_PATH}
+
+echo '<?xml version="1.0" encoding="UTF-8"?>
+      <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+      <!--
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License. See accompanying LICENSE file.
+      -->
+
+      <!-- Put site-specific property overrides in this file. -->
+
+' >> "${HADOOP_CORE_SITE_PATH}"
+
+echo "
+<configuration>
+    <!-- 指定NameNode的地址，hadoop 内网之间进行通信的端口 -->
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://${HADOOP_NN_HOST}:8020</value>
+    </property>
+
+    <!-- 指定hadoop数据的存储目录 -->
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <!-- 注意一下这个地方换成对应的目录位置 -->
+        <value>${HADOOP_HOME}/data</value>
+    </property>
+
+    <!-- 配置HDFS网页登录使用的静态用户 -->
+    <property>
+        <name>hadoop.http.staticuser.user</name>
+        <value>${HADOOP_USER}</value>
+    </property>
+</configuration>
+
+" >> "${HADOOP_CORE_SITE_PATH}"
+
+
+# hdfs-site 配置
+HADOOP_HDFS_SITE_PATH="${HADOOP_HOME}/etc/hadoop/hdfs-site.xml"
+
+rm -f ${HADOOP_HDFS_SITE_PATH}
+
+echo '<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+
+<!-- Put site-specific property overrides in this file. -->
+
+' >> ${HADOOP_HDFS_SITE_PATH}
+
+echo "
+<configuration>
+    <!-- nn(NameNode) web端访问地址，提供给用户使用的页面地址-->
+    <property>
+        <name>dfs.namenode.http-address</name>
+        <value>${HADOOP_NN_HOST}:9870</value>
+    </property>
+	<!-- 2nn(SecondaryNameNode) web端访问地址-->
+    <property>
+        <name>dfs.namenode.secondary.http-address</name>
+        <value>${HADOOP_2NN_HOST}:9868</value>
+    </property>
+</configuration>
+" >> ${HADOOP_HDFS_SITE_PATH}
+
+# yarn-site 配置
+HADOOP_YARN_SITE_PATH="${HADOOP_HOME}/etc/hadoop/yarn-site.xml"
+
+rm -f ${HADOOP_YARN_SITE_PATH}
+
+echo '<?xml version="1.0"?>
+      <!--
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License. See accompanying LICENSE file.
+      -->
+' >> ${HADOOP_YARN_SITE_PATH}
+
+echo "
+<configuration>
+    <!-- 指定MR走shuffle -->
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+
+    <!-- 指定yarn ResourceManager的地址-->
+    <property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>${HADOOP_RM_HOST}</value>
+    </property>
+</configuration>
+
+" >> ${HADOOP_YARN_SITE_PATH}
+
+# mapred-site 配置
+HADOOP_MAPRED_SITE_PATH="${HADOOP_HOME}/etc/hadoop/mapred-site.xml"
+
+rm -f ${HADOOP_MAPRED_SITE_PATH}
+
+echo '<?xml version="1.0"?>
+      <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+      <!--
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License. See accompanying LICENSE file.
+      -->
+
+      <!-- Put site-specific property overrides in this file. -->
+
+' >> ${HADOOP_MAPRED_SITE_PATH}
+
+echo "
+<configuration>
+    <!-- 指定MapReduce程序运行在Yarn上 -->
+    <property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+    </property>
+</configuration>
+" >> ${HADOOP_MAPRED_SITE_PATH}
+
+
+
+
+
+# 配置workers
+HADOOP_WORKERS_PATH="${HADOOP_HOME}/etc/hadoop/workers"
+rm -f ${HADOOP_WORKERS_PATH}
+
 for host in "${HADOOP_DN_HOSTS[@]}"; do
-    echo "host: ${host}"
+    echo "${host}" >> ${HADOOP_WORKERS_PATH}
 done
 
-# 以下标的形式遍历数组
-for ((i=0; i<$HADOOP_DN_SIZE; i++)); do
-    echo "Element $i: ip: ${HADOOP_DN_IPS[i]}, host: ${HADOOP_DN_HOSTS[i]}"
-done
