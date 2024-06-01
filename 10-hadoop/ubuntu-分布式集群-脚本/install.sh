@@ -379,6 +379,9 @@ else
     SSH_ENABLED=false
 fi
 
+set -x
+# TODO: suyh - 这些为什么在脚本里面执行了，没有效果呢
+# 似乎 ssh-copy-id 命令是临时的呢
 if [ ${SSH_ENABLED} = "true" ]; then
     sshpass -p "${HADOOP_PWD}" ssh-copy-id ${HADOOP_NN_HOST}
     sshpass -p "${HADOOP_PWD}" ssh-copy-id ${HADOOP_RM_HOST}
