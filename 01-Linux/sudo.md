@@ -18,13 +18,22 @@
 
 ### ubuntu 系统添加用户`hdp` 拥有`sudo` 权限
 
+> 一行就可以了，后面的这些是比较详细的操作
+>
+> ```shell
+> echo "hdp ALL=(ALL:ALL) ALL" > /etc/sudoers.d/hdp
+> ```
+
+
+
 如果你要将 `hdp` 用户添加到 `sudo` 组，并赋予其执行 `sudo` 命令的权限，可以按照以下步骤操作：
 
 1. 首先，确保你有 root 权限。
 2. 使用以下命令将 `hdp` 用户添加到 `sudo` 组：
 
 ```bash
-sudo usermod -aG sudo hdp
+# 不需要如下操作的。
+# sudo usermod -aG sudo hdp
 ```
 
 这个命令将 `hdp` 用户添加到 `sudo` 组中。
@@ -50,7 +59,7 @@ hdp ALL=(ALL:ALL) ALL
 
 ```bash
 # 不是必须的
-sudo chmod 440 /etc/sudoers.d/hdp
+# sudo chmod 440 /etc/sudoers.d/hdp
 ```
 
 这样，`hdp` 用户就被添加到了 `sudo` 组，并具有了使用 `sudo` 命令的权限。
