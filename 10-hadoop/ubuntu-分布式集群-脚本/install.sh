@@ -173,8 +173,10 @@ echo "${HADOOP_PWD}" | sudo -S chown ${HADOOP_USER}:${HADOOP_USER} /opt/module
 rm -rf /opt/module/*
 
 # 安装jdk
-tar -zxvf ${JDK_PATH} -C /opt/module
-tar -zxvf ${HADOOP_PATH} -C /opt/module
+echo "tar jdk"
+tar -zxf ${JDK_PATH} -C /opt/module
+echo "tar hadoop"
+tar -zxf ${HADOOP_PATH} -C /opt/module
 
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "# JDK" >> /etc/profile'
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export JAVA_HOME=/opt/module/jdk1.8.0_202" >> /etc/profile'
@@ -379,14 +381,21 @@ else
     SSH_ENABLED=false
 fi
 
-set -x
+#set -x
 # TODO: suyh - 这些为什么在脚本里面执行了，没有效果呢
 # 似乎 ssh-copy-id 命令是临时的呢
 if [ ${SSH_ENABLED} = "true" ]; then
-    sshpass -p "${HADOOP_PWD}" ssh-copy-id ${HADOOP_NN_HOST}
-    sshpass -p "${HADOOP_PWD}" ssh-copy-id ${HADOOP_RM_HOST}
-    sshpass -p "${HADOOP_PWD}" ssh-copy-id ${HADOOP_2NN_HOST}
+#    SSH_PUB_KEY=$(cat ~/.ssh/id_ed25519.pub)
+#
+#    echo SSH_PUB_KEY: ${SSH_PUB_KEY}
+#
+#    # ssh hdp@hadoopnn 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'
+#    sshpass -p "${HADOOP_PWD}" ssh hdp@${HADOOP_NN_HOST} "mkdir -p ~/.ssh && echo ${SSH_PUB_KEY} >> ~/.ssh/authorized_keys"
+    echo "以下命令需要手动拷贝出来并执行："
+    echo "    sshpass -p "${HADOOP_PWD}" ssh-copy-id ${HADOOP_NN_HOST}"
+    echo "    sshpass -p "${HADOOP_PWD}" ssh-copy-id ${HADOOP_RM_HOST}"
+    echo "    sshpass -p "${HADOOP_PWD}" ssh-copy-id ${HADOOP_2NN_HOST}"
     for host in "${HADOOP_DN_HOSTS[@]}"; do
-        sshpass -p "${HADOOP_PWD}" ssh-copy-id ${host}
+        echo "    sshpass -p "${HADOOP_PWD}" ssh-copy-id ${host}"
     done
 fi
