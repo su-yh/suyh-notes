@@ -385,17 +385,11 @@ fi
 # TODO: suyh - 这些为什么在脚本里面执行了，没有效果呢
 # 似乎 ssh-copy-id 命令是临时的呢
 if [ ${SSH_ENABLED} = "true" ]; then
-#    SSH_PUB_KEY=$(cat ~/.ssh/id_ed25519.pub)
-#
-#    echo SSH_PUB_KEY: ${SSH_PUB_KEY}
-#
-#    # ssh hdp@hadoopnn 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'
-#    sshpass -p "${HADOOP_PWD}" ssh hdp@${HADOOP_NN_HOST} "mkdir -p ~/.ssh && echo ${SSH_PUB_KEY} >> ~/.ssh/authorized_keys"
-    echo "以下命令需要手动拷贝出来并执行："
-    echo "    sshpass -p "${HADOOP_PWD}" ssh-copy-id ${HADOOP_NN_HOST}"
-    echo "    sshpass -p "${HADOOP_PWD}" ssh-copy-id ${HADOOP_RM_HOST}"
-    echo "    sshpass -p "${HADOOP_PWD}" ssh-copy-id ${HADOOP_2NN_HOST}"
+    echo "以下命令需要依次手动执行，并需要按提示输入前面配置的密码（${HADOOP_PWD}）："
+    echo "    ssh-copy-id ${HADOOP_NN_HOST}"
+    echo "    ssh-copy-id ${HADOOP_RM_HOST}"
+    echo "    ssh-copy-id ${HADOOP_2NN_HOST}"
     for host in "${HADOOP_DN_HOSTS[@]}"; do
-        echo "    sshpass -p "${HADOOP_PWD}" ssh-copy-id ${host}"
+        echo "    ssh-copy-id ${host}"
     done
 fi
