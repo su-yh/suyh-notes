@@ -381,11 +381,8 @@ else
     SSH_ENABLED=false
 fi
 
-#set -x
-# TODO: suyh - 这些为什么在脚本里面执行了，没有效果呢
-# 似乎 ssh-copy-id 命令是临时的呢
 if [ ${SSH_ENABLED} = "true" ]; then
-    echo "以下命令需要依次手动执行，并需要按提示输入前面配置的密码（${HADOOP_PWD}）："
+    echo "以下命令需要依次手动执行，并需要按提示输入前面配置的密码（密码值为：\"${HADOOP_PWD}\"）："
     echo "    ssh-copy-id ${HADOOP_NN_HOST}"
     echo "    ssh-copy-id ${HADOOP_RM_HOST}"
     echo "    ssh-copy-id ${HADOOP_2NN_HOST}"
