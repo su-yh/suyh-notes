@@ -1,18 +1,15 @@
 #!/bin/bash
 
-# 所有主机统一的用户名和密码
-# TODO: suyh - 用户名和密码修改成对应的值
-HADOOP_USER="hdp"
-HADOOP_PWD="hadoop"
-
+# TODO: suyh - IP 需要修改成对应的值，主机名也可修改，但要符合要求。
 # Hadoop NameNode 节点的IP
-# TODO: suyh - IP 需要修改成对应的值，主机名建议不动。
 HADOOP_NN_IP="172.31.3.201"
-HADOOP_NN_HOST="hadoopnn"
+HADOOP_NN_HOST="hadoopNameNode"
+# Hadoop ResourceManager 节点的IP
 HADOOP_RM_IP="172.31.3.202"
-HADOOP_RM_HOST="hadooprm"
+HADOOP_RM_HOST="hadoopResourceManager"
+# Hadoop SecondaryNameNode 节点的IP
 HADOOP_2NN_IP="172.31.3.203"
-HADOOP_2NN_HOST="hadoop2nn"
+HADOOP_2NN_HOST="hadoop2NameNode"
 
 # 以ip host 格式填充
 # TODO: suyh - IP 需要修改成对应的值，主机名也要唯一。如果有多个则可以继续添加。
@@ -21,6 +18,11 @@ HADOOP_DN_SOURCE+=("172.31.3.101 hadoop101")
 HADOOP_DN_SOURCE+=("172.31.3.102 hadoop102")
 HADOOP_DN_SOURCE+=("172.31.3.103 hadoop103")
 HADOOP_DN_SOURCE+=("172.31.3.104 hadoop104")
+
+# 所有主机统一的用户名和密码
+# 按约定这两个值都是hdp，如果不是，则需要修改为对应的值
+HADOOP_USER="hdp"
+HADOOP_PWD="hdp"
 
 ############################################################
 # 到此为此，后面的就不需要动了!!!
