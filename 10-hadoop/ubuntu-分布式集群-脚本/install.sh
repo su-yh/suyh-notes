@@ -375,6 +375,9 @@ done
 SSH_ENABLED=false
 if [ "${HADOOP_HOST_CATEGORY}" = "HadoopNameNode" ]; then
     SSH_ENABLED=true
+    set -x
+    hdfs namenode -format
+    set +x
 elif [ "${HADOOP_HOST_CATEGORY}" = "YarnResourceManager" ]; then
     SSH_ENABLED=true
 elif [ "${HADOOP_HOST_CATEGORY}" = "HadoopSecondaryNameNode" ]; then
