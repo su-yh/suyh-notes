@@ -20,7 +20,6 @@ HADOOP_DN_SOURCE+=("172.31.3.103 hadoop103")
 HADOOP_DN_SOURCE+=("172.31.3.104 hadoop104")
 
 # 所有主机统一的用户名和密码
-# 按约定这两个值都是hdp，如果不是，则需要修改为对应的值
 HADOOP_USER="hdp"
 HADOOP_PWD="hdp"
 
