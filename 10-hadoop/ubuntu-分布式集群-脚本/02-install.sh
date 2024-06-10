@@ -23,7 +23,7 @@ HADOOP_DN_SOURCE+=("172.31.3.104 hadoop104")
 # TODO: suyh - 修改成对应主机的CPU 核心数
 DN_CORES=2
 # 由真实核心数计算出来的虚拟核心数，一般是真实核心的两到三倍，flink 主要是使用内存，这里可以虚拟出稍多一点。
-DN_VIRTUAL_CORES=DN_CORES * 4
+DN_VIRTUAL_CORES=`expr ${DN_CORES} \* 4`
 
 # 所有主机统一的用户名和密码
 HADOOP_USER="hdp"
@@ -332,6 +332,7 @@ echo "
         <name>yarn.resourcemanager.scheduler.class</name>
         <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</value>
         <description>配置Yarn使用的调度器插件类名；Fair Scheduler对应的是：org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</description>
+    </property>
 </configuration>
 
 " >> ${HADOOP_YARN_SITE_PATH}
