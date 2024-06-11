@@ -120,6 +120,7 @@ fi
 
 JDK_PATH=~/software/jdk-8u202-linux-x64.tar.gz
 HADOOP_PATH=~/software/hadoop-3.2.4.tar.gz
+FLINK_PATH=~/software/flink-1.18.0-bin-scala_2.12.tgz
 
 if [ ! -f ${JDK_PATH} ]; then
     echo "WARN: file not exits: ${JDK_PATH}"
@@ -127,6 +128,10 @@ if [ ! -f ${JDK_PATH} ]; then
 fi
 if [ ! -f ${HADOOP_PATH} ]; then
     echo "WARN: file not exits: ${HADOOP_PATH}"
+    exit 0
+fi
+if [ ! -f ${FLINK_PATH} ]; then
+    echo "WARN: file not exits: ${FLINK_PATH}"
     exit 0
 fi
 
@@ -176,9 +181,11 @@ rm -rf /opt/module/*
 
 # 安装jdk
 echo "tar jdk"
-tar -zxf ${JDK_PATH} -C /opt/module
+tar -zxvf ${JDK_PATH} -C /opt/module
 echo "tar hadoop"
-tar -zxf ${HADOOP_PATH} -C /opt/module
+tar -zxvf ${HADOOP_PATH} -C /opt/module
+echo "tar flink"
+tar -zxvf ${FLINK_PATH} -C /opt/module
 
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "# JDK" >> /etc/profile'
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export JAVA_HOME=/opt/module/jdk1.8.0_202" >> /etc/profile'
@@ -186,11 +193,14 @@ echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export PATH=\${PATH}:\${JAVA_HOME}/b
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "# HADOOP" >> /etc/profile'
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export HADOOP_HOME=/opt/module/hadoop-3.2.4" >> /etc/profile'
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export PATH=\${PATH}:\${HADOOP_HOME}/bin:\${HADOOP_HOME}/sbin" >> /etc/profile'
-
+# flink yarn 配置
+echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export HADOOP_CONF_DIR=\${HADOOP_HOME}/etc/hadoop" >> /etc/profile'
+echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export HADOOP_CLASSPATH=\`hadoop classpath\`" >> /etc/profile'
 
 source /etc/profile
 
 
+# hadoop 配置 begin #####################################################################################################
 # core-site 配置
 HADOOP_CORE_SITE_PATH="${HADOOP_HOME}/etc/hadoop/core-site.xml"
 
@@ -354,21 +364,26 @@ echo "
 </configuration>
 " >> ${HADOOP_MAPRED_SITE_PATH}
 
-# export JAVA_HOME=
 # hadoop-env.sh 配置
 HADOOP_ENV_SH_PATH="${HADOOP_HOME}/etc/hadoop/hadoop-env.sh"
 echo "export JAVA_HOME=${JAVA_HOME}" >> ${HADOOP_ENV_SH_PATH}
 
-
-
-
-# 配置workers
+# 配置 hadoop workers
 HADOOP_WORKERS_PATH="${HADOOP_HOME}/etc/hadoop/workers"
 rm -f ${HADOOP_WORKERS_PATH}
 
 for host in "${HADOOP_DN_HOSTS[@]}"; do
     echo "${host}" >> ${HADOOP_WORKERS_PATH}
 done
+
+# hadoop 配置 end   #####################################################################################################
+
+# flink 配置 begin #####################################################################################################
+
+# flink 配置 end   #####################################################################################################
+
+
+
 
 # ssh 相关处理
 #sshpass -p "${password}" ssh-copy-id ${host}
@@ -384,7 +399,7 @@ else
 fi
 
 if [ ${SSH_ENABLED} = "true" ]; then
-    echo "以下命令需要依次手动执行，并需要按提示输入前面配置的密码（密码值为：\"${HADOOP_PWD}\"）："
+    echo "以下命令需要依次手动执行，并需要按提示输入前面配置的密码："
     echo "    ssh-copy-id ${HADOOP_NN_HOST}"
     echo "    ssh-copy-id ${HADOOP_RM_HOST}"
     echo "    ssh-copy-id ${HADOOP_2NN_HOST}"
