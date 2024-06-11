@@ -98,12 +98,25 @@
           <value>hadoop002</value>
       </property>
   
+      <!-- 一般需要按真实CPU 核心的两三倍设置 -->
+      <property>
+          <name>yarn.nodemanager.resource.cpu-vcores</name>
+          <value>8</value> <!--设置虚拟 CPU 内核数-->
+      </property>
+  
+      <!-- 设置yarn 的调度器为公平调度器 -->
+      <property>
+          <name>yarn.resourcemanager.scheduler.class</name>
+          <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</value>
+          <description>配置Yarn使用的调度器插件类名；Fair Scheduler对应的是：org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</description>
       <!-- 环境变量的继承 -->
       <!-- TODO: suyh - 听说在3.2 版本以上就不需要配置了？？？ -->
+      <!--
       <property>
           <name>yarn.nodemanager.env-whitelist</name>
           <value>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_MAPRED_HOME</value>
       </property>
+      -->
   </configuration>
   
   ```

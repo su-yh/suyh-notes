@@ -3,13 +3,13 @@
 # TODO: suyh - IP 需要修改成对应的值，主机名也可修改，但要符合要求。
 # Hadoop NameNode 节点的IP
 HADOOP_NN_IP="172.31.3.201"
-HADOOP_NN_HOST="hadoopNameNode"
+HADOOP_NN_HOST="hadoop-name-node"
 # Hadoop ResourceManager 节点的IP
 HADOOP_RM_IP="172.31.3.202"
-HADOOP_RM_HOST="hadoopResourceManager"
+HADOOP_RM_HOST="hadoop-resource-manager"
 # Hadoop SecondaryNameNode 节点的IP
 HADOOP_2NN_IP="172.31.3.203"
-HADOOP_2NN_HOST="hadoop2NameNode"
+HADOOP_2NN_HOST="hadoop-secondary-name-node"
 
 # 以ip host 格式填充
 # TODO: suyh - IP 需要修改成对应的值，主机名也要唯一。如果有多个则可以继续添加。
@@ -18,6 +18,12 @@ HADOOP_DN_SOURCE+=("172.31.3.101 hadoop101")
 HADOOP_DN_SOURCE+=("172.31.3.102 hadoop102")
 HADOOP_DN_SOURCE+=("172.31.3.103 hadoop103")
 HADOOP_DN_SOURCE+=("172.31.3.104 hadoop104")
+
+# DATA NODE 主机的CPU 核心数量
+# TODO: suyh - 修改成对应主机的CPU 核心数
+DN_CORES=2
+# 由真实核心数计算出来的虚拟核心数，一般是真实核心的两到三倍，flink 主要是使用内存，这里可以虚拟出稍多一点。
+DN_VIRTUAL_CORES=`expr ${DN_CORES} \* 4`
 
 # 所有主机统一的用户名和密码
 HADOOP_USER="hdp"
@@ -119,7 +125,6 @@ fi
 
 JDK_PATH=~/software/jdk-8u202-linux-x64.tar.gz
 HADOOP_PATH=~/software/hadoop-3.2.4.tar.gz
-FLINK_PATH=~/software/flink-1.18.0-bin-scala_2.12.tgz
 
 if [ ! -f ${JDK_PATH} ]; then
     echo "WARN: file not exits: ${JDK_PATH}"
@@ -127,10 +132,6 @@ if [ ! -f ${JDK_PATH} ]; then
 fi
 if [ ! -f ${HADOOP_PATH} ]; then
     echo "WARN: file not exits: ${HADOOP_PATH}"
-    exit 0
-fi
-if [ ! -f ${FLINK_PATH} ]; then
-    echo "WARN: file not exits: ${FLINK_PATH}"
     exit 0
 fi
 
@@ -180,11 +181,9 @@ rm -rf /opt/module/*
 
 # 安装jdk
 echo "tar jdk"
-tar -zxvf ${JDK_PATH} -C /opt/module
+tar -zxf ${JDK_PATH} -C /opt/module
 echo "tar hadoop"
-tar -zxvf ${HADOOP_PATH} -C /opt/module
-echo "tar flink"
-tar -zxvf ${FLINK_PATH} -C /opt/module
+tar -zxf ${HADOOP_PATH} -C /opt/module
 
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "# JDK" >> /etc/profile'
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export JAVA_HOME=/opt/module/jdk1.8.0_202" >> /etc/profile'
@@ -192,14 +191,11 @@ echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export PATH=\${PATH}:\${JAVA_HOME}/b
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "# HADOOP" >> /etc/profile'
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export HADOOP_HOME=/opt/module/hadoop-3.2.4" >> /etc/profile'
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export PATH=\${PATH}:\${HADOOP_HOME}/bin:\${HADOOP_HOME}/sbin" >> /etc/profile'
-# flink yarn 配置
-echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export HADOOP_CONF_DIR=\${HADOOP_HOME}/etc/hadoop" >> /etc/profile'
-echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export HADOOP_CLASSPATH=\`hadoop classpath\`" >> /etc/profile'
+
 
 source /etc/profile
 
 
-# hadoop 配置 begin #####################################################################################################
 # core-site 配置
 HADOOP_CORE_SITE_PATH="${HADOOP_HOME}/etc/hadoop/core-site.xml"
 
@@ -324,6 +320,19 @@ echo "
         <name>yarn.resourcemanager.hostname</name>
         <value>${HADOOP_RM_HOST}</value>
     </property>
+    
+    <!-- 一般需要按真实CPU 核心的两三倍设置 -->
+    <property>
+        <name>yarn.nodemanager.resource.cpu-vcores</name>
+        <value>${DN_VIRTUAL_CORES}</value> <!--设置虚拟 CPU 内核数-->
+    </property>
+
+    <!-- 设置yarn 的调度器为公平调度器 -->
+    <property>
+        <name>yarn.resourcemanager.scheduler.class</name>
+        <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</value>
+        <description>配置Yarn使用的调度器插件类名；Fair Scheduler对应的是：org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</description>
+    </property>
 </configuration>
 
 " >> ${HADOOP_YARN_SITE_PATH}
@@ -363,26 +372,21 @@ echo "
 </configuration>
 " >> ${HADOOP_MAPRED_SITE_PATH}
 
+# export JAVA_HOME=
 # hadoop-env.sh 配置
 HADOOP_ENV_SH_PATH="${HADOOP_HOME}/etc/hadoop/hadoop-env.sh"
 echo "export JAVA_HOME=${JAVA_HOME}" >> ${HADOOP_ENV_SH_PATH}
 
-# 配置 hadoop workers
+
+
+
+# 配置workers
 HADOOP_WORKERS_PATH="${HADOOP_HOME}/etc/hadoop/workers"
 rm -f ${HADOOP_WORKERS_PATH}
 
 for host in "${HADOOP_DN_HOSTS[@]}"; do
     echo "${host}" >> ${HADOOP_WORKERS_PATH}
 done
-
-# hadoop 配置 end   #####################################################################################################
-
-# flink 配置 begin #####################################################################################################
-
-# flink 配置 end   #####################################################################################################
-
-
-
 
 # ssh 相关处理
 #sshpass -p "${password}" ssh-copy-id ${host}
@@ -401,7 +405,7 @@ else
 fi
 
 if [ ${SSH_ENABLED} = "true" ]; then
-    echo "以下命令需要依次手动执行，并需要按提示输入前面配置的密码："
+    echo "以下命令需要依次手动执行，并需要按提示输入前面配置的密码（密码值为：\"${HADOOP_PWD}\"）："
     echo "    ssh-copy-id ${HADOOP_NN_HOST}"
     echo "    ssh-copy-id ${HADOOP_RM_HOST}"
     echo "    ssh-copy-id ${HADOOP_2NN_HOST}"

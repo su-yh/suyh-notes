@@ -15,6 +15,10 @@
 如果是不同的flink 版本，我们只需要将对应的 jar 包提交到hdfs ，然后在运行flink 的时候指定对应目录即可，参数名为：-Dyarn.provided.lib.dirs="hdfs://hadoop001:8020/flink-dist"
 或者这个也都可以直接放到flink.conf 配置文件中。
 上面的这些都要验证测试一下。
+还有一点要注意就是使用yarn 模式时，要注意配置虚拟核心数，如果核心数太少，而槽又配置太多，那么每个槽都会对应一个核心数。
+
+默认值为-1，与槽的数量一致。不过该配置需要yarn 的调度器配置为公平调度器：FairScheduler
+yarn.containers.vcores: 4
 ```
 
 
