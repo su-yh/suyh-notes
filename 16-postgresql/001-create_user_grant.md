@@ -10,7 +10,10 @@
 -- 如果没有初始化数据库集簇，则需要先进行初始化
 -- initdb -D$PGDATA -W
 
--- 首先使用超级用户登录
+-- 使用linux 用户 postgres 进入到用户终端界面
+su - postgres
+
+-- 首先使用超级用户登录到pgsql 数据库界面
 psql -U postgres -d postgres
 
 

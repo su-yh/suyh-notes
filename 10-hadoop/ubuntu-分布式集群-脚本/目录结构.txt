@@ -1,0 +1,64 @@
+
+/flink
+    |
+    |-- flink-dist
+        |
+        |-- flink-lib
+        |-- flink-plus
+        |-- flink-plugins
+        |-- flink-3rd
+    |
+    |-- flink-projects
+        |
+        |-- cdap-flink-repetition(重复率项目)
+            |
+            |-- userlibs
+                |
+                |-- flink-2nd
+            |-- job-jar
+            |-- conf(业务配置)
+                |
+                |-- application-batch.yaml
+                |-- application-stream.yaml
+        |-- flink-realtime-trend(实时曲线项目)
+            | 
+            |-- userlibs
+                |
+                |-- flink-2nd
+            |-- job-jar
+            |-- conf(业务配置)
+
+
+
+
+
+
+hadoop fs -mkdir -p /flink
+hadoop fs -mkdir -p /flink/flink-history/logs
+hadoop fs -mkdir -p /flink/flink-dist
+hadoop fs -mkdir -p /flink/flink-dist/flink-lib
+hadoop fs -mkdir -p /flink/flink-dist/flink-plus
+hadoop fs -mkdir -p /flink/flink-dist/flink-plugins
+hadoop fs -mkdir -p /flink/flink-dist/flink-3rd
+hadoop fs -mkdir -p /flink/flink-projects
+hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition
+hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/userlibs
+hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/userlibs/flink-2nd
+hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/job-jar
+hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/conf
+hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend
+hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/userlibs
+hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/userlibs/flink-2nd
+hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/job-jar
+hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/conf
+
+
+
+
+
+bin/flink run-application -t yarn-application -Dyarn.provided.lib.dirs="hdfs://hadoopNameNode:8020/flink/flink-dist;hdfs://hadoopNameNode:8020/flink/flink-projects/cdap-flink-repetition/userlibs" hdfs://hadoopNameNode:8020/flink/flink-projects/cdap-flink-repetition/job-jar/cdap-repetition-job-1.5.0.jar
+
+
+bin/flink run-application -t yarn-application -Dyarn.provided.lib.dirs="hdfs://hadoopNameNode:8020/flink/flink-dist;hdfs://hadoopNameNode:8020/flink/flink-projects/cdap-flink-repetition/userlibs" hdfs://hadoopNameNode:8020/flink/flink-projects/cdap-flink-repetition/job-jar/cdap-repetition-job-1.5.0.jar
+
+

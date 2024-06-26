@@ -6,7 +6,7 @@
 >
 > ```shell
 > # 如果是目录想要目录下面的所有文件都一起切换，可以添加-R 参数
-> chown postgres:postgres /usr/local/pg12.18
+> chown -R postgres:postgres /usr/local/pg12.18
 > ```
 >
 > 
