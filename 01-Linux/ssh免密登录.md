@@ -23,7 +23,7 @@ ssh-keygen -t ed25519 -C "hadoopWorker01" -f ~/.ssh/id_ed25519 -N ""
 ## 将自己的公钥拷贝到目标机器
 
 ```shell
-ssh-copy-id ${host}
+ssh-copy-id ${username}@${host}
 要注意，公钥也要给自己一份，不然访问自己还需要输入密码
 
 # 非交互式的方式输入密码，不过要提前安装sshpass 命令

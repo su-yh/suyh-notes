@@ -1,0 +1,48 @@
+
+参考链接：
+https://www.cnblogs.com/nanfei/p/17381139.html
+
+
+1. 添加 PostgreSQL 官方存储库
+    sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+2. 导入 PostgreSQL 公钥并更新 apt 软件包列表
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+    sudo apt-get update
+3. 安装 PostgreSQL 和一些常用的扩展
+    sudo apt-get install postgresql postgresql-contrib libpq-dev
+4. 检查 PostgreSQL 服务是否正在运行
+    sudo systemctl status postgresql
+    如果未运行，请使用以下命令启动服务：
+    sudo systemctl start postgresql
+5. 使用以下命令登录 PostgreSQL 数据库
+    sudo -i -u postgres
+    psql
+现在，您已经成功安装了最新版本的 PostgreSQL 并登录到了数据库。 
+
+要修改 PostgreSQL 的连接密码，可以按照以下步骤操作：
+1. 打开 PostgreSQL 的命令行界面。在 Windows 上，可以在开始菜单中找到“SQL Shell (psql)”选项并双击打开；在 Linux/Mac 上，可以在终端中输入 psql 命令进入。
+2. 使用超级用户账户登录 PostgreSQL。假设你在安装时没有修改过超级用户账户（默认为 postgres），则可以在命令行界面中输入以下命令登录：
+    psql -U postgres
+然后输入超级用户的密码，即可登录成功。
+3. 修改连接密码。在登录成功后，可以使用以下命令修改指定用户的连接密码：
+    ALTER USER username WITH PASSWORD 'new_password';
+其中，username 是要修改密码的用户名，new_password 是新的密码。例如，要修改用户名为 myuser 的用户的密码为 newpass，可以执行以下命令：
+    ALTER USER myuser WITH PASSWORD 'newpass';
+4. 退出 PostgreSQL。修改完成后，可以使用以下命令退出 PostgreSQL 命令行界面：
+    \q
+或者直接关闭命令行界面。
+注意：如果你是在远程机器上执行以上操作，则需要先通过 SSH 或其他远程工具登录到该机器，并确保你有足够的权限进行相关操作。同时，修改密码时需要注意密码的强度和安全性，建议使用强密码，并定期更换密码以保障数据库的安全。
+
+如果想通过局域网连接到 PostgreSQL 数据库，您需要进行以下配置：
+
+1. 配置 PostgresSQL 允许远程连接：默认情况下，PostgreSQL 只允许本地连接。要允许远程连接，您需要编辑 PostgresSQL 的主配置文件 postgresql.conf 和 pg_hba.conf 文件。
+
+打开 /etc/postgresql/15/main/postgresql.conf 文件，并找到 listen_addresses 参数。默认情况下，该参数被设置为 localhost，您需要将其更改为服务器的 IP 地址或者使用通配符 * 表示任何客户端都可以连接。例如：
+    listen_addresses = '*'
+接下来，打开 pg_hba.conf 文件，这是一个用户身份验证配置文件，用于控制哪些用户可以从哪个地址连接到数据库。在此文件中添加以下行：
+host all all 0.0.0.0/0 md5
+该行允许任何来自任何地址的用户通过密码身份验证连接到 PostgreSQL 数据库。请注意，这可能会导致安全风险，因此建议仅限制特定 IP 地址或子网范围内的用户连接。
+2. 配置防火墙：如果您的服务器上启用了防火墙，则需要打开 PostgreSQL 监听的端口（默认为 5432）。具体步骤取决于您所使用的防火墙软件。
+3. 检查网络连接：最后，请确保您的客户端计算机可以通过网络连接到服务器。您可以使用 ping 命令测试服务器是否可达，例如：
+ping <server-ip-address>
+如果您已经完成上述步骤，并且仍然无法连接到 PostgreSQL 数据库，则可能需要检查其他网络配置或应用程序特定的错误消息。
