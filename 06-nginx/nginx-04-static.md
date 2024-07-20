@@ -6,9 +6,9 @@
 
 > 例如：
 >
-> 有一张图片，URL是：/awaimai.com/static/a.jpg
+> 有一张图片，URL是：/awaimai.com==/static/a.jpg==
 >
-> 它在服务器的路径是：/var/www/app/static/a.jpg
+> 它在服务器的路径是：/var/www/app==/static/a.jpg==
 
 - 使用`root`配置
 
