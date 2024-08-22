@@ -18,7 +18,7 @@
 2. 使用以下命令将 `hdp` 用户添加到 `sudo` 组：
 
 ```bash
-sudo usermod -aG sudo hdp
+sudo usermod -aG sudo ${username}
 ```
 
 这个命令将 `hdp` 用户添加到 `sudo` 组中。
@@ -27,13 +27,13 @@ sudo usermod -aG sudo hdp
 2. 在 `/etc/sudoers.d` 目录下创建一个文件，比如 `hdp`，并编辑它：
 
 ```bash
-sudo vim /etc/sudoers.d/hdp
+sudo vim /etc/sudoers.d/${username}
 ```
 
 1. 在文件中添加以下行来授予 `hdp` 用户使用 `sudo` 的权限：
 
 ```txt
-hdp ALL=(ALL:ALL) ALL
+${username} ALL=(ALL:ALL) ALL
 ```
 
 这行的意思是允许 `hdp` 用户在任何主机上以任何用户的身份执行任何命令。你也可以根据具体需求进行更精确的配置，比如只允许特定的命令。
@@ -42,7 +42,7 @@ hdp ALL=(ALL:ALL) ALL
 
 ```bash
 # suyh - 不是必须的，基本不需要操作
-sudo chmod 440 /etc/sudoers.d/hdp
+sudo chmod 440 /etc/sudoers.d/${username}
 ```
 
 这样，`hdp` 用户就被添加到了 `sudo` 组，并具有了使用 `sudo` 命令的权限。
