@@ -15,7 +15,11 @@
 > 创建或编辑用户的配置文件
 >
 > ```shell
-> crontab -e -u [username]
+> # 最好是使用有root 权限的用户操作，为指定用户添加定时任务
+> sudo crontab -e -u [username]
+> 
+> # 刷新
+> service cron reload
 > ```
 >
 > 编辑示例
