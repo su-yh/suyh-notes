@@ -10,4 +10,3 @@
  运行/停止宝塔服务：
  /etc/init.d/bt start
  /etc/init.d/bt stop
- 
