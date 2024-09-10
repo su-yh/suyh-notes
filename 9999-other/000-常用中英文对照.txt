@@ -163,8 +163,9 @@
 快递、物流
     express
 审核
-    approved
-    Examine
+    review    审核
+    approved  审核通过
+    Examine   意思是“检查”、“审查”或“研究”
 校验、测试
     verify
 如果需要
@@ -178,8 +179,8 @@
 边界  bound
 左边界 left bound
 右边界  right bound
-下边界  lower bound
-上边界   upper bound
+下边界 下限  lower bound
+上边界 上限  upper bound
 阈值  thresholding  threshold
 限制数  threshold
 标签  flag  tag
@@ -202,3 +203,4 @@
 次版本  minor version
 发现 探索 商家 供应商  explore Merchants
 补充 填充 填补 populate
+mercantile agent  代理商

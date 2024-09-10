@@ -1,0 +1,7 @@
+
+
+
+name      username       token
+cem_bot   cem_dev_bot    7229193059:AAGBPqrwbMIaQUgrmKRHoSdcB7JsheEnWmY
+
+
