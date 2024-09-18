@@ -1,7 +1,7 @@
 
 
 
-name      username       token
-cem_bot   cem_dev_bot    7229193059:AAGBPqrwbMIaQUgrmKRHoSdcB7JsheEnWmY
-
+name            username           token
+cem_bot         cem_dev_bot        7229193059:AAGBPqrwbMIaQUgrmKRHoSdcB7JsheEnWmY
+cem_suyh_dev    cem_suyh_dev_bot   7530223963:AAE8D-S5EGNo9otioEK5OIP1OpzavN5zf6s
 
