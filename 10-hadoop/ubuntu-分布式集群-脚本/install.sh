@@ -72,7 +72,7 @@ done
 # 至此，得到了所有节点的主机IP 以及主机名
 
 
-# 通过查询当前主机的IPV4 地址来匹配当前节点主机是什么角色，以及给配置的主机㕣和IP 地址
+# 通过查询当前主机的IPV4 地址来匹配当前节点主机是什么角色，以及给配置的主机名和IP 地址
 
 HOSTNAME=$(hostname)
 CURR_HOST_IPV4=$(nslookup "${HOSTNAME}" | grep 'Address:' | grep -v '#' | awk '/Address:/{ if ($2 !~ /:/) {print $2}}')
