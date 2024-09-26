@@ -1,23 +1,24 @@
 #!/bin/bash
 
-# TODO: suyh - IP 需要修改成对应的值，主机名也可修改，但要符合要求。
+# TODO: suyh - IP 需要修改成对应的值，主机名也可修改，但要符合规范。
 # Hadoop NameNode 节点的IP
-HADOOP_NN_IP="172.31.3.201"
+HADOOP_NN_IP="192.168.8.58"
 HADOOP_NN_HOST="hadoop-name-node"
 # Hadoop ResourceManager 节点的IP
-HADOOP_RM_IP="172.31.3.202"
+HADOOP_RM_IP="192.168.8.113"
 HADOOP_RM_HOST="hadoop-resource-manager"
 # Hadoop SecondaryNameNode 节点的IP
-HADOOP_2NN_IP="172.31.3.203"
+HADOOP_2NN_IP="192.168.8.135"
 HADOOP_2NN_HOST="hadoop-secondary-name-node"
 
 # 以ip host 格式填充
 # TODO: suyh - IP 需要修改成对应的值，主机名也要唯一。如果有多个则可以继续添加。
 HADOOP_DN_SOURCE=()
-HADOOP_DN_SOURCE+=("172.31.3.101 hadoop101")
-HADOOP_DN_SOURCE+=("172.31.3.102 hadoop102")
-HADOOP_DN_SOURCE+=("172.31.3.103 hadoop103")
-HADOOP_DN_SOURCE+=("172.31.3.104 hadoop104")
+HADOOP_DN_SOURCE+=("192.168.8.139 hadoop101")
+HADOOP_DN_SOURCE+=("192.168.8.141 hadoop102")
+HADOOP_DN_SOURCE+=("192.168.8.143 hadoop103")
+HADOOP_DN_SOURCE+=("192.168.8.144 hadoop104")
+HADOOP_DN_SOURCE+=("192.168.8.145 hadoop105")
 
 # DATA NODE 主机的CPU 核心数量
 # TODO: suyh - 修改成对应主机的CPU 核心数
@@ -34,6 +35,7 @@ HADOOP_PWD="hdp"
 # 到此为此，后面的就不需要动了!!!
 # 到此为此，后面的就不需要动了!!!
 ############################################################
+
 
 
 
@@ -80,23 +82,26 @@ done
 
 # 通过查询当前主机的IPV4 地址来匹配当前节点主机是什么角色，以及给配置的主机名和IP 地址
 
-HOSTNAME=$(hostname)
-CURR_HOST_IPV4=$(nslookup "${HOSTNAME}" | grep 'Address:' | grep -v '#' | awk '/Address:/{ if ($2 !~ /:/) {print $2}}')
+# HOSTNAME=$(hostname)
+# 使用nslookup 命令解析本机ipv4 地址
+# CURR_HOST_IPV4=$(nslookup "$(hostname)" | grep 'Address:' | grep -v '#' | awk '/Address:/{ if ($2 !~ /:/) {print $2}}')
+# 使用ip addr  命令解析本机ipv4 地址
+CURR_HOST_IPV4=$(ip addr show | awk '/inet /{print $2}' | grep -v '127.0.0.1' | grep -v 'fe80::' | cut -d'/' -f1)
 CURR_HOST_NAME=
 
 HADOOP_HOST_CATEGORY="UNKNOWN"
 if [ "${CURR_HOST_IPV4}" = "${HADOOP_NN_IP}" ]; then
     HADOOP_HOST_CATEGORY="HadoopNameNode"
     CURR_HOST_NAME=${HADOOP_NN_HOST}
-    ssh-keygen -t ed25519 -C ${HADOOP_NN_HOST} -f ${HOME}/.ssh/id_ed25519 -y -N ""
+    ssh-keygen -t ed25519 -C ${HADOOP_NN_HOST} -f ${HOME}/.ssh/id_ed25519 -N ""
 elif [ "${CURR_HOST_IPV4}" = "${HADOOP_RM_IP}" ]; then
     HADOOP_HOST_CATEGORY="YarnResourceManager"
     CURR_HOST_NAME=${HADOOP_RM_HOST}
-    ssh-keygen -t ed25519 -C ${HADOOP_RM_HOST} -f ${HOME}/.ssh/id_ed25519 -y -N ""
+    ssh-keygen -t ed25519 -C ${HADOOP_RM_HOST} -f ${HOME}/.ssh/id_ed25519 -N ""
 elif [ "${CURR_HOST_IPV4}" = "${HADOOP_2NN_IP}" ]; then
     HADOOP_HOST_CATEGORY="HadoopSecondaryNameNode"
     CURR_HOST_NAME=${HADOOP_2NN_HOST}
-    ssh-keygen -t ed25519 -C ${HADOOP_2NN_HOST} -f ${HOME}/.ssh/id_ed25519 -y -N ""
+    ssh-keygen -t ed25519 -C ${HADOOP_2NN_HOST} -f ${HOME}/.ssh/id_ed25519 -N ""
 else
     for ((i=0; i<${HADOOP_DN_SIZE}; i++)); do
         ip=${HADOOP_DN_IPS[i]}
@@ -113,13 +118,14 @@ echo "current host category is: ${HADOOP_HOST_CATEGORY}"
 echo "current host ipv4: ${CURR_HOST_IPV4}"
 echo "current host name: ${CURR_HOST_NAME}"
 
+echo "###########################################"
+echo "HADOOP_NN_IP: ${HADOOP_NN_IP}"
+echo "HADOOP_RM_IP: ${HADOOP_RM_IP}"
+echo "HADOOP_2NN_IP: ${HADOOP_2NN_IP}"
+echo "HADOOP_DN_IPS: ${HADOOP_DN_IPS[@]}"
+
 if [ "${HADOOP_HOST_CATEGORY}" = "UNKNOWN" ]; then
-  echo "###########################################"
-  echo "HADOOP_NN_IP: ${HADOOP_NN_IP}"
-  echo "HADOOP_RM_IP: ${HADOOP_RM_IP}"
-  echo "HADOOP_2NN_IP: ${HADOOP_2NN_IP}"
-  echo "HADOOP_DN_IPS: ${HADOOP_DN_IPS[@]}"
-  echo "config error. current host ipv4: ${CURR_HOST_IPV4}"
+  echo "CONFIG ERROR!!! current host ipv4: ${CURR_HOST_IPV4}"
   exit
 fi
 
@@ -288,7 +294,7 @@ echo "
     <!-- 节点主机名 -->
     <property>
         <name>dfs.datanode.hostname</name>
-        <value>${HOSTNAME}</value>
+        <value>${CURR_HOST_NAME}</value>
     </property>
 </configuration>
 " >> ${HADOOP_HDFS_SITE_PATH}
