@@ -21,7 +21,7 @@ HADOOP_DN_SOURCE+=("172.31.3.104 hadoop104")
 
 # DATA NODE 主机的CPU 核心数量
 # TODO: suyh - 修改成对应主机的CPU 核心数
-DN_CORES=2
+DN_CORES=4
 # 由真实核心数计算出来的虚拟核心数，一般是真实核心的两到三倍，flink 主要是使用内存，这里可以虚拟出稍多一点。
 DN_VIRTUAL_CORES=`expr ${DN_CORES} \* 4`
 
@@ -88,15 +88,15 @@ HADOOP_HOST_CATEGORY="UNKNOWN"
 if [ "${CURR_HOST_IPV4}" = "${HADOOP_NN_IP}" ]; then
     HADOOP_HOST_CATEGORY="HadoopNameNode"
     CURR_HOST_NAME=${HADOOP_NN_HOST}
-    ssh-keygen -t ed25519 -C ${HADOOP_NN_HOST} -f ~/.ssh/id_ed25519 -N ""
+    ssh-keygen -t ed25519 -C ${HADOOP_NN_HOST} -f ~/.ssh/id_ed25519 -y -N ""
 elif [ "${CURR_HOST_IPV4}" = "${HADOOP_RM_IP}" ]; then
     HADOOP_HOST_CATEGORY="YarnResourceManager"
     CURR_HOST_NAME=${HADOOP_RM_HOST}
-    ssh-keygen -t ed25519 -C ${HADOOP_RM_HOST} -f ~/.ssh/id_ed25519 -N ""
+    ssh-keygen -t ed25519 -C ${HADOOP_RM_HOST} -f ~/.ssh/id_ed25519 -y -N ""
 elif [ "${CURR_HOST_IPV4}" = "${HADOOP_2NN_IP}" ]; then
     HADOOP_HOST_CATEGORY="HadoopSecondaryNameNode"
     CURR_HOST_NAME=${HADOOP_2NN_HOST}
-    ssh-keygen -t ed25519 -C ${HADOOP_2NN_HOST} -f ~/.ssh/id_ed25519 -N ""
+    ssh-keygen -t ed25519 -C ${HADOOP_2NN_HOST} -f ~/.ssh/id_ed25519 -y -N ""
 else
     for ((i=0; i<${HADOOP_DN_SIZE}; i++)); do
         ip=${HADOOP_DN_IPS[i]}
@@ -139,6 +139,8 @@ fi
 echo "${HADOOP_PWD}" | sudo -S hostnamectl set-hostname "${CURR_HOST_NAME}"
 
 # 内网IP 通过主机名通信，配置/etc/hosts 文件
+echo "${HADOOP_PWD}" | sudo -S sh -c "echo '' >> /etc/hosts"
+echo "${HADOOP_PWD}" | sudo -S sh -c "echo '' >> /etc/hosts"
 echo "${HADOOP_PWD}" | sudo -S sh -c "echo '${HADOOP_NN_IP} ${HADOOP_NN_HOST}' >> /etc/hosts"
 echo "${HADOOP_PWD}" | sudo -S sh -c "echo '${HADOOP_RM_IP} ${HADOOP_RM_HOST}' >> /etc/hosts"
 echo "${HADOOP_PWD}" | sudo -S sh -c "echo '${HADOOP_2NN_IP} ${HADOOP_2NN_HOST}' >> /etc/hosts"
@@ -181,9 +183,9 @@ rm -rf /opt/module/*
 
 # 安装jdk
 echo "tar jdk"
-tar -zxf ${JDK_PATH} -C /opt/module
+tar -zxvf ${JDK_PATH} -C /opt/module
 echo "tar hadoop"
-tar -zxf ${HADOOP_PATH} -C /opt/module
+tar -zxvf ${HADOOP_PATH} -C /opt/module
 
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "# JDK" >> /etc/profile'
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export JAVA_HOME=/opt/module/jdk1.8.0_202" >> /etc/profile'
@@ -278,10 +280,15 @@ echo "
         <name>dfs.namenode.http-address</name>
         <value>${HADOOP_NN_HOST}:9870</value>
     </property>
-	<!-- 2nn(SecondaryNameNode) web端访问地址-->
+    <!-- 2nn(SecondaryNameNode) web端访问地址-->
     <property>
         <name>dfs.namenode.secondary.http-address</name>
         <value>${HADOOP_2NN_HOST}:9868</value>
+    </property>
+    <!-- 节点主机名 -->
+    <property>
+        <name>dfs.datanode.hostname</name>
+        <value>${HOSTNAME}</value>
     </property>
 </configuration>
 " >> ${HADOOP_HDFS_SITE_PATH}
@@ -406,10 +413,10 @@ fi
 
 if [ ${SSH_ENABLED} = "true" ]; then
     echo "以下命令需要依次手动执行，并需要按提示输入前面配置的密码（密码值为：\"${HADOOP_PWD}\"）："
-    echo "    ssh-copy-id ${HADOOP_NN_HOST}"
-    echo "    ssh-copy-id ${HADOOP_RM_HOST}"
-    echo "    ssh-copy-id ${HADOOP_2NN_HOST}"
+    echo "    ssh-copy-id -o StrictHostKeyChecking=no ${HADOOP_NN_HOST}"
+    echo "    ssh-copy-id -o StrictHostKeyChecking=no ${HADOOP_RM_HOST}"
+    echo "    ssh-copy-id -o StrictHostKeyChecking=no ${HADOOP_2NN_HOST}"
     for host in "${HADOOP_DN_HOSTS[@]}"; do
-        echo "    ssh-copy-id ${host}"
+        echo "    ssh-copy-id -o StrictHostKeyChecking=no ${host}"
     done
 fi

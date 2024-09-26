@@ -204,3 +204,4 @@
 发现 探索 商家 供应商  explore Merchants
 补充 填充 填补 populate
 mercantile agent  代理商
+异常  不正常 abnormal 
