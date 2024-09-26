@@ -88,15 +88,15 @@ HADOOP_HOST_CATEGORY="UNKNOWN"
 if [ "${CURR_HOST_IPV4}" = "${HADOOP_NN_IP}" ]; then
     HADOOP_HOST_CATEGORY="HadoopNameNode"
     CURR_HOST_NAME=${HADOOP_NN_HOST}
-    ssh-keygen -t ed25519 -C ${HADOOP_NN_HOST} -f ~/.ssh/id_ed25519 -y -N ""
+    ssh-keygen -t ed25519 -C ${HADOOP_NN_HOST} -f ${HOME}/.ssh/id_ed25519 -y -N ""
 elif [ "${CURR_HOST_IPV4}" = "${HADOOP_RM_IP}" ]; then
     HADOOP_HOST_CATEGORY="YarnResourceManager"
     CURR_HOST_NAME=${HADOOP_RM_HOST}
-    ssh-keygen -t ed25519 -C ${HADOOP_RM_HOST} -f ~/.ssh/id_ed25519 -y -N ""
+    ssh-keygen -t ed25519 -C ${HADOOP_RM_HOST} -f ${HOME}/.ssh/id_ed25519 -y -N ""
 elif [ "${CURR_HOST_IPV4}" = "${HADOOP_2NN_IP}" ]; then
     HADOOP_HOST_CATEGORY="HadoopSecondaryNameNode"
     CURR_HOST_NAME=${HADOOP_2NN_HOST}
-    ssh-keygen -t ed25519 -C ${HADOOP_2NN_HOST} -f ~/.ssh/id_ed25519 -y -N ""
+    ssh-keygen -t ed25519 -C ${HADOOP_2NN_HOST} -f ${HOME}/.ssh/id_ed25519 -y -N ""
 else
     for ((i=0; i<${HADOOP_DN_SIZE}; i++)); do
         ip=${HADOOP_DN_IPS[i]}
@@ -123,8 +123,8 @@ if [ "${HADOOP_HOST_CATEGORY}" = "UNKNOWN" ]; then
   exit
 fi
 
-JDK_PATH=~/software/jdk-8u202-linux-x64.tar.gz
-HADOOP_PATH=~/software/hadoop-3.2.4.tar.gz
+JDK_PATH=${HOME}/software/jdk-8u202-linux-x64.tar.gz
+HADOOP_PATH=${HOME}/software/hadoop-3.2.4.tar.gz
 
 if [ ! -f ${JDK_PATH} ]; then
     echo "WARN: file not exits: ${JDK_PATH}"
