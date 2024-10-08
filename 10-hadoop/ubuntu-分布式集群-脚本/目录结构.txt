@@ -1,12 +1,12 @@
 
 /flink
     |
-    |-- flink-dist
+    |-- flink-dist(flink项目共用的jar 依赖组件)
         |
-        |-- flink-lib
-        |-- flink-plus
-        |-- flink-plugins
-        |-- flink-3rd
+        |-- flink-lib(flink 自带的jar 包)
+        |-- flink-plus(在项目中引入的flink 的jar 包)
+        |-- flink-plugins(flink 自带的 plugins)
+        |-- flink-3rd(在项目中引入的非flink 相关的 jar 包)
     |
     |-- flink-projects
         |
@@ -20,6 +20,7 @@
                 |
                 |-- application-batch.yaml
                 |-- application-stream.yaml
+            |-- checkpoints
         |-- flink-realtime-trend(实时曲线项目)
             | 
             |-- userlibs
@@ -27,14 +28,30 @@
                 |-- flink-2nd
             |-- job-jar
             |-- conf(业务配置)
+                |
+                |-- application-batch.yaml
+                |-- application-stream.yaml
+            |-- checkpoints
+        |-- flink-cohort-job(同期群项目)
+            | 
+            |-- userlibs
+                |
+                |-- flink-2nd
+            |-- job-jar
+            |-- conf(业务配置)
+                |
+                |-- application-batch.yaml
+                |-- application-stream.yaml
+            |-- checkpoints
 
 
 
 
 
 
+# 在 NameNode 服务节点执行如下命令可以建出上面的目录结构
 hadoop fs -mkdir -p /flink
-hadoop fs -mkdir -p /flink/flink-history/logs
+hadoop fs -mkdir -p /flink/flink-history/logs # 历史服务日志
 hadoop fs -mkdir -p /flink/flink-dist
 hadoop fs -mkdir -p /flink/flink-dist/flink-lib
 hadoop fs -mkdir -p /flink/flink-dist/flink-plus
@@ -46,11 +63,19 @@ hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/userlibs
 hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/userlibs/flink-2nd
 hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/job-jar
 hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/conf
+hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/checkpoints
 hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend
 hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/userlibs
 hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/userlibs/flink-2nd
 hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/job-jar
 hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/conf
+hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/checkpoints
+hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job
+hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job/userlibs
+hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job/userlibs/flink-2nd
+hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job/job-jar
+hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job/conf
+hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job/checkpoints
 
 
 

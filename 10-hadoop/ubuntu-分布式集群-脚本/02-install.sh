@@ -1,14 +1,24 @@
 #!/bin/bash
 
+# 该脚本做了什么？
+# 1. 三台管理主机(NameNode, ResourceManager, SecondaryNameNode)节点，会生成 ssh 并对集群中的所有主机配置免密登录。(如果三台管理主机节点IP 相同，则只有一台管理主机节点)
+# 2. 在目录 /opt/module 目录安装 hadoop 以及jdk  安装之前会先删除目录 /opt/module ，如果该目录存在数据，需要提前处理好。
+# 3. 修改每台主机节点的主机名，所有的集群通信都是依赖主机名来的。
+# 4. 使用主机名通信，需要配置 /etc/hosts 配置文件，会将每个主机的主机名跟内网IP 进行关联。
+# 5. 添加全局环境变量，修改 /etc/profile 配置文件，将 jdk hadoop 相关的环境变量配置追加到该文件中。
+# 6. 安装hadoop 的同时，修改对应的环境变量，以及通信配置
+
+
 # TODO: suyh - IP 需要修改成对应的值，主机名也可修改，但要符合规范。
+#  如果NameNode ResourceManager 以及SecondaryNameNode 为同一台主机，则可以将三台主机节点的IP 都配置为同一个即可。
 # Hadoop NameNode 节点的IP
 HADOOP_NN_IP="192.168.8.58"
 HADOOP_NN_HOST="hadoop-name-node"
 # Hadoop ResourceManager 节点的IP
-HADOOP_RM_IP="192.168.8.113"
+HADOOP_RM_IP="192.168.8.58"
 HADOOP_RM_HOST="hadoop-resource-manager"
 # Hadoop SecondaryNameNode 节点的IP
-HADOOP_2NN_IP="192.168.8.135"
+HADOOP_2NN_IP="192.168.8.58"
 HADOOP_2NN_HOST="hadoop-secondary-name-node"
 
 # 以ip host 格式填充
@@ -29,6 +39,15 @@ DN_VIRTUAL_CORES=`expr ${DN_CORES} \* 4`
 # 所有主机统一的用户名和密码
 HADOOP_USER="hdp"
 HADOOP_PWD="hdp"
+
+# 环境运行时区，包括hadoop yarn flink 都将以该时区处理时间的解析
+# 中国时区：Asia/Shanghai 印度时区：Asia/Kolkata
+LOCAL_TZ=
+
+# 每个节点主机的用户日志目录，保留日志的时间，单位：秒。默认值是：10800(3 小时)
+# 在这里我们的 JobManager TaskManager 的相关日志都存放在该目录下。
+# 所以至少也应该保留一天以上，一般保留30 天(2592000s)。
+YARN_NODEMANAGER_LOG_RETAIN_SECONDS=2592000
 
 ############################################################
 # 到此为此，后面的就不需要动了!!!
@@ -199,6 +218,10 @@ echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export PATH=\${PATH}:\${JAVA_HOME}/b
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "# HADOOP" >> /etc/profile'
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export HADOOP_HOME=/opt/module/hadoop-3.2.4" >> /etc/profile'
 echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export PATH=\${PATH}:\${HADOOP_HOME}/bin:\${HADOOP_HOME}/sbin" >> /etc/profile'
+# flink yarn 配置
+echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "# flink yarn" >> /etc/profile'
+echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export HADOOP_CONF_DIR=\${HADOOP_HOME}/etc/hadoop" >> /etc/profile'
+echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export HADOOP_CLASSPATH=\`hadoop classpath\`" >> /etc/profile'
 
 
 source /etc/profile
@@ -340,12 +363,33 @@ echo "
         <value>${DN_VIRTUAL_CORES}</value> <!--设置虚拟 CPU 内核数-->
     </property>
 
-    <!-- 设置yarn 的调度器为公平调度器 -->
+    <!-- 设置yarn 的调度器为容量调度器 -->
     <property>
         <name>yarn.resourcemanager.scheduler.class</name>
-        <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</value>
+        <!-- <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</value> -->
+        <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler</value>
         <description>配置Yarn使用的调度器插件类名；Fair Scheduler对应的是：org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</description>
     </property>
+
+    <!-- 容器的最小内存限制 -->
+    <property>
+        <description>The minimum allocation for every container request at the RM
+        in MBs. Memory requests lower than this will be set to the value of this
+        property. Additionally, a node manager that is configured to have less memory
+        than this value will be shut down by the resource manager.</description>
+        <name>yarn.scheduler.minimum-allocation-mb</name>
+        <value>128</value>
+    </property>
+
+    <!-- 保留用户日志的时间，日志聚合禁用时有效。 -->
+    <property>
+        <description>Time in seconds to retain user logs. Only applicable if
+        log aggregation is disabled
+        </description>
+        <name>yarn.nodemanager.log.retain-seconds</name>
+        <value>${YARN_NODEMANAGER_LOG_RETAIN_SECONDS}</value>
+    </property>
+
 </configuration>
 
 " >> ${HADOOP_YARN_SITE_PATH}
@@ -388,7 +432,11 @@ echo "
 # export JAVA_HOME=
 # hadoop-env.sh 配置
 HADOOP_ENV_SH_PATH="${HADOOP_HOME}/etc/hadoop/hadoop-env.sh"
+# JDK 配置
 echo "export JAVA_HOME=${JAVA_HOME}" >> ${HADOOP_ENV_SH_PATH}
+# 时区配置
+echo "export TZ=${LOCAL_TZ}" >> ${HADOOP_ENV_SH_PATH}
+
 
 
 
