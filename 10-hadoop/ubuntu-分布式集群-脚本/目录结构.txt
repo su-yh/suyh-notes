@@ -1,6 +1,10 @@
 
 /flink
     |
+    |-- flink-history
+        |
+        |-- logs(历史服务日志)
+    |
     |-- flink-dist(flink项目共用的jar 依赖组件)
         |
         |-- flink-lib(flink 自带的jar 包)
@@ -51,7 +55,7 @@
 
 # 在 NameNode 服务节点执行如下命令可以建出上面的目录结构
 hadoop fs -mkdir -p /flink
-hadoop fs -mkdir -p /flink/flink-history/logs # 历史服务日志
+hadoop fs -mkdir -p /flink/flink-history/logs
 hadoop fs -mkdir -p /flink/flink-dist
 hadoop fs -mkdir -p /flink/flink-dist/flink-lib
 hadoop fs -mkdir -p /flink/flink-dist/flink-plus

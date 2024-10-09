@@ -29,6 +29,8 @@ HADOOP_DN_SOURCE+=("192.168.8.141 hadoop102")
 HADOOP_DN_SOURCE+=("192.168.8.143 hadoop103")
 HADOOP_DN_SOURCE+=("192.168.8.144 hadoop104")
 HADOOP_DN_SOURCE+=("192.168.8.145 hadoop105")
+HADOOP_DN_SOURCE+=("192.168.8.135 hadoop106")
+HADOOP_DN_SOURCE+=("192.168.8.113 hadoop107")
 
 # DATA NODE 主机的CPU 核心数量
 # TODO: suyh - 修改成对应主机的CPU 核心数
@@ -42,6 +44,7 @@ HADOOP_PWD="hdp"
 
 # 环境运行时区，包括hadoop yarn flink 都将以该时区处理时间的解析
 # 中国时区：Asia/Shanghai 印度时区：Asia/Kolkata
+# LOCAL_TZ=Asia/Shanghai
 LOCAL_TZ=
 
 # 每个节点主机的用户日志目录，保留日志的时间，单位：秒。默认值是：10800(3 小时)
@@ -366,8 +369,8 @@ echo "
     <!-- 设置yarn 的调度器为容量调度器 -->
     <property>
         <name>yarn.resourcemanager.scheduler.class</name>
-        <!-- <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</value> -->
-        <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler</value>
+        <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</value>
+        <!-- <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler</value> -->
         <description>配置Yarn使用的调度器插件类名；Fair Scheduler对应的是：org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</description>
     </property>
 
@@ -378,7 +381,7 @@ echo "
         property. Additionally, a node manager that is configured to have less memory
         than this value will be shut down by the resource manager.</description>
         <name>yarn.scheduler.minimum-allocation-mb</name>
-        <value>128</value>
+        <value>1024</value>
     </property>
 
     <!-- 保留用户日志的时间，日志聚合禁用时有效。 -->
@@ -388,6 +391,14 @@ echo "
         </description>
         <name>yarn.nodemanager.log.retain-seconds</name>
         <value>${YARN_NODEMANAGER_LOG_RETAIN_SECONDS}</value>
+    </property>
+
+    <property>
+        <description>The maximum allocation for every container request at the RM
+        in terms of virtual CPU cores. Requests higher than this will throw an
+        InvalidResourceRequestException.</description>
+        <name>yarn.scheduler.maximum-allocation-vcores</name>
+        <value>16</value>
     </property>
 
 </configuration>
