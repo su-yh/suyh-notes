@@ -199,8 +199,10 @@
 比例 分层比例   proportion
 维度 维度计算 大数据中各个维度  dimension
 较小 / 较大   Smaller / Larger
-主版本  major version
-次版本  minor version
+主版本    major version
+次版本    minor version
+修订版本  patch version
+一级二级三级   Primary  Secondary   Tertiary 
 发现 探索 商家 供应商  explore Merchants
 补充 填充 填补 populate
 mercantile agent  代理商
