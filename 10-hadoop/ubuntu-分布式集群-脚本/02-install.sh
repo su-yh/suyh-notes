@@ -398,7 +398,7 @@ echo "
         in terms of virtual CPU cores. Requests higher than this will throw an
         InvalidResourceRequestException.</description>
         <name>yarn.scheduler.maximum-allocation-vcores</name>
-        <value>16</value>
+        <value>4</value>
     </property>
 
 </configuration>

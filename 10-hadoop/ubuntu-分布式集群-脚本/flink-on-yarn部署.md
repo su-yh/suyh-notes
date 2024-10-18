@@ -26,24 +26,17 @@
    hadoop fs -mkdir -p /flink/flink-dist/flink-3rd
    hadoop fs -mkdir -p /flink/flink-projects
    hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition
-   hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/userlibs
-   hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/userlibs/flink-2nd
    hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/job-jar
    hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/conf
    hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/checkpoints
    hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend
-   hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/userlibs
-   hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/userlibs/flink-2nd
    hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/job-jar
    hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/conf
    hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/checkpoints
    hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job
-   hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job/userlibs
-   hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job/userlibs/flink-2nd
    hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job/job-jar
    hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job/conf
    hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job/checkpoints
-   
    ```
 
    
@@ -68,9 +61,6 @@
            |
            |-- cdap-flink-repetition(重复率项目)
                |
-               |-- userlibs
-                   |
-                   |-- flink-2nd
                |-- job-jar
                |-- conf(业务配置)
                    |
@@ -79,9 +69,6 @@
                |-- checkpoints
            |-- flink-realtime-trend(实时曲线项目)
                | 
-               |-- userlibs
-                   |
-                   |-- flink-2nd
                |-- job-jar
                |-- conf(业务配置)
                    |
@@ -90,16 +77,12 @@
                |-- checkpoints
            |-- flink-cohort-job(同期群项目)
                | 
-               |-- userlibs
-                   |
-                   |-- flink-2nd
                |-- job-jar
                |-- conf(业务配置)
                    |
                    |-- application-batch.yaml
                    |-- application-stream.yaml
                |-- checkpoints
-   
    ```
 
    
@@ -137,10 +120,12 @@ tar -zxvf flink-1.18.0-bin-scala_2.12.tgz -C /opt/module/
 
 这里可以借助hadoop 的web ui 进行上传文件
 
+==注意一下==
+
 ```txt
-在前面的文档一直没有提及使用web ui 操作hadoop ，主要的原因是：在我使用web ui 操作文件的过程中会有一些奇怪 的现象。
-整体的感觉就是，hadoop web ui 似乎会记住一些我删除过的文件或者目录。在某次进行删除操作时，除了会正常删除该文件的同时可能就会删除它记住的额外的文件。
-在清理浏览器缓存之后的确会临时解决这个问题。但是并没有找到永久解决这个问题的方案。
+在前面的文档一直没有提及使用web ui 操作hadoop ，主要的原因是：在使用web ui 删除文件的过程中会有一些奇怪的现象。
+hadoop web ui 似乎会记住一些删除过的文件或者目录。在进行删除操作时，除了会正常删除该文件的同时可能还会删除它记住的额外的文件或目录。
+在清理浏览器缓存之后会临时解决这个问题。但是并没有找到永久解决这个问题的方案。
 上传文件与查看是没有问题的。
 ```
 
@@ -170,6 +155,11 @@ tar -zxvf flink-1.18.0-bin-scala_2.12.tgz -C /opt/module/
    hadoop fs -put /xxx/xxx/lib/usrlib/flink-3rd/*   /flink/flink-dist/flink-3rd
    ```
 
+### 每个作业自己的jar 
+
+每个作业自己的jar 部署将写在对应作业操作文档中。
+
+
 
 
 ## flink 作业配置
@@ -178,68 +168,34 @@ flink on yarn 模式下，所有的作业提交都只需要在hadoop-name-node �
 
 所以需要将每个作业的配置分开，flink 每次会判断环境变量`FLINK_CONF_DIR` 是否存在，来判断是否需要读取指定目录下面的配置文件。如果不存在则取默认目录`conf` 下的配置文件。
 
-### 删除默认的配置目录
+以防止忘记或者遗漏配置环境变量`FLINK_CONF_DIR` 时，flink 错误的运行起来，删除默认的配置文件目录。
 
-以防止忘记或者遗漏环境变量`FLINK_CONF_DIR` 时，flink 错误的运行起来，删除默认的配置文件目录。
-
-每次运行flink 都必须要设置环境变量 `FLINK_CONF_DIR` 的值。
+以使得每次运行flink 都必须要设置环境变量 `FLINK_CONF_DIR` 的值。
 
 ```shell
 rm -rf /opt/module/flink-1.18.0/conf
 ```
 
-### 同期群作业配置
+为每个作业及不同的模式创建不同的配置文件目录
 
-#### 同期群批
+```shell
+# 同期群批
+mkdir /opt/module/flink-1.18.0/conf-cohort-batch
+# 同期群流
+mkdir /opt/module/flink-1.18.0/conf-cohort-stream
+# 实时曲线批
+mkdir /opt/module/flink-1.18.0/conf-realtime-batch
+# 实时曲线流
+mkdir /opt/module/flink-1.18.0/conf-realtime-stream
+# 重复率批
+mkdir /opt/module/flink-1.18.0/conf-repetition-batch
+```
 
-#### 同期群流
-
-### 实时曲线作业配置
-
-### 重复率作业配置
+每个作业的配置将写在对应的作业操作文档中。
 
 
 
 
-
-## 启动运行
-
-1. 启动flink
-
-   ```shell
-   # 先停止
-   bin/stop-cluster.sh
-   # 再启动
-   bin/start-cluster.sh
-   ```
-
-2. 提交作业
-
-   ```shell
-   # 如果要在指定并行度，使用 -p 参数。
-   # 在standalone 模式，并行度的数量应该与槽的数量一致，所以并行度与槽直接在conf/flink-conf.yaml 中配置最为合适。
-   bin/flink run -d  ${job-name}-${version}.jar
-   ```
-
-3. 如果要从保存点提交作业使用如下命令
-
-   > 当前这个项目，并没有提供批算，忽略。
-
-   ```shell
-   # -s 参数指定保存点的目录，其中：`87a3850020b5e1f74659a1169c737ed2` 是jobid。
-   bin/flink run -d -s file:///home/suyunhong/module/flink-1.18.0/cds/checkpoints/87a3850020b5e1f74659a1169c737ed2/chk-17/ ${job-name}-${version}.jar
-   ```
-
-4. 停止作业
-
-   ```shell
-   # 指定停止哪一个作业需要提供JobID
-   ./bin/flink cancel <JobID>
-   # 要停止jobID 87a3850020b5e1f74659a1169c737ed2 应使用如下命令
-   ./bin/flink cancel 87a3850020b5e1f74659a1169c737ed2
-   ```
-
-5. 其他
 
 
 

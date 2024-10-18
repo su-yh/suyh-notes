@@ -16,9 +16,6 @@
         |
         |-- cdap-flink-repetition(重复率项目)
             |
-            |-- userlibs
-                |
-                |-- flink-2nd
             |-- job-jar
             |-- conf(业务配置)
                 |
@@ -27,9 +24,6 @@
             |-- checkpoints
         |-- flink-realtime-trend(实时曲线项目)
             | 
-            |-- userlibs
-                |
-                |-- flink-2nd
             |-- job-jar
             |-- conf(业务配置)
                 |
@@ -38,9 +32,6 @@
             |-- checkpoints
         |-- flink-cohort-job(同期群项目)
             | 
-            |-- userlibs
-                |
-                |-- flink-2nd
             |-- job-jar
             |-- conf(业务配置)
                 |
@@ -63,20 +54,14 @@ hadoop fs -mkdir -p /flink/flink-dist/flink-plugins
 hadoop fs -mkdir -p /flink/flink-dist/flink-3rd
 hadoop fs -mkdir -p /flink/flink-projects
 hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition
-hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/userlibs
-hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/userlibs/flink-2nd
 hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/job-jar
 hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/conf
 hadoop fs -mkdir -p /flink/flink-projects/cdap-flink-repetition/checkpoints
 hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend
-hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/userlibs
-hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/userlibs/flink-2nd
 hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/job-jar
 hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/conf
 hadoop fs -mkdir -p /flink/flink-projects/flink-realtime-trend/checkpoints
 hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job
-hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job/userlibs
-hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job/userlibs/flink-2nd
 hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job/job-jar
 hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job/conf
 hadoop fs -mkdir -p /flink/flink-projects/flink-cohort-job/checkpoints
