@@ -1,43 +1,33 @@
 
-/flink
-    |
-    |-- flink-history
-        |
-        |-- logs(历史服务日志)
-    |
-    |-- flink-dist(flink项目共用的jar 依赖组件)
-        |
-        |-- flink-lib(flink 自带的jar 包)
-        |-- flink-plus(在项目中引入的flink 的jar 包)
-        |-- flink-plugins(flink 自带的 plugins)
-        |-- flink-3rd(在项目中引入的非flink 相关的 jar 包)
-    |
-    |-- flink-projects
-        |
-        |-- cdap-flink-repetition(重复率项目)
-            |
-            |-- job-jar
-            |-- conf(业务配置)
-                |
-                |-- application-batch.yaml
-                |-- application-stream.yaml
-            |-- checkpoints
-        |-- flink-realtime-trend(实时曲线项目)
-            | 
-            |-- job-jar
-            |-- conf(业务配置)
-                |
-                |-- application-batch.yaml
-                |-- application-stream.yaml
-            |-- checkpoints
-        |-- flink-cohort-job(同期群项目)
-            | 
-            |-- job-jar
-            |-- conf(业务配置)
-                |
-                |-- application-batch.yaml
-                |-- application-stream.yaml
-            |-- checkpoints
+
+|
++-- flink
+|   +-- flink-history
+|   |   \-- logs(历史服务日志)
+|   +-- flink-dist(flink项目共用的jar 依赖组件)
+|   |   +-- flink-lib(flink 自带的jar 包)
+|   |   +-- flink-plus(在项目中引入的flink 的jar 包)
+|   |   +-- flink-plugins(flink 自带的 plugins)
+|   |   \-- flink-3rd(在项目中引入的非flink 相关的 jar 包)
+|   \-- flink-projects
+|   |   +-- cdap-flink-repetition(重复率项目)
+|   |   |   +-- job-jar
+|   |   |   +-- conf(业务配置)
+|   |   |   |   +-- application-batch.yaml
+|   |   |   |   \-- application-stream.yaml
+|   |   |   \-- checkpoints
+|   |   +-- flink-realtime-trend(实时曲线项目)
+|   |   |   +-- job-jar
+|   |   |   +-- \conf(业务配置)
+|   |   |   |   +-- application-batch.yaml
+|   |   |   |   \-- application-stream.yaml
+|   |   |   \-- checkpoints
+|   |   \-- flink-cohort-job(同期群项目)
+|   |   |   +-- job-jar
+|   |   |   +-- conf(业务配置)
+|   |   |   |   |-- application-batch.yaml
+|   |   |   |   \-- application-stream.yaml
+|   |   |   \-- checkpoints
 
 
 

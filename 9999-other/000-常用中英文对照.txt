@@ -207,3 +207,9 @@
 补充 填充 填补 populate
 mercantile agent  代理商
 异常  不正常 abnormal 
+头像   avatar
+黑名单    denylist
+非 否定 negation
+包含 包括  inclusive  include 
+排除 不包含  exclusive   exclude
+可用的  有用的  available
