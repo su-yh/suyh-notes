@@ -66,9 +66,11 @@
 开户行
     openning bank
 登记
-    register
+    register   既可以指登记、注册这个动作或行为，也可以指登记簿、花名册等记录信息的载体。
 注册
-    registy
+    registy    主要指存放登记记录的地方或系统，即 “登记处”“注册处”“注册表” 等，强调的是存储登记信息的场所或机制。
+登记员、注册官
+    registrar  主要指负责登记、注册工作的人或机构，即 “登记员”“注册官”“注册处工作人员” 等。
 承运人
     Carrier
 全称
@@ -213,3 +215,5 @@ mercantile agent  代理商
 包含 包括  inclusive  include 
 排除 不包含  exclusive   exclude
 可用的  有用的  available
+委托 delegate
+代理 proxy

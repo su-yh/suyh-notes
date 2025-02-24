@@ -86,7 +86,7 @@
 ## 初始化
 
 > ```shell
-> # 在项目的一个地方使用下面的命令就会将一个仓库人生为子模块添加到项目中
+> # 在项目的一个地方使用下面的命令就会将一个仓库作为子模块添加到项目中
 > git submodule add https://github.com/chaconinc/DbConnector
 > ```
 
@@ -102,5 +102,42 @@
 
 
 
+## 拉取子模块
 
+- 先主项目，再子模块
+
+  1. 克隆主项目
+
+     ```shell
+     git clone git@localhost/MainProject.git
+     ```
+
+  2. 配置私有子模块地址(当前项目有效)
+
+     配置私有子模块地址的作用是，有的人喜欢 使用http 的方式管理git 项目，有的人喜欢 使用ssh 的方式管理git 项目，导致地址不同而受影响。
+
+     格式：`git config submodule.<子模块名>.url <子模块的git地址>`
+
+     ```shell
+     git config submodule.submoduleName.url git@localhost/SubModule.git
+     ```
+
+  3. 拉取子模块
+
+     需要两个命令
+
+     ```shell
+     git submodule init
+     git submodule update
+     ```
+
+- 一次性主项目和子模块拉取
+
+  1. 直接拉取
+
+     ```shell
+     git clone -b main --recurse-submodules git@localhost/MainProject.git
+     ```
+
+     
 
