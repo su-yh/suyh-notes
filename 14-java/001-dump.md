@@ -19,7 +19,7 @@ jmap -dump:format=b,file=<dumpFileName> <pid>
 > 示例
 
 ```shell
-jmap -dump:format=b,file=dump.dat 823339
+jmap -dump:format=b,file=dump.hprof 823339
 ```
 
 ### 添加启动参数
