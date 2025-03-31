@@ -217,3 +217,6 @@ mercantile agent  代理商
 可用的  有用的  available
 委托 delegate
 代理 proxy
+下级 subordinates 
+返利 rebate
+代理层级 Hierarchy

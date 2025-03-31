@@ -38,6 +38,16 @@
   >
   > - `file` -> `settings` -> 搜索 `file encoding` -> `Global Encoding` `Project Encoding` `Properties files`
 
+## 'if' statement can be simplified
+
+- 解决示例
+
+  > ![image-20250329112213359](idea.assets/image-20250329112213359.png)
+
+- >`file` -> `Editor` -> `Inspections` -> `Redundant 'if' statement`
+  >
+  >![image-20250310200915700](idea.assets/image-20250310200915700.png)
+
 # 快捷键
 
 ## 修改快捷键
