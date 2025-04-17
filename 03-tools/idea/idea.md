@@ -38,15 +38,37 @@
   >
   > - `file` -> `settings` -> 搜索 `file encoding` -> `Global Encoding` `Project Encoding` `Properties files`
 
-## 'if' statement can be simplified
+# 关闭提示
 
-- 解决示例
+1. 'if' statement can be simplified
+
+- 复现示例
 
   > ![image-20250329112213359](idea.assets/image-20250329112213359.png)
 
-- >`file` -> `Editor` -> `Inspections` -> `Redundant 'if' statement`
+- 关闭提示
+  
+  >`file` -> `Editor` -> `Inspections` -> `Redundant 'if' statement`
   >
   >![image-20250310200915700](idea.assets/image-20250310200915700.png)
+
+2. Local variable 'firstUserFlagDataStream' is redundant
+
+   - 复现提示
+
+     当最后一个变量直接被做为返回值返回时就会出现该提示
+
+     ![image-20250402100751273](idea.assets/image-20250402100751273.png)
+
+   - 关闭提示
+
+     > `file` -> `Editor` -> `Inspections` -> `Redundant local variable`
+     >
+     > Redundant local variable
+     >
+     > 
+     >
+     > ![image-20250402141336690](idea.assets/image-20250402141336690.png)
 
 # 快捷键
 
