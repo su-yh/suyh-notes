@@ -1,0 +1,21 @@
+# 创建证书命令，最终将会生成两个文件，私钥文件：privkey.pem，公钥文件：public.cer
+openssl req -x509 -newkey rsa:2048 -keyout  privkey.pem -out public.cer -days 365 -nodes
+# 命令会要求提供如下信息
+Country Name (2 letter code) [AU]:                            CN                    国家代号
+State or Province Name (full name) [Some-State]:              GuangDong             省/州
+Locality Name (eg, city) []:                                  ShenZhen              城市
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:   test                  公司名
+Organizational Unit Name (eg, section) []:                    code                  组织名
+Common Name (e.g. server FQDN or YOUR name) []:               admin.shoping.com     域名
+Email Address []:                                             su787910081@163.com   邮箱
+
+
+
+
+# 生成完之后，在windows 中安装证书
+双击public.cer 文件，按提示安装就可以了。
+
+
+
+
+
