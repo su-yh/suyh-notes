@@ -38,6 +38,14 @@
   >
   > - `file` -> `settings` -> 搜索 `file encoding` -> `Global Encoding` `Project Encoding` `Properties files`
 
+## 文件换行符
+
+> 全局换行符处理成 unix 的换行符
+>
+> code style 里面的 line sparator
+>
+> ![image-20250419131011106](idea.assets/image-20250419131011106.png)
+
 # 关闭提示
 
 1. 'if' statement can be simplified

@@ -1,3 +1,6 @@
+# 参考博客：https://cloud.tencent.com/developer/article/1657534
+
+
 sudo apt update
 sudo apt install apt-transport-https ca-certificates wget
 
@@ -10,10 +13,48 @@ sudo sh -c 'echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
 sudo apt update
 sudo apt install elasticsearch
 
+
+
+
+远程访问：
+    单节点还需要配置
+        node.name: node-1
+        network.host: 0.0.0.0
+        cluster.initial_master_nodes: ["node-1"]
+
+-- 开机自动启动
 sudo systemctl enable --now elasticsearch.service
+-- 禁止开机自动启动
+sudo systemctl disable elasticsearch.service
 
 sudo systemctl status elasticsearch
-sudo systemctl start elasticsearch.service
 sudo systemctl stop elasticsearch.service
+sudo systemctl start elasticsearch.service
+
 
 curl -X GET "localhost:9200/"
+
+
+
+-- 查看9200 端口是否被监听
+-- sudo apt install net-tools
+sudo netstat -tulnp | grep 9200
+
+
+
+
+
+
+安装 IK 分词器
+sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install https://get.infini.cloud/elasticsearch/analysis-ik/7.17.28
+
+
+
+
+
+安装部署 logstash
+sudo apt install logstash
+sudo systemctl start logstash
+sudo systemctl enable logstash
+
+
