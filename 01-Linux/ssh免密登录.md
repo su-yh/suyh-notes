@@ -39,7 +39,7 @@ sshpass -p "${password}" ssh-copy-id ${host}
 ## 验证一下
 
 ```shell
-ssh hadoop003 cat /etc/profile
+ssh ${username}@${host} cat /etc/profile
 ```
 
 

@@ -47,3 +47,15 @@ sudo chmod 440 /etc/sudoers.d/${username}
 
 这样，`hdp` 用户就被添加到了 `sudo` 组，并具有了使用 `sudo` 命令的权限。
 
+
+
+
+
+## sudo 免密
+
+```shell
+# 这两行是参考 dolphinscheduler ，表示用户有sudo 权限，同时在使用sudo 命令时无需要输入密码
+sed -i '$adolphinscheduler  ALL=(ALL)  NOPASSWD: NOPASSWD: ALL' /etc/sudoers
+sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers
+```
+
