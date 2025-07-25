@@ -60,7 +60,7 @@ MINIO_REGION="cn-shenzhen-1"
 ### 系统服务配置文件
 
 ```shell
-sudo nano /etc/systemd/system/minio.service
+sudo vim /etc/systemd/system/minio.service
 ```
 
 该文件内容如下：

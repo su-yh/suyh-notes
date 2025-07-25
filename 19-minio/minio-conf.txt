@@ -1,0 +1,10 @@
+MinIO 签名计算时会使用客户端请求的 Host 头（例如 minio.qu-yun.isuyh.com）。
+但你的 Nginx 配置强制在 Host 头后添加了端口（$server_port，即 80），导致转发到 MinIO 服务器的 Host 变成了 minio.qu-yun.isuyh.com:80。
+客户端（Java 代码）签名时使用的 Host 是 minio.qu-yun.isuyh.com（无端口，因为默认 80 端口在 HTTP 中可省略），而服务器收到的 Host 是 minio.qu-yun.isuyh.com:80，两者不一致，导致签名验证失败。
+
+
+proxy_set_header Host $Host:$server_port;  # 错误配置
+proxy_set_header Host $host;	# 正确配置
+
+
+
