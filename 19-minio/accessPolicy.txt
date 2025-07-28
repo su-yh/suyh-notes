@@ -1,3 +1,7 @@
+# 这里面的 steam-suyh 是bucket 名称，需要根据实际bucket 名称修改
+
+
+
 {
     "Version": "2012-10-17",
     "Statement": [
