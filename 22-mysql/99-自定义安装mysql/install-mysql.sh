@@ -25,16 +25,20 @@ cd $WORKDIR
 echo "📦 下载 MySQL 5.7.33 .deb 包中..."
 
 # 3. 下载 MySQL 5.7.33 所需的 .deb 包
-wget https://downloads.mysql.com/archives/get/p/23/file/mysql-common_5.7.33-1ubuntu18.04_amd64.deb
-wget https://downloads.mysql.com/archives/get/p/23/file/mysql-community-client_5.7.33-1ubuntu18.04_amd64.deb
-wget https://downloads.mysql.com/archives/get/p/23/file/mysql-client_5.7.33-1ubuntu18.04_amd64.deb
-wget https://downloads.mysql.com/archives/get/p/23/file/mysql-community-server_5.7.33-1ubuntu18.04_amd64.deb
-wget https://downloads.mysql.com/archives/get/p/23/file/mysql-server_5.7.33-1ubuntu18.04_amd64.deb
+# wget https://downloads.mysql.com/archives/get/p/23/file/mysql-common_5.7.33-1ubuntu18.04_amd64.deb
+# wget https://downloads.mysql.com/archives/get/p/23/file/mysql-community-client_5.7.33-1ubuntu18.04_amd64.deb
+# wget https://downloads.mysql.com/archives/get/p/23/file/mysql-client_5.7.33-1ubuntu18.04_amd64.deb
+# wget https://downloads.mysql.com/archives/get/p/23/file/mysql-community-server_5.7.33-1ubuntu18.04_amd64.deb
+# wget https://downloads.mysql.com/archives/get/p/23/file/mysql-server_5.7.33-1ubuntu18.04_amd64.deb
 
 echo "✅ 下载完成，开始安装..."
 
-# 4. 安装 .deb 包（忽略服务自动启动）
-sudo dpkg -i *.deb || sudo apt -f install -y
+echo "deb http://archive.ubuntu.com/ubuntu focal main universe" | sudo tee -a /etc/apt/sources.list
+sudo apt update
+sudo apt install -y libaio1 libmecab2  # MySQL 5.7的核心依赖
+
+# 4. 强制安装本地5.7.33包（--force-depends忽略依赖检查，避免被apt替换）
+sudo dpkg -i --force-depends *.deb
 
 # 5. 停止默认服务（如果已启动），避免冲突
 sudo systemctl stop mysql || true
