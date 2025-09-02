@@ -12,35 +12,12 @@ ubuntu 系统 24.4
 
 ## mysql 用户
 
-### 创建用户
+
 
 ```shell
-root@iZ0jl7dlasuhl8z6q1fmppZ:~# adduser mysql
-info: Adding user `mysql' ...
-info: Selecting UID/GID from range 1000 to 59999 ...
-info: Adding new group `mysql' (1000) ...
-info: Adding new user `mysql' (1000) with group `mysql (1000)' ...
-info: Creating home directory `/home/mysql' ...
-info: Copying files from `/etc/skel' ...
-New password: 
-Retype new password: 
-passwd: password updated successfully
-Changing the user information for mysql
-Enter the new value, or press ENTER for the default
-	Full Name []: 
-	Room Number []: 
-	Work Phone []: 
-	Home Phone []: 
-	Other []: 
-Is the information correct? [Y/n] 
-info: Adding new user `mysql' to supplemental / extra groups `users' ...
-info: Adding user `mysql' to group `users' ...
-
-```
-
-### sudo 权限
-
-```shell
+# 创建用户
+adduser mysql
+# 添加sudo 权限
 sudo echo "mysql ALL=(ALL:ALL) ALL" > /etc/sudoers.d/mysql
 ```
 
@@ -295,47 +272,6 @@ sudo apparmor_parser -r /etc/apparmor.d/usr.sbin.mysqld
 mysqld --defaults-file=/home/mysql/3306/my.cnf --initialize --datadir=/var/lib/mysql/3306
 mysqld --defaults-file=/home/mysql/3307/my.cnf --initialize --datadir=/var/lib/mysql/3307
 mysqld --defaults-file=/home/mysql/3308/my.cnf --initialize --datadir=/var/lib/mysql/3308
-
-```
-
-结果如下：
-
-```txt
-mysql@iZ0jl7dlasuhl8z6q1fmppZ:/etc/apparmor.d/local$ mysqld --defaults-file=/home/mysql/3306/my.cnf --initialize --datadir=/var/lib/mysql/3306
-mysqld: [ERROR] Could not open required defaults file: /home/mysql/3306/my.cnf
-mysqld: [ERROR] Fatal error in defaults handling. Program aborted!
-mysql@iZ0jl7dlasuhl8z6q1fmppZ:/etc/apparmor.d/local$ sudo apparmor_parser -r /etc/apparmor.d/usr.sbin.mysqld
-mysql@iZ0jl7dlasuhl8z6q1fmppZ:/etc/apparmor.d/local$ mysqld --defaults-file=/home/mysql/3306/my.cnf --initialize --datadir=/var/lib/mysql/3306
-2025-09-02T06:47:39.188436Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
-2025-09-02T06:47:39.787137Z 0 [Warning] InnoDB: New log files created, LSN=45790
-2025-09-02T06:47:39.881278Z 0 [Warning] InnoDB: Creating foreign key constraint system tables.
-2025-09-02T06:47:39.902111Z 0 [Warning] No existing UUID has been found, so we assume that this is the first time that this server has been started. Generating a new UUID: b804ddd2-87c8-11f0-b183-00163e0437f8.
-2025-09-02T06:47:39.904270Z 0 [Warning] Gtid table is not ready to be used. Table 'mysql.gtid_executed' cannot be opened.
-2025-09-02T06:47:40.870331Z 0 [Warning] CA certificate ca.pem is self signed.
-2025-09-02T06:47:41.204697Z 1 [Note] A temporary password is generated for root@localhost: #tBrdGtsR7x,
-mysql@iZ0jl7dlasuhl8z6q1fmppZ:/etc/apparmor.d/local$ 
-mysql@iZ0jl7dlasuhl8z6q1fmppZ:/etc/apparmor.d/local$ 
-mysql@iZ0jl7dlasuhl8z6q1fmppZ:/etc/apparmor.d/local$ 
-mysql@iZ0jl7dlasuhl8z6q1fmppZ:/etc/apparmor.d/local$ mysqld --defaults-file=/home/mysql/3307/my.cnf --initialize --datadir=/var/lib/mysql/3307
-2025-09-02T06:49:17.153254Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
-2025-09-02T06:49:17.751900Z 0 [Warning] InnoDB: New log files created, LSN=45790
-2025-09-02T06:49:17.848460Z 0 [Warning] InnoDB: Creating foreign key constraint system tables.
-2025-09-02T06:49:17.869301Z 0 [Warning] No existing UUID has been found, so we assume that this is the first time that this server has been started. Generating a new UUID: f269794a-87c8-11f0-b963-00163e0437f8.
-2025-09-02T06:49:17.871500Z 0 [Warning] Gtid table is not ready to be used. Table 'mysql.gtid_executed' cannot be opened.
-2025-09-02T06:49:19.063788Z 0 [Warning] CA certificate ca.pem is self signed.
-2025-09-02T06:49:19.253608Z 1 [Note] A temporary password is generated for root@localhost: 5HK&0jrTpN6l
-mysql@iZ0jl7dlasuhl8z6q1fmppZ:/etc/apparmor.d/local$ 
-mysql@iZ0jl7dlasuhl8z6q1fmppZ:/etc/apparmor.d/local$ 
-mysql@iZ0jl7dlasuhl8z6q1fmppZ:/etc/apparmor.d/local$ 
-mysql@iZ0jl7dlasuhl8z6q1fmppZ:/etc/apparmor.d/local$ mysqld --defaults-file=/home/mysql/3308/my.cnf --initialize --datadir=/var/lib/mysql/3308
-2025-09-02T06:49:25.010570Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
-2025-09-02T06:49:25.607242Z 0 [Warning] InnoDB: New log files created, LSN=45790
-2025-09-02T06:49:25.701698Z 0 [Warning] InnoDB: Creating foreign key constraint system tables.
-2025-09-02T06:49:25.722662Z 0 [Warning] No existing UUID has been found, so we assume that this is the first time that this server has been started. Generating a new UUID: f717cd3f-87c8-11f0-b729-00163e0437f8.
-2025-09-02T06:49:25.724909Z 0 [Warning] Gtid table is not ready to be used. Table 'mysql.gtid_executed' cannot be opened.
-2025-09-02T06:49:26.276029Z 0 [Warning] CA certificate ca.pem is self signed.
-2025-09-02T06:49:26.460571Z 1 [Note] A temporary password is generated for root@localhost: -qWeMdr9p6as
-
 ```
 
 
@@ -357,6 +293,7 @@ ps -ef | grep mysqld
 
 ```shell
 # 需要服务正在运行
+# 将密码全部修改为root
 mysqladmin --defaults-file=/home/mysql/3306/my.cnf -u root -p'#tBrdGtsR7x,' password 'root'
 mysqladmin --defaults-file=/home/mysql/3307/my.cnf -u root -p'5HK&0jrTpN6l' password 'root'
 mysqladmin --defaults-file=/home/mysql/3308/my.cnf -u root -p'-qWeMdr9p6as' password 'root'
@@ -378,6 +315,7 @@ Warning: Since password will be sent to server in plain text, use ssl connection
 ==后面的配置开机启动，这里只是临使用==
 
 ```shell
+# 需要时才调用
 mysqladmin --defaults-file=/home/mysql/3306/my.cnf -u root -p'root' shutdown
 mysqladmin --defaults-file=/home/mysql/3307/my.cnf -u root -p'root' shutdown
 mysqladmin --defaults-file=/home/mysql/3308/my.cnf -u root -p'root' shutdown
@@ -389,24 +327,27 @@ mysqladmin --defaults-file=/home/mysql/3308/my.cnf -u root -p'root' shutdown
 
 ```shell
 # 使用3306 的配置，连接到3306 端口对应的mysql 服务实例
-$ mysql --defaults-file=/home/mysql/3306/my.cnf -h 127.0.0.1 -u root -p
+mysql --defaults-file=/home/mysql/3306/my.cnf -h 127.0.0.1 -u root -p
 # 使用3307 的配置，连接到3307 端口对应的mysql 服务实例
-$ mysql --defaults-file=/home/mysql/3307/my.cnf -h 127.0.0.1 -u root -p
+mysql --defaults-file=/home/mysql/3307/my.cnf -h 127.0.0.1 -u root -p
 # 使用3308 的配置，连接到3308 端口对应的mysql 服务实例
-$ mysql --defaults-file=/home/mysql/3308/my.cnf -h 127.0.0.1 -u root -p
+mysql --defaults-file=/home/mysql/3308/my.cnf -h 127.0.0.1 -u root -p
 ```
 
 
 
 ### 本机免密登录
 
-#### 3306
+如果提示：mysql: error while loading shared libraries: libtinfo.so.5: cannot open shared object file: No such file or directory
 
-#### 
+使用命令安装一下：`sudo apt-get install libtinfo5`
+
+#### 3306
 
 ```shell
 # 进入mysql 控制台
-$ mysql --defaults-file=/home/mysql/3306/my.cnf -u root -p
+mysql --defaults-file=/home/mysql/3306/my.cnf -u root -p
+# 需要输入mysql root 用户的密码
 ```
 
 ```sql
@@ -420,20 +361,19 @@ FLUSH PRIVILEGES;
 
 ```shell
 # 验证
-$ whoami  # 输出应为 mysql
+whoami  # 输出应为 mysql
 # 测试mysql 用户免密登录
-$ mysql --defaults-file=/home/mysql/3306/my.cnf -u mysql
+mysql --defaults-file=/home/mysql/3306/my.cnf -u mysql
 # 测试mysql 用户停止服务
-$ mysqladmin --defaults-file=/home/mysql/3306/my.cnf -u mysql shutdown
+mysqladmin --defaults-file=/home/mysql/3306/my.cnf -u mysql shutdown
 ```
 
 #### 3307
 
-#### 
-
 ```shell
 # 进入mysql 控制台
-$ mysql --defaults-file=/home/mysql/3307/my.cnf -u root -p
+mysql --defaults-file=/home/mysql/3307/my.cnf -u root -p
+# 需要输入mysql root 用户的密码
 ```
 
 ```sql
@@ -447,11 +387,11 @@ FLUSH PRIVILEGES;
 
 ```shell
 # 验证
-$ whoami  # 输出应为 mysql
+whoami  # 输出应为 mysql
 # 测试mysql 用户免密登录
-$ mysql --defaults-file=/home/mysql/3307/my.cnf -u mysql
+mysql --defaults-file=/home/mysql/3307/my.cnf -u mysql
 # 测试mysql 用户停止服务
-$ mysqladmin --defaults-file=/home/mysql/3307/my.cnf -u mysql shutdown
+mysqladmin --defaults-file=/home/mysql/3307/my.cnf -u mysql shutdown
 ```
 
 
@@ -460,7 +400,8 @@ $ mysqladmin --defaults-file=/home/mysql/3307/my.cnf -u mysql shutdown
 
 ```shell
 # 进入mysql 控制台
-$ mysql --defaults-file=/home/mysql/3308/my.cnf -u root -p
+mysql --defaults-file=/home/mysql/3308/my.cnf -u root -p
+# 需要输入mysql root 用户的密码
 ```
 
 ```sql
@@ -474,11 +415,11 @@ FLUSH PRIVILEGES;
 
 ```shell
 # 验证
-$ whoami  # 输出应为 mysql
+whoami  # 输出应为 mysql
 # 测试mysql 用户免密登录
-$ mysql --defaults-file=/home/mysql/3308/my.cnf -u mysql
+mysql --defaults-file=/home/mysql/3308/my.cnf -u mysql
 # 测试mysql 用户停止服务
-$ mysqladmin --defaults-file=/home/mysql/3308/my.cnf -u mysql shutdown
+mysqladmin --defaults-file=/home/mysql/3308/my.cnf -u mysql shutdown
 ```
 
 ### 远程连接
