@@ -93,6 +93,11 @@ port = 3306  # 与实例端口一致
 socket = /var/lib/mysql/3306/mysql.sock  # 与 [mysqld] 中的 socket 一致
 
 [mysqld]
+# 服务器默认字符集（推荐 utf8mb4）
+character-set-server = utf8mb4
+# 服务器默认校对规则（大小写不敏感，适合大多数场景）
+collation-server = utf8mb4_unicode_ci
+
 port = 3306
 datadir=/var/lib/mysql/3306
 socket=/var/lib/mysql/3306/mysql.sock
@@ -145,6 +150,11 @@ port = 3307  # 与实例端口一致
 socket = /var/lib/mysql/3307/mysql.sock  # 与 [mysqld] 中的 socket 一致
 
 [mysqld]
+# 服务器默认字符集（推荐 utf8mb4）
+character-set-server = utf8mb4
+# 服务器默认校对规则（大小写不敏感，适合大多数场景）
+collation-server = utf8mb4_unicode_ci
+
 port = 3307
 datadir=/var/lib/mysql/3307
 socket=/var/lib/mysql/3307/mysql.sock
@@ -197,6 +207,11 @@ port = 3308  # 与实例端口一致
 socket = /var/lib/mysql/3308/mysql.sock  # 与 [mysqld] 中的 socket 一致
 
 [mysqld]
+# 服务器默认字符集（推荐 utf8mb4）
+character-set-server = utf8mb4
+# 服务器默认校对规则（大小写不敏感，适合大多数场景）
+collation-server = utf8mb4_unicode_ci
+
 port = 3308
 datadir=/var/lib/mysql/3308
 socket=/var/lib/mysql/3308/mysql.sock
