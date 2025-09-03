@@ -74,6 +74,11 @@ mkdir ~/3306 ~/3307 ~/3308
 touch ~/3306/my.cnf ~/3307/my.cnf ~/3308/my.cnf
 ```
 
+```shell
+# 三个文件一起编辑
+vim -p ~/330*/my.cnf   
+```
+
 
 
 ### 3306
@@ -115,6 +120,8 @@ expire_logs_days = 7
 max_binlog_size = 1G
 # 6. （可选）记录 binlog 时包含库名（主从复制跨库场景有用）
 # binlog_do_db = test_db  # 仅记录 test_db 库（不推荐，除非明确需求）
+# 忽略系统数据库
+binlog_ignore_db = mysql
 
 [mysqldump]
 quick
@@ -165,6 +172,8 @@ expire_logs_days = 7
 max_binlog_size = 1G
 # 6. （可选）记录 binlog 时包含库名（主从复制跨库场景有用）
 # binlog_do_db = test_db  # 仅记录 test_db 库（不推荐，除非明确需求）
+# 忽略系统数据库
+binlog_ignore_db = mysql
 
 [mysqldump]
 quick
@@ -215,10 +224,13 @@ expire_logs_days = 7
 max_binlog_size = 1G
 # 6. （可选）记录 binlog 时包含库名（主从复制跨库场景有用）
 # binlog_do_db = test_db  # 仅记录 test_db 库（不推荐，除非明确需求）
+# 忽略系统数据库
+binlog_ignore_db = mysql
 
 [mysqldump]
 quick
 max_allowed_packet = 500M
+
 ```
 
 
@@ -326,6 +338,8 @@ mysqladmin --defaults-file=/home/mysql/3308/my.cnf -u root -p'root' shutdown
 ==由于一台主机实例运行了多个mysql 实例，导致使用默认的mysql 客户端连接会有异常情况，所以需要使用特定的配置连接到指定的服务器==
 
 ```shell
+# 需要先安装依赖
+sudo apt-get install libtinfo5
 # 使用3306 的配置，连接到3306 端口对应的mysql 服务实例
 mysql --defaults-file=/home/mysql/3306/my.cnf -h 127.0.0.1 -u root -p
 # 使用3307 的配置，连接到3307 端口对应的mysql 服务实例
@@ -346,7 +360,7 @@ mysql --defaults-file=/home/mysql/3308/my.cnf -h 127.0.0.1 -u root -p
 
 ```shell
 # 进入mysql 控制台
-mysql --defaults-file=/home/mysql/3306/my.cnf -u root -p
+mysql --defaults-file=/home/mysql/3306/my.cnf -h 127.0.0.1 -u root -p
 # 需要输入mysql root 用户的密码
 ```
 
@@ -372,7 +386,7 @@ mysqladmin --defaults-file=/home/mysql/3306/my.cnf -u mysql shutdown
 
 ```shell
 # 进入mysql 控制台
-mysql --defaults-file=/home/mysql/3307/my.cnf -u root -p
+mysql --defaults-file=/home/mysql/3307/my.cnf -h 127.0.0.1 -u root -p
 # 需要输入mysql root 用户的密码
 ```
 
@@ -400,7 +414,7 @@ mysqladmin --defaults-file=/home/mysql/3307/my.cnf -u mysql shutdown
 
 ```shell
 # 进入mysql 控制台
-mysql --defaults-file=/home/mysql/3308/my.cnf -u root -p
+mysql --defaults-file=/home/mysql/3308/my.cnf -h 127.0.0.1 -u root -p
 # 需要输入mysql root 用户的密码
 ```
 
@@ -516,6 +530,7 @@ PrivateTmp=true
 [Install]
 # 开机自启的目标级别：多用户模式（系统正常运行级别）
 WantedBy=multi-user.target
+
 ```
 
 ```shell
@@ -569,6 +584,7 @@ PrivateTmp=true
 [Install]
 # 开机自启的目标级别：多用户模式（系统正常运行级别）
 WantedBy=multi-user.target
+
 ```
 
 ```shell
@@ -619,6 +635,7 @@ PrivateTmp=true
 [Install]
 # 开机自启的目标级别：多用户模式（系统正常运行级别）
 WantedBy=multi-user.target
+
 ```
 
 ```shell
