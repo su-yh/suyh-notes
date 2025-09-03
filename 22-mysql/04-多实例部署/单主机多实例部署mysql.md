@@ -356,17 +356,13 @@ mysql --defaults-file=/home/mysql/3308/my.cnf -h 127.0.0.1 -u root -p
 
 使用命令安装一下：`sudo apt-get install libtinfo5`
 
-#### 3306
+本地免密登录，这里主要是用来停止服务用的，因为systemd 那里要提供停止服务命令，正常停止服务都需要密码。这里并不方便提供，所以需要一种免密登录的方式
 
-```shell
-# 进入mysql 控制台
-mysql --defaults-file=/home/mysql/3306/my.cnf -h 127.0.0.1 -u root -p
-# 需要输入mysql root 用户的密码
-```
+每个mysql 服务实例都要执行如下SQL：
 
 ```sql
 -- 执行如下SQL
--- 这里创建的用户只能是 mysql 与ubuntu 系统用户名一致
+-- 这里创建的用户只能是 mysql 与ubuntu 系统系统的用户名一致
 -- 同时 auth_socket 插件需要已经加载
 CREATE USER 'mysql'@'localhost' IDENTIFIED WITH auth_socket;
 GRANT SHUTDOWN ON *.* TO 'mysql'@'localhost';
@@ -382,72 +378,11 @@ mysql --defaults-file=/home/mysql/3306/my.cnf -u mysql
 mysqladmin --defaults-file=/home/mysql/3306/my.cnf -u mysql shutdown
 ```
 
-#### 3307
 
-```shell
-# 进入mysql 控制台
-mysql --defaults-file=/home/mysql/3307/my.cnf -h 127.0.0.1 -u root -p
-# 需要输入mysql root 用户的密码
-```
-
-```sql
--- 执行如下SQL
--- 这里创建的用户只能是 mysql 与ubuntu 系统用户名一致
--- 同时 auth_socket 插件需要已经加载
-CREATE USER 'mysql'@'localhost' IDENTIFIED WITH auth_socket;
-GRANT SHUTDOWN ON *.* TO 'mysql'@'localhost';
-FLUSH PRIVILEGES;
-```
-
-```shell
-# 验证
-whoami  # 输出应为 mysql
-# 测试mysql 用户免密登录
-mysql --defaults-file=/home/mysql/3307/my.cnf -u mysql
-# 测试mysql 用户停止服务
-mysqladmin --defaults-file=/home/mysql/3307/my.cnf -u mysql shutdown
-```
-
-
-
-#### 3308
-
-```shell
-# 进入mysql 控制台
-mysql --defaults-file=/home/mysql/3308/my.cnf -h 127.0.0.1 -u root -p
-# 需要输入mysql root 用户的密码
-```
-
-```sql
--- 执行如下SQL
--- 这里创建的用户只能是 mysql 与ubuntu 系统用户名一致
--- 同时 auth_socket 插件需要已经加载
-CREATE USER 'mysql'@'localhost' IDENTIFIED WITH auth_socket;
-GRANT SHUTDOWN ON *.* TO 'mysql'@'localhost';
-FLUSH PRIVILEGES;
-```
-
-```shell
-# 验证
-whoami  # 输出应为 mysql
-# 测试mysql 用户免密登录
-mysql --defaults-file=/home/mysql/3308/my.cnf -u mysql
-# 测试mysql 用户停止服务
-mysqladmin --defaults-file=/home/mysql/3308/my.cnf -u mysql shutdown
-```
 
 ### 远程连接
 
 ==配置允许root 用户远程连接==
-
-#### 3306
-
-这里仅以3306 为例
-
-```shell
-# 进入mysql 客户端
-mysql --defaults-file=/home/mysql/3306/my.cnf -u root -p
-```
 
 ```sql
 -- 执行如下SQL
@@ -647,7 +582,22 @@ sudo systemctl enable mysql-3308
 sudo systemctl is-enabled mysql-3308
 ```
 
+### 替换默认mysql
 
+==使得 systemctl status mysql 相关的命令直接关联到 mysql-3306==
+
+```shell
+# 先确认要删除的文件列表
+sudo find / -name "mysql.service"
+# 确认无误后执行删除
+sudo find / -name "mysql.service" -delete
+
+# 创建软链接，使得 
+cd /etc/systemd/system/
+sudo ln -s mysql-3306.service mysql.service
+# 重新加载配置
+sudo systemctl daemon-reload
+```
 
 
 
