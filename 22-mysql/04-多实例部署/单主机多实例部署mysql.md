@@ -91,20 +91,20 @@ socket = /var/lib/mysql/3306/mysql.sock  # 与 [mysqld] 中的 socket 一致
 port = 3306
 datadir=/var/lib/mysql/3306
 socket=/var/lib/mysql/3306/mysql.sock
-pid-file = mysqld.pid
+pid-file = /var/lib/mysql/3306/mysqld.pid
 # 加载 auth_socket 插件，用于配置免密登录用户，用作停机服务功能
 plugin-load-add = auth_socket.so
 
 # 慢查询日志核心配置
 slow_query_log = ON  # 开启慢查询日志
-slow_query_log_file = mysql-slow.log  # 3306 实例的日志文件（路径自定义，需唯一）
+slow_query_log_file = /var/lib/mysql/3306/mysql-slow.log  # 3306 实例的日志文件（路径自定义，需唯一）
 long_query_time = 1  # 慢查询阈值（建议设为 1-3 秒，根据业务调整）
 log_queries_not_using_indexes = ON  # 记录未使用索引的查询
 log_output = FILE  # 日志输出到文件（默认是 FILE，也可加 TABLE 表示同时存入 mysql.slow_log 表）
 
 # binlog 日志开启
 # 1. 开启 binlog（指定基础路径，避免默认路径混乱）
-log_bin = mysql-bin
+log_bin = /var/lib/mysql/3306/mysql-bin
 # 2. 实例唯一标识（主从复制必须，单实例也需配置）
 server_id = 6
 # 3. binlog 格式（生产推荐 ROW，确保主从一致）
@@ -141,20 +141,20 @@ socket = /var/lib/mysql/3307/mysql.sock  # 与 [mysqld] 中的 socket 一致
 port = 3307
 datadir=/var/lib/mysql/3307
 socket=/var/lib/mysql/3307/mysql.sock
-pid-file = mysqld.pid
+pid-file = /var/lib/mysql/3307/mysqld.pid
 # 加载 auth_socket 插件，用于配置免密登录用户，用作停机服务功能
 plugin-load-add = auth_socket.so
 
 # 慢查询日志核心配置
 slow_query_log = ON  # 开启慢查询日志
-slow_query_log_file = mysql-slow.log  # 3307 实例的日志文件（路径自定义，需唯一）
+slow_query_log_file = /var/lib/mysql/3307/mysql-slow.log  # 3307 实例的日志文件（路径自定义，需唯一）
 long_query_time = 1  # 慢查询阈值（建议设为 1-3 秒，根据业务调整）
 log_queries_not_using_indexes = ON  # 记录未使用索引的查询
 log_output = FILE  # 日志输出到文件（默认是 FILE，也可加 TABLE 表示同时存入 mysql.slow_log 表）
 
 # binlog 日志开启
 # 1. 开启 binlog（指定基础路径，避免默认路径混乱）
-log_bin = mysql-bin
+log_bin = /var/lib/mysql/3307/mysql-bin
 # 2. 实例唯一标识（主从复制必须，单实例也需配置）
 server_id = 7
 # 3. binlog 格式（生产推荐 ROW，确保主从一致）
@@ -191,20 +191,20 @@ socket = /var/lib/mysql/3308/mysql.sock  # 与 [mysqld] 中的 socket 一致
 port = 3308
 datadir=/var/lib/mysql/3308
 socket=/var/lib/mysql/3308/mysql.sock
-pid-file = mysqld.pid
+pid-file = /var/lib/mysql/3308/mysqld.pid
 # 加载 auth_socket 插件，用于配置免密登录用户，用作停机服务功能
 plugin-load-add = auth_socket.so
 
 # 慢查询日志核心配置
 slow_query_log = ON  # 开启慢查询日志
-slow_query_log_file = mysql-slow.log  # 3308 实例的日志文件（路径自定义，需唯一）
+slow_query_log_file = /var/lib/mysql/3308/mysql-slow.log  # 3308 实例的日志文件（路径自定义，需唯一）
 long_query_time = 1  # 慢查询阈值（建议设为 1-3 秒，根据业务调整）
 log_queries_not_using_indexes = ON  # 记录未使用索引的查询
 log_output = FILE  # 日志输出到文件（默认是 FILE，也可加 TABLE 表示同时存入 mysql.slow_log 表）
 
 # binlog 日志开启
 # 1. 开启 binlog（指定基础路径，避免默认路径混乱）
-log_bin = mysql-bin
+log_bin = /var/lib/mysql/3308/mysql-bin
 # 2. 实例唯一标识（主从复制必须，单实例也需配置）
 server_id = 8
 # 3. binlog 格式（生产推荐 ROW，确保主从一致）
