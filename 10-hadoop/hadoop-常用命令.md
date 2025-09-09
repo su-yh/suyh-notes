@@ -8,22 +8,33 @@
 
 
 
+## 启动与停止
 
 
 
+```shell
+# hadoop hdfs dfs 三个命令完全是一样的，就像别名一样
 
-> ```shell
-> # hadoop hdfs dfs 三个命令完全是一样的，就像别名一样
-> 
-> # 帮助命令
-> hadoop fs -help rm
-> 
-> # 创建文件夹 /sanguo
-> hadoop fs -mkdir /sanguo
-> 
-> ```
->
-> 
+# 帮助命令
+hadoop fs -help rm
+
+# 创建文件夹 /sanguo
+hadoop fs -mkdir /sanguo
+
+```
+
+
+
+```shell
+
+start-dfs.sh
+stop-dfs.sh
+
+start-yarn.sh
+stop-yarn.sh
+```
+
+
 
 
 
