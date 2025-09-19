@@ -1381,7 +1381,7 @@ worker3
 worker4
 worker5
 ' | tee $SPARK_HOME/conf/workers
-``` 
+```
 
 ##### 4.5.3.4 上传 Spark JARs 到 HDFS
 ```bash
@@ -1712,7 +1712,7 @@ worker3
 worker4
 worker5
 ' | tee $FLINK_HOME/conf/workers
-``` 
+```
 
 ##### 4.6.3.4 分发配置
 ```bash
@@ -1785,7 +1785,7 @@ $FLINK_HOME/bin/sql-gateway.sh stop-all
 $FLINK_HOME/bin/sql-client.sh gateway -e master3:8081
 
 ##### 4.6.3.9 启动Flink历史服务器
-```bash
+​```bash
 # 启动历史服务器，通过浏览器访问：http://master1:8082。
 $FLINK_HOME/bin/historyserver.sh start
 # 查看状态（默认端口 18080）
@@ -1948,60 +1948,39 @@ rm -rf $SPARK_HOME/logs/*
 hdfs dfs -ls -h /user/spark/history
 hdfs dfs -rm -f /user/spark/history/application_1755232649417*
 ```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
-```bash
 
-```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -14,5 +14,8 @@ create table stu(id int, name string);
 
 SHOW CREATE TABLE stu;
 
+-- 使用本地模式，不用提交到yarn
+set mapreduce.framework.name = local;
+set mapreduce.framework.name;
 
 

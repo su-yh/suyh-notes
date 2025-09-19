@@ -2,11 +2,17 @@
 
 # 该脚本做了什么？
 # 1. 三台管理主机(NameNode, ResourceManager, SecondaryNameNode)节点，会生成 ssh 并对集群中的所有主机配置免密登录。(如果三台管理主机节点IP 相同，则只有一台管理主机节点)
-# 2. 在目录 /opt/module 目录安装 hadoop 以及jdk  安装之前会先删除目录 /opt/module ，如果该目录存在数据，需要提前处理好。
-# 3. 修改每台主机节点的主机名，所有的集群通信都是依赖主机名来的。
-# 4. 使用主机名通信，需要配置 /etc/hosts 配置文件，会将每个主机的主机名跟内网IP 进行关联。
-# 5. 添加全局环境变量，修改 /etc/profile 配置文件，将 jdk hadoop 相关的环境变量配置追加到该文件中。
-# 6. 安装hadoop 的同时，修改对应的环境变量，以及通信配置
+# 2. 会在目录 /opt/module 目录安装 hadoop jdk  安装之前会先删除目录 /opt/module ，如果该目录存在数据，需要提前处理好。
+# 3. 会修改每台主机节点的主机名，所有的集群通信都是依赖主机名来的。
+# 4. 会配置 /etc/hosts 配置文件，使用主机名通信，将每个主机的主机名跟内网IP 进行关联。
+# 5. 会添加全局环境变量，修改 /etc/profile 配置文件，将 jdk hadoop 相关的环境变量配置追加到该文件中。
+# 6. 安装hadoop 的同时，会修改对应的环境变量，以及通信配置
+
+# 另外，在执行该脚本之前需要在 ${HOME}/software 目录下面准备好所需要用到的文件
+# 比如：${HOME}/software/jdk-8u202-linux-x64.tar.gz  ${HOME}/software/hadoop-3.2.4.tar.gz  等等
+
+
+
 
 
 # TODO: suyh - IP 需要修改成对应的值，主机名也可修改，但要符合规范。
@@ -38,9 +44,9 @@ DN_CORES=4
 # 由真实核心数计算出来的虚拟核心数，一般是真实核心的两到三倍，flink 主要是使用内存，这里可以虚拟出稍多一点。
 DN_VIRTUAL_CORES=`expr ${DN_CORES} \* 4`
 
-# 所有主机统一的用户名和密码
+# 所有主机的用户名保持一致
 HADOOP_USER="hdp"
-HADOOP_PWD="hdp"
+# HADOOP_PWD="hdp"
 
 # 环境运行时区，包括hadoop yarn flink 都将以该时区处理时间的解析
 # 中国时区：Asia/Shanghai 印度时区：Asia/Kolkata
@@ -49,7 +55,7 @@ LOCAL_TZ=
 
 # 每个节点主机的用户日志目录，保留日志的时间，单位：秒。默认值是：10800(3 小时)
 # 在这里我们的 JobManager TaskManager 的相关日志都存放在该目录下。
-# 所以至少也应该保留一天以上，一般保留30 天(2592000s)。
+# 所以至少也应该保留一天以上，一般保留30 天(2592000 s)。
 YARN_NODEMANAGER_LOG_RETAIN_SECONDS=2592000
 
 ############################################################
@@ -164,18 +170,19 @@ if [ ! -f ${HADOOP_PATH} ]; then
 fi
 
 # 处理当前节点主机的主机名
-echo "${HADOOP_PWD}" | sudo -S hostnamectl set-hostname "${CURR_HOST_NAME}"
+# echo "${HADOOP_PWD}" | sudo -S hostnamectl set-hostname "${CURR_HOST_NAME}"
+sudo hostnamectl set-hostname "${CURR_HOST_NAME}"
 
 # 内网IP 通过主机名通信，配置/etc/hosts 文件
-echo "${HADOOP_PWD}" | sudo -S sh -c "echo '' >> /etc/hosts"
-echo "${HADOOP_PWD}" | sudo -S sh -c "echo '' >> /etc/hosts"
-echo "${HADOOP_PWD}" | sudo -S sh -c "echo '${HADOOP_NN_IP} ${HADOOP_NN_HOST}' >> /etc/hosts"
-echo "${HADOOP_PWD}" | sudo -S sh -c "echo '${HADOOP_RM_IP} ${HADOOP_RM_HOST}' >> /etc/hosts"
-echo "${HADOOP_PWD}" | sudo -S sh -c "echo '${HADOOP_2NN_IP} ${HADOOP_2NN_HOST}' >> /etc/hosts"
+sudo sh -c "echo '' >> /etc/hosts"
+sudo sh -c "echo '' >> /etc/hosts"
+sudo sh -c "echo '${HADOOP_NN_IP} ${HADOOP_NN_HOST}' >> /etc/hosts"
+sudo sh -c "echo '${HADOOP_RM_IP} ${HADOOP_RM_HOST}' >> /etc/hosts"
+sudo sh -c "echo '${HADOOP_2NN_IP} ${HADOOP_2NN_HOST}' >> /etc/hosts"
 for ((i=0; i<${HADOOP_DN_SIZE}; i++)); do
     ip=${HADOOP_DN_IPS[i]}
     host=${HADOOP_DN_HOSTS[i]}
-    echo "${HADOOP_PWD}" | sudo -S sh -c "echo '${ip} ${host}' >> /etc/hosts"
+    sudo sh -c "echo '${ip} ${host}' >> /etc/hosts"
 done
 
 
@@ -203,8 +210,8 @@ done
 
 
 # 准备所有软件安装的目录
-echo "${HADOOP_PWD}" | sudo -S mkdir -p /opt/module
-echo "${HADOOP_PWD}" | sudo -S chown ${HADOOP_USER}:${HADOOP_USER} /opt/module
+sudo mkdir -p /opt/module
+sudo chown ${HADOOP_USER}:${HADOOP_USER} /opt/module
 
 # 先清理该目录
 rm -rf /opt/module/*
@@ -215,16 +222,16 @@ tar -zxvf ${JDK_PATH} -C /opt/module
 echo "tar hadoop"
 tar -zxvf ${HADOOP_PATH} -C /opt/module
 
-echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "# JDK" >> /etc/profile'
-echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export JAVA_HOME=/opt/module/jdk1.8.0_202" >> /etc/profile'
-echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export PATH=\${PATH}:\${JAVA_HOME}/bin" >> /etc/profile'
-echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "# HADOOP" >> /etc/profile'
-echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export HADOOP_HOME=/opt/module/hadoop-3.2.4" >> /etc/profile'
-echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export PATH=\${PATH}:\${HADOOP_HOME}/bin:\${HADOOP_HOME}/sbin" >> /etc/profile'
+sudo sh -c 'echo "# JDK" >> /etc/profile'
+sudo sh -c 'echo "export JAVA_HOME=/opt/module/jdk1.8.0_202" >> /etc/profile'
+sudo sh -c 'echo "export PATH=\${PATH}:\${JAVA_HOME}/bin" >> /etc/profile'
+sudo sh -c 'echo "# HADOOP" >> /etc/profile'
+sudo sh -c 'echo "export HADOOP_HOME=/opt/module/hadoop-3.2.4" >> /etc/profile'
+sudo sh -c 'echo "export PATH=\${PATH}:\${HADOOP_HOME}/bin:\${HADOOP_HOME}/sbin" >> /etc/profile'
 # flink yarn 配置
-echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "# flink yarn" >> /etc/profile'
-echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export HADOOP_CONF_DIR=\${HADOOP_HOME}/etc/hadoop" >> /etc/profile'
-echo "${HADOOP_PWD}" | sudo -S sh -c 'echo "export HADOOP_CLASSPATH=\`hadoop classpath\`" >> /etc/profile'
+sudo sh -c 'echo "# flink yarn" >> /etc/profile'
+sudo sh -c 'echo "export HADOOP_CONF_DIR=\${HADOOP_HOME}/etc/hadoop" >> /etc/profile'
+sudo sh -c 'echo "export HADOOP_CLASSPATH=\`hadoop classpath\`" >> /etc/profile'
 
 
 source /etc/profile
@@ -366,7 +373,7 @@ echo "
         <value>${DN_VIRTUAL_CORES}</value> <!--设置虚拟 CPU 内核数-->
     </property>
 
-    <!-- 设置yarn 的调度器为容量调度器 -->
+    <!-- 设置yarn 的调度器 -->
     <property>
         <name>yarn.resourcemanager.scheduler.class</name>
         <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</value>

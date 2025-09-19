@@ -32,6 +32,14 @@
 > ```shell
 > echo "hdp ALL=(ALL:ALL) ALL" > /etc/sudoers.d/hdp
 > ```
+>
+> 在操作脚本的时候，需要使用sudo 权限，但是这个时候并不方便输入密码，所以可以按如下配置
+>
+> ```shell
+> echo "hdp ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/hdp
+> ```
+>
+> 
 
 
 
@@ -72,4 +80,10 @@ hdp ALL=(ALL:ALL) ALL
 ```
 
 这样，`hdp` 用户就被添加到了 `sudo` 组，并具有了使用 `sudo` 命令的权限。
+
+
+
+
+
+
 
