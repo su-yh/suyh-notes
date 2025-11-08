@@ -33,3 +33,32 @@ mysql -h192.168.2.105 -P9030 -uadmin -p'RXD(KO@*cufpjj8Dq'
 
 
 
+
+
+创建一个数据库 suyh_cdap  用户名和密码也是 suyh_cdap
+mysql -h192.168.2.105 -P9030 -uadmin -p'RXD(KO@*cufpjj8Dq'
+
+-- 创建数据库（IF NOT EXISTS 避免重复创建报错）
+CREATE DATABASE IF NOT EXISTS suyh_cdap;
+
+-- 验证数据库是否创建成功（查看所有数据库）
+SHOW DATABASES;
+
+
+-- 创建用户（% 表示允许从任意IP连接，生产环境可改为具体IP如 192.168.2.%）
+CREATE USER IF NOT EXISTS 'suyh_cdap'@'%' IDENTIFIED BY 'suyh_cdap';
+
+-- 验证用户是否创建成功（查看所有用户）
+SELECT user, host FROM mysql.user;
+
+
+
+-- TODO： suyh - 下面的报错了
+-- 授予用户对 suyh_cdap 数据库的读写+建表+导入权限（覆盖日常需求）
+GRANT USAGE, SELECT, INSERT, CREATE, LOAD ON DATABASE suyh_cdap TO 'suyh_cdap'@'%';
+
+-- 刷新权限
+FLUSH PRIVILEGES;
+
+
+

@@ -1,16 +1,22 @@
+suyh@suyh:~$ ip route | grep default  # 输出类似 "default via 192.168.88.1 dev ens33"，其中 192.168.88.1 就是网关
+default via 192.168.88.2 dev ens33 proto dhcp src 192.168.88.131 metric 100 
+suyh@suyh:~$ 
 
 
+# 查看当前网关
+# 输出类似 "default via 192.168.88.1 dev ens33"，其中 192.168.88.1 就是网关
+ip route | grep default  
 
 sudo vim /etc/netplan/50-cloud-init.yaml
 
 -- 先删除掉原来的的信息，然后贴入如下内容，根据实际情况修改
 network:
   ethernets:
-    ens18:  # 你的网卡名（ifconfig 中显示的 ens18）
-      dhcp4: no  # 关闭 DHCP
-      addresses: [192.168.2.103/24]  # 静态 IP + 子网掩码（/24 对应 255.255.255.0）
-      gateway4: 192.168.2.1  # 网关（通常是路由器 IP，根据你的实际网络修改，比如 192.168.2.1）
+    ens33:  # 网卡名称，必须和 ifconfig 输出的一致（你的是 ens33）
+      dhcp4: no  # 关闭DHCP，启用静态IP
+      addresses: [192.168.88.131/24]  # 静态IP + 子网掩码（/24 对应 255.255.255.0）
+      gateway4: 192.168.88.1  # ip route | grep default  命令可查询得到。替换为你的网关IP（比如路由器IP）
       nameservers:
-        addresses: [8.8.8.8, 114.114.114.114]  # DNS 服务器（谷歌+国内通用）
+        addresses: [223.5.5.5, 114.114.114.114, 8.8.8.8]  # DNS 服务器（谷歌+国内通用）
   version: 2
 
