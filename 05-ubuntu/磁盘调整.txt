@@ -1,0 +1,7 @@
+添加磁盘
+    1、sudo cfdisk 调整硬盘大小，记得write
+    lsblk查看磁盘信息，是否正确
+    调整分区大小：
+    2、sudo pvresize /dev/sda3
+    3、sudo lvextend -L +100G /dev/mapper/ubuntu--vg-ubuntu--lv
+    4、sudo resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
