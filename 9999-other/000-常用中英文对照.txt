@@ -221,3 +221,7 @@ mercantile agent  代理商
 下级 subordinates 
 返利 rebate
 代理层级 Hierarchy
+电子商务  ebusiness   电子商务（= electronic business，简写形式，技术 / 系统命名中常用，与 “e-commerce” 同义）； 
+          E-Business 
+
+

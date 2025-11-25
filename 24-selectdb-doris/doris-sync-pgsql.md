@@ -6,6 +6,8 @@
 
 flink 版本：1.20.3
 
+前置准备：需要pgsql 对应的账户有复制bin-log 的权限
+
 ```shell
 # 还需要准备好mysql 驱动
 flink20@user:~/flink/flink-1.20.3$ ls -lh lib/cdc/
@@ -31,10 +33,10 @@ wget https://repo1.maven.org/maven2/org/apache/doris/flink-doris-connector-1.20/
   -Dparallelism.default=1 \
   -c org.apache.doris.flink.tools.cdc.CdcTools \
   # 指定额外的jar 包
-  -C file:///home/flink20/flink/flink-1.20.3/cdc-pg-lib/flink-cdc-base-3.2.0.jar \
+  -C file:///home/flink20/flink/flink-1.20.3/cdc-lib/flink-cdc-base-3.2.0.jar \
   -C file:///home/flink20/flink/flink-1.20.3/cdc-pg-lib/flink-sql-connector-postgres-cdc-3.2.0.jar \
   # doris-cdc 依赖包
-  ./cdc-pg-lib/flink-doris-connector-1.20-25.1.0.jar \
+  ./cdc-lib/flink-doris-connector-1.20-25.1.0.jar \
   # 当前作业类型，pg 数据库同步
   postgres-sync-database \
   # doris 中的数据库名，不存在时会自动创建
