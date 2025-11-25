@@ -8,6 +8,8 @@ flink 版本：1.20.3
 
 前置准备：需要pgsql 对应的账户有复制bin-log 的权限
 
+还需要修改pgsql 有逻辑复制的配置
+
 ```shell
 # 还需要准备好mysql 驱动
 flink20@user:~/flink/flink-1.20.3$ ls -lh lib/cdc/
