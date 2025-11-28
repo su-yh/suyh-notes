@@ -32,6 +32,12 @@ wget https://repo1.maven.org/maven2/org/apache/doris/flink-doris-connector-1.20/
 ./bin/flink run \
   -d \
   -Dexecution.checkpointing.interval=10s \
+  # 状态后端使用文件系统
+  -Dstate.backend=filesystem \
+  # checkpoint 存储使用本地文件
+  -Dstate.checkpoint-storage=filesystem \
+  # checkpoint 存储的本地文件路径
+  -Dstate.checkpoints.dir=file:///home/flink20/flink/flink-1.20.3/checkpoints-cdap-pgsql \
   -Dparallelism.default=1 \
   -c org.apache.doris.flink.tools.cdc.CdcTools \
   # 指定额外的jar 包
