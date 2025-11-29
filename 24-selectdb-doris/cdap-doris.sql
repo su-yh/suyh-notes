@@ -12,7 +12,7 @@ USE suyh_cdap_doris;
 --     统计  活跃人数、充值人数、充值金额、提现人数、提现金额
 
 --  TODO: suyh - 可以按需修改目标日期
-SET @target_dates = 20220109;
+SET @target_dates = 20220110;
 SET @next_dates = plus_days(@target_dates, 1);
 
 SELECT @target_dates, @next_dates;
@@ -54,6 +54,9 @@ SELECT @target_dates, @next_dates;
 -- SELECT 'recharge'   AS category, `day`, id, uid, channel, NULL AS reg_gaid, pn, mtime AS ts, NULL AS reg_ts FROM tb_recharge   WHERE `day` IN (@target_dates, @next_dates);
 -- SELECT 'withdrawal' AS category, `day`, id, uid, channel, NULL AS reg_gaid, pn, mtime AS ts, NULL AS reg_ts FROM tb_withdrawal WHERE `day` IN (@target_dates, @next_dates);
 
+
+
+
 -- 在其他三张行为表中的记录，却在tb_user 表中找不到注册信息时，补充其注册信息记录。
 -- DROP TABLE IF EXISTS tb_user_other;
 CREATE TABLE IF NOT EXISTS tb_user_other 
@@ -83,9 +86,9 @@ CREATE TABLE tmp_user_other
 -- 来源表：登录表
 INSERT INTO tmp_user_other(uid, channel, ctime)
 SELECT uid, channel, ctime
-FROM tb_user_login l WHERE `day` IN (@target_dates, @next_dates)
+FROM doris_tb_user_login l WHERE `day` IN (@target_dates, @next_dates)
   AND NOT EXISTS (  -- 在注册表中不存在记录
-    SELECT 1 FROM tb_user u WHERE u.uid = l.uid AND u.channel = l.channel
+    SELECT 1 FROM doris_tb_user u WHERE u.uid = l.uid AND u.channel = l.channel
   ) AND NOT EXISTS (  -- 在扩展注册表中不存在记录
     SELECT 1 FROM tb_user_other u WHERE u.uid = l.uid AND u.channel = l.channel
   )
@@ -93,18 +96,18 @@ FROM tb_user_login l WHERE `day` IN (@target_dates, @next_dates)
 -- 来源表：充值表
 INSERT INTO tmp_user_other(uid, channel, ctime)
 SELECT uid, channel, ctime
-FROM tb_recharge l WHERE `day` IN (@target_dates, @next_dates)
+FROM doris_tb_recharge l WHERE `day` IN (@target_dates, @next_dates)
   AND NOT EXISTS (  -- 在注册表中不存在记录
-    SELECT 1 FROM tb_user u WHERE u.uid = l.uid AND u.channel = l.channel
+    SELECT 1 FROM doris_tb_user u WHERE u.uid = l.uid AND u.channel = l.channel
   ) AND NOT EXISTS (  -- 在扩展注册表中不存在记录
     SELECT 1 FROM tb_user_other u WHERE u.uid = l.uid AND u.channel = l.channel
   );
 -- 来源表：提现表
 INSERT INTO tmp_user_other(uid, channel, ctime)
 SELECT uid, channel, ctime
-FROM tb_withdrawal l WHERE `day` IN (@target_dates, @next_dates)
+FROM doris_tb_withdrawal l WHERE `day` IN (@target_dates, @next_dates)
   AND NOT EXISTS (  -- 在注册表中不存在记录
-    SELECT 1 FROM tb_user u WHERE u.uid = l.uid AND u.channel = l.channel
+    SELECT 1 FROM doris_tb_user u WHERE u.uid = l.uid AND u.channel = l.channel
   ) AND NOT EXISTS (  -- 在扩展注册表中存在记录
     SELECT 1 FROM tb_user_other u WHERE u.uid = l.uid AND u.channel = l.channel
   );
@@ -127,15 +130,15 @@ FROM (
   FROM (
     SELECT 'tb_user_login' AS source_tb, ul.id, ul.uid, ul.channel, ul.ctime AS ctime, ul.gaid AS gaid, ul.pn, ul.`day`
     FROM tmp_user_other tuo 
-    LEFT JOIN tb_user_login ul ON tuo.uid = ul.uid AND tuo.channel = ul.channel AND tuo.ctime >= ul.ctime 
+    LEFT JOIN doris_tb_user_login ul ON tuo.uid = ul.uid AND tuo.channel = ul.channel AND tuo.ctime >= ul.ctime 
     UNION ALL 
     SELECT 'tb_recharge' AS source_tb, rcg.id, rcg.uid, rcg.channel, rcg.ctime AS ctime, rcg.gaid AS gaid, rcg.pn, rcg.`day`
     FROM tmp_user_other tuo 
-    LEFT JOIN tb_recharge rcg ON tuo.uid = rcg.uid AND tuo.channel = rcg.channel AND tuo.ctime >= rcg.ctime 
+    LEFT JOIN doris_tb_recharge rcg ON tuo.uid = rcg.uid AND tuo.channel = rcg.channel AND tuo.ctime >= rcg.ctime 
     UNION ALL 
     SELECT 'tb_withdrawal' AS source_tb, wtd.id, wtd.uid, wtd.channel, wtd.ctime AS ctime, wtd.gaid AS gaid, wtd.pn, wtd.`day`
     FROM tmp_user_other tuo 
-    LEFT JOIN tb_withdrawal wtd ON tuo.uid = wtd.uid AND tuo.channel = wtd.channel AND tuo.ctime >= wtd.ctime 
+    LEFT JOIN doris_tb_withdrawal wtd ON tuo.uid = wtd.uid AND tuo.channel = wtd.channel AND tuo.ctime >= wtd.ctime 
   ) t 
   GROUP BY uid, channel 
 ) ft;
@@ -143,7 +146,7 @@ FROM (
 -- suyh - 到此，所有的用户注册信息都全部找到，要么在tb_user 中，要么在 tb_user_other 中。
 
 -- 添加更完整的同期群数据信息
--- 基于登录表
+-- 用于登录数据，每个日期（对应完整的同期值）一个
 DROP TABLE IF EXISTS tmp_behavior_cohort_login;
 CREATE TABLE tmp_behavior_cohort_login
 (
@@ -162,7 +165,7 @@ CREATE TABLE tmp_behavior_cohort_login
 
 -- SELECT reg_dates, COUNT(1) FROM tmp_behavior_cohort_login GROUP BY reg_dates ORDER BY reg_dates;
 
--- SELECT COUNT(1) FROM tb_user_login WHERE `day` IN (@target_dates, @next_dates);
+-- SELECT COUNT(1) FROM doris_tb_user_login WHERE `day` IN (@target_dates, @next_dates);
 -- 登录表在当天的相关数据
 -- 这里求得的是，一个完整同期值对应的数据，其他数据要过滤掉。
 INSERT INTO tmp_behavior_cohort_login(category, source_id, uid, channel, pn, cohort, behavior_ts, bdates, reg_dates, reg_gaid, reg_ts)
@@ -174,7 +177,7 @@ FROM (
   SELECT ul.id, ul.uid, ul.channel, ul.ctime AS behavior_ts, 
     tu.ctime AS reg_ts, tu.gaid AS reg_gaid, tu.pn, 
     generate_cohort(ul.ctime, tu.ctime) AS cohort
-  FROM tb_user_login ul 
+  FROM doris_tb_user_login ul 
   INNER JOIN tb_user tu ON ul.uid = tu.uid AND ul.channel = tu.channel 
     AND ul.`day` != tu.`day` -- 过滤掉当天注册的记录，因为当天注册的数据，会从tb_user 表中取出来，然后合并进来
   WHERE ul.`day` IN (@target_dates, @next_dates) 
@@ -182,7 +185,7 @@ FROM (
   SELECT ul.id, ul.uid, ul.channel, ul.ctime AS behavior_ts, 
     tu.ctime AS reg_ts, tu.gaid AS reg_gaid, tu.pn, 
     generate_cohort(ul.ctime, tu.ctime) AS cohort
-  FROM tb_user_login ul 
+  FROM doris_tb_user_login ul 
   INNER JOIN tb_user_other tu ON ul.uid = tu.uid AND ul.channel = tu.channel 
   WHERE ul.`day` IN (@target_dates, @next_dates)
 ) ft
@@ -200,7 +203,7 @@ FROM (
   SELECT id, uid, channel, ctime AS behavior_ts, 
     ctime AS reg_ts, gaid AS reg_gaid, pn, 
     0 AS cohort
-  FROM tb_user 
+  FROM doris_tb_user 
   WHERE `day` IN (@target_dates)
 ) ft
 INNER JOIN project p ON ft.pn = p.pn;
@@ -226,10 +229,8 @@ INSERT INTO behavior_cohort_login(category, source_id, uid, channel, pn, cohort,
 SELECT category, source_id, uid, channel, pn, cohort, behavior_ts, bdates, reg_dates, reg_gaid, reg_ts
 FROM tmp_behavior_cohort_login;
 
-
-SELECT reg_dates, cohort, bdates, count(1) FROM behavior_cohort_login GROUP BY reg_dates, cohort, bdates ORDER BY reg_dates, cohort, bdates;
-
-
+-- 登录计算活跃
+-- SELECT reg_dates, cohort, bdates, count(1) FROM behavior_cohort_login GROUP BY reg_dates, cohort, bdates ORDER BY reg_dates, cohort, bdates;
 
 
 
@@ -347,14 +348,78 @@ SELECT reg_dates, cohort, bdates, count(1) FROM behavior_cohort_login GROUP BY r
 
 
 
+-- 添加更完整的同期群数据信息
+-- 用于充值数据，每个日期（对应完整的同期值）一个
+DROP TABLE IF EXISTS tmp_behavior_cohort_recharge;
+CREATE TABLE tmp_behavior_cohort_recharge
+(
+  category VARCHAR(12),
+  source_id BIGINT,
+  uid VARCHAR(50),
+  channel VARCHAR(50),
+  pn VARCHAR(10),
+  cohort INT,
+  behavior_ts BIGINT, -- 行为时间戳
+  bdates INT, -- 行为日期：当前这条数据实际来源于哪一天
+  recharge_order VARCHAR(64), 
+  recharge_amount DECIMAL(18, 2),
+  reg_dates INT, -- 注册日期
+  reg_gaid VARCHAR(50),
+  reg_ts BIGINT   -- 注册时间戳
+);
+
+-- 充值表在当天的相关数据
+-- 这里求得的是，一个完整同期值对应的数据，其他数据要过滤掉。
+INSERT INTO tmp_behavior_cohort_recharge(category, source_id, uid, channel, pn, cohort, behavior_ts, bdates, recharge_order, recharge_amount, reg_dates, reg_gaid, reg_ts)
+SELECT 'recharge' AS category, ft.id AS source_id, uid, channel, ft.pn, 
+  cohort, behavior_ts, 
+  timestamp_date(behavior_ts, p.zone_id) AS bdates, 
+  `order` AS recharge_order,
+  goods_amt AS recharge_amount,
+  timestamp_date(reg_ts, p.zone_id) AS reg_dates, reg_gaid, reg_ts
+FROM (
+  SELECT ur.id, ur.uid, ur.channel, ur.mtime AS behavior_ts, 
+    ur.`order`, ur.goods_amt, 
+    tu.ctime AS reg_ts, tu.gaid AS reg_gaid, tu.pn, 
+    generate_cohort(ur.mtime, tu.ctime) AS cohort
+  FROM doris_tb_recharge ur 
+  INNER JOIN tb_user tu ON ur.uid = tu.uid AND ur.channel = tu.channel 
+  WHERE ur.`day` IN (@target_dates, @next_dates) 
+  UNION ALL 
+  SELECT ur.id, ur.uid, ur.channel, ur.mtime AS behavior_ts, 
+    ur.`order`, ur.goods_amt, 
+    tu.ctime AS reg_ts, tu.gaid AS reg_gaid, tu.pn, 
+    generate_cohort(ur.mtime, tu.ctime) AS cohort
+  FROM doris_tb_recharge ur 
+  INNER JOIN tb_user_other tu ON ur.uid = tu.uid AND ur.channel = tu.channel 
+  WHERE ur.`day` IN (@target_dates, @next_dates)
+) ft
+INNER JOIN project p ON ft.pn = p.pn
+-- 同期值对应日期的开始时间戳必须落在统计日期当天的24 小时内
+WHERE reg_ts + cohort * 86400 >= midnight_timestamp(@target_dates, p.zone_id) AND reg_ts + cohort * 86400 < midnight_timestamp(@next_dates, p.zone_id);
 
 
+-- DROP TABLE IF EXISTS behavior_cohort_recharge;
+CREATE TABLE IF NOT EXISTS behavior_cohort_recharge
+(
+  category VARCHAR(12),
+  source_id BIGINT,
+  uid VARCHAR(50),
+  channel VARCHAR(50),
+  pn VARCHAR(10),
+  cohort INT,
+  behavior_ts BIGINT, -- 行为时间戳
+  bdates INT, -- 行为日期：当前这条数据实际来源于哪一天
+  recharge_order VARCHAR(64), 
+  recharge_amount DECIMAL(18, 2),
+  reg_dates INT, -- 注册日期
+  reg_gaid VARCHAR(50),
+  reg_ts BIGINT   -- 注册时间戳
+);
 
-
-
-
-
-
+INSERT INTO behavior_cohort_recharge(category, source_id, uid, channel, pn, cohort, behavior_ts, bdates, recharge_order, recharge_amount, reg_dates, reg_gaid, reg_ts)
+SELECT category, source_id, uid, channel, pn, cohort, behavior_ts, bdates, recharge_order, recharge_amount, reg_dates, reg_gaid, reg_ts
+FROM tmp_behavior_cohort_recharge;
 
 
 
