@@ -1,3 +1,4 @@
+USE suyh_cdap_doris;
 
 -- 1. 日期参数为活跃日期
 -- 2. 查询的日期范围为相邻两日，包含活跃日期当天，以及其后一天
@@ -10,92 +11,30 @@
 --     计算出cohort、chort 开始时间戳
 --     统计  活跃人数、充值人数、充值金额、提现人数、提现金额
 
-
-
--- 创建自定义函数
--- 功能：计算日期在对应时区0 点时间戳，单位：秒
--- 参数：日期，时区
-CREATE FUNCTION midnight_timestamp(Int, String) RETURNS BigInt PROPERTIES (
-    "file"="file:///opt/suyh/doris/suyh-doris-udf-1.0-SNAPSHOT.jar",
-    "symbol"="com.suyh.doris.udf.DateMidnightTimestampUdf",
-    "always_nullable"="true",
-    "type"="JAVA_UDF"
-);
--- 删除这个自定义函数
-DROP FUNCTION midnight_timestamp(Int, String);
-
--- 创建自定义函数
--- 功能：计算日期偏移天数后的日期
--- 参数：日期，偏移天数（正负数都可以）
-CREATE FUNCTION plus_days(Int, Int) RETURNS Int PROPERTIES (
-    "file"="file:///opt/suyh/doris/suyh-doris-udf-1.0-SNAPSHOT.jar",
-    "symbol"="com.suyh.doris.udf.DatePlusDaysUdf",
-    "always_nullable"="true",
-    "type"="JAVA_UDF"
-);
--- 删除这个自定义函数
-DROP FUNCTION plus_days(Int, Int);
-
--- 创建自定义函数
--- 功能：计算同期值
--- 参数：行为时间戳，注册时间戳 单位：秒
-CREATE FUNCTION generate_cohort(BIGINT, BIGINT) RETURNS Int PROPERTIES (
-    "file"="file:///opt/suyh/doris/suyh-doris-udf-1.0-SNAPSHOT.jar",
-    "symbol"="com.suyh.doris.udf.GenerateCohortUdf",
-    "always_nullable"="true",
-    "type"="JAVA_UDF"
-);
--- 删除这个自定义函数
-DROP FUNCTION generate_cohort(BIGINT, BIGINT);
-
--- 创建自定义函数
--- 功能：计算时间戳在对应时区的日期
--- 参数：时间戳，时区
-CREATE FUNCTION timestamp_date(BIGINT, String) RETURNS Int PROPERTIES (
-    "file"="file:///opt/suyh/doris/suyh-doris-udf-1.0-SNAPSHOT.jar",
-    "symbol"="com.suyh.doris.udf.DateFromTsUdf",
-    "always_nullable"="true",
-    "type"="JAVA_UDF"
-);
--- 删除这个自定义函数
-DROP FUNCTION timestamp_date(BIGINT, String);
-
--- 创建UDAF 函数
--- 功能：统计计算。得到最小时间戳的那一条记录信息
--- 参数：来源表，主键id, uid, channel, ctime, gaid, pn, day
-CREATE AGGREGATE FUNCTION user_register_info(String, BIGINT, String, String, BIGINT, String, String, INT) 
-RETURNS STRUCT<source_tb:String, id:BIGINT, uid:String, channel:String, min_ctime:BIGINT, gaid:String, pn:String, day:INT> PROPERTIES (
-    "file"="file:///opt/suyh/doris/suyh-doris-udf-1.0-SNAPSHOT.jar",
-    "symbol"="com.suyh.doris.udaf.UserRegisterInfoUdaf",
-    "always_nullable"="true",
-    "type"="JAVA_UDF"
-);
-DROP FUNCTION user_register_info(String, BIGINT, String, String, BIGINT, String, String, INT);
-
-
 --  TODO: suyh - 可以按需修改目标日期
-SET @target_dates = 20220108;
+SET @target_dates = 20220109;
 SET @next_dates = plus_days(@target_dates, 1);
 
 SELECT @target_dates, @next_dates;
 
 -- 一个日期，在对应项目时区的0 点和24 点时间戳，[start, end) 为一个完整天
-DROP TABLE IF EXISTS tmp_behavior_dates;
-CREATE TABLE tmp_behavior_dates
-(
-  dates INT,
-  ts_begin BIGINT,
-  ts_end BIGINT, 
-  pn VARCHAR(10)
-);
-
-INSERT INTO tmp_behavior_dates(pn, dates, ts_begin, ts_end)
--- UDF: 自定义函数（midnight_timestamp），计算日期在指定时区 0 点时的时间戳
-SELECT pn, @target_dates AS dates, 
-  midnight_timestamp(@target_dates, zone_id) AS ts_begin, midnight_timestamp(@next_dates, zone_id) AS ts_end
-FROM project;
-
--- SELECT * FROM tmp_behavior_dates ORDER BY ts_begin;
+-- DROP TABLE IF EXISTS tmp_behavior_dates;
+-- CREATE TABLE tmp_behavior_dates
+-- (
+--   dates INT,
+--   ts_begin BIGINT,
+--   ts_end BIGINT, 
+--   pn VARCHAR(10)
+-- );
+-- SELECT * FROM tmp_behavior_dates LIMIT 10;
+-- 
+-- INSERT INTO tmp_behavior_dates(pn, dates, ts_begin, ts_end)
+-- -- UDF: 自定义函数（midnight_timestamp），计算日期在指定时区 0 点时的时间戳
+-- SELECT pn, @target_dates AS dates, 
+--   midnight_timestamp(@target_dates, zone_id) AS ts_begin, midnight_timestamp(@next_dates, zone_id) AS ts_end
+-- FROM project;
+-- 
+-- SELECT * FROM tmp_behavior_dates ORDER BY ts_begin limit 10;
 
 -- -- 暂时忽略时区的影响
 -- SELECT 'register' AS category, `day`, id, uid, channel, gaid AS reg_gaid, pn, ctime AS ts, ctime AS reg_ts FROM tb_user WHERE `day` IN (@target_dates, @next_dates)
@@ -130,7 +69,7 @@ CREATE TABLE IF NOT EXISTS tb_user_other
 );
 
 -- 每次都需要创建的临时表
--- 这张表来存放，不在注册表（tb_user）不在扩展注册表（tb_user_other）中的用户数据，后续将要查询这些用户的注册信息
+-- 这张表来存放，不在注册表（tb_user）不在扩展注册表（tb_user_other）中的用户行为数据，后续将要查询这些用户的注册信息
 DROP TABLE IF EXISTS tmp_user_other;
 CREATE TABLE tmp_user_other 
 (
@@ -138,6 +77,8 @@ CREATE TABLE tmp_user_other
   channel VARCHAR(100),
   ctime BIGINT 
 );
+
+-- SELECT * FROM tmp_user_other;
 
 -- 来源表：登录表
 INSERT INTO tmp_user_other(uid, channel, ctime)
@@ -147,7 +88,8 @@ FROM tb_user_login l WHERE `day` IN (@target_dates, @next_dates)
     SELECT 1 FROM tb_user u WHERE u.uid = l.uid AND u.channel = l.channel
   ) AND NOT EXISTS (  -- 在扩展注册表中不存在记录
     SELECT 1 FROM tb_user_other u WHERE u.uid = l.uid AND u.channel = l.channel
-  );
+  )
+;
 -- 来源表：充值表
 INSERT INTO tmp_user_other(uid, channel, ctime)
 SELECT uid, channel, ctime
@@ -169,7 +111,7 @@ FROM tb_withdrawal l WHERE `day` IN (@target_dates, @next_dates)
 
 -- SELECT COUNT(1) FROM tmp_user_other;
 
--- 找到这些不在注册表中的记录的注册信息并永久存储到表 tb_user_other 中
+-- 找到这些不在注册表中记录的注册信息并永久存储到表 tb_user_other 中
 INSERT INTO tb_user_other(source_tb,  source_id, uid, channel, ctime, gaid, pn, `day`)
 SELECT 
   struct_element(reg_info, 'source_tb')     AS source_tb,
@@ -218,8 +160,11 @@ CREATE TABLE tmp_behavior_cohort_login
   reg_ts BIGINT   -- 注册时间戳
 );
 
+-- SELECT reg_dates, COUNT(1) FROM tmp_behavior_cohort_login GROUP BY reg_dates ORDER BY reg_dates;
+
 -- SELECT COUNT(1) FROM tb_user_login WHERE `day` IN (@target_dates, @next_dates);
 -- 登录表在当天的相关数据
+-- 这里求得的是，一个完整同期值对应的数据，其他数据要过滤掉。
 INSERT INTO tmp_behavior_cohort_login(category, source_id, uid, channel, pn, cohort, behavior_ts, bdates, reg_dates, reg_gaid, reg_ts)
 SELECT 'login' AS category, ft.id AS source_id, uid, channel, ft.pn, 
   cohort, behavior_ts, 
@@ -231,7 +176,8 @@ FROM (
     generate_cohort(ul.ctime, tu.ctime) AS cohort
   FROM tb_user_login ul 
   INNER JOIN tb_user tu ON ul.uid = tu.uid AND ul.channel = tu.channel 
-  WHERE ul.`day` IN (@target_dates, @next_dates) AND ul.`day` != tu.`day`
+    AND ul.`day` != tu.`day` -- 过滤掉当天注册的记录，因为当天注册的数据，会从tb_user 表中取出来，然后合并进来
+  WHERE ul.`day` IN (@target_dates, @next_dates) 
   UNION ALL 
   SELECT ul.id, ul.uid, ul.channel, ul.ctime AS behavior_ts, 
     tu.ctime AS reg_ts, tu.gaid AS reg_gaid, tu.pn, 
@@ -240,7 +186,10 @@ FROM (
   INNER JOIN tb_user_other tu ON ul.uid = tu.uid AND ul.channel = tu.channel 
   WHERE ul.`day` IN (@target_dates, @next_dates)
 ) ft
-INNER JOIN project p ON ft.pn = p.pn; 
+INNER JOIN project p ON ft.pn = p.pn
+-- 同期值对应日期的开始时间戳必须落在统计日期当天的24 小时内
+WHERE reg_ts + cohort * 86400 >= midnight_timestamp(@target_dates, p.zone_id) AND reg_ts + cohort * 86400 < midnight_timestamp(@next_dates, p.zone_id);
+
 -- 注册数据也需要按登录数据一样的处理
 INSERT INTO tmp_behavior_cohort_login(category, source_id, uid, channel, pn, cohort, behavior_ts, bdates, reg_dates, reg_gaid, reg_ts)
 SELECT 'register' AS category, ft.id AS source_id, uid, channel, ft.pn, 
@@ -252,14 +201,33 @@ FROM (
     ctime AS reg_ts, gaid AS reg_gaid, pn, 
     0 AS cohort
   FROM tb_user 
-  WHERE `day` IN (@target_dates, @next_dates)
+  WHERE `day` IN (@target_dates)
 ) ft
 INNER JOIN project p ON ft.pn = p.pn;
 
 
+-- 最终长久存储到该表中
+-- DROP TABLE IF EXISTS behavior_cohort_login;
+CREATE TABLE IF NOT EXISTS behavior_cohort_login
+(
+  category VARCHAR(12),
+  source_id BIGINT,
+  uid VARCHAR(50),
+  channel VARCHAR(50),
+  pn VARCHAR(10),
+  cohort INT,
+  behavior_ts BIGINT, -- 行为时间戳
+  bdates INT, -- 行为日期：当前这条数据实际来源于哪一天
+  reg_dates INT, -- 注册日期
+  reg_gaid VARCHAR(50),
+  reg_ts BIGINT   -- 注册时间戳
+);
+INSERT INTO behavior_cohort_login(category, source_id, uid, channel, pn, cohort, behavior_ts, bdates, reg_dates, reg_gaid, reg_ts)
+SELECT category, source_id, uid, channel, pn, cohort, behavior_ts, bdates, reg_dates, reg_gaid, reg_ts
+FROM tmp_behavior_cohort_login;
 
 
-
+SELECT reg_dates, cohort, bdates, count(1) FROM behavior_cohort_login GROUP BY reg_dates, cohort, bdates ORDER BY reg_dates, cohort, bdates;
 
 
 
@@ -378,33 +346,7 @@ INNER JOIN project p ON ft.pn = p.pn;
 -- 
 
 
--- 到这里，所有的记录都补充上了注册信息数据
 
--- DROP TABLE IF EXISTS tmp_behavior_reg_info;
--- 添加更完整的同期群数据信息
-DROP TABLE IF EXISTS tmp_behavior_cohort;
-CREATE TABLE tmp_behavior_cohort
-(
-  category VARCHAR(12),
-  source_id BIGINT,
-  uid VARCHAR(50),
-  channel VARCHAR(50),
-  pn VARCHAR(10),
-  cohort INT,
-  behavior_ts BIGINT, -- 行为时间戳
-  behavior_order VARCHAR(64), -- 行为订单号
-  behavior_amount DECIMAL(16, 2), -- 行为订单金额
-  bdates INT, -- 行为日期
-  reg_dates INT, -- 注册日期
-  reg_gaid VARCHAR(50),
-  reg_ts BIGINT   -- 注册时间戳
-);
-
--- SELECT * FROM tmp_behavior_cohort  where cohort = 1 limit 10;
-
-INSERT INTO tmp_behavior_cohort(category, source_id, uid, channel, pn, cohort, behavior_ts, behavior_order, behavior_amount, bdates, reg_dates, reg_gaid, reg_ts)
-SELECT category, source_id, uid, channel, pn, generate_cohort(behavior_ts, reg_ts) AS cohort, behavior_ts, behavior_order, behavior_amount, timestamp_date() AS bdates, AS reg_dates, reg_gaid, reg_ts    
-FROM tmp_behavior_reg_info;
 
 
 
