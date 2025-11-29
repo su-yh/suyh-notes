@@ -17,62 +17,33 @@ SET @next_dates = plus_days(@target_dates, 1);
 
 SELECT @target_dates, @next_dates;
 
--- 一个日期，在对应项目时区的0 点和24 点时间戳，[start, end) 为一个完整天
--- DROP TABLE IF EXISTS tmp_behavior_dates;
--- CREATE TABLE tmp_behavior_dates
--- (
---   dates INT,
---   ts_begin BIGINT,
---   ts_end BIGINT, 
---   pn VARCHAR(10)
--- );
--- SELECT * FROM tmp_behavior_dates LIMIT 10;
--- 
--- INSERT INTO tmp_behavior_dates(pn, dates, ts_begin, ts_end)
--- -- UDF: 自定义函数（midnight_timestamp），计算日期在指定时区 0 点时的时间戳
--- SELECT pn, @target_dates AS dates, 
---   midnight_timestamp(@target_dates, zone_id) AS ts_begin, midnight_timestamp(@next_dates, zone_id) AS ts_end
--- FROM project;
--- 
--- SELECT * FROM tmp_behavior_dates ORDER BY ts_begin limit 10;
-
--- -- 暂时忽略时区的影响
--- SELECT 'register' AS category, `day`, id, uid, channel, gaid AS reg_gaid, pn, ctime AS ts, ctime AS reg_ts FROM tb_user WHERE `day` IN (@target_dates, @next_dates)
--- limit 10;
--- 
--- -- 按uid, channel, day 去重，同时有登录与注册时保留注册中的数据
--- SELECT 'login' AS category,    `day`, id, uid, channel, gaid AS reg_gaid, pn, ctime AS ts, ctime AS reg_ts FROM tb_user WHERE `day` IN (@target_dates, @next_dates)
--- UNION ALL
--- SELECT 'login' AS category,    `day`, id, uid, channel, NULL AS reg_gaid, pn, ctime AS ts, NULL  AS reg_ts FROM tb_user_login l WHERE `day` IN (@target_dates, @next_dates)
---   AND NOT EXISTS (SELECT 1 FROM tb_user u WHERE `day` IN (@target_dates, @next_dates) AND u.uid = l.uid AND u.channel = l.channel AND u.`day` = l.`day`);
--- 
--- -- 验证上面的 NOT EXISTS
--- SELECT l.id AS login_id, u.id AS register_id 
--- FROM tb_user_login l 
--- INNER JOIN tb_user u ON u.uid = l.uid AND u.channel = l.channel AND u.`day` = l.`day`
--- WHERE l.`day` IN (@target_dates, @next_dates);
--- SELECT 'recharge'   AS category, `day`, id, uid, channel, NULL AS reg_gaid, pn, mtime AS ts, NULL AS reg_ts FROM tb_recharge   WHERE `day` IN (@target_dates, @next_dates);
--- SELECT 'withdrawal' AS category, `day`, id, uid, channel, NULL AS reg_gaid, pn, mtime AS ts, NULL AS reg_ts FROM tb_withdrawal WHERE `day` IN (@target_dates, @next_dates);
-
-
-
-
--- 在其他三张行为表中的记录，却在tb_user 表中找不到注册信息时，补充其注册信息记录。
--- DROP TABLE IF EXISTS tb_user_other;
-CREATE TABLE IF NOT EXISTS tb_user_other 
+-- tb_user 表及不在tb_user 表的用户
+-- DROP TABLE IF EXISTS tb_user_plus;
+CREATE TABLE IF NOT EXISTS tb_user_plus 
 (
   source_tb VARCHAR(16) NOT NULL COMMENT '来源表名',
   source_id BIGINT NOT NULL,
   uid VARCHAR(100),
   channel VARCHAR(100),
   ctime BIGINT,
+  reg_dates INT, -- 使用 ctime 以及 pn 对应的时区计算得到的注册日期
   gaid VARCHAR(255),
   pn VARCHAR(20),
-  `day` INT
+  history_active_ts BIGINT -- 该gaid 在ctime 时间之前最后一次（4 张表）出现活跃的时间戳
 );
 
+-- 来源表：注册表
+INSERT INTO tb_user_plus(source_tb, source_id, uid, channel, ctime, reg_dates, gaid, pn, history_active_ts)
+SELECT 'tb_user' AS source_tb, tu.id AS source_id, tu.uid, tu.channel, tu.ctime, timestamp_date(tu.ctime, p.zone_id) AS reg_dates, tu.gaid, tu.pn, NULL
+FROM doris_tb_user tu
+LEFT JOIN project p ON tu.pn = p.pn 
+WHERE NOT EXISTS (SELECT 1 FROM tb_user_plus tup WHERE tu.id = tup.source_id);
+-- SELECT COUNT(1) FROM doris_tb_user;
+-- SELECT COUNT(1) FROM tb_user_plus;
+
 -- 每次都需要创建的临时表
--- 这张表来存放，不在注册表（tb_user）不在扩展注册表（tb_user_other）中的用户行为数据，后续将要查询这些用户的注册信息
+-- 这张表来存放，不在注册表（tb_user）不在扩展注册表（tb_user_plus）中的用户行为数据，后续将要查询这些用户的注册信息
+-- 这张临时表中允许 重复的用户记录，在后面会处理去重
 DROP TABLE IF EXISTS tmp_user_other;
 CREATE TABLE tmp_user_other 
 (
@@ -86,64 +57,59 @@ CREATE TABLE tmp_user_other
 -- 来源表：登录表
 INSERT INTO tmp_user_other(uid, channel, ctime)
 SELECT uid, channel, ctime
-FROM doris_tb_user_login l WHERE `day` IN (@target_dates, @next_dates)
-  AND NOT EXISTS (  -- 在注册表中不存在记录
-    SELECT 1 FROM doris_tb_user u WHERE u.uid = l.uid AND u.channel = l.channel
-  ) AND NOT EXISTS (  -- 在扩展注册表中不存在记录
-    SELECT 1 FROM tb_user_other u WHERE u.uid = l.uid AND u.channel = l.channel
-  )
-;
+FROM doris_tb_user_login l 
+-- 在扩展注册表中不存在记录
+WHERE NOT EXISTS (SELECT 1 FROM tb_user_plus u WHERE u.uid = l.uid AND u.channel = l.channel);
 -- 来源表：充值表
 INSERT INTO tmp_user_other(uid, channel, ctime)
 SELECT uid, channel, ctime
-FROM doris_tb_recharge l WHERE `day` IN (@target_dates, @next_dates)
-  AND NOT EXISTS (  -- 在注册表中不存在记录
-    SELECT 1 FROM doris_tb_user u WHERE u.uid = l.uid AND u.channel = l.channel
-  ) AND NOT EXISTS (  -- 在扩展注册表中不存在记录
-    SELECT 1 FROM tb_user_other u WHERE u.uid = l.uid AND u.channel = l.channel
-  );
+FROM doris_tb_recharge l
+-- 在扩展注册表中不存在记录
+WHERE NOT EXISTS (SELECT 1 FROM tb_user_plus u WHERE u.uid = l.uid AND u.channel = l.channel);
 -- 来源表：提现表
 INSERT INTO tmp_user_other(uid, channel, ctime)
 SELECT uid, channel, ctime
-FROM doris_tb_withdrawal l WHERE `day` IN (@target_dates, @next_dates)
-  AND NOT EXISTS (  -- 在注册表中不存在记录
-    SELECT 1 FROM doris_tb_user u WHERE u.uid = l.uid AND u.channel = l.channel
-  ) AND NOT EXISTS (  -- 在扩展注册表中存在记录
-    SELECT 1 FROM tb_user_other u WHERE u.uid = l.uid AND u.channel = l.channel
-  );
+FROM doris_tb_withdrawal l 
+-- 在扩展注册表中不存在记录
+WHERE NOT EXISTS (SELECT 1 FROM tb_user_plus u WHERE u.uid = l.uid AND u.channel = l.channel);
 
 -- SELECT COUNT(1) FROM tmp_user_other;
 
--- 找到这些不在注册表中记录的注册信息并永久存储到表 tb_user_other 中
-INSERT INTO tb_user_other(source_tb,  source_id, uid, channel, ctime, gaid, pn, `day`)
-SELECT 
-  struct_element(reg_info, 'source_tb')     AS source_tb,
-  struct_element(reg_info, 'id')            AS source_id,
-  struct_element(reg_info, 'uid')           AS uid,
-  struct_element(reg_info, 'channel')       AS channel,
-  struct_element(reg_info, 'min_ctime')     AS ctime,
-  struct_element(reg_info, 'gaid')          AS gaid,
-  struct_element(reg_info, 'pn')            AS pn,
-  struct_element(reg_info, 'day')           AS `day`
+-- 找到这些不在注册表中记录的注册信息并永久存储到表 tb_user_plus 中
+INSERT INTO tb_user_plus(source_tb, source_id, uid, channel, ctime, reg_dates, gaid, pn, history_active_ts)
+SELECT source_tb, source_id, uid, channel, ctime, timestamp_date(ctime, p.zone_id) AS reg_dates, gaid, fft.pn, NULL AS history_active_ts
 FROM (
-  SELECT uid, channel, user_register_info(source_tb, id, uid, channel, ctime, gaid, pn, `day`) AS reg_info
+  SELECT 
+    struct_element(reg_info, 'source_tb')     AS source_tb,
+    struct_element(reg_info, 'id')            AS source_id,
+    struct_element(reg_info, 'uid')           AS uid,
+    struct_element(reg_info, 'channel')       AS channel,
+    struct_element(reg_info, 'min_ctime')     AS ctime,
+    struct_element(reg_info, 'gaid')          AS gaid,
+    struct_element(reg_info, 'pn')            AS pn
   FROM (
-    SELECT 'tb_user_login' AS source_tb, ul.id, ul.uid, ul.channel, ul.ctime AS ctime, ul.gaid AS gaid, ul.pn, ul.`day`
-    FROM tmp_user_other tuo 
-    LEFT JOIN doris_tb_user_login ul ON tuo.uid = ul.uid AND tuo.channel = ul.channel AND tuo.ctime >= ul.ctime 
-    UNION ALL 
-    SELECT 'tb_recharge' AS source_tb, rcg.id, rcg.uid, rcg.channel, rcg.ctime AS ctime, rcg.gaid AS gaid, rcg.pn, rcg.`day`
-    FROM tmp_user_other tuo 
-    LEFT JOIN doris_tb_recharge rcg ON tuo.uid = rcg.uid AND tuo.channel = rcg.channel AND tuo.ctime >= rcg.ctime 
-    UNION ALL 
-    SELECT 'tb_withdrawal' AS source_tb, wtd.id, wtd.uid, wtd.channel, wtd.ctime AS ctime, wtd.gaid AS gaid, wtd.pn, wtd.`day`
-    FROM tmp_user_other tuo 
-    LEFT JOIN doris_tb_withdrawal wtd ON tuo.uid = wtd.uid AND tuo.channel = wtd.channel AND tuo.ctime >= wtd.ctime 
-  ) t 
-  GROUP BY uid, channel 
-) ft;
+    SELECT uid, channel, user_register_info(source_tb, id, uid, channel, ctime, gaid, pn, `day`) AS reg_info
+    FROM (
+      SELECT 'tb_user_login' AS source_tb, ul.id, ul.uid, ul.channel, ul.ctime AS ctime, ul.gaid AS gaid, ul.pn, ul.`day`
+      FROM tmp_user_other tuo 
+      LEFT JOIN doris_tb_user_login ul ON tuo.uid = ul.uid AND tuo.channel = ul.channel AND tuo.ctime >= ul.ctime 
+      UNION ALL 
+      SELECT 'tb_recharge' AS source_tb, rcg.id, rcg.uid, rcg.channel, rcg.ctime AS ctime, rcg.gaid AS gaid, rcg.pn, rcg.`day`
+      FROM tmp_user_other tuo 
+      LEFT JOIN doris_tb_recharge rcg ON tuo.uid = rcg.uid AND tuo.channel = rcg.channel AND tuo.ctime >= rcg.ctime 
+      UNION ALL 
+      SELECT 'tb_withdrawal' AS source_tb, wtd.id, wtd.uid, wtd.channel, wtd.ctime AS ctime, wtd.gaid AS gaid, wtd.pn, wtd.`day`
+      FROM tmp_user_other tuo 
+      LEFT JOIN doris_tb_withdrawal wtd ON tuo.uid = wtd.uid AND tuo.channel = wtd.channel AND tuo.ctime >= wtd.ctime 
+    ) t 
+    GROUP BY uid, channel 
+  ) ft
+) fft
+LEFT JOIN project p ON fft.pn = p.pn
+WHERE NOT EXISTS (SELECT 1 FROM tb_user_plus tup WHERE fft.uid = tup.uid AND fft.channel = tup.channel)
+;
 
--- suyh - 到此，所有的用户注册信息都全部找到，要么在tb_user 中，要么在 tb_user_other 中。
+-- suyh - 到此，所有的用户注册信息都全部找到，要么在tb_user 中，要么在 tb_user_plus 中。
 
 -- 添加更完整的同期群数据信息
 -- 用于登录数据，每个日期（对应完整的同期值）一个
@@ -186,7 +152,7 @@ FROM (
     tu.ctime AS reg_ts, tu.gaid AS reg_gaid, tu.pn, 
     generate_cohort(ul.ctime, tu.ctime) AS cohort
   FROM doris_tb_user_login ul 
-  INNER JOIN tb_user_other tu ON ul.uid = tu.uid AND ul.channel = tu.channel 
+  INNER JOIN tb_user_plus tu ON ul.uid = tu.uid AND ul.channel = tu.channel 
   WHERE ul.`day` IN (@target_dates, @next_dates)
 ) ft
 INNER JOIN project p ON ft.pn = p.pn
@@ -391,7 +357,7 @@ FROM (
     tu.ctime AS reg_ts, tu.gaid AS reg_gaid, tu.pn, 
     generate_cohort(ur.mtime, tu.ctime) AS cohort
   FROM doris_tb_recharge ur 
-  INNER JOIN tb_user_other tu ON ur.uid = tu.uid AND ur.channel = tu.channel 
+  INNER JOIN tb_user_plus tu ON ur.uid = tu.uid AND ur.channel = tu.channel 
   WHERE ur.`day` IN (@target_dates, @next_dates)
 ) ft
 INNER JOIN project p ON ft.pn = p.pn
