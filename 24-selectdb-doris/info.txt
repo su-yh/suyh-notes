@@ -5,44 +5,43 @@ root/K3bdp-2023
 
 
 
-192.168.2.103 - manager
+192.168.0.103 - manager
 doris manager 帐户/密码：
 doris/doris
 
-192.168.2.105 FE
-192.168.2.106 BE
+192.168.0.201 FE
+192.168.0.202 BE
 
 doris root 密码： K3bdp-2023
 
-mysql -h192.168.2.105 -P9030 -u<user_name> -p<password>
 
-[{"type":"Doris Manager","address":"192.168.2.103:8004","user":"root","password":"K3bdp-2023","connectionStr":""},
-{"type":"MySQL 协议","address":"192.168.2.105:9030","user":"admin","password":"RXD(KO@*cufpjj8Dq","connectionStr":"mysql -h192.168.2.105 -P9030 -u<user_name> -p<password>"},
-{"type":"Http 协议","address":"192.168.2.105:8030","user":"admin","password":"RXD(KO@*cufpjj8Dq","connectionStr":"http://192.168.2.105:8030"}]
+[{"type":"Doris Manager","address":"192.168.0.151:8004","user":"root","password":"K3bdp-2023","connectionStr":""},
+{"type":"MySQL 协议","address":"192.168.0.201:9030","user":"admin","password":"_5Yx(wlR","connectionStr":"mysql -h192.168.0.201 -P9030 -u<user_name> -p<password>"},
+{"type":"Http 协议","address":"192.168.0.201:8030","user":"admin","password":"_5Yx(wlR","connectionStr":"http://192.168.0.201:8030"}]
 
 协议类型	        地址 + 端口	        用户名	密码	            核心用途
-Doris Manager	    192.168.2.103:8004	root	K3bdp-2023	        集群管理（启停、监控、配置）
-MySQL 协议（FE）	192.168.2.105:9030	admin	RXD(KO@*cufpjj8Dq	数据查询、建表、SQL 操作
-HTTP 协议（FE）	    192.168.2.105:8030	admin	RXD(KO@*cufpjj8Dq	数据导入（Stream Load/Broker Load）、API 调用
+Doris Manager	    192.168.0.151:8004	root	K3bdp-2023	        集群管理（启停、监控、配置）
+MySQL 协议（FE）	192.168.0.201:9030	admin	_5Yx(wlR	        数据查询、建表、SQL 操作
+HTTP 协议（FE）	    192.168.0.201:8030	admin	_5Yx(wlR	        数据导入（Stream Load/Broker Load）、API 调用
 
 # 替换 <user_name> 和 <password> 为实际信息，直接执行：
-mysql -h192.168.2.105 -P9030 -uadmin -p'RXD(KO@*cufpjj8Dq'
+mysql -h192.168.0.201 -P9030 -uadmin -p'_5Yx(wlR'
 
 
 . Navicat / DBeaver（SQL 操作）
 连接类型：选择 MySQL（因 SelectDB 兼容 MySQL 协议）。
 连接参数：
-主机：192.168.2.105
+主机：192.168.0.201
 端口：9030
 用户名：admin
-密码：RXD(KO@*cufpjj8Dq
+密码：_5Yx(wlR
 
 
 
 
 
 创建一个数据库 suyh_cdap  用户名和密码也是 suyh_cdap
-mysql -h192.168.2.105 -P9030 -uadmin -p'RXD(KO@*cufpjj8Dq'
+mysql -h192.168.0.201 -P9030 -uadmin -p'_5Yx(wlR'
 
 -- 创建数据库（IF NOT EXISTS 避免重复创建报错）
 CREATE DATABASE IF NOT EXISTS suyh_cdap;
