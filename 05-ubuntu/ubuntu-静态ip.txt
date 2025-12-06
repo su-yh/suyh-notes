@@ -9,6 +9,9 @@ ip route | grep default
 
 sudo vim /etc/netplan/50-cloud-init.yaml
 
+# 验证网络配置修改之后是否有语法错误。
+sudo netplan generate
+
 -- 先删除掉原来的的信息，然后贴入如下内容，根据实际情况修改
 network:
   ethernets:

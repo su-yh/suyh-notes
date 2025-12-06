@@ -1,4 +1,10 @@
 
+selectdb 帐户/密码
+root/K3bdp-2023
+
+
+
+
 192.168.2.103 - manager
 doris manager 帐户/密码：
 doris/doris
