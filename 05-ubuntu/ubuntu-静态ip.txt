@@ -9,13 +9,19 @@ ip route | grep default
 
 sudo vim /etc/netplan/50-cloud-init.yaml
 
+# 验证网络配置修改之后是否有语法错误。
+sudo netplan generate
+
 -- 先删除掉原来的的信息，然后贴入如下内容，根据实际情况修改
 network:
   ethernets:
     ens33:  # 网卡名称，必须和 ifconfig 输出的一致（你的是 ens33）
       dhcp4: no  # 关闭DHCP，启用静态IP
       addresses: [192.168.88.131/24]  # 静态IP + 子网掩码（/24 对应 255.255.255.0）
-      gateway4: 192.168.88.1  # ip route | grep default  命令可查询得到。替换为你的网关IP（比如路由器IP）
+      # gateway4: 192.168.88.1  # ip route | grep default  命令可查询得到。替换为你的网关IP（比如路由器IP）
+      routes:
+        - to: default  # 默认路由（替代过时的 gateway4）
+          via: 192.168.88.1  # ip route | grep default  命令可查询得到。替换为你的网关IP（比如路由器IP）
       nameservers:
         addresses: [223.5.5.5, 114.114.114.114, 8.8.8.8]  # DNS 服务器（谷歌+国内通用）
   version: 2
