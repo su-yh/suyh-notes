@@ -61,3 +61,27 @@ RETURNS STRUCT<source_tb:String, id:BIGINT, uid:String, channel:String, min_ctim
 );
 DROP FUNCTION user_register_info(String, BIGINT, String, String, BIGINT, String, String, INT);
 
+
+-- 创建UDAF 函数
+-- 功能：统计计算。得到最小时间戳的那一条记录信息
+-- 参数：来源表，主键id, uid, channel, ctime, gaid, pn, day
+CREATE AGGREGATE FUNCTION user_history_active(BIGINT, String, BIGINT, String, BIGINT, String, BIGINT, String, BIGINT, String) 
+RETURNS BIGINT PROPERTIES (
+    "file"="file:///opt/suyh/doris/suyh-doris-udf-1.0-SNAPSHOT.jar",
+    "symbol"="com.suyh.doris.udaf.UserHistoryActiveUdaf",
+    "always_nullable"="true",
+    "type"="JAVA_UDF"
+);
+DROP FUNCTION user_history_active(BIGINT, String, BIGINT, String, BIGINT, String, BIGINT, String, BIGINT, String);
+
+
+
+
+
+
+
+
+
+
+
+
