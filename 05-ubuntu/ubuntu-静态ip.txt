@@ -1,16 +1,17 @@
-suyh@suyh:~$ ip route | grep default  # 输出类似 "default via 192.168.88.1 dev ens33"，其中 192.168.88.1 就是网关
-default via 192.168.88.2 dev ens33 proto dhcp src 192.168.88.131 metric 100 
-suyh@suyh:~$ 
-
-
 # 查看当前网关
 # 输出类似 "default via 192.168.88.1 dev ens33"，其中 192.168.88.1 就是网关
 ip route | grep default  
 
+# 安装 ifconfig
+sudo apt install net-tools 
+# 查看网卡名称，比如：ens160
+ifconfig
+
+
+
 sudo vim /etc/netplan/50-cloud-init.yaml
 
-# 验证网络配置修改之后是否有语法错误。
-sudo netplan generate
+
 
 -- 先删除掉原来的的信息，然后贴入如下内容，根据实际情况修改
 network:
@@ -25,4 +26,8 @@ network:
       nameservers:
         addresses: [223.5.5.5, 114.114.114.114, 8.8.8.8]  # DNS 服务器（谷歌+国内通用）
   version: 2
+
+# 验证网络配置修改之后是否有语法错误。
+sudo netplan generate
+
 
