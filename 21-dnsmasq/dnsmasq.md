@@ -15,7 +15,7 @@
 ```shell
 # ubuntu 安装 
 sudo apt update
-sudo apt install dnsmasq
+sudo apt install dnsmasq -y
 ```
 
 ## ubuntu 系统默认占用53 端口
@@ -32,7 +32,7 @@ sudo apt install dnsmasq
    ```shell
    sudo rm /etc/resolv.conf
    # 创建新的resolv.conf（指向dnsmasq）
-sudo echo "nameserver 127.0.0.1" > /etc/resolv.conf
+sudo bash -c 'echo "nameserver 127.0.0.1" > /etc/resolv.conf'
    ```
    
 
@@ -80,12 +80,13 @@ sudo echo "nameserver 127.0.0.1" > /etc/resolv.conf
 ## 启动dnsmasq 服务
 
 ```shell
-
-sudo systemctl start dnsmasq
-sudo systemctl stop dnsmasq
-sudo systemctl restart dnsmasq
-
 sudo systemctl status dnsmasq
+
+sudo systemctl restart dnsmasq
+sudo systemctl stop dnsmasq
+sudo systemctl start dnsmasq
+
+
 ```
 
 
