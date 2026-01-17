@@ -1,7 +1,13 @@
 
+这个应该是我的Telegram ID：6814214661
 
+要添加机器人到群组，同时机器人需要有管理员权限，才可以使用命令。
 
-name            username           token
-cem_bot         cem_dev_bot        7229193059:AAGBPqrwbMIaQUgrmKRHoSdcB7JsheEnWmY
-cem_suyh_dev    cem_suyh_dev_bot   7530223963:AAE8D-S5EGNo9otioEK5OIP1OpzavN5zf6s
+name                                username                        token
+cem_bot                             cem_dev_bot                     7229193059:AAGBPqrwbMIaQUgrmKRHoSdcB7JsheEnWmY
+cem_suyh_dev                        cem_suyh_dev_bot                7530223963:AAE8D-S5EGNo9otioEK5OIP1OpzavN5zf6s
+botNameSuyhCemOrderBot              suyh_cem_order_bot              8461233867:AAGYtaSGLREznZTCXNsDnprQ8eYeTjmKEPw
+botNameSuyhCemMobikwikPaymentBot    suyh_cem_mobikwik_payment_bot   8574299015:AAH9suhzODtyM4QnWraYleB9zgG_i5X8l5I
+DevCemMobikwikBot                   dev_cem_mobikwik_bot            8532482540:AAFF2XdZMial2PUOotsCPSDfGVcuFyD8hZE
+DevCemOrderBot                      dev_cem_order_bot               8259610337:AAF4n0gtbdSeRo6w6-_xJ80iHXXhTNyDfNk
 

@@ -21,7 +21,7 @@ flink20@user:~/flink/flink-1.20.3$
 ```shell
 # 准备好依赖jar
 cd ~/flink/flink-1.20.3/cdc-pg-lib/
-wget https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-postgres-cdc/3.2.0/flink-sql-connector-postgres-cdc-3.2.0.jar
+wget https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-postgres-cdc/3.2.0/flink-sql-connector-mysql-cdc-3.2.0.jar
 wget https://repo1.maven.org/maven2/org/apache/flink/flink-cdc-base/3.2.0/flink-cdc-base-3.2.0.jar
 wget https://repo1.maven.org/maven2/org/apache/doris/flink-doris-connector-1.20/25.1.0/flink-doris-connector-1.20-25.1.0.jar
 ```
@@ -38,17 +38,23 @@ wget https://repo1.maven.org/maven2/org/apache/doris/flink-doris-connector-1.20/
     # checkpoint 存储的本地文件路径
     -Dstate.checkpoints.dir=file:///home/flink20/flink/flink-1.20.3/checkpoints-cdap-mysql \
     -Dparallelism.default=1 \
+    # 指定额外的jar 包
     -c org.apache.doris.flink.tools.cdc.CdcTools \
     -C file:///home/flink20/flink/flink-1.20.3/cdc-lib/flink-cdc-base-3.2.0.jar \
     -C file:///home/flink20/flink/flink-1.20.3/cdc-mysql-lib/flink-cdc-pipeline-connector-mysql-3.2.1.jar \
+    # doris-cdc 依赖包
     ./cdc-lib/flink-doris-connector-1.20-25.1.0.jar \
+    # 当前作业类型，mysql 数据库同步
     mysql-sync-database \
+    # doris 中的数据库名，不存在时会自动创建
     --database suyh_cdap_doris \
+    # mysql数据库的相关连接参数，需要有相关权限（从库读的权限）
     --mysql-conf hostname=192.168.8.10 \
     --mysql-conf port=3308 \
     --mysql-conf username=repl \
     --mysql-conf password=repl \
     --mysql-conf database-name=suyh_cem \
+    # 指定要同步哪些表
     --including-tables "scheduling_transfer_record|remittance_recharge_record" \
     --sink-conf fenodes=192.168.8.237:8030 \
     --sink-conf username=root \

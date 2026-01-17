@@ -76,7 +76,30 @@
 
    ![image-20240415165355040](01-add_bot.assets/image-20240415165355040.png)
 
-6. 通过接口获取 chat id
+6. 获取群组的chat id
+
+   前提：在群组聊天中
+
+   使用命令询问刚加进来的机器人：`/my_id@get_id_bot`
+
+   然后点击 `Join` 按钮，在新弹出的窗口里面点击：`加入频道`
+
+   然后返回原聊天窗口，点击：`I Have Joined`
+
+   这里面会有群组信息，里面就包含了Chat ID：
+
+   ```txt
+   Group Info : 
+   Title : suyhCemBots群组
+   Type : group
+   Chat ID : -5081604483
+   ```
+
+   ![image-20251211152621010](01-add_bot.assets/image-20251211152621010.png)
+
+   
+
+7. ~~通过接口获取 chat id~~
 
    > 先在群组里面给机器人说一句话 @xx_bot
 
@@ -90,7 +113,7 @@
 
    ![image-20240415171235537](01-add_bot.assets/image-20240415171235537.png)
 
-7. 其他
+8. 其他
 
 ## 使用机器人给群组发消息
 
