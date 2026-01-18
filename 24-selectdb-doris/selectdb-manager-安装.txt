@@ -1,0 +1,47 @@
+
+# 在manager 机器 节点上面创建目录，并给用户授权
+sudo mkdir /opt/doris
+sudo chown suyh:suyh /opt/doris/
+sudo mkdir /opt/downloads
+sudo chown suyh:suyh /opt/downloads
+
+# 创建其他相关目录
+mkdir -p /opt/downloads/doris
+mkdir -p /opt/downloads/doris_manager
+
+# 迁移文件到要求目录
+mv ~/selectdb-doris-3.0.9-rc01-bin-x64* /opt/downloads/doris
+
+# 解压并移动到目标目录
+tar -zxvf doris-manager-25.1.1-x64-bin.tar.gz
+mv ~/doris-manager-25.1.1-x64-bin /opt/doris/manager
+
+# 启动
+webserver/bin/start.sh
+
+
+
+
+
+web-ui: http://192.168.0.155:8004
+
+
+
+
+# 在doris 的所有节点上面操作
+# 1. 创建相关目录
+sudo mkdir /opt/doris
+sudo chown suyh:suyh /opt/doris/
+# 接下来就可以使用普通用户创建剩余目录了
+mkdir -p /opt/doris/fe/doris-meta
+mkdir -p /opt/doris/fe/log
+mkdir -p /opt/doris/be/storage
+mkdir -p /opt/doris/be/log
+# 2. 关闭交换空间
+sudo vim /etc/fstab
+# 将最后一行注释掉
+# /swap.img     none    swap    sw      0       0
+
+
+
+

@@ -30,4 +30,5 @@ network:
 # 验证网络配置修改之后是否有语法错误。
 sudo netplan generate
 
-
+# 使当前环境网络配置生效，重启恢复
+sudo netplan apply

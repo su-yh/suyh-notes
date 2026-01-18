@@ -48,8 +48,10 @@ sudo bash -c 'echo "nameserver 127.0.0.1" > /etc/resolv.conf'
 
    有几个地方要注意：要修改成自己的网卡名：==interface=ens33==
 
-   查看本机网卡（ubuntu）：`ip addr`
+   ==千万要注意，这里不要使用 .local 后缀的域名DNS 解析时会有特殊的处理。==
 
+   查看本机网卡（ubuntu）：`ip addr`
+   
    ```conf
    # 文件：/etc/dnsmasq.conf
    # 1. 基础配置：监听本机内网IP（仅允许内网访问，避免暴露）
@@ -58,10 +60,10 @@ sudo bash -c 'echo "nameserver 127.0.0.1" > /etc/resolv.conf'
    bind-interfaces  # 仅绑定指定网卡，提高安全性
    
    # 2. 内网域名映射（核心：自定义域名→内网IP）
-   # 示例1：nas.local → 192.168.0.100
-   address=/nas.local/192.168.0.100
-   # 示例2：web.local → 192.168.0.200（可添加多条，格式：address=/域名/内网IP）
-   address=/web.local/192.168.0.200
+   # 示例1：nas.local.com → 192.168.0.100
+   address=/nas.local.com/192.168.0.100
+   # 示例2：web.local.com → 192.168.0.200（可添加多条，格式：address=/域名/内网IP）
+   address=/web.local.com/192.168.0.200
    
    # 3. 上游DNS（解析外网域名用，优先走网关DNS，备用谷歌/阿里）
    server=192.168.0.1    # 内网网关DNS
@@ -72,9 +74,9 @@ sudo bash -c 'echo "nameserver 127.0.0.1" > /etc/resolv.conf'
    cache-size=1000       # DNS缓存大小（提升解析速度）
    no-hosts              # 不读取/etc/hosts（避免冲突，可选）
    domain-needed         # 拒绝解析非完全限定域名
-   bogus-priv            # 拒绝解析内网IP的反向解析（防污染）
+bogus-priv            # 拒绝解析内网IP的反向解析（防污染）
    ```
-
+   
    
 
 ## 启动dnsmasq 服务
