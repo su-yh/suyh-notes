@@ -1,0 +1,18 @@
+# 手册链接地址: https://www.jenkins.io/zh/doc/book/installing/
+
+
+docker 中每个项目的源代码全存放到 /var/jenkins-home/workspace(/var/jenkins-data/workspace)目录下面
+
+
+1. 专门创建一个jenkins 分支，分支里面只有一个名为Jenkinsfile 的脚本文件
+2. 需要在  "系统管理/全局工具配置"  里面配置 JDK 以及 MAVEN ，可以配置多个，然后在脚本里面指定使用哪一个
+3. 配置的ssh 的私钥，可以在  "系统管理/凭据管理"  中修改和调整，但是在这个页面没有找到添加的地方。
+    它实际的添加是在配置的时候，只是最终存在了这里。
+4. 要使用下拉选择，需要安装插件："Extended Choice Parameter Plugin" 但是这个插件一直提示安全漏洞问题，目前我一直忽略它的
+5. 要调试 Groovy 脚本，可以到 "系统管理/脚本命令行" 里面去。
+6. 
+
+
+
+
+
