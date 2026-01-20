@@ -1,0 +1,140 @@
+pipeline {
+    // 1. 指定构建节点（单机部署填 any，集群部署可指定节点标签）
+    agent any
+
+    // // 2. 定义构建参数（可选：此处显式声明参数，与流水线配置的下拉参数对应，增强可读性）
+    // // 注意：若已在流水线页面配置了下拉参数，此处可省略，直接引用 params.BRANCH 即可
+    // parameters {
+    //     string(
+    //         name: 'BRANCH',
+    //         description: '下拉选择的分支/标签名称（与 Extended Choice Parameter 配置一致）',
+    //         defaultValue: 'main'
+    //     )
+    // }
+
+    // 2. 绑定全局工具配置中的 JDK 和 Maven（核心：与你测试的名称完全一致）
+    // 可根据项目需求切换 JDK（如 JDK8、JDK11、JDK17），修改此处即可
+    tools {
+        jdk 'JDK8' // 关联全局工具配置的 JDK（可替换为 JDK11/JDK17，与测试一致）
+        maven 'MVN_3.8.8' // 关联全局工具配置的 Maven 3.8.8（与测试一致）
+    }
+
+    // 3. 环境变量配置（统一管理常量，方便修改）
+    environment {
+        // 配置 Git 仓库地址（与之前 Groovy 脚本中的仓库地址一致）
+        GIT_URL = 'git@192.168.8.134:e-business/community-ebusiness-manager.git'
+        USED_JDK = "${tool 'JDK8'}"  // 通过 tool 指令直接获取全局工具名称，不依赖 tools 变量
+        USED_MAVEN = "${tool 'MVN_3.8.8'}"
+        TARGET_FILE = "target/community-ebusiness-manager-*-bin.zip"
+        DEPLOY_SCRIPT_DIR = "/home/jenkins/deploy_scripts/cem-api"
+    }
+
+    // 4. 核心构建步骤
+    stages {
+        // 阶段1：打印下拉选择结果（验证是否获取成功）
+        stage('验证下拉分支参数') {
+            steps {
+                script {
+                    // 核心：直接获取前端页面配置的下拉参数（BRANCH），无需手动声明 parameters 块
+                    def selectedBranch = params.BRANCH
+                    // 打印结果，确认获取成功（构建日志中可查看）
+                    echo "===== 已获取下拉选择的分支/标签：${selectedBranch} ====="
+
+                    // 额外验证：参数非空判断（避免空值构建报错）
+                    if (!selectedBranch || selectedBranch.trim().isEmpty()) {
+                        error "构建失败：下拉选择的分支/标签不能为空！"
+                    }
+
+                    echo "部署环境参数：${params.DEPLOY_ENV}"
+                    echo "参数验证通过，即将开始拉取代码..."
+                }
+            }
+        }
+
+        // 阶段2：拉取指定分支/标签的 Git 代码
+        stage('拉取 Git 代码') {
+            steps {
+                script {
+                    def selectedBranch = params.BRANCH
+                    echo "===== 开始拉取 ${selectedBranch} 对应的代码 ====="
+
+                    // 拉取 Git 代码：checkout 是 Jenkins 内置步骤，支持 Git 配置
+                    checkout scmGit(
+                        branches: [[name: selectedBranch]],
+                        userRemoteConfigs: [[
+                            url: env.GIT_URL,
+                            credentialsId: '3bb6e215-8bd9-49d2-873f-fa452c01a27f' // 替换为你的 Jenkins Git SSH 凭证 ID
+                        ]]
+                    )
+
+                    echo "代码拉取完成：已获取 ${selectedBranch} 分支/标签的最新代码"
+                    sh "mvn -v"
+                    sh "java -version"
+                    echo "查看版本信息完成"
+
+                    def currentDir = sh(script: 'pwd', returnStdout: true).trim()
+                    echo "当前位置：${currentDir}"
+                    // 1. 输出当前流水线的工作空间目录（最常用）
+                    echo "✅ 当前工作空间目录：${WORKSPACE}"
+                    // 2. 输出 Jenkins 安装根目录
+                    echo "✅ Jenkins 根目录：${JENKINS_HOME}"
+                    // 4. 输出当前构建的编号（可关联归档目录）
+                    echo "✅ 当前构建编号：${BUILD_NUMBER}"
+                    // 5. 输出归档产物的存储目录（手动拼接）
+                    echo "✅ 本次构建归档目录：${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/archive/"
+
+                }
+            }
+        }
+
+        // 阶段3：使用绑定的 JDK/Maven 执行项目构建
+        stage('Maven 构建打包') {
+            steps {
+                script {
+                    def selectedBranch = params.BRANCH
+                    echo "===== 开始构建 ${selectedBranch} 分支/标签 ====="
+                    // 执行 Maven 打包命令（自动使用 tools 块绑定的 JDK 和 Maven，无需额外配置环境变量）
+                    // -DskipTests：跳过单元测试，快速构建；-U：强制更新快照依赖
+                    sh "mvn clean package -DskipTests -U"
+
+                    def currentDir = sh(script: 'pwd', returnStdout: true).trim()
+                    echo "当前位置：${currentDir}"
+                    echo "===== 构建完成：${selectedBranch} 分支/标签打包成功 ====="
+                }
+            }
+        }
+
+        stage('部署') {
+            steps {
+                script {
+                    def deployEnv = params.DEPLOY_ENV
+                    if (!deployEnv || deployEnv.trim().isEmpty() || deployEnv.trim() == 'none') {
+                        echo "✅ 部署环境为『${deployEnv ?: '空值'}』，跳过部署步骤"
+                        return
+                    }
+                    def workspace = env.WORKSPACE
+                    sh "bash -e ${DEPLOY_SCRIPT_DIR}/deploy_${deployEnv}.sh ${workspace}"
+                }
+            }
+        }
+    }
+
+    // 5. 构建后操作（成功/失败通知、清理工作等）
+    post {
+        success {
+            echo "===== 流水线构建成功！====="
+            echo "构建分支/标签：${params.BRANCH}"
+            echo "使用环境：${env.USED_JDK} + ${env.USED_MAVEN}"
+            // 可添加：邮件通知、企业微信/钉钉通知等逻辑
+        }
+        failure {
+            echo "===== 流水线构建失败！====="
+            echo "构建分支/标签：${params.BRANCH ?: '未选择有效分支/标签'}"
+            // 可添加：失败通知、异常日志归档等逻辑
+        }
+        always {
+            // 无论成功失败，都清理工作空间（可选）
+            cleanWs()
+        }
+    }
+}

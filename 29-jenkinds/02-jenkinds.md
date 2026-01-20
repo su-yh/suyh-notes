@@ -40,7 +40,28 @@
 
 ## 特别注意
 
-ssh 配置了之后，需要在jenkins 用户下面，去连一下，就是去先执行一下：git clone xxx  按提示保存对应主机信息之后才可以使用。
+1. ssh 生效问题
+
+    ssh 配置了之后，需要在jenkins 用户下面，去连一下，就是去先执行一下：git clone xxx  按提示保存对应主机信息之后才可以使用。
+
+2. 参数覆盖问题
+
+    ```Jenkins
+        // 这个造成不能添加，或者不能与页面上配置相同的参数名，因为它会覆盖掉，使得下一次执行时，这个参数就会被以下配置修改掉。
+        parameters {
+            string(
+                name: 'BRANCH',
+                description: '下拉选择的分支/标签名称（与 Extended Choice Parameter 配置一致）',
+                defaultValue: 'main'
+            )
+        }
+    ```
+
+    如果在 `Jenkinsfile` 文件中添加了如上配置，则会覆盖掉页面上的配置
+
+3. 其他
+
+
 
 
 
