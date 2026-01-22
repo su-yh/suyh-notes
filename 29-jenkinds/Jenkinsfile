@@ -12,12 +12,12 @@ pipeline {
     //     )
     // }
 
-    // 2. 绑定全局工具配置中的 JDK 和 Maven（核心：与你测试的名称完全一致）
-    // 可根据项目需求切换 JDK（如 JDK8、JDK11、JDK17），修改此处即可
-    tools {
-        jdk 'JDK8' // 关联全局工具配置的 JDK（可替换为 JDK11/JDK17，与测试一致）
-        maven 'MVN_3.8.8' // 关联全局工具配置的 Maven 3.8.8（与测试一致）
-    }
+    // // 2. 绑定全局工具配置中的 JDK 和 Maven（核心：与你测试的名称完全一致）
+    // // 可根据项目需求切换 JDK（如 JDK8、JDK11、JDK17），修改此处即可
+    // tools {
+    //     jdk 'JDK8' // 关联全局工具配置的 JDK（可替换为 JDK11/JDK17，与测试一致）
+    //     maven 'MVN_3.8.8' // 关联全局工具配置的 Maven 3.8.8（与测试一致）
+    // }
 
     // 3. 环境变量配置（统一管理常量，方便修改）
     environment {
@@ -32,7 +32,7 @@ pipeline {
     // 4. 核心构建步骤
     stages {
         // 阶段1：打印下拉选择结果（验证是否获取成功）
-        stage('验证下拉分支参数') {
+        stage('参数校验') {
             steps {
                 script {
                     // 核心：直接获取前端页面配置的下拉参数（BRANCH），无需手动声明 parameters 块
@@ -42,7 +42,14 @@ pipeline {
 
                     // 额外验证：参数非空判断（避免空值构建报错）
                     if (!selectedBranch || selectedBranch.trim().isEmpty()) {
-                        error "构建失败：下拉选择的分支/标签不能为空！"
+                        def isTimer = currentBuild.rawBuild.getCauses().any { it.class.toString().contains("TimerTriggerCause") }
+                        if (!branch || branch.trim().isEmpty()) {
+                            if (isTimer) {
+                                echo "【参数校验】分支参数为空，但是由定时任务触发，重置分支为main"
+                            } else {
+                                error "【参数校验】构建失败：下拉选择的分支/标签不能为空！"
+                            }
+                        }
                     }
 
                     echo "部署环境参数：${params.DEPLOY_ENV}"
@@ -52,25 +59,45 @@ pipeline {
         }
 
         // 阶段2：拉取指定分支/标签的 Git 代码
-        stage('拉取 Git 代码') {
+        stage('拉取代码') {
             steps {
                 script {
                     def selectedBranch = params.BRANCH
                     echo "===== 开始拉取 ${selectedBranch} 对应的代码 ====="
 
-                    // 拉取 Git 代码：checkout 是 Jenkins 内置步骤，支持 Git 配置
-                    checkout scmGit(
-                        branches: [[name: selectedBranch]],
-                        userRemoteConfigs: [[
-                            url: env.GIT_URL,
-                            credentialsId: '3bb6e215-8bd9-49d2-873f-fa452c01a27f' // 替换为你的 Jenkins Git SSH 凭证 ID
-                        ]]
-                    )
+                    // // 拉取 Git 代码：checkout 是 Jenkins 内置步骤，支持 Git 配置
+                    // checkout scmGit(
+                    //     branches: [[name: selectedBranch]],
+                    //     userRemoteConfigs: [[
+                    //         url: env.GIT_URL,
+                    //         credentialsId: '3bb6e215-8bd9-49d2-873f-fa452c01a27f' // 替换为你的 Jenkins Git SSH 凭证 ID
+                    //     ]]
+                    // )
 
-                    echo "代码拉取完成：已获取 ${selectedBranch} 分支/标签的最新代码"
+
                     sh "mvn -v"
                     sh "java -version"
                     echo "查看版本信息完成"
+
+                    // 兼容从分支/标签拉取代码
+                    sh """
+                        BRANCH=${branch}
+                        GIT_URL=${env.GIT_URL}
+                        code_flag=0
+
+                        if git ls-remote --exit-code --heads "\${GIT_URL}" "\${BRANCH}" >/dev/null 2>&1; then
+                            echo "检出分支 \${BRANCH}"
+                            git checkout -B \${BRANCH} origin/\${BRANCH}
+                        elif git ls-remote --exit-code --tags "\${GIT_URL}" "\${BRANCH}" >/dev/null 2>&1; then
+                            echo "检出标签：\${BRANCH}"
+                            git checkout -B "\${BRANCH}" "refs/tags/\${BRANCH}"
+                        else
+                            echo "错误：远程仓库中分支/标签 '\${BRANCH}' 不存在"
+                            exit 1
+                        fi
+                    """
+
+                    echo "代码拉取完成：已获取 ${selectedBranch} 分支/标签的最新代码"
 
                     def currentDir = sh(script: 'pwd', returnStdout: true).trim()
                     echo "当前位置：${currentDir}"

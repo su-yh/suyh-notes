@@ -166,7 +166,7 @@ ping vmware.doris.fe.local -c 2
 
 5. 确定 → 关闭所有窗口。
 
-6. 以管理员打开命令提示符，执行：
+6. ~~以管理员打开命令提示符，执行：~~
 
    ```cmd
    ipconfig /flushdns
@@ -179,6 +179,6 @@ ping vmware.doris.fe.local -c 2
    ping vmware.doris.fe.local -n 2
    ```
 
-【mac系统】
+### 【mac系统】
 
 ![image-20251207152147551](dnsmasq.assets/image-20251207152147551.png)

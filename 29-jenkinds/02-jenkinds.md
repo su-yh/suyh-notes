@@ -38,6 +38,50 @@
 
 
 
+## 安装
+
+配置jenkins 所需要的jdk
+
+```shell
+sudo systemctl edit jenkins
+```
+
+添加如下配置到文件
+
+保存并退出（如果是 nano，按 `Ctrl+O`, `Enter`, `Ctrl+X`）
+
+```ini
+[Service]
+Environment="JAVA_HOME=/usr/local/java/jdk-17.0.12"
+# 这个空串不要丢了
+ExecStart=
+# ExecStart=/usr/local/java/jdk-17.0.12/bin/java -Djava.awt.headless=true -jar /usr/share/java/jenkins.war
+ExecStart=/usr/local/java/jdk-17.0.12/bin/java \
+    -Djava.awt.headless=true \
+    -Xmx2g \
+    -Xms512m \
+    -Duser.timezone=Asia/Shanghai \
+    -Dfile.encoding=UTF-8 \
+    -jar /usr/share/java/jenkins.war \
+    --httpPort=7081
+```
+
+应用并重启
+
+```shell
+sudo systemctl daemon-reload
+sudo systemctl restart jenkins
+
+# 检查服务现在是否跑起来了
+sudo systemctl status jenkins
+```
+
+
+
+
+
+
+
 ## 特别注意
 
 1. ssh 生效问题
@@ -156,7 +200,7 @@
 
         ![image-20260120152229394](02-jenkinds.assets/image-20260120152229394.png)
 
-        - Pipeline script （不推荐，因为修改了就没了。）
+        - ~~Pipeline script~~ （不推荐，因为修改了就没了。）
 
         - Pipeline script from SCM （推荐）
 
