@@ -6,6 +6,12 @@
 
 > 使用adduser 更方便一些
 
+```shell
+sudo adduser suyh
+```
+
+
+
 
 
 ## sudo 权限
