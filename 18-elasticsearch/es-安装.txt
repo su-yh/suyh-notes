@@ -15,7 +15,10 @@ sudo apt install elasticsearch
 
 
 
+Elasticsearch 数据被存储在 /var/lib/elasticsearch 目录。配置文件被定位在/etc/elasticsearch 并且 Java 启动选项可以通过/etc/default/elasticsearch文件来配置。
 
+
+/etc/elasticsearch/elasticsearch.yml
 远程访问：
     单节点还需要配置
         node.name: node-1
