@@ -1,0 +1,49 @@
+
+cluster.name: cluster-es
+node.name: node-1  # 就这里要注意一下每个节点都不一样。
+network.host: 0.0.0.0
+node.master: true
+node.data: true
+http.port: 9200
+# head 插件需要这打开这两个配置
+http.cors.allow-origin: "*"
+http.cors.enabled: true
+http.max_content_length: 200mb
+#es7.x 之后新增的配置，初始化一个新的集群时需要此配置来选举 master
+# 这里每个节点都配置node-1 就可以了。
+cluster.initial_master_nodes: ["node-1"]
+#es7.x 之后新增的配置，节点发现
+discovery.seed_hosts: ["172.31.3.155:9300","172.31.3.156","172.31.3.157"]
+gateway.recover_after_nodes: 2
+network.tcp.keep_alive: true
+network.tcp.no_delay: true
+transport.tcp.compress: true
+#集群内同时启动的数据任务个数，默认是 2 个
+cluster.routing.allocation.cluster_concurrent_rebalance: 16
+#添加或删除节点及负载均衡时并发恢复的线程个数，默认 4 个
+cluster.routing.allocation.node_concurrent_recoveries: 16
+#初始化数据恢复时，并发恢复线程的个数，默认 4 个
+cluster.routing.allocation.node_initial_primaries_recoveries: 16
+
+# 添加身份认证
+xpack.security.enabled: true
+xpack.security.authc.accept_default_password: false
+
+
+# ========== 传输层加密（节点间9300端口） ==========
+xpack.security.transport.ssl.enabled: true
+xpack.security.transport.ssl.verification_mode: certificate
+xpack.security.transport.ssl.keystore.path: certs/elastic-certificates.p12
+xpack.security.transport.ssl.truststore.path: certs/elastic-stack-ca.p12
+
+# ========== HTTP层加密（客户端9200端口HTTPS） ==========
+xpack.security.http.ssl.enabled: true
+xpack.security.http.ssl.keystore.path: certs/elastic-certificates.p12
+xpack.security.http.ssl.truststore.path: certs/elastic-stack-ca.p12
+
+# ========== 密码策略 ==========
+# xpack.security.authc.password_hashing.algorithm: bcrypt
+xpack.security.authc.token.timeout: 1h
+xpack.security.authc.api_key.enabled: true
+# xpack.security.authc.api_key.hashing.algorithm: pbkdf2
+

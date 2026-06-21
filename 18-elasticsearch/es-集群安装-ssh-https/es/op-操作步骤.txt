@@ -1,0 +1,193 @@
+步骤概览
+步骤	执行节点	操作内容
+1	node-1	生成CA证书和节点证书（含所有节点IP的SAN）
+2	node-1	创建Elasticsearch Keystore并添加证书密码
+3	node-1	更新 elasticsearch.yml 安全配置（先删除旧明文密码）
+4	node-1	分发证书和配置到 node-2、node-3
+5	node-2、node-3	重复步骤2和3（在本机创建Keystore并配置）
+6	所有节点依次	启动Elasticsearch服务（先node-1，再其他）
+7	任一节点（如node-1）	初始化内置用户密码（交互式设置）
+8	node-1	验证集群安全状态
+
+
+
+
+编号	用途	密码	长度	备注
+P1	CA 证书密码（elastic-stack-ca.p12）	7dK!x@9Mq#2Lp$5R&vWz	20	用于生成 CA 时设置
+P2	节点证书密码（elastic-certificates.p12）	aB3#eF8$gH2@jK5^mN7	18	用于生成节点证书时设置，也是 keystore 中要存储的密码
+P3	Elasticsearch keystore 主密码（可选，但建议设置）	Qw!6Rt@9Yx#2Uv$4Pz	18	用于 elasticsearch-keystore create -p 时保护 keystore 文件本身
+P4	内置 elastic 用户密码（后续 setup-passwords 使用）	El@st1c_S3cur3_P@ss!2026	26	集群管理员密码，建议格外复杂
+
+
+
+
+
+
+
+
+生成 CA 证书
+./bin/elasticsearch-certutil ca \
+  --out config/certs/elastic-stack-ca.p12 \
+  --pass '7dK!x@9Mq#2Lp$5R&vWz' \
+  --days 3650
+
+创建包含所有节点 SAN 的实例配置
+cat > config/certs/instances.yml << 'EOF'
+instances:
+  - name: "node-1"
+    ip: ["172.31.3.155"]
+  - name: "node-2"
+    ip: ["172.31.3.156"]
+  - name: "node-3"
+    ip: ["172.31.3.157"]
+EOF
+
+生成节点证书（每个节点都有一个独立身份，但这里用一张通用证书包含所有IP）
+./bin/elasticsearch-certutil cert \
+  --ca config/certs/elastic-stack-ca.p12 \
+  --ca-pass '7dK!x@9Mq#2Lp$5R&vWz' \
+  --out config/certs/elastic-certificates.p12 \
+  --pass 'aB3#eF8$gH2@jK5^mN7' \
+  --ip 172.31.3.155,172.31.3.156,172.31.3.157
+
+
+# 验证证书是否包含 SAN
+openssl pkcs12 -in config/certs/elastic-certificates.p12 -nokeys | openssl x509 -noout -text | grep -A 5 "Subject Alternative Name"
+# 输入密码：aB3#eF8$gH2@jK5^mN7
+
+
+导出 CA 公钥（供 Kibana、Spring Boot 等客户端使用），生成文件：ca.crt
+openssl pkcs12 -in config/certs/elastic-stack-ca.p12 \
+  -out config/certs/ca.crt -nokeys 
+# 输入密码：7dK!x@9Mq#2Lp$5R&vWz
+
+
+
+# 创建 keystore（首次需要设置密码）
+./bin/elasticsearch-keystore create -p
+# 输入新密码（如 Qw!6Rt@9Yx#2Uv$4Pz）
+
+# 执行前先清空旧错误配置
+./bin/elasticsearch-keystore remove xpack.security.transport.ssl.keystore.secure_password
+# 输入：Qw!6Rt@9Yx#2Uv$4Pz
+./bin/elasticsearch-keystore remove xpack.security.transport.ssl.truststore.secure_password
+# 输入：Qw!6Rt@9Yx#2Uv$4Pz
+./bin/elasticsearch-keystore remove xpack.security.http.ssl.keystore.secure_password
+# 输入：Qw!6Rt@9Yx#2Uv$4Pz
+./bin/elasticsearch-keystore remove xpack.security.http.ssl.truststore.secure_password
+# 输入：Qw!6Rt@9Yx#2Uv$4Pz
+
+# ========== transport 集群内部通信 ==========
+# transport keystore：节点证书 elastic-certificates.p12 → P2
+./bin/elasticsearch-keystore add xpack.security.transport.ssl.keystore.secure_password
+# 输入：Qw!6Rt@9Yx#2Uv$4Pz
+# 输入：aB3#eF8$gH2@jK5^mN7
+
+# transport truststore：CA根证书 elastic-stack-ca.p12 → P1
+./bin/elasticsearch-keystore add xpack.security.transport.ssl.truststore.secure_password
+# 输入：Qw!6Rt@9Yx#2Uv$4Pz
+# 输入: 7dK!x@9Mq#2Lp$5R&vWz
+
+./bin/elasticsearch-keystore add xpack.security.http.ssl.keystore.secure_password
+# 输入：Qw!6Rt@9Yx#2Uv$4Pz
+# 输入: aB3#eF8$gH2@jK5^mN7
+
+# http truststore：CA根证书 elastic-stack-ca.p12 → P1
+./bin/elasticsearch-keystore add xpack.security.http.ssl.truststore.secure_password
+# 输入：Qw!6Rt@9Yx#2Uv$4Pz
+# 输入: 7dK!x@9Mq#2Lp$5R&vWz
+
+
+
+./bin/elasticsearch-keystore list
+# 输入：Qw!6Rt@9Yx#2Uv$4Pz
+keystore.seed
+xpack.security.http.ssl.keystore.secure_password
+xpack.security.http.ssl.truststore.secure_password
+xpack.security.transport.ssl.keystore.secure_password
+xpack.security.transport.ssl.truststore.secure_password
+
+# 在 node-1 上生成证书后，复制到其他节点
+scp -r /opt/modules/elasticsearch-7.17.29/config/certs/* \
+  es@172.31.3.156:/opt/modules/elasticsearch-7.17.29/config/certs
+scp -r /opt/modules/elasticsearch-7.17.29/config/certs/* \
+  es@172.31.3.157:/opt/modules/elasticsearch-7.17.29/config/certs
+
+
+
+
+
+
+
+
+
+# 在第二三节点上分别配置 Keystore
+# 可以设置不同的主密码，但证书密码必须一致
+./bin/elasticsearch-keystore create -p
+# 输入新密码（如 Qw!6Rt@9Yx#2Uv$4Pz）
+
+# 执行前先清空旧错误配置
+./bin/elasticsearch-keystore remove xpack.security.transport.ssl.keystore.secure_password
+./bin/elasticsearch-keystore remove xpack.security.transport.ssl.truststore.secure_password
+./bin/elasticsearch-keystore remove xpack.security.http.ssl.keystore.secure_password
+./bin/elasticsearch-keystore remove xpack.security.http.ssl.truststore.secure_password
+
+
+# ========== transport 集群内部通信 ==========
+# transport keystore：节点证书 elastic-certificates.p12 → P2
+./bin/elasticsearch-keystore add xpack.security.transport.ssl.keystore.secure_password
+# 输入：Qw!6Rt@9Yx#2Uv$4Pz
+# 输入：aB3#eF8$gH2@jK5^mN7
+
+# transport truststore：CA根证书 elastic-stack-ca.p12 → P1
+./bin/elasticsearch-keystore add xpack.security.transport.ssl.truststore.secure_password
+# 输入：Qw!6Rt@9Yx#2Uv$4Pz
+# 输入: 7dK!x@9Mq#2Lp$5R&vWz
+
+./bin/elasticsearch-keystore add xpack.security.http.ssl.keystore.secure_password
+# 输入：Qw!6Rt@9Yx#2Uv$4Pz
+# 输入: aB3#eF8$gH2@jK5^mN7
+
+# http truststore：CA根证书 elastic-stack-ca.p12 → P1
+./bin/elasticsearch-keystore add xpack.security.http.ssl.truststore.secure_password
+# 输入：Qw!6Rt@9Yx#2Uv$4Pz
+# 输入: 7dK!x@9Mq#2Lp$5R&vWz
+
+# 验证证书是否包含 SAN
+openssl pkcs12 -in config/certs/elastic-certificates.p12 -nokeys | openssl x509 -noout -text | grep -A 5 "Subject Alternative Name"
+# 输入密码：aB3#eF8$gH2@jK5^mN7
+# 输出结果类似：
+Enter Import Password:
+            X509v3 Subject Alternative Name: 
+                IP Address:172.31.3.155, IP Address:172.31.3.156, IP Address:172.31.3.157
+            X509v3 Basic Constraints: 
+                CA:FALSE
+    Signature Algorithm: sha256WithRSAEncryption
+         22:c0:ec:7d:f5:d7:52:a8:7a:0a:46:c6:76:11:cf:5e:3b:5f:
+
+
+启动es 实例（所有节点）
+./bin/elasticsearch
+# 输入：Qw!6Rt@9Yx#2Uv$4Pz
+
+
+当所有节点都启动成功后，在 任意一个节点 上执行密码初始化：
+# 交互式设置密码（生产环境推荐）
+./bin/elasticsearch-setup-passwords interactive
+# 输入：Qw!6Rt@9Yx#2Uv$4Pz
+# 系统会提示为以下内置用户设置密码：
+# elastic — 超级管理员（务必设置强密码）
+# kibana_system — Kibana 服务账户
+# logstash_system — Logstash 服务账户
+# beats_system — Beats 服务账户
+# apm_system — APM 服务账户
+
+
+
+
+# 查看集群节点信息  需要进入到es 的家目录
+curl --cacert config/certs/ca.crt -u elastic:'El@st1c_S3cur3_P@ss!2026' https://172.31.3.155:9200/_cat/nodes?v
+ip           heap.percent ram.percent cpu load_1m load_5m load_15m node.role   master name
+172.31.3.155           19          71   2    0.06    0.08     0.13 cdfhilmrstw -      node-1
+172.31.3.157           35          51   1    0.03    0.05     0.09 cdfhilmrstw *      node-3
+172.31.3.156           35          49   2    0.07    0.04     0.13 cdfhilmrstw -      node-2
