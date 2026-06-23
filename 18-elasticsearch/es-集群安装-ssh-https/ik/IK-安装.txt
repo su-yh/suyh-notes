@@ -1,0 +1,21 @@
+
+需要 在所有的ES 节点上执行
+
+切换到es 安装用户
+
+# 进入 ES 安装目录
+cd /opt/modules/elasticsearch-7.17.29
+
+# 安装 IK 分词器插件
+./bin/elasticsearch-plugin install file:///opt/modules/elasticsearch-7.17.29/elasticsearch-analysis-ik-7.17.29.zip
+
+# 查看已安装的插件列表
+./bin/elasticsearch-plugin list
+
+
+
+注意一下：
+重启集群，master 节点需要最后重启
+
+
+

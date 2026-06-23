@@ -1,0 +1,21 @@
+配置kibana 的ssl
+
+
+# 进入 ES 目录
+cd /opt/modules/elasticsearch-7.17.29
+
+# 为 Kibana 生成证书，在es 家目录
+./bin/elasticsearch-certutil cert \
+  --name kibana-server \
+  --dns localhost \
+  --ip 127.0.0.1,10.29.139.116 \
+  --out ./config/certs/kibana-server.p12 \
+  --pass 'H7#9mP!qR2$vL@' \
+  --days 3650
+
+
+在 config/kibana.yml 中补充如下配置项
+server.ssl.enabled: true
+server.ssl.keystore.path: /opt/modules/elasticsearch-7.17.29/config/certs/kibana-server.p12
+server.ssl.keystore.password: 'H7#9mP!qR2$vL@'
+

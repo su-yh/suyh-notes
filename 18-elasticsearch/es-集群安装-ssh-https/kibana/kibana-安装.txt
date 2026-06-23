@@ -1,0 +1,16 @@
+只需要安装一台就可以了
+
+将其安装到 /opt/modules 目录
+cd /opt/modules
+sudo tar -zxvf software/kibana-7.17.29-linux-x86_64.tar.gz
+sudo mv kibana-7.17.29-linux-x86_64 kibana-7.17.29
+sudo chown es:es kibana-7.17.29
+
+这里切换到es 用户来做后续操作，跟elasticsearch 使用同一个用户就好了。
+
+修改配置： config/kibana.yml
+
+
+由于安装es 的时候已经配置了用户，这里就不需要处理用户了，下面直接启动。
+./bin/kibana
+
