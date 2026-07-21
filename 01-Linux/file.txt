@@ -1,0 +1,8 @@
+将一个超大文件拆分成多个小文件，然后将这些小文件重新恢复成一个大文件
+1. 拆分：
+split -b 500m WebStorm-2026.2-aarch64.tar.gz  ws-part
+2. 将这些文件重新组合成一个大文件
+cat ws-part* > WebStorm-2026.2-aarch64.tar.gz
+
+
+
