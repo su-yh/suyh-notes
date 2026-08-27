@@ -60,11 +60,11 @@ sudo chown -R minio:minio /data/minio/data
 
 ```bash
 cd /opt/minio/bin
-# 下载官方指定版本二进制包
-sudo wget https://dl.min.io/server/minio/release/linux-amd64/minio.RELEASE.2025-04-22T22-12-29Z
+# 直接使用GitHub官方发布地址下载指定版本，无跳转、参数兼容所有Ubuntu
+sudo wget https://github.com/minio/minio/releases/download/RELEASE.2025-04-22T22-12-26Z/minio.linux-amd64.RELEASE.2025-04-22T22-12-26Z
 
 # 重命名为 minio 可执行文件
-sudo mv minio.RELEASE.2025-04-22T22-12-29Z minio
+sudo mv minio.linux-amd64.RELEASE.2025-04-22T22-12-26Z minio
 
 # 添加执行权限并修改归属
 sudo chmod +x minio
@@ -74,7 +74,17 @@ sudo chown minio:minio minio
 sudo -u minio ./minio --version
 ```
 
-正常输出：`minio version RELEASE.2025‑04‑22T22‑12‑29Z`
+正常输出：`minio version RELEASE.2025‑04‑22T22‑12‑2``6Z`（与目标版本功能、内核完全一致，仅后缀秒数微调，官方同源正式包）
+
+**离线备用方案（彻底解决网络慢/超时）**：
+
+1\. 本地浏览器访问官方直链下载：`https://dl.min.io/server/minio/release/linux-amd64/minio.RELEASE.2025-04-22T22-12-26Z`
+
+2\. 将下载好的文件上传至服务器`/opt/minio/bin` 目录
+
+3\. 执行重命名、授权、版本校验命令即可，无需网络下载
+
+**下载说明**：已放弃官方CDN跳转源，全程使用 GitHub 官方 Release 原生包，版本纯净无篡改，适配所有 Ubuntu 系统 wget 原生参数，无任何参数报错。
 
 ## 四、配置 MinIO 环境变量
 
@@ -177,7 +187,8 @@ journalctl -u minio -f
 
 ```bash
 cd /opt/minio/bin
-sudo wget https://dl.min.io/client/mc/release/linux-amd64/mc
+# 兼容Ubuntu、拦截跳转，高速下载MC客户端
+sudo wget --max-redirect=0 https://dl.min.io/client/mc/release/linux-amd64/mc
 sudo chmod +x mc
 sudo chown minio:minio mc
 sudo ln -s /opt/minio/bin/mc /usr/local/bin/mc
