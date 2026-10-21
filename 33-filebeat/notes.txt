@@ -13,7 +13,7 @@ rm -rf data
 
 # 3. 运行：--once 处理到文件末尾后自动退出；-E 覆盖成紧凑JSON(一行一事件，方便看)
 ./filebeat -e --once -c /Users/suyunhong/suyh-develop/medcase/filebeat-medcase.yml \
-  -E output.console.pretty=false > /tmp/medcase_parse.jsonl 2>/dev/null
+  -E output.console.pretty=false > /tmp/medcase_parse.json 2>/dev/null
 
 # 4. 查看结果
 wc -l /tmp/medcase_parse.jsonl     # 事件总数，应为 29355
@@ -21,4 +21,7 @@ head -n 3 /tmp/medcase_parse.jsonl # 看前3条完整字段
 
 
 
-
+1. 对于时间戳我需要能指定原日志的时区；
+2. 得到的时间戳我需要保存为娄值并以毫秒为单位；
+3. 输出分别指定到不同的文件，就放在当前工作区目录，文件名分别为：medcase_parse.json、efe_parse.json
+4. 一般是按日期转存，但同时也会按文件大小转存，当发生转存时你的这套配置是否能兼容；

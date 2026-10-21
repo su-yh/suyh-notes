@@ -1,0 +1,151 @@
+# =============================================================
+# filebeat-efe.yml
+# efe 项目日志采集配置（适配 efe 的 logback 日志格式）
+#
+# 对应 logback 格式（efe.xml 中 PATTERN_STDOUT）：
+#   %d{yyyy-MM-dd HH:mm:ss.SSS} | %highlight(%5p) | %20.20thread |
+#   %boldGreen(%40.40logger:%4L) | %yellow(%X{trace-id}) |
+#   %boldBlue(%X{trace-user}) | %m%n
+#
+# 说明：
+#   - 实测 efe.log 中不含 ANSI 颜色码（logback 写文件时已去除颜色），
+#     因此按纯文本用 dissect 拆分。
+#   - 比 medcase 格式多一个 trace-user 字段，共 7 个字段。
+#   - %20.20thread、%40.40logger:%4L 为右对齐填充，需去空格；
+#     %5p 级别：INFO/WARN 带前导空格、DEBUG/ERROR 不带，用 script 按空白拆分。
+# =============================================================
+
+filebeat.inputs:
+  - type: log
+    id: efe-logs
+    enabled: true
+
+    # 日志路径：只采集当前正在写入的 efe.log
+    # 部署到 Linux 服务器后，请把 paths 改为服务器上的真实绝对路径
+    paths:
+      - /Users/suyunhong/suyh-develop/medcase/logs/efe.log
+
+    # 首次运行时从文件开头读取（可用于回填历史日志）
+    start_position: beginning
+
+    # 多行合并：Spring Boot 启动横幅、Quartz 多行信息等不以时间戳开头的行，
+    # 合并到上一条日志事件（实测 log 输入的 multiline 稳定）
+    multiline:
+      pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}[.,][0-9]{3}'
+      negate: true
+      match: after
+
+# ============================ processors ============================
+processors:
+  # 追加主机元数据（host.name 等）
+  - add_host_metadata: ~
+
+  # 标记事件归属
+  - add_fields:
+      target: event
+      fields:
+        module: efe
+        dataset: efe
+
+  # 保留原始整行日志（必须在解析 message 之前）
+  - copy_fields:
+      fields:
+        - from: message
+          to: log.original
+      fail_on_error: false
+
+  # 丢弃空行/全空白行产生的空事件
+  - drop_event:
+      when:
+        not:
+          regexp:
+            message: '\S'
+
+  # ---- 主结构拆分：字段以 “ | ” 分隔（7 个字段）----
+  # 样例：2026-10-21 14:59:21.848 |  INFO |                 main |
+  #       com.alibaba.druid.pool.DruidDataSource: 975 |  |  | {dataSource-1} inited
+  # trace-id / trace-user 未启用时为空串，最后 %{message} 贪婪取到行尾
+  - dissect:
+      tokenizer: "%{log_timestamp} | %{level_pid} | %{thread} | %{logger_line} | %{trace_id} | %{trace_user} | %{message}"
+      target_prefix: ""
+      overwrite_keys: true
+      ignore_failure: true
+      tag_on_failure: ["_dissect_parse_failure"]
+
+  # ---- 拆分 “logger: 行号”：%40.40logger:%4L ----
+  # 样例：   com.alibaba.druid.pool.DruidDataSource:  975
+  # 注意 %4L 右对齐：行号<1000 为 “: 975”（带空格）、≥1000 为 “:1220”（无空格），
+  #       故 tokenizer 冒号后不写死空格，由 script 统一 trim
+  - dissect:
+      field: logger_line
+      tokenizer: "%{logger}:%{line}"
+      target_prefix: ""
+      overwrite_keys: true
+      ignore_failure: true
+
+  # ---- 拆分 “级别+PID” 并清理对齐填充 ----
+  # level_pid 样例：" INFO"（带前导填充）或 "DEBUG"（无填充）
+  # dissect 无法匹配“可选前导空格”，故用 script 按空白拆分；同时 trim thread/logger/line
+  # 注意：efe 格式没有 ${PID} 字段，level_pid 只含级别；为与 medcase 通用，
+  #       仍按空白拆取第一个词为级别（pid 无则不产生）
+  - script:
+      lang: javascript
+      source: >
+        function process(event) {
+          var lp = event.Get("level_pid");
+          if (typeof lp === "string") {
+            var parts = lp.trim().split(/\s+/);
+            if (parts.length >= 1) {
+              event.Put("log_level", parts[0]);
+            }
+          }
+          var f = ["thread", "logger", "line"];
+          for (var i = 0; i < f.length; i++) {
+            var v = event.Get(f[i]);
+            if (typeof v === "string") event.Put(f[i], v.trim());
+          }
+        }
+
+  # ---- 丢弃中间字段 ----
+  - drop_fields:
+      fields: [level_pid, logger_line]
+      ignore_missing: true
+
+  # ---- 数字转整型 ----
+  - convert:
+      fields:
+        - from: line
+          to: line
+          type: integer
+          ignore_missing: true
+
+  # ---- 字段重命名，贴近 ECS 命名 ----
+  - rename:
+      fields:
+        - from: log_level
+          to: log.level
+        - from: line
+          to: log.line
+        - from: log_timestamp
+          to: log.timestamp
+      ignore_missing: true
+
+  # ---- 用日志自带时间戳覆盖 filebeat 的 @timestamp ----
+  # filebeat 时间格式为 Go 布局，不是 Java 的 yyyy-MM-dd
+  - timestamp:
+      field: log.timestamp
+      target_field: "@timestamp"
+      layouts:
+        - "2006-01-02 15:04:05.000"
+      timezone: "Asia/Shanghai"
+      ignore_failure: true
+
+# ============================ 输出 ============================
+# 本地验证解析效果用 console（能直观看到每个事件拆出的字段）
+output.console:
+  pretty: true
+
+# 生产环境：取消注释下面 elasticsearch 输出并填写真实地址，注释掉上面的 console
+# output.elasticsearch:
+#   hosts: ["http://your-elasticsearch-host:9200"]
+#   index: "efe-log-%{+yyyy.MM.dd}"
