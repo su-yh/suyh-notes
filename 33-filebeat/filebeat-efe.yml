@@ -131,6 +131,7 @@ processors:
       ignore_missing: true
 
   # ---- 用日志自带时间戳覆盖 filebeat 的 @timestamp ----
+  # timezone：原日志所处时区（可按需修改，如 Asia/Shanghai / UTC / America/New_York）
   # filebeat 时间格式为 Go 布局，不是 Java 的 yyyy-MM-dd
   - timestamp:
       field: log.timestamp
@@ -140,12 +141,27 @@ processors:
       timezone: "Asia/Shanghai"
       ignore_failure: true
 
-# ============================ 输出 ============================
-# 本地验证解析效果用 console（能直观看到每个事件拆出的字段）
-output.console:
-  pretty: true
+  # ---- 另存一份数值时间戳（epoch 毫秒）----
+  # 从上面解析好的 @timestamp（已按 timezone 正确换算为 UTC 时刻）取毫秒整数
+  - script:
+      lang: javascript
+      source: >
+        function process(event) {
+          var ts = event.Get("@timestamp");
+          if (ts) {
+            event.Put("log.timestamp_ms", Math.floor(ts.UnixNano() / 1000000));
+          }
+        }
 
-# 生产环境：取消注释下面 elasticsearch 输出并填写真实地址，注释掉上面的 console
+# ============================ 输出 ============================
+# 输出到文件（JSONL：每行一个事件对象），便于本地查看解析结果
+# 文件生成在工作目录下，文件名为 efe_parse.json
+output.file:
+  path: /Users/suyunhong/suyh-develop/medcase
+  filename: efe_parse.json
+  pretty: false
+
+# 生产环境：换成 elasticsearch 输出并填写真实地址，注释掉上面的 file
 # output.elasticsearch:
 #   hosts: ["http://your-elasticsearch-host:9200"]
 #   index: "efe-log-%{+yyyy.MM.dd}"
