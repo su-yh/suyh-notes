@@ -12,6 +12,13 @@
 #   dissect 对“固定分隔符”日志最合适，且在服务器同版本上一致可用。
 # =============================================================
 
+# ============================== 运行时路径 ==============================
+# 本进程独立的运行时数据目录（注册表/读取偏移），
+# 避免与其它 filebeat 进程（如 efe）共用同一 data/ 导致注册表冲突
+path.data: /Users/suyunhong/suyh-develop/medcase/filebeat-7.17.29-darwin-x86_64/data-medcase
+# 本进程独立的运行日志目录
+path.logs: /Users/suyunhong/suyh-develop/medcase/filebeat-7.17.29-darwin-x86_64/logs-medcase
+
 filebeat.inputs:
   - type: log
     id: medcase-logs

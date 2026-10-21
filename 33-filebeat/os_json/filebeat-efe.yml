@@ -15,6 +15,13 @@
 #     %5p 级别：INFO/WARN 带前导空格、DEBUG/ERROR 不带，用 script 按空白拆分。
 # =============================================================
 
+# ============================== 运行时路径 ==============================
+# 本进程独立的运行时数据目录（注册表/读取偏移），
+# 避免与其它 filebeat 进程（如 medcase）共用同一 data/ 导致注册表冲突
+path.data: /Users/suyunhong/suyh-develop/medcase/filebeat-7.17.29-darwin-x86_64/data-efe
+# 本进程独立的运行日志目录
+path.logs: /Users/suyunhong/suyh-develop/medcase/filebeat-7.17.29-darwin-x86_64/logs-efe
+
 filebeat.inputs:
   - type: log
     id: efe-logs
