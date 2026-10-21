@@ -1,7 +1,7 @@
 # 验证配置文件是否有错误
-./filebeat test config -c filebeat-medcase.yml
+filebeat-7.17.29-darwin-x86_64/filebeat test config -c filebeat-medcase.yml
 # 验证es 连接是否正常
-./filebeat test output -c filebeat-medcase.yml
+filebeat-7.17.29-darwin-x86_64/filebeat test output -c filebeat-medcase.yml
 
 
 # 1. 进入 filebeat 目录
