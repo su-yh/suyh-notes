@@ -1,0 +1,73 @@
+2026-10-21 14:59:21.848 |  INFO |                 main |   com.alibaba.druid.pool.DruidDataSource: 975 |  |  | {dataSource-1} inited
+2026-10-21 14:59:22.555 |  WARN |                 main | sion.spring.MybatisSqlSessionFactoryBean:  44 |  |  | Can't find class in '[com.cgnpc.efe.project.*.domain.enums]' package. Please check your configuration.
+2026-10-21 14:59:24.246 |  WARN |                 main | mybatisplus.core.toolkit.TableInfoHelper: 280 |  |  | Warn: Could not find @TableId in Class: com.cgnpc.cud.wf.engine.log.domain.ActivityDefEntity.
+2026-10-21 14:59:28.368 |  WARN |                 main | mybatisplus.core.toolkit.TableInfoHelper: 280 |  |  | Warn: Could not find @TableId in Class: com.cgnpc.cud.system.manage.interfaceM.domain.CudInterfaceErrorLog.
+2026-10-21 14:59:28.565 |  WARN |                 main | mybatisplus.core.toolkit.TableInfoHelper: 280 |  |  | Warn: Could not find @TableId in Class: com.cgnpc.cud.system.manage.interfaceM.domain.CudInterfaceLog.
+2026-10-21 14:59:35.600 |  WARN |                 main | mybatisplus.core.toolkit.TableInfoHelper: 280 |  |  | Warn: Could not find @TableId in Class: com.cgnpc.qrtz.model.IpmAssAll.
+ _ _   |_  _ _|_. ___ _ |    _ 
+| | |\/|_)(_| | |_\  |_)||_|_\ 
+     /               |         
+                        3.1.1 
+HEAD http://10.79.33.107:8060/test-cnpec-qae-efe-efe/ HTTP/1.1
+2026-10-21 14:59:44.731 | DEBUG |                 main | mework.config.MultiProcAutoConfiguration:  54 |  |  | use default multi start process executor
+2026-10-21 14:59:44.784 | DEBUG |                 main | mework.config.MultiProcAutoConfiguration:  70 |  |  | use default multi submit process executor
+2026-10-21 14:59:44.800 | DEBUG |                 main | work.config.MultiProcAutoConfiguration$2: 184 |  |  | Initializing ExecutorService
+2026-10-21 14:59:44.818 | DEBUG |                 main | mework.config.MultiProcAutoConfiguration: 168 |  |  | init multi start process rate limit
+2026-10-21 14:59:44.884 | DEBUG |                 main | mework.config.MultiProcAutoConfiguration: 174 |  |  | init multi submit process rate limit
+2026-10-21 14:59:44.890 | DEBUG |                 main | mework.config.MultiProcAutoConfiguration: 180 |  |  | init multi back process rate limit
+2026-10-21 14:59:45.923 |  INFO |                 main | .component.AsposeWordsLicenseInitializer:  46 |  |  | Aspose.Words License加载成功，path=aspose/license.xml
+2026-10-21 14:59:47.499 |  INFO |                 main | e.common.component.SerialNumberComponent:  74 |  |  | 初始化/重置当天日期：20261021
+2026-10-21 14:59:48.261 | DEBUG |                 main | mmon.mapper.SerialNumberMapper.selectOne: 137 |  |  | ==>  Preparing: SELECT id,business_key,current_date,current_number,version,create_date,modify_date FROM efe_serial_number WHERE business_key = ? AND current_date = ?
+2026-10-21 14:59:48.332 | DEBUG |                 main | mmon.mapper.SerialNumberMapper.selectOne: 137 |  |  | ==> Parameters: pes(String), 20261021(Integer), pes(String), 20261021(Integer)
+2026-10-21 14:59:48.360 | DEBUG |                 main | mmon.mapper.SerialNumberMapper.selectOne: 137 |  |  | <==      Total: 1
+2026-10-21 14:59:48.364 | DEBUG |                 main | mmon.mapper.SerialNumberMapper.selectOne: 137 |  |  | ==>  Preparing: SELECT id,business_key,current_date,current_number,version,create_date,modify_date FROM efe_serial_number WHERE business_key = ? AND current_date = ?
+2026-10-21 14:59:48.365 | DEBUG |                 main | mmon.mapper.SerialNumberMapper.selectOne: 137 |  |  | ==> Parameters: ds(String), 20261021(Integer), ds(String), 20261021(Integer)
+2026-10-21 14:59:48.369 | DEBUG |                 main | mmon.mapper.SerialNumberMapper.selectOne: 137 |  |  | <==      Total: 1
+2026-10-21 14:59:48.918 |  INFO |                 main | npc.efe.common.utils.CudUserServiceUtils:  32 |  |  | CudUserServiceUtils.cudUserService init success!
+2026-10-21 14:59:55.108 |  WARN |                 main | net.sf.ehcache.config.CacheConfiguration: 841 |  |  | Cache 'null' is set to eternal but also has TTI/TTL set.  To avoid this warning, clean up the config removing conflicting values of eternal, TTI and TTL. Effective configuration for Cache 'null' will be eternal='true', timeToIdleSeconds='0', timeToLiveSeconds='0'.
+2026-10-21 14:59:55.115 |  WARN |                 main | net.sf.ehcache.config.CacheConfiguration: 841 |  |  | Cache 'cacheNode' is set to eternal but also has TTI/TTL set.  To avoid this warning, clean up the config removing conflicting values of eternal, TTI and TTL. Effective configuration for Cache 'cacheNode' will be eternal='true', timeToIdleSeconds='0', timeToLiveSeconds='0'.
+2026-10-21 14:59:55.321 | DEBUG |                 main | .ElectronicSignRobotUserCacheServiceImpl:  96 |  |  | 电子签机器人CUD用户缓存已刷新，userNo=EFE_ADMIN,userName=电子签机器人
+2026-10-21 15:00:07.423 |  INFO |                 main | ndler.factory.PointsActionHandlerFactory:  43 |  |  | 注册 PointsActionHandler: actType=approve_feedback_report, handler=ApproveFeedbackReportPointsHandler
+2026-10-21 15:00:07.424 |  INFO |                 main | ndler.factory.PointsActionHandlerFactory:  43 |  |  | 注册 PointsActionHandler: actType=approve_good_practices, handler=ApproveGoodPracticesPointsHandler
+2026-10-21 15:00:07.424 |  INFO |                 main | ndler.factory.PointsActionHandlerFactory:  43 |  |  | 注册 PointsActionHandler: actType=challenge, handler=ChallengePointsHandler
+2026-10-21 15:00:07.424 |  INFO |                 main | ndler.factory.PointsActionHandlerFactory:  43 |  |  | 注册 PointsActionHandler: actType=raise_issue, handler=DailyCheckPointsHandler
+2026-10-21 15:00:07.425 |  INFO |                 main | ndler.factory.PointsActionHandlerFactory:  43 |  |  | 注册 PointsActionHandler: actType=expert_score, handler=ExpertScoreActionPointsHandler
+2026-10-21 15:00:07.425 |  INFO |                 main | ndler.factory.PointsActionHandlerFactory:  43 |  |  | 注册 PointsActionHandler: actType=import_notice, handler=ImportNoticePointsHandler
+2026-10-21 15:00:07.425 |  INFO |                 main | ndler.factory.PointsActionHandlerFactory:  43 |  |  | 注册 PointsActionHandler: actType=input_notice, handler=InputNoticePointsHandler
+2026-10-21 15:00:07.425 |  INFO |                 main | ndler.factory.PointsActionHandlerFactory:  43 |  |  | 注册 PointsActionHandler: actType=login, handler=LoginPointsHandler
+2026-10-21 15:00:07.425 |  INFO |                 main | ndler.factory.PointsActionHandlerFactory:  43 |  |  | 注册 PointsActionHandler: actType=personal_score, handler=PersonalScoreActionPointsHandler
+2026-10-21 15:00:07.425 |  INFO |                 main | ndler.factory.PointsActionHandlerFactory:  43 |  |  | 注册 PointsActionHandler: actType=report_score, handler=ReportScoreActionPointsHandler
+2026-10-21 15:00:07.425 |  INFO |                 main | ndler.factory.PointsActionHandlerFactory:  43 |  |  | 注册 PointsActionHandler: actType=verify_action, handler=StandaloneVerificationPointsHandler
+2026-10-21 15:00:07.426 |  INFO |                 main | ndler.factory.PointsActionHandlerFactory:  43 |  |  | 注册 PointsActionHandler: actType=feedback_report, handler=SubmitFeedbackReportPointsHandler
+2026-10-21 15:00:07.426 |  INFO |                 main | ndler.factory.PointsActionHandlerFactory:  43 |  |  | 注册 PointsActionHandler: actType=good_practices, handler=SubmitGoodPracticesPointsHandler
+2026-10-21 15:00:09.642 |  INFO |                 main |        com.cgnpc.efe.utils.EfeEmailUtils:  35 |  |  | EfeEmailUtils.emailService init success!
+2026-10-21 15:00:09.655 |  INFO |                 main |           com.cgnpc.efe.utils.RedisUtils:  30 |  |  | RedisUtils.redisTemplate init success!
+2026-10-21 15:00:20.194 |  INFO |                 main | e.businessMsg.factory.BusinessMsgFactory:  48 |  |  | execute businessMsgHandler：cudDataBaseMsgHandler
+2026-10-21 15:00:20.194 |  INFO |                 main | e.businessMsg.factory.BusinessMsgFactory:  48 |  |  | execute businessMsgHandler：cudBusinessMsgHandler
+2026-10-21 15:00:20.195 |  INFO |                 main | usinessMsg.handler.CudBusinessMsgHandler:  32 |  |  | load CudSystemMsgEnums BusinessMsg——————————
+2026-10-21 15:00:20.206 |  INFO |                 main | usinessMsg.handler.CudDataBaseMsgHandler:  41 |  |  | load dataBase businessMsg——————————
+2026-10-21 15:00:20.230 | DEBUG |                 main | per.BusinessMsgMapper.queryMsgListByType: 137 |  |  | ==>  Preparing: SELECT cbm.BUSINESS_MSG_ID AS businessMsgId, cbm.LANG_ID AS langId, cil.LANG_CODE AS langCode, cil.LANG_NAME AS langName, cbm.CATEGORY_ID AS categoryId, cbm.MSG_KEY AS msgKey, cbm.MSG_VALUE AS msgValue, cbm.MSG_TYPE AS msgType FROM cud_business_msg AS cbm LEFT JOIN cud_i18n_language_t AS cil ON cbm.LANG_ID = cil.LANG_ID WHERE cbm.DELETE_FLAG = '1' AND cil.DELETE_FLAG = '1' AND cbm.MSG_TYPE = ? ORDER BY cbm.CREATE_DATE DESC
+2026-10-21 15:00:20.241 | DEBUG |                 main | per.BusinessMsgMapper.queryMsgListByType: 137 |  |  | ==> Parameters: 1(Integer), 1(Integer)
+2026-10-21 15:00:20.252 | DEBUG |                 main | per.BusinessMsgMapper.queryMsgListByType: 137 |  |  | <==      Total: 0
+2026-10-21 15:00:20.253 |  INFO |                 main | usinessMsg.handler.CudDataBaseMsgHandler:  45 |  |  | dataBase businessMsg is empty！
+2026-10-21 15:00:20.843 |  INFO |                 main |      org.quartz.impl.StdSchedulerFactory:1220 |  |  | Using default implementation for ThreadExecutor
+2026-10-21 15:00:20.849 |  INFO |                 main |        org.quartz.simpl.SimpleThreadPool: 268 |  |  | Job execution threads will use class loader of thread: main
+2026-10-21 15:00:20.874 |  INFO |                 main |    org.quartz.core.SchedulerSignalerImpl:  61 |  |  | Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-10-21 15:00:20.874 |  INFO |                 main |          org.quartz.core.QuartzScheduler: 229 |  |  | Quartz Scheduler v.2.3.2 created.
+2026-10-21 15:00:20.891 |  INFO |                 main | cheduling.quartz.LocalDataSourceJobStore: 672 |  |  | Using db table-based data access locking (synchronization).
+2026-10-21 15:00:20.900 |  INFO |                 main | cheduling.quartz.LocalDataSourceJobStore: 145 |  |  | JobStoreCMT initialized.
+2026-10-21 15:00:20.902 |  INFO |                 main |          org.quartz.core.QuartzScheduler: 294 |  |  | Scheduler meta-data: Quartz Scheduler (v2.3.2) 'clusteredScheduler' with instanceId 'cnpecac0789910b1792566020847'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.springframework.scheduling.quartz.LocalDataSourceJobStore' - which supports persistence. and is clustered.
+
+2026-10-21 15:00:20.903 |  INFO |                 main |      org.quartz.impl.StdSchedulerFactory:1374 |  |  | Quartz scheduler 'clusteredScheduler' initialized from an externally provided properties instance.
+2026-10-21 15:00:20.903 |  INFO |                 main |      org.quartz.impl.StdSchedulerFactory:1378 |  |  | Quartz scheduler version: 2.3.2
+2026-10-21 15:00:20.903 |  INFO |                 main |          org.quartz.core.QuartzScheduler:2293 |  |  | JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@10b732a9
+2026-10-21 15:00:39.419 |  INFO |                 main |   com.cgnpc.cud.log.consumer.LogConsumer:  41 |  |  | starting uba log thread
+2026-10-21 15:00:39.440 |  INFO |                 main | .cgnpc.cud.log.consumer.ErrorLogConsumer:  40 |  |  | starting uba error log thread
+2026-10-21 15:00:39.465 |  INFO |                 main | .cgnpc.cud.log.consumer.LoginLogConsumer:  41 |  |  | starting uba login log thread
+

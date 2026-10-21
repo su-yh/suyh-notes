@@ -1,0 +1,24 @@
+# 验证配置文件是否有错误
+./filebeat test config -c filebeat-medcase.yml
+# 验证es 连接是否正常
+./filebeat test output -c filebeat-medcase.yml
+
+
+# 1. 进入 filebeat 目录
+cd /Users/suyunhong/suyh-develop/medcase/filebeat-7.17.29-darwin-x86_64
+
+# 2. 清空注册表 data/（关键：强制从头解析，见下方原理）
+# 这个是测试的时候用的
+rm -rf data
+
+# 3. 运行：--once 处理到文件末尾后自动退出；-E 覆盖成紧凑JSON(一行一事件，方便看)
+./filebeat -e --once -c /Users/suyunhong/suyh-develop/medcase/filebeat-medcase.yml \
+  -E output.console.pretty=false > /tmp/medcase_parse.jsonl 2>/dev/null
+
+# 4. 查看结果
+wc -l /tmp/medcase_parse.jsonl     # 事件总数，应为 29355
+head -n 3 /tmp/medcase_parse.jsonl # 看前3条完整字段
+
+
+
+

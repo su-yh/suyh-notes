@@ -1,0 +1,152 @@
+# =============================================================
+# filebeat-medcase.yml
+# medcase 项目日志采集配置（适配 logback 日志格式）
+#
+# 对应 logback 格式：
+#   %d{yyyy-MM-dd HH:mm:ss.SSS} | %5p ${PID} | %-15.15thread |
+#   %-40.40logger: %4L | %X{trace-id} | %m%n
+#
+# 说明：采用 dissect（非 grok/mutate）做字段拆分——
+#   本版本 filebeat（7.17.29）内置的可用处理器为
+#   dissect / convert / copy_fields / script / timestamp 等，
+#   dissect 对“固定分隔符”日志最合适，且在服务器同版本上一致可用。
+# =============================================================
+
+filebeat.inputs:
+  - type: log
+    id: medcase-logs
+    enabled: true
+
+    # 日志路径：只采集当前正在写入的 medcase.log
+    #   - 按日期归档的历史日志（logs/YYYY-MM-DD/medcase-000.log）不采集
+    # 部署到 Linux 服务器后，请把 paths 改为服务器上的真实绝对路径
+    paths:
+      - /Users/suyunhong/suyh-develop/medcase/logs/medcase.log
+
+    # 首次运行时从文件开头读取（可用于回填历史日志）
+    start_position: beginning
+
+    # 多行合并：异常堆栈、换行的 SQL 等不以“新时间戳”开头的行，
+    # 合并到上一条日志事件，保证解析能拿到完整内容
+    # 说明：实测本版本 filestream 的 multiline 不生效，改用 log 输入（multiline 稳定）
+    multiline:
+      pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}[.,][0-9]{3}'
+      negate: true
+      match: after
+
+# ============================ processors ============================
+processors:
+  # 追加主机元数据（host.name 等）
+  - add_host_metadata: ~
+
+  # 标记事件归属（按需可再细分 service 字段）
+  - add_fields:
+      target: event
+      fields:
+        module: medcase
+        dataset: medcase
+
+  # 保留原始整行日志，便于后续回溯/比对（必须在解析 message 之前）
+  - copy_fields:
+      fields:
+        - from: message
+          to: log.original
+      fail_on_error: false
+
+  # 丢弃空行/全空白行产生的空事件
+  - drop_event:
+      when:
+        not:
+          regexp:
+            message: '\S'
+
+  # ---- 主结构拆分：字段以 “ | ” 分隔 ----
+  # 样例：2026-09-16 19:39:45.298 |  WARN 3369 | io-8080-exec-37 |
+  #       e.mvc.error.BaseHandlerExceptionResolver:  248 | ce7a... | Resolved [...]
+  # trace-id 未启用时为空串，dissect 最后一个字段 %{message} 贪婪取到行尾
+  # 注意 target_prefix: ""，让字段落在顶层，而不是默认的 dissect.* 命名空间
+  - dissect:
+      tokenizer: "%{log_timestamp} | %{level_pid} | %{thread} | %{logger_line} | %{trace_id} | %{message}"
+      target_prefix: ""
+      overwrite_keys: true
+      ignore_failure: true
+      tag_on_failure: ["_dissect_parse_failure"]
+
+  # ---- 拆分 “logger: 行号”：%-40.40logger: %4L ----
+  # 样例：com.medcase.MedcaseApplication          :   54
+  - dissect:
+      field: logger_line
+      tokenizer: "%{logger}: %{line}"
+      target_prefix: ""
+      overwrite_keys: true
+      ignore_failure: true
+
+  # ---- 拆分 “级别+PID” 并清理对齐填充 ----
+  # level_pid 样例：" INFO 53551"（带前导填充）或 "DEBUG 42449"（无填充）
+  # dissect 无法匹配“可选前导空格”，故用 script 按空白拆分；同时 trim thread/logger/line/pid
+  - script:
+      lang: javascript
+      source: >
+        function process(event) {
+          var lp = event.Get("level_pid");
+          if (typeof lp === "string") {
+            var parts = lp.trim().split(/\s+/);
+            if (parts.length >= 2) {
+              event.Put("log_level", parts[0]);
+              event.Put("pid", parts[parts.length - 1]);
+            }
+          }
+          var f = ["thread", "logger", "line", "pid"];
+          for (var i = 0; i < f.length; i++) {
+            var v = event.Get(f[i]);
+            if (typeof v === "string") event.Put(f[i], v.trim());
+          }
+        }
+
+  # ---- 丢弃中间字段 ----
+  - drop_fields:
+      fields: [level_pid, logger_line, pad]
+      ignore_missing: true
+
+  # ---- 数字转整型 ----
+  - convert:
+      fields:
+        - from: pid
+          to: pid
+          type: integer
+          ignore_missing: true
+        - from: line
+          to: line
+          type: integer
+          ignore_missing: true
+
+  # ---- 字段重命名，贴近 ECS 命名 ----
+  - rename:
+      fields:
+        - from: log_level
+          to: log.level
+        - from: line
+          to: log.line
+        - from: log_timestamp
+          to: log.timestamp
+      ignore_missing: true
+
+  # ---- 用日志自带时间戳覆盖 filebeat 的 @timestamp ----
+  # 注意：filebeat 时间格式为 Go 布局，不是 Java 的 yyyy-MM-dd
+  - timestamp:
+      field: log.timestamp
+      target_field: "@timestamp"
+      layouts:
+        - "2006-01-02 15:04:05.000"
+      timezone: "Asia/Shanghai"
+      ignore_failure: true
+
+# ============================ 输出 ============================
+# 本地验证解析效果用 console（能直观看到每个事件拆出的字段）
+output.console:
+  pretty: true
+
+# 生产环境：取消注释下面 elasticsearch 输出并填写真实地址，注释掉上面的 console
+# output.elasticsearch:
+#   hosts: ["http://your-elasticsearch-host:9200"]
+#   index: "medcase-log-%{+yyyy.MM.dd}"
