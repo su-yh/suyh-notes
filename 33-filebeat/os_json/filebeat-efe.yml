@@ -47,14 +47,14 @@ processors:
   # 追加主机元数据（host.name 等）
   - add_host_metadata: ~
 
-  # 标记事件归属
+  # 标记事件归属（按需可再细分 service 字段）
   - add_fields:
       target: event
       fields:
         module: efe
         dataset: efe
 
-  # 保留原始整行日志（必须在解析 message 之前）
+  # 保留原始整行日志，便于后续回溯/比对（必须在解析 message 之前）
   - copy_fields:
       fields:
         - from: message
@@ -72,6 +72,7 @@ processors:
   # 样例：2026-10-21 14:59:21.848 |  INFO |                 main |
   #       com.alibaba.druid.pool.DruidDataSource: 975 |  |  | {dataSource-1} inited
   # trace-id / trace-user 未启用时为空串，最后 %{message} 贪婪取到行尾
+  # 注意 target_prefix: ""，让字段落在顶层，而不是默认的 dissect.* 命名空间
   - dissect:
       tokenizer: "%{log_timestamp} | %{level_pid} | %{thread} | %{logger_line} | %{trace_id} | %{trace_user} | %{message}"
       target_prefix: ""
@@ -99,6 +100,7 @@ processors:
       lang: javascript
       source: >
         function process(event) {
+          // ① 级别拆分 + ② 字段清理
           var lp = event.Get("level_pid");
           if (typeof lp === "string") {
             var parts = lp.trim().split(/\s+/);
@@ -111,15 +113,7 @@ processors:
             var v = event.Get(f[i]);
             if (typeof v === "string") event.Put(f[i], v.trim());
           }
-        }
-
-  # ---- 拆分 trace_user：格式 [{user_id}]{user_name} ----
-  # 样例：[U2026001]张三  →  user_id=U2026001, trace_user_name=张三
-  # trace_user 为空或不符合该格式时不产生 user_id（trace_user 保留原样）
-  - script:
-      lang: javascript
-      source: >
-        function process(event) {
+          // ③ trace_user 拆分
           var tu = event.Get("trace_user");
           if (typeof tu === "string") {
             var m = tu.match(/^\[([^\]]*)\](.*)$/);
@@ -154,9 +148,10 @@ processors:
           to: log.timestamp
       ignore_missing: true
 
-  # ---- 用日志自带时间戳覆盖 filebeat 的 @timestamp ----
-  # timezone：原日志所处时区（可按需修改，如 Asia/Shanghai / UTC / America/New_York）
-  # filebeat 时间格式为 Go 布局，不是 Java 的 yyyy-MM-dd
+  # ---- 日志时间解析到 @timestamp ----
+  # 等价于 Luxon 的：DateTime.fromFormat(log.timestamp, "yyyy-MM-dd HH:mm:ss.SSS", {zone:"Asia/Shanghai"})
+  # filebeat 原生 timestamp 处理器按指定时区正确解析，无需手工换算偏移。
+  # 注意：@timestamp 会变为日志时间（这是日志采集的标准语义，Kibana/按天索引均依赖它）。
   - timestamp:
       field: log.timestamp
       target_field: "@timestamp"
@@ -165,15 +160,22 @@ processors:
       timezone: "Asia/Shanghai"
       ignore_failure: true
 
-  # ---- 另存一份数值时间戳（epoch 毫秒）----
-  # 从上面解析好的 @timestamp（已按 timezone 正确换算为 UTC 时刻）取毫秒整数
+  # ---- 从解析好的 @timestamp 取毫秒 + 按目标时区转日期 yyyyMMdd ----
+  # log.timestamp_ms：@timestamp 已按 timezone 正确换算为 UTC 时刻，取毫秒整数
+  # log.date：从时间戳按目标时区偏移换算（epoch 毫秒 + 偏移 → UTC 组件即目标时区日期）
+  #           goja 无时区库，偏移即“给定时区”的唯一映射；Asia/Shanghai=+8，
+  #           若需改为其它时区（如 America/New_York=-5），只需改 timezone 与下方 offsetHours
   - script:
       lang: javascript
       source: >
         function process(event) {
           var ts = event.Get("@timestamp");
           if (ts) {
-            event.Put("log.timestamp_ms", Math.floor(ts.UnixNano() / 1000000));
+            var ms = Math.floor(ts.UnixNano() / 1000000);
+            event.Put("log.timestamp_ms", ms);
+            var offsetHours = 8; // 目标时区：Asia/Shanghai = UTC+8
+            var d = new Date(ms + offsetHours * 3600 * 1000);
+            event.Put("log.date", d.getUTCFullYear() * 10000 + (d.getUTCMonth() + 1) * 100 + d.getUTCDate());
           }
         }
 
