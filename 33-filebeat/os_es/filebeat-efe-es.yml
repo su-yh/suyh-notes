@@ -190,6 +190,10 @@ output.elasticsearch:
   # username: "elastic"
   # password: "your-password"
 
+  # 方式B：字段改名交给 ES ingest pipeline（由下方 setup.ingest.pipeline 定义，filebeat 启动时自动创建）
+  # 事件本身仍保留 logger/trace_id，仅 ES 索引里落地为 log.logger/trace.id
+  pipeline: "efe-log-rename"
+
   # 按日志日期（Asia/Shanghai）分索引，如 efe-log-20261021
   # （log.date 为已按目标时区换算好的 yyyyMMdd 整数，比 %{+yyyy.MM.dd} 更符合上海时区）
   index: "efe-log-%{[log.date]}"
@@ -225,9 +229,24 @@ setup.template.mappings:
         date: { type: long }              # yyyyMMdd 整数（Asia/Shanghai）
         line: { type: long }              # 代码行号
     thread: { type: keyword }
-    logger: { type: keyword }
-    trace_id: { type: keyword }
+    # 注：logger/trace_id 经下方 ingest pipeline 改名为 log.logger/trace.id
+    #     （均为 ECS 标准字段，由 filebeat 内置 ECS 映射自动定型 keyword），
+    #     故此处原自定义声明已移除；本地 file 输出仍保留 logger/trace_id 原字段名。
     trace_user: { type: keyword }
     user_id: { type: keyword }
     trace_user_name: { type: keyword }
+
+# ============================ 方式B：ES ingest pipeline 字段改名 ============================
+# 事件字段名不变，仅在 ES 接收时改名（logger→log.logger、trace_id→trace.id）
+# filebeat 启动时自动创建该 pipeline（需 ES 可写，运行后可用
+#   curl http://<es>:9200/_ingest/pipeline/efe-log-rename 查询）
+setup.ingest.pipeline.enabled: true
+setup.ingest.pipeline.id: "efe-log-rename"
+setup.ingest.pipeline.processors:
+  - rename:
+      field: logger
+      target_field: log.logger
+  - rename:
+      field: trace_id
+      target_field: trace.id
 
