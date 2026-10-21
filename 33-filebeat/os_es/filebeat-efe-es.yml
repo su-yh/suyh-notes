@@ -201,10 +201,30 @@ output.elasticsearch:
 # 使用自定义索引名必须关闭 ILM，否则 ILM 会接管索引命名
 setup.ilm.enabled: false
 
-# 自定义索引字段映射模板（匹配 efe-log-*，字段类型更规范，建议开启）
-# 若暂不需要精确映射或加载失败，可改为 false，由 ES 首次写入自动建映射
+# 自定义索引字段映射模板（匹配 efe-log-*）
 setup.template.enabled: true
 setup.template.name: efe-log
 setup.template.pattern: "efe-log-*"
 setup.template.settings.index.number_of_shards: 1
 setup.template.settings.index.number_of_replicas: 1
+
+# ---- 自定义字段显式映射 ----
+# 默认 ES 动态映射：数字→long、字符串→text+keyword（按首条猜类型，不够可控）。
+# 下面显式声明我们解析出的自定义字段类型，保证稳定、可聚合/排序。
+# ECS 标准字段（@timestamp/host/agent/message/log.level/log.original 等）
+# 由 filebeat 内置 ECS 映射负责，这里只补自定义字段。
+setup.template.mappings:
+  properties:
+    log:
+      properties:
+        timestamp: { type: keyword }      # 原始时间字符串，精确匹配/排序用 keyword
+        timestamp_ms: { type: long }      # epoch 毫秒
+        date: { type: long }              # yyyyMMdd 整数（Asia/Shanghai）
+        line: { type: long }              # 代码行号
+    thread: { type: keyword }
+    logger: { type: keyword }
+    trace_id: { type: keyword }
+    trace_user: { type: keyword }
+    user_id: { type: keyword }
+    trace_user_name: { type: keyword }
+
