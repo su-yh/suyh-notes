@@ -113,6 +113,23 @@ processors:
           }
         }
 
+  # ---- 拆分 trace_user：格式 [{user_id}]{user_name} ----
+  # 样例：[U2026001]张三  →  user_id=U2026001, trace_user_name=张三
+  # trace_user 为空或不符合该格式时不产生 user_id（trace_user 保留原样）
+  - script:
+      lang: javascript
+      source: >
+        function process(event) {
+          var tu = event.Get("trace_user");
+          if (typeof tu === "string") {
+            var m = tu.match(/^\[([^\]]*)\](.*)$/);
+            if (m) {
+              event.Put("user_id", m[1]);
+              event.Put("trace_user_name", m[2]);
+            }
+          }
+        }
+
   # ---- 丢弃中间字段 ----
   - drop_fields:
       fields: [level_pid, logger_line]
