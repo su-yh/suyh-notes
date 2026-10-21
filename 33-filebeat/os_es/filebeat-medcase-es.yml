@@ -1,0 +1,197 @@
+# =============================================================
+# filebeat-medcase-es.yml
+# medcase 项目日志采集配置 —— Elasticsearch 输出版（生产用）
+#
+# 解析逻辑与 filebeat-medcase.yml（本地 file 输出）完全一致，
+# 仅将输出从 output.file 换成 output.elasticsearch。
+#
+# 对应 logback 格式：
+#   %d{yyyy-MM-dd HH:mm:ss.SSS} | %5p ${PID} | %-15.15thread |
+#   %-40.40logger: %4L | %X{trace-id} | %m%n
+#
+# 部署到 Linux 服务器后，请把 paths 改为服务器真实路径、hosts 改为真实 ES 地址。
+# =============================================================
+
+# ============================== 运行时路径 ==============================
+# 独立数据目录（注册表/偏移），与本地 file 版（data-medcase）及其它进程隔离，
+# 避免共用同一 data/ 导致注册表冲突
+path.data: /Users/suyunhong/suyh-develop/medcase/filebeat-7.17.29-darwin-x86_64/data-medcase-es
+# 本进程独立的运行日志目录
+path.logs: /Users/suyunhong/suyh-develop/medcase/filebeat-7.17.29-darwin-x86_64/logs-medcase-es
+
+filebeat.inputs:
+  - type: log
+    id: medcase-logs-es
+    enabled: true
+
+    # 日志路径：只采集当前正在写入的 medcase.log
+    #   - 按日期归档的历史日志（logs/YYYY-MM-DD/medcase-000.log）不采集
+    # 部署到 Linux 服务器后，请把 paths 改为服务器上的真实绝对路径
+    paths:
+      - /Users/suyunhong/suyh-develop/medcase/logs/medcase.log
+
+    # 首次运行时从文件开头读取（可用于回填历史日志）
+    start_position: beginning
+
+    # 多行合并：异常堆栈、换行的 SQL 等不以“新时间戳”开头的行，
+    # 合并到上一条日志事件，保证解析能拿到完整内容
+    # 说明：实测本版本 filestream 的 multiline 不生效，改用 log 输入（multiline 稳定）
+    multiline:
+      pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}[.,][0-9]{3}'
+      negate: true
+      match: after
+
+# ============================ processors ============================
+processors:
+  # 追加主机元数据（host.name 等）
+  - add_host_metadata: ~
+
+  # 标记事件归属（按需可再细分 service 字段）
+  - add_fields:
+      target: event
+      fields:
+        module: medcase
+        dataset: medcase
+
+  # 保留原始整行日志，便于后续回溯/比对（必须在解析 message 之前）
+  - copy_fields:
+      fields:
+        - from: message
+          to: log.original
+      fail_on_error: false
+
+  # 丢弃空行/全空白行产生的空事件
+  - drop_event:
+      when:
+        not:
+          regexp:
+            message: '\S'
+
+  # ---- 主结构拆分：字段以 “ | ” 分隔 ----
+  # 样例：2026-09-16 19:39:45.298 |  WARN 3369 | io-8080-exec-37 |
+  #       e.mvc.error.BaseHandlerExceptionResolver:  248 | ce7a... | Resolved [...]
+  # trace-id 未启用时为空串，dissect 最后一个字段 %{message} 贪婪取到行尾
+  # 注意 target_prefix: ""，让字段落在顶层，而不是默认的 dissect.* 命名空间
+  - dissect:
+      tokenizer: "%{log_timestamp} | %{level_pid} | %{thread} | %{logger_line} | %{trace_id} | %{message}"
+      target_prefix: ""
+      overwrite_keys: true
+      ignore_failure: true
+      tag_on_failure: ["_dissect_parse_failure"]
+
+  # ---- 拆分 “logger: 行号”：%-40.40logger: %4L ----
+  # 样例：com.medcase.MedcaseApplication          :   54
+  - dissect:
+      field: logger_line
+      tokenizer: "%{logger}: %{line}"
+      target_prefix: ""
+      overwrite_keys: true
+      ignore_failure: true
+
+  # ---- 拆分 “级别+PID” 并清理对齐填充 ----
+  # level_pid 样例：" INFO 53551"（带前导填充）或 "DEBUG 42449"（无填充）
+  # dissect 无法匹配“可选前导空格”，故用 script 按空白拆分；同时 trim thread/logger/line/pid
+  - script:
+      lang: javascript
+      source: >
+        function process(event) {
+          var lp = event.Get("level_pid");
+          if (typeof lp === "string") {
+            var parts = lp.trim().split(/\s+/);
+            if (parts.length >= 2) {
+              event.Put("log_level", parts[0]);
+              event.Put("pid", parts[parts.length - 1]);
+            }
+          }
+          var f = ["thread", "logger", "line", "pid"];
+          for (var i = 0; i < f.length; i++) {
+            var v = event.Get(f[i]);
+            if (typeof v === "string") event.Put(f[i], v.trim());
+          }
+        }
+
+  # ---- 丢弃中间字段 ----
+  - drop_fields:
+      fields: [level_pid, logger_line, pad]
+      ignore_missing: true
+
+  # ---- 数字转整型 ----
+  - convert:
+      fields:
+        - from: pid
+          to: pid
+          type: integer
+          ignore_missing: true
+        - from: line
+          to: line
+          type: integer
+          ignore_missing: true
+
+  # ---- 字段重命名，贴近 ECS 命名 ----
+  - rename:
+      fields:
+        - from: log_level
+          to: log.level
+        - from: line
+          to: log.line
+        - from: log_timestamp
+          to: log.timestamp
+      ignore_missing: true
+
+  # ---- 日志时间解析到 @timestamp ----
+  # 等价于 Luxon 的：DateTime.fromFormat(log.timestamp, "yyyy-MM-dd HH:mm:ss.SSS", {zone:"Asia/Shanghai"})
+  # filebeat 原生 timestamp 处理器按指定时区正确解析，无需手工换算偏移。
+  # 注意：@timestamp 会变为日志时间（这是日志采集的标准语义，Kibana/按天索引均依赖它）。
+  - timestamp:
+      field: log.timestamp
+      target_field: "@timestamp"
+      layouts:
+        - "2006-01-02 15:04:05.000"
+      timezone: "Asia/Shanghai"
+      ignore_failure: true
+
+  # ---- 从解析好的 @timestamp 取毫秒 + 按目标时区转日期 yyyyMMdd ----
+  # log.timestamp_ms：@timestamp 已按 timezone 正确换算为 UTC 时刻，取毫秒整数
+  # log.date：从时间戳按目标时区偏移换算（epoch 毫秒 + 偏移 → UTC 组件即目标时区日期）
+  #           goja 无时区库，偏移即“给定时区”的唯一映射；Asia/Shanghai=+8，
+  #           若需改为其它时区（如 America/New_York=-5），只需改 timezone 与下方 offsetHours
+  - script:
+      lang: javascript
+      source: >
+        function process(event) {
+          var ts = event.Get("@timestamp");
+          if (ts) {
+            var ms = Math.floor(ts.UnixNano() / 1000000);
+            event.Put("log.timestamp_ms", ms);
+            var offsetHours = 8; // 目标时区：Asia/Shanghai = UTC+8
+            var d = new Date(ms + offsetHours * 3600 * 1000);
+            event.Put("log.date", d.getUTCFullYear() * 10000 + (d.getUTCMonth() + 1) * 100 + d.getUTCDate());
+          }
+        }
+
+# ============================ 输出：Elasticsearch ============================
+output.elasticsearch:
+  # ← 改成你的 ES 地址（多节点可列出多个）
+  hosts: ["http://your-elasticsearch-host:9200"]
+  # ES 开启安全认证时，取消注释并填写：
+  # username: "elastic"
+  # password: "your-password"
+
+  # 按日志日期（Asia/Shanghai）分索引，如 medcase-log-20261021
+  # （log.date 为已按目标时区换算好的 yyyyMMdd 整数，比 %{+yyyy.MM.dd} 更符合上海时区）
+  index: "medcase-log-%{[log.date]}"
+
+  # bulk 批量写入参数（可按需调整）
+  bulk_max_size: 1600
+  flush_interval: 5s
+
+# 使用自定义索引名必须关闭 ILM，否则 ILM 会接管索引命名
+setup.ilm.enabled: false
+
+# 自定义索引字段映射模板（匹配 medcase-log-*，字段类型更规范，建议开启）
+# 若暂不需要精确映射或加载失败，可改为 false，由 ES 首次写入自动建映射
+setup.template.enabled: true
+setup.template.name: medcase-log
+setup.template.pattern: "medcase-log-*"
+setup.template.settings.index.number_of_shards: 1
+setup.template.settings.index.number_of_replicas: 1
