@@ -1,0 +1,341 @@
+
+PUT _ilm/policy/suyh-efe-log-policy
+{
+  "policy": {
+    "phases": {
+      "hot": {
+        "min_age": "0ms",
+        "actions": {
+          "rollover": {
+            "max_size": "50GB",
+            "max_age": "30d"
+          },
+          "set_priority": {
+            "priority": 100
+          }
+        }
+      },
+      "warm": {
+        "min_age": "30d",
+        "actions": {
+          "forcemerge": {
+            "max_num_segments": 1
+          },
+          "set_priority": {
+            "priority": 50
+          }
+        }
+      },
+      "cold": {
+        "min_age": "60d",
+        "actions": {
+          "set_priority": {
+            "priority": 0
+          }
+        }
+      },
+      "delete": {
+        "min_age": "90d",
+        "actions": {
+          "delete": {}
+        }
+      }
+    }
+  }
+}
+
+
+# 创建索引模板
+PUT _index_template/suyh-efe-log-template
+{
+  "index_patterns": ["suyh-efe-log-*"],
+  "priority": 100,
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_shards": 3,
+        "number_of_replicas": 1,
+        "codec": "best_compression",
+        "refresh_interval": "5s",
+        "lifecycle": {
+          "name": "suyh-efe-log-policy",
+          "rollover_alias": "suyh-efe-log"
+        }
+      }
+    },
+    "mappings": {
+      "dynamic_templates": [
+        {
+          "strings_as_keyword": {
+            "match_mapping_type": "string",
+            "mapping": {
+              "type": "keyword",
+              "ignore_above": 1024
+            }
+          }
+        }
+      ],
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "log": {
+          "properties": {
+            "original": {
+              "type": "text",
+              "analyzer": "ik_max_word",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "level": {
+              "type": "keyword"
+            },
+            "thread": {
+              "type": "keyword"
+            },
+            "logger": {
+              "type": "keyword"
+            },
+            "line": {
+              "type": "integer"
+            },
+            "timestamp_ms": {
+              "type": "long"
+            },
+            "date": {
+              "type": "integer"
+            },
+            "trace_id": {
+              "type": "keyword"
+            },
+            "trace_user": {
+              "type": "keyword"
+            },
+            "user_id": {
+              "type": "keyword"
+            },
+            "file": {
+              "properties": {
+                "path": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "host": {
+          "properties": {
+            "name": {
+              "type": "keyword"
+            },
+            "hostname": {
+              "type": "keyword"
+            },
+            "architecture": {
+              "type": "keyword"
+            },
+            "os": {
+              "properties": {
+                "platform": {
+                  "type": "keyword"
+                },
+                "version": {
+                  "type": "keyword"
+                },
+                "family": {
+                  "type": "keyword"
+                },
+                "name": {
+                  "type": "keyword"
+                },
+                "kernel": {
+                  "type": "keyword"
+                },
+                "build": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "id": {
+              "type": "keyword"
+            },
+            "containerized": {
+              "type": "boolean"
+            },
+            "ip": {
+              "type": "ip"
+            },
+            "mac": {
+              "type": "keyword"
+            }
+          }
+        },
+        "tags": {
+          "type": "keyword"
+        },
+        "input": {
+          "properties": {
+            "type": {
+              "type": "keyword"
+            }
+          }
+        },
+        "ecs": {
+          "properties": {
+            "version": {
+              "type": "keyword"
+            }
+          }
+        },
+        "agent": {
+          "properties": {
+            "id": {
+              "type": "keyword"
+            },
+            "type": {
+              "type": "keyword"
+            },
+            "ephemeral_id": {
+              "type": "keyword"
+            },
+            "hostname": {
+              "type": "keyword"
+            },
+            "name": {
+              "type": "keyword"
+            },
+            "version": {
+              "type": "keyword"
+            }
+          }
+        },
+        "cloud": {
+          "properties": {
+            "provider": {
+              "type": "keyword"
+            },
+            "instance": {
+              "properties": {
+                "id": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "account": {
+              "properties": {
+                "id": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "availability_zone": {
+              "type": "keyword"
+            },
+            "region": {
+              "type": "keyword"
+            },
+            "machine": {
+              "properties": {
+                "type": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "project": {
+              "properties": {
+                "id": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "fields": {
+          "type": "object",
+          "dynamic": true
+        }
+      }
+    },
+    "aliases": {
+      "suyh-efe-log": {}
+    }
+  }
+}
+
+# 删除索引模板
+DELETE _index_template/suyh-efe-log-template
+
+# 验证是否删除成功
+GET _index_template/suyh-efe-log-template
+# 应该返回 404
+
+# 删除索引
+DELETE /suyh-efe-log-*
+# 创建索引
+PUT suyh-efe-log-20261022
+{
+  "aliases": {
+    "suyh-efe-log": {
+      "is_write_index": true
+    }
+  }
+}
+
+# 查询索引的数量
+GET /suyh-efe-log-20261022/_count
+
+# 查看字段的类型
+GET /suyh-efe-log-20261022/_mapping/field/log.original
+
+# 查询验证数据
+GET /suyh-efe-log-20261022/_search?pretty
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 3,
+  "sort": [
+    {
+      "@timestamp": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+# ==========================================================================================================================================================
+
+# ① 看当前索引里 log.original 的真实类型
+GET /suyh-efe-log-20261022/_mapping/field/log.original
+
+# ② 关键：模拟这个索引会匹配哪些模板、最终映射是什么
+POST /_index_template/_simulate/suyh-efe-log-20261022
+
+# ③ 确认模板本身是否已创建且 log.original 是 text
+GET /_index_template/suyh-efe-log-template
+
+# 删除旧索引
+DELETE /suyh-efe-log-20261022
+# 创建索引
+PUT suyh-efe-log-20261022
+{
+  "aliases": {
+    "suyh-efe-log": {
+      "is_write_index": true
+    }
+  }
+}
+# 建完先验证映射已变 text
+GET /suyh-efe-log-20261022/_mapping/field/log.original
+
