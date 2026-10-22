@@ -136,6 +136,15 @@ processors:
           to: log.line
         - from: log_timestamp
           to: log.timestamp
+        - from: log_thread
+          to: log.thread
+        - from: logger
+          to: log.logger
+        - from: trace_id
+          to: log.trace_id
+        - from: pid
+          to: log.pid
+
       ignore_missing: true
 
   # ---- 日志时间解析到 @timestamp ----

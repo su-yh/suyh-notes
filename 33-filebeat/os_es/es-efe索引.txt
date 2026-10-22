@@ -1,4 +1,4 @@
-
+# 创建策略
 PUT _ilm/policy/suyh-efe-log-policy
 {
   "policy": {
@@ -8,7 +8,7 @@ PUT _ilm/policy/suyh-efe-log-policy
         "actions": {
           "rollover": {
             "max_size": "50GB",
-            "max_age": "30d"
+            "max_age": "7d"
           },
           "set_priority": {
             "priority": 100
@@ -16,7 +16,7 @@ PUT _ilm/policy/suyh-efe-log-policy
         }
       },
       "warm": {
-        "min_age": "30d",
+        "min_age": "10d",
         "actions": {
           "forcemerge": {
             "max_num_segments": 1
@@ -27,7 +27,7 @@ PUT _ilm/policy/suyh-efe-log-policy
         }
       },
       "cold": {
-        "min_age": "60d",
+        "min_age": "15d",
         "actions": {
           "set_priority": {
             "priority": 0
@@ -35,7 +35,7 @@ PUT _ilm/policy/suyh-efe-log-policy
         }
       },
       "delete": {
-        "min_age": "90d",
+        "min_age": "30d",
         "actions": {
           "delete": {}
         }

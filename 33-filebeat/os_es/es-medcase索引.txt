@@ -1,5 +1,5 @@
-
-PUT _ilm/policy/suyh-efe-log-policy
+# 创建策略
+PUT _ilm/policy/suyh-medcase-log-policy
 {
   "policy": {
     "phases": {
@@ -8,7 +8,7 @@ PUT _ilm/policy/suyh-efe-log-policy
         "actions": {
           "rollover": {
             "max_size": "50GB",
-            "max_age": "30d"
+            "max_age": "7d"
           },
           "set_priority": {
             "priority": 100
@@ -16,7 +16,7 @@ PUT _ilm/policy/suyh-efe-log-policy
         }
       },
       "warm": {
-        "min_age": "30d",
+        "min_age": "10d",
         "actions": {
           "forcemerge": {
             "max_num_segments": 1
@@ -27,7 +27,7 @@ PUT _ilm/policy/suyh-efe-log-policy
         }
       },
       "cold": {
-        "min_age": "60d",
+        "min_age": "15d",
         "actions": {
           "set_priority": {
             "priority": 0
@@ -35,7 +35,7 @@ PUT _ilm/policy/suyh-efe-log-policy
         }
       },
       "delete": {
-        "min_age": "90d",
+        "min_age": "30d",
         "actions": {
           "delete": {}
         }
@@ -46,9 +46,9 @@ PUT _ilm/policy/suyh-efe-log-policy
 
 
 # 创建索引模板
-PUT _index_template/suyh-efe-log-template
+PUT _index_template/suyh-medcase-log-template
 {
-  "index_patterns": ["suyh-efe-log-*"],
+  "index_patterns": ["suyh-medcase-log-*"],
   "priority": 100,
   "template": {
     "settings": {
@@ -58,8 +58,8 @@ PUT _index_template/suyh-efe-log-template
         "codec": "best_compression",
         "refresh_interval": "5s",
         "lifecycle": {
-          "name": "suyh-efe-log-policy",
-          "rollover_alias": "suyh-efe-log"
+          "name": "suyh-medcase-log-policy",
+          "rollover_alias": "suyh-medcase-log"
         }
       }
     },
@@ -112,19 +112,6 @@ PUT _index_template/suyh-efe-log-template
             "trace_id": {
               "type": "keyword"
             },
-            "trace_user": {
-              "type": "keyword"
-            },
-            "user_id": {
-              "type": "keyword"
-            },
-            "file": {
-              "properties": {
-                "path": {
-                  "type": "keyword"
-                }
-              }
-            }
           }
         },
         "host": {
@@ -261,38 +248,38 @@ PUT _index_template/suyh-efe-log-template
       }
     },
     "aliases": {
-      "suyh-efe-log": {}
+      "suyh-medcase-log": {}
     }
   }
 }
 
 # 删除索引模板
-DELETE _index_template/suyh-efe-log-template
+DELETE _index_template/suyh-medcase-log-template
 
 # 验证是否删除成功
-GET _index_template/suyh-efe-log-template
+GET _index_template/suyh-medcase-log-template
 # 应该返回 404
 
 # 删除索引
-DELETE /suyh-efe-log-*
+DELETE /suyh-medcase-log-*
 # 创建索引
-PUT suyh-efe-log-20261022
+PUT suyh-medcase-log-20261022
 {
   "aliases": {
-    "suyh-efe-log": {
+    "suyh-medcase-log": {
       "is_write_index": true
     }
   }
 }
 
 # 查询索引的数量
-GET /suyh-efe-log-20261022/_count
+GET /suyh-medcase-log-20261022/_count
 
 # 查看字段的类型
-GET /suyh-efe-log-20261022/_mapping/field/log.original
+GET /suyh-medcase-log-20261022/_mapping/field/log.original
 
 # 查询验证数据
-GET /suyh-efe-log-20261022/_search?pretty
+GET /suyh-medcase-log-20261022/_search?pretty
 {
   "query": {
     "match_all": {}
@@ -317,25 +304,25 @@ GET /suyh-efe-log-20261022/_search?pretty
 # ==========================================================================================================================================================
 
 # ① 看当前索引里 log.original 的真实类型
-GET /suyh-efe-log-20261022/_mapping/field/log.original
+GET /suyh-medcase-log-20261022/_mapping/field/log.original
 
 # ② 关键：模拟这个索引会匹配哪些模板、最终映射是什么
-POST /_index_template/_simulate/suyh-efe-log-20261022
+POST /_index_template/_simulate/suyh-medcase-log-20261022
 
 # ③ 确认模板本身是否已创建且 log.original 是 text
-GET /_index_template/suyh-efe-log-template
+GET /_index_template/suyh-medcase-log-template
 
 # 删除旧索引
-DELETE /suyh-efe-log-20261022
+DELETE /suyh-medcase-log-20261022
 # 创建索引
-PUT suyh-efe-log-20261022
+PUT suyh-medcase-log-20261022
 {
   "aliases": {
-    "suyh-efe-log": {
+    "suyh-medcase-log": {
       "is_write_index": true
     }
   }
 }
 # 建完先验证映射已变 text
-GET /suyh-efe-log-20261022/_mapping/field/log.original
+GET /suyh-medcase-log-20261022/_mapping/field/log.original
 

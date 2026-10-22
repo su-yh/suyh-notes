@@ -15,9 +15,9 @@
 # ============================== 运行时路径 ==============================
 # 本进程独立的运行时数据目录（注册表/读取偏移），
 # 避免与其它 filebeat 进程（如 efe）共用同一 data/ 导致注册表冲突
-path.data: /Users/suyunhong/suyh-develop/medcase/filebeat-7.17.29-darwin-x86_64/data-medcase
+path.data: /Users/suyunhong/suyh-develop/github/suyh-notes/33-filebeat/medcase/data-file
 # 本进程独立的运行日志目录
-path.logs: /Users/suyunhong/suyh-develop/medcase/filebeat-7.17.29-darwin-x86_64/logs-medcase
+path.logs: /Users/suyunhong/suyh-develop/github/suyh-notes/33-filebeat/medcase/logs/file
 
 filebeat.inputs:
   - type: log
@@ -28,7 +28,7 @@ filebeat.inputs:
     #   - 按日期归档的历史日志（logs/YYYY-MM-DD/medcase-000.log）不采集
     # 部署到 Linux 服务器后，请把 paths 改为服务器上的真实绝对路径
     paths:
-      - /Users/suyunhong/suyh-develop/medcase/logs/medcase.log
+      - /Users/suyunhong/suyh-develop/github/suyh-notes/33-filebeat/logs/medcase.log
 
     # 首次运行时从文件开头读取（可用于回填历史日志）
     start_position: beginning
@@ -73,7 +73,7 @@ processors:
   # trace-id 未启用时为空串，dissect 最后一个字段 %{message} 贪婪取到行尾
   # 注意 target_prefix: ""，让字段落在顶层，而不是默认的 dissect.* 命名空间
   - dissect:
-      tokenizer: "%{log_timestamp} | %{level_pid} | %{thread} | %{logger_line} | %{trace_id} | %{message}"
+      tokenizer: "%{log_timestamp} | %{level_pid} | %{log_thread} | %{logger_line} | %{trace_id} | %{message}"
       target_prefix: ""
       overwrite_keys: true
       ignore_failure: true
@@ -90,7 +90,7 @@ processors:
 
   # ---- 拆分 “级别+PID” 并清理对齐填充 ----
   # level_pid 样例：" INFO 53551"（带前导填充）或 "DEBUG 42449"（无填充）
-  # dissect 无法匹配“可选前导空格”，故用 script 按空白拆分；同时 trim thread/logger/line/pid
+  # dissect 无法匹配“可选前导空格”，故用 script 按空白拆分；同时 trim log_thread/logger/line/pid
   - script:
       lang: javascript
       source: >
@@ -103,7 +103,7 @@ processors:
               event.Put("pid", parts[parts.length - 1]);
             }
           }
-          var f = ["thread", "logger", "line", "pid"];
+          var f = ["log_thread", "logger", "line", "pid"];
           for (var i = 0; i < f.length; i++) {
             var v = event.Get(f[i]);
             if (typeof v === "string") event.Put(f[i], v.trim());
@@ -112,7 +112,7 @@ processors:
 
   # ---- 丢弃中间字段 ----
   - drop_fields:
-      fields: [level_pid, logger_line, pad]
+      fields: [level_pid, logger_line, pad, message]
       ignore_missing: true
 
   # ---- 数字转整型 ----
@@ -136,6 +136,15 @@ processors:
           to: log.line
         - from: log_timestamp
           to: log.timestamp
+        - from: log_thread
+          to: log.thread
+        - from: logger
+          to: log.logger
+        - from: trace_id
+          to: log.trace_id
+        - from: pid
+          to: log.pid
+
       ignore_missing: true
 
   # ---- 日志时间解析到 @timestamp ----
@@ -163,21 +172,21 @@ processors:
           if (ts) {
             var ms = Math.floor(ts.UnixNano() / 1000000);
             event.Put("log.timestamp_ms", ms);
-            var offsetHours = 8; // 目标时区：Asia/Shanghai = UTC+8
+            // 目标时区：Asia/Shanghai = UTC+8
+            var offsetHours = 8;
             var d = new Date(ms + offsetHours * 3600 * 1000);
             event.Put("log.date", d.getUTCFullYear() * 10000 + (d.getUTCMonth() + 1) * 100 + d.getUTCDate());
           }
+          // 删除中间字段 log_timestamp，不写入 ES
+          event.Delete("log_timestamp");
         }
 
 # ============================ 输出 ============================
 # 输出到文件（JSONL：每行一个事件对象），便于本地查看解析结果
 # 文件生成在工作目录下，文件名为 medcase_parse.json
 output.file:
-  path: /Users/suyunhong/suyh-develop/medcase
+  path: /Users/suyunhong/suyh-develop/github/suyh-notes/33-filebeat/medcase
   filename: medcase_parse.json
   pretty: false
 
-# 生产环境：换成 elasticsearch 输出并填写真实地址，注释掉上面的 file
-# output.elasticsearch:
-#   hosts: ["http://your-elasticsearch-host:9200"]
-#   index: "medcase-log-%{+yyyy.MM.dd}"
+
