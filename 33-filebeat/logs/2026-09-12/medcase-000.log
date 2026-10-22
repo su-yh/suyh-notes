@@ -1,0 +1,1036 @@
+2026-09-12 21:48:42.907 |  INFO 9433 | main            | com.medcase.MedcaseApplication          :   54 |  | Starting MedcaseApplication using Java 17.0.20 with PID 9433 (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes started by suyunhong in /Users/suyunhong/suyh-develop/github/medcase-api)
+2026-09-12 21:48:42.909 | DEBUG 9433 | main            | com.medcase.MedcaseApplication          :   55 |  | Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-09-12 21:48:42.910 |  INFO 9433 | main            | com.medcase.MedcaseApplication          :  658 |  | The following 1 profile is active: "suyh"
+2026-09-12 21:48:43.006 |  INFO 9433 | kground-preinit | ibernate.validator.internal.util.Version:   18 |  | HV000001: Hibernate Validator 9.1.0.Final
+2026-09-12 21:48:43.331 |  INFO 9433 | main            | y.config.RepositoryConfigurationDelegate:  291 |  | Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-12 21:48:43.332 |  INFO 9433 | main            | y.config.RepositoryConfigurationDelegate:  145 |  | Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-12 21:48:43.355 |  INFO 9433 | main            | y.config.RepositoryConfigurationDelegate:  213 |  | Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2026-09-12 21:48:43.915 |  INFO 9433 | main            | ingframework.boot.tomcat.TomcatWebServer:  114 |  | Tomcat initialized with port 8080 (http)
+2026-09-12 21:48:43.921 |  INFO 9433 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Initializing ProtocolHandler ["http-nio-8080"]
+2026-09-12 21:48:43.922 |  INFO 9433 | main            | org.apache.catalina.core.StandardService:  168 |  | Starting service [Tomcat]
+2026-09-12 21:48:43.922 |  INFO 9433 | main            | org.apache.catalina.core.StandardEngine :  168 |  | Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-09-12 21:48:43.948 |  INFO 9433 | main            | servlet.WebApplicationContextInitializer:   77 |  | Root WebApplicationContext: initialization completed in 1018 ms
+2026-09-12 21:48:44.004 |  WARN 9433 | main            | lver.dns.DnsServerAddressStreamProviders:   70 |  | Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'
+2026-09-12 21:48:44.182 | DEBUG 9433 | main            | rity.filter.JwtAuthenticationTokenFilter:  236 |  | Filter 'jwtAuthenticationTokenFilter' configured for use
+2026-09-12 21:48:44.313 |  INFO 9433 | main            | com.zaxxer.hikari.HikariDataSource      :  109 |  | HikariPool-1 - Starting...
+2026-09-12 21:48:57.995 |  INFO 9433 | main            | com.zaxxer.hikari.pool.HikariPool       :  580 |  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@70a24463
+2026-09-12 21:48:57.997 |  INFO 9433 | main            | com.zaxxer.hikari.HikariDataSource      :  122 |  | HikariPool-1 - Start completed.
+2026-09-12 21:48:58.056 |  INFO 9433 | main            | org.flywaydb.core.FlywayExecutor        :   41 |  | Database: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000 (MySQL 8.0)
+2026-09-12 21:48:58.721 |  INFO 9433 | main            | lywaydb.core.internal.command.DbValidate:   41 |  | Successfully validated 12 migrations (execution time 00:00.237s)
+2026-09-12 21:48:59.053 |  INFO 9433 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Current version of schema `suyh_medcase`: 01.01.00.010
+2026-09-12 21:48:59.189 |  INFO 9433 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Migrating schema `suyh_medcase` to version "01.01.00.011 - login-record"
+2026-09-12 21:49:00.490 |  INFO 9433 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Successfully applied 1 migration to schema `suyh_medcase`, now at version v01.01.00.011 (execution time 00:00.855s)
+2026-09-12 21:49:00.674 |  INFO 9433 | main            | amic.datasource.DynamicRoutingDataSource:  158 |  | dynamic-datasource - add a datasource named [master] success
+2026-09-12 21:49:00.675 |  INFO 9433 | main            | amic.datasource.DynamicRoutingDataSource:  241 |  | dynamic-datasource initial loaded [1] datasource,primary datasource named [master]
+2026-09-12 21:49:01.036 | DEBUG 9433 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config
+2026-09-12 21:49:01.042 | DEBUG 9433 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==> Parameters: 
+2026-09-12 21:49:01.077 | DEBUG 9433 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | <==      Total: 9
+2026-09-12 21:49:02.020 |  WARN 9433 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysRoleMenuEntity".
+2026-09-12 21:49:02.020 |  WARN 9433 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysRoleMenuEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-12 21:49:02.038 |  WARN 9433 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserRoleEntity".
+2026-09-12 21:49:02.039 |  WARN 9433 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserRoleEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-12 21:49:02.081 |  WARN 9433 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserPostEntity".
+2026-09-12 21:49:02.081 |  WARN 9433 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserPostEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-12 21:49:02.700 |  INFO 9433 | main            | r$InitializeUserDetailsManagerConfigurer:  110 |  | Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-09-12 21:49:02.981 |  INFO 9433 | main            | pring.MybatisPlusApplicationContextAware:   43 |  | Register ApplicationContext instances org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext@6d868997
+2026-09-12 21:49:03.223 |  INFO 9433 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Starting ProtocolHandler ["http-nio-8080"]
+2026-09-12 21:49:03.233 |  INFO 9433 | main            | ingframework.boot.tomcat.TomcatWebServer:  240 |  | Tomcat started on port 8080 (http) with context path '/medcase'
+2026-09-12 21:49:03.237 |  INFO 9433 | main            | com.medcase.MedcaseApplication          :   60 |  | Started MedcaseApplication in 20.636 seconds (process running for 21.38)
+2026-09-12 21:49:03.239 |  INFO 9433 | main            | .medcase.common.config.StartupInfoLogger:   50 |  | 
+----------------------------------------------------------
+Application Ready
+Spring Boot     : 4.1.0
+Project Version : 1.1.0
+Build Time      : 2026-09-12T13:43:34.453Z
+Active Profile  : suyh
+Database Enabled : true
+Database Primary : master
+Database Strict  : true
+Database JDBC URL: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000
+Database Driver  : com.mysql.cj.jdbc.Driver
+Database Pool Min : 10
+Database Pool Max : 20
+Database Conn Timeout: 60000
+Database Idle Timeout: 300000
+Database Max Lifetime: 900000
+Redis Host       : qu-yun.isuyh.com
+Redis Port       : 6379
+Redis Database   : 1
+Redis Timeout    : 10s
+Redis Pool Min   : 0
+Redis Pool Max   : 8
+Redis Pool Active: 8
+Redis Pool Wait  : -1ms
+SMS Enabled      : false
+Git Branch      : develop
+Git Commit      : 26735e8
+Git Commit Time : 2026-09-11T15:42:54Z
+Git Dirty       : true
+----------------------------------------------------------
+2026-09-12 21:49:44.522 |  INFO 9433 | nio-8080-exec-1 | inerBase.[Tomcat].[localhost].[/medcase]:  168 |  | Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-12 21:49:44.522 |  INFO 9433 | nio-8080-exec-1 | gframework.web.servlet.DispatcherServlet:  523 |  | Initializing Servlet 'dispatcherServlet'
+2026-09-12 21:49:44.526 |  INFO 9433 | nio-8080-exec-1 | gframework.web.servlet.DispatcherServlet:  545 |  | Completed initialization in 4 ms
+2026-09-12 21:49:49.726 |  INFO 9433 | ionShutdownHook | ngframework.boot.tomcat.GracefulShutdown:   54 |  | Commencing graceful shutdown. Waiting for active requests to complete
+2026-09-12 21:49:51.745 |  INFO 9433 | tomcat-shutdown | ngframework.boot.tomcat.GracefulShutdown:   76 |  | Graceful shutdown complete
+2026-09-12 21:49:51.762 |  INFO 9433 | ionShutdownHook | sys-user                                :   30 |  | ====关闭后台任务任务线程池====
+2026-09-12 21:49:51.766 |  INFO 9433 | ionShutdownHook | amic.datasource.DynamicRoutingDataSource:  215 |  | dynamic-datasource start closing ....
+2026-09-12 21:49:51.770 |  INFO 9433 | ionShutdownHook | com.zaxxer.hikari.HikariDataSource      :  349 |  | HikariPool-1 - Shutdown initiated...
+2026-09-12 21:50:12.776 |  INFO 12995 | main            | com.medcase.MedcaseApplication          :   54 |  | Starting MedcaseApplication using Java 17.0.20 with PID 12995 (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes started by suyunhong in /Users/suyunhong/suyh-develop/github/medcase-api)
+2026-09-12 21:50:12.777 | DEBUG 12995 | main            | com.medcase.MedcaseApplication          :   55 |  | Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-09-12 21:50:12.778 |  INFO 12995 | main            | com.medcase.MedcaseApplication          :  658 |  | The following 1 profile is active: "suyh"
+2026-09-12 21:50:12.869 |  INFO 12995 | kground-preinit | ibernate.validator.internal.util.Version:   18 |  | HV000001: Hibernate Validator 9.1.0.Final
+2026-09-12 21:50:13.149 |  INFO 12995 | main            | y.config.RepositoryConfigurationDelegate:  291 |  | Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-12 21:50:13.150 |  INFO 12995 | main            | y.config.RepositoryConfigurationDelegate:  145 |  | Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-12 21:50:13.174 |  INFO 12995 | main            | y.config.RepositoryConfigurationDelegate:  213 |  | Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2026-09-12 21:50:13.712 |  INFO 12995 | main            | ingframework.boot.tomcat.TomcatWebServer:  114 |  | Tomcat initialized with port 8080 (http)
+2026-09-12 21:50:13.720 |  INFO 12995 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Initializing ProtocolHandler ["http-nio-8080"]
+2026-09-12 21:50:13.721 |  INFO 12995 | main            | org.apache.catalina.core.StandardService:  168 |  | Starting service [Tomcat]
+2026-09-12 21:50:13.721 |  INFO 12995 | main            | org.apache.catalina.core.StandardEngine :  168 |  | Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-09-12 21:50:13.749 |  INFO 12995 | main            | servlet.WebApplicationContextInitializer:   77 |  | Root WebApplicationContext: initialization completed in 952 ms
+2026-09-12 21:50:13.819 |  WARN 12995 | main            | lver.dns.DnsServerAddressStreamProviders:   70 |  | Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'
+2026-09-12 21:50:14.016 | DEBUG 12995 | main            | rity.filter.JwtAuthenticationTokenFilter:  236 |  | Filter 'jwtAuthenticationTokenFilter' configured for use
+2026-09-12 21:50:14.138 |  INFO 12995 | main            | com.zaxxer.hikari.HikariDataSource      :  109 |  | HikariPool-1 - Starting...
+2026-09-12 21:50:24.662 |  INFO 12995 | main            | com.zaxxer.hikari.pool.HikariPool       :  580 |  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@51f009ef
+2026-09-12 21:50:24.665 |  INFO 12995 | main            | com.zaxxer.hikari.HikariDataSource      :  122 |  | HikariPool-1 - Start completed.
+2026-09-12 21:50:24.726 |  INFO 12995 | main            | org.flywaydb.core.FlywayExecutor        :   41 |  | Database: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000 (MySQL 8.0)
+2026-09-12 21:50:25.398 |  INFO 12995 | main            | lywaydb.core.internal.command.DbValidate:   41 |  | Successfully validated 12 migrations (execution time 00:00.225s)
+2026-09-12 21:50:25.755 |  INFO 12995 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Current version of schema `suyh_medcase`: 01.01.00.011
+2026-09-12 21:50:25.792 |  INFO 12995 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Schema `suyh_medcase` is up to date. No migration necessary.
+2026-09-12 21:50:25.983 |  INFO 12995 | main            | amic.datasource.DynamicRoutingDataSource:  158 |  | dynamic-datasource - add a datasource named [master] success
+2026-09-12 21:50:25.983 |  INFO 12995 | main            | amic.datasource.DynamicRoutingDataSource:  241 |  | dynamic-datasource initial loaded [1] datasource,primary datasource named [master]
+2026-09-12 21:50:26.300 | DEBUG 12995 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config
+2026-09-12 21:50:26.305 | DEBUG 12995 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==> Parameters: 
+2026-09-12 21:50:26.344 | DEBUG 12995 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | <==      Total: 9
+2026-09-12 21:50:32.023 |  WARN 12995 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysRoleMenuEntity".
+2026-09-12 21:50:32.024 |  WARN 12995 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysRoleMenuEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-12 21:50:32.037 |  WARN 12995 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserRoleEntity".
+2026-09-12 21:50:32.037 |  WARN 12995 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserRoleEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-12 21:50:32.077 |  WARN 12995 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserPostEntity".
+2026-09-12 21:50:32.077 |  WARN 12995 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserPostEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-12 21:50:32.673 |  INFO 12995 | main            | r$InitializeUserDetailsManagerConfigurer:  110 |  | Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-09-12 21:50:32.908 |  INFO 12995 | main            | pring.MybatisPlusApplicationContextAware:   43 |  | Register ApplicationContext instances org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext@6d868997
+2026-09-12 21:50:33.151 |  INFO 12995 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Starting ProtocolHandler ["http-nio-8080"]
+2026-09-12 21:50:33.164 |  INFO 12995 | main            | ingframework.boot.tomcat.TomcatWebServer:  240 |  | Tomcat started on port 8080 (http) with context path '/medcase'
+2026-09-12 21:50:33.174 |  INFO 12995 | main            | com.medcase.MedcaseApplication          :   60 |  | Started MedcaseApplication in 20.709 seconds (process running for 21.139)
+2026-09-12 21:50:33.176 |  INFO 12995 | main            | .medcase.common.config.StartupInfoLogger:   50 |  | 
+----------------------------------------------------------
+Application Ready
+Spring Boot     : 4.1.0
+Project Version : unknown
+Build Time      : unknown
+Active Profile  : suyh
+Database Enabled : true
+Database Primary : master
+Database Strict  : true
+Database JDBC URL: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000
+Database Driver  : com.mysql.cj.jdbc.Driver
+Database Pool Min : 10
+Database Pool Max : 20
+Database Conn Timeout: 60000
+Database Idle Timeout: 300000
+Database Max Lifetime: 900000
+Redis Host       : qu-yun.isuyh.com
+Redis Port       : 6379
+Redis Database   : 1
+Redis Timeout    : 10s
+Redis Pool Min   : 0
+Redis Pool Max   : 8
+Redis Pool Active: 8
+Redis Pool Wait  : -1ms
+SMS Enabled      : false
+Git Branch      : unknown
+Git Commit      : unknown
+Git Commit Time : unknown
+Git Dirty       : unknown
+----------------------------------------------------------
+2026-09-12 22:21:06.715 |  INFO 12995 | ionShutdownHook | ngframework.boot.tomcat.GracefulShutdown:   54 |  | Commencing graceful shutdown. Waiting for active requests to complete
+2026-09-12 22:21:08.732 |  INFO 12995 | tomcat-shutdown | ngframework.boot.tomcat.GracefulShutdown:   76 |  | Graceful shutdown complete
+2026-09-12 22:21:08.749 |  INFO 12995 | ionShutdownHook | sys-user                                :   30 |  | ====关闭后台任务任务线程池====
+2026-09-12 22:21:08.753 |  INFO 12995 | ionShutdownHook | amic.datasource.DynamicRoutingDataSource:  215 |  | dynamic-datasource start closing ....
+2026-09-12 22:21:08.754 |  INFO 12995 | ionShutdownHook | com.zaxxer.hikari.HikariDataSource      :  349 |  | HikariPool-1 - Shutdown initiated...
+2026-09-12 22:21:09.049 |  INFO 12995 | ionShutdownHook | com.zaxxer.hikari.HikariDataSource      :  351 |  | HikariPool-1 - Shutdown completed.
+2026-09-12 22:21:09.049 |  INFO 12995 | ionShutdownHook | rce.destroyer.DefaultDataSourceDestroyer:   98 |  | dynamic-datasource close the datasource named [master] success,
+2026-09-12 22:21:09.049 |  INFO 12995 | ionShutdownHook | amic.datasource.DynamicRoutingDataSource:  219 |  | dynamic-datasource all closed success,bye
+2026-09-12 22:21:12.795 |  INFO 16163 | main            | com.medcase.MedcaseApplication          :   54 |  | Starting MedcaseApplication using Java 17.0.20 with PID 16163 (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes started by suyunhong in /Users/suyunhong/suyh-develop/github/medcase-api)
+2026-09-12 22:21:12.796 | DEBUG 16163 | main            | com.medcase.MedcaseApplication          :   55 |  | Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-09-12 22:21:12.797 |  INFO 16163 | main            | com.medcase.MedcaseApplication          :  658 |  | The following 1 profile is active: "suyh"
+2026-09-12 22:21:12.887 |  INFO 16163 | kground-preinit | ibernate.validator.internal.util.Version:   18 |  | HV000001: Hibernate Validator 9.1.0.Final
+2026-09-12 22:21:13.215 |  INFO 16163 | main            | y.config.RepositoryConfigurationDelegate:  291 |  | Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-12 22:21:13.216 |  INFO 16163 | main            | y.config.RepositoryConfigurationDelegate:  145 |  | Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-12 22:21:13.240 |  INFO 16163 | main            | y.config.RepositoryConfigurationDelegate:  213 |  | Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2026-09-12 22:21:13.751 |  INFO 16163 | main            | ingframework.boot.tomcat.TomcatWebServer:  114 |  | Tomcat initialized with port 8080 (http)
+2026-09-12 22:21:13.758 |  INFO 16163 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Initializing ProtocolHandler ["http-nio-8080"]
+2026-09-12 22:21:13.759 |  INFO 16163 | main            | org.apache.catalina.core.StandardService:  168 |  | Starting service [Tomcat]
+2026-09-12 22:21:13.759 |  INFO 16163 | main            | org.apache.catalina.core.StandardEngine :  168 |  | Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-09-12 22:21:13.786 |  INFO 16163 | main            | servlet.WebApplicationContextInitializer:   77 |  | Root WebApplicationContext: initialization completed in 970 ms
+2026-09-12 22:21:13.856 |  WARN 16163 | main            | lver.dns.DnsServerAddressStreamProviders:   70 |  | Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'
+2026-09-12 22:21:14.058 | DEBUG 16163 | main            | rity.filter.JwtAuthenticationTokenFilter:  236 |  | Filter 'jwtAuthenticationTokenFilter' configured for use
+2026-09-12 22:21:14.179 |  INFO 16163 | main            | com.zaxxer.hikari.HikariDataSource      :  109 |  | HikariPool-1 - Starting...
+2026-09-12 22:21:27.841 |  INFO 16163 | main            | com.zaxxer.hikari.pool.HikariPool       :  580 |  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@558ed473
+2026-09-12 22:21:27.844 |  INFO 16163 | main            | com.zaxxer.hikari.HikariDataSource      :  122 |  | HikariPool-1 - Start completed.
+2026-09-12 22:21:27.901 |  INFO 16163 | main            | org.flywaydb.core.FlywayExecutor        :   41 |  | Database: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000 (MySQL 8.0)
+2026-09-12 22:21:28.714 |  WARN 16163 | main            | ConfigServletWebServerApplicationContext:  629 |  | Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'casePortalController' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/controller/CasePortalController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'caseService' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/service/CaseService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'caseMapper' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/mapper/CaseMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory': Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/baomidou/mybatisplus/autoconfigure/MybatisPlusAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [com/baomidou/dynamic/datasource/spring/boot/autoconfigure/DynamicDataSourceAutoConfiguration.class]: Unsatisfied dependency expressed through method 'dataSource' parameter 0: Error creating bean with name 'spring.datasource.dynamic-com.medcase.datasource.properties.DynamicDataSourceProviderProperties': Validate failed: Migrations have failed validation
+Migration checksum mismatch for migration version 01.01.00.011
+-> Applied to database : -947389218
+-> Resolved locally    : -88981347
+Either revert the changes to the migration, or run repair to update the schema history.
+Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
+2026-09-12 22:21:28.722 |  INFO 16163 | main            | org.apache.catalina.core.StandardService:  168 |  | Stopping service [Tomcat]
+2026-09-12 22:21:28.729 |  INFO 16163 | main            | .logging.ConditionEvaluationReportLogger:   82 |  | 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-09-12 22:21:28.737 | ERROR 16163 | main            | g.springframework.boot.SpringApplication:  863 |  | Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'casePortalController' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/controller/CasePortalController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'caseService' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/service/CaseService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'caseMapper' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/mapper/CaseMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory': Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/baomidou/mybatisplus/autoconfigure/MybatisPlusAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [com/baomidou/dynamic/datasource/spring/boot/autoconfigure/DynamicDataSourceAutoConfiguration.class]: Unsatisfied dependency expressed through method 'dataSource' parameter 0: Error creating bean with name 'spring.datasource.dynamic-com.medcase.datasource.properties.DynamicDataSourceProviderProperties': Validate failed: Migrations have failed validation
+Migration checksum mismatch for migration version 01.01.00.011
+-> Applied to database : -947389218
+-> Resolved locally    : -88981347
+Either revert the changes to the migration, or run repair to update the schema history.
+Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1380)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1219)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1225)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1191)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1121)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:994)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at com.medcase.MedcaseApplication.main(MedcaseApplication.java:16)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'caseService' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/service/CaseService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'caseMapper' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/mapper/CaseMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory': Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/baomidou/mybatisplus/autoconfigure/MybatisPlusAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [com/baomidou/dynamic/datasource/spring/boot/autoconfigure/DynamicDataSourceAutoConfiguration.class]: Unsatisfied dependency expressed through method 'dataSource' parameter 0: Error creating bean with name 'spring.datasource.dynamic-com.medcase.datasource.properties.DynamicDataSourceProviderProperties': Validate failed: Migrations have failed validation
+Migration checksum mismatch for migration version 01.01.00.011
+-> Applied to database : -947389218
+-> Resolved locally    : -88981347
+Either revert the changes to the migration, or run repair to update the schema history.
+Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1380)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1219)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:1232)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1711)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1658)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 21 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'caseMapper' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/mapper/CaseMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory': Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/baomidou/mybatisplus/autoconfigure/MybatisPlusAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [com/baomidou/dynamic/datasource/spring/boot/autoconfigure/DynamicDataSourceAutoConfiguration.class]: Unsatisfied dependency expressed through method 'dataSource' parameter 0: Error creating bean with name 'spring.datasource.dynamic-com.medcase.datasource.properties.DynamicDataSourceProviderProperties': Validate failed: Migrations have failed validation
+Migration checksum mismatch for migration version 01.01.00.011
+-> Applied to database : -947389218
+-> Resolved locally    : -88981347
+Either revert the changes to the migration, or run repair to update the schema history.
+Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireByType(AbstractAutowireCapableBeanFactory.java:1541)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1435)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:1232)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1711)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1658)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 35 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/baomidou/mybatisplus/autoconfigure/MybatisPlusAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [com/baomidou/dynamic/datasource/spring/boot/autoconfigure/DynamicDataSourceAutoConfiguration.class]: Unsatisfied dependency expressed through method 'dataSource' parameter 0: Error creating bean with name 'spring.datasource.dynamic-com.medcase.datasource.properties.DynamicDataSourceProviderProperties': Validate failed: Migrations have failed validation
+Migration checksum mismatch for migration version 01.01.00.011
+-> Applied to database : -947389218
+-> Resolved locally    : -88981347
+Either revert the changes to the migration, or run repair to update the schema history.
+Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1360)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1192)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1769)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1658)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireByType(AbstractAutowireCapableBeanFactory.java:1526)
+	... 47 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataSource' defined in class path resource [com/baomidou/dynamic/datasource/spring/boot/autoconfigure/DynamicDataSourceAutoConfiguration.class]: Unsatisfied dependency expressed through method 'dataSource' parameter 0: Error creating bean with name 'spring.datasource.dynamic-com.medcase.datasource.properties.DynamicDataSourceProviderProperties': Validate failed: Migrations have failed validation
+Migration checksum mismatch for migration version 01.01.00.011
+-> Applied to database : -947389218
+-> Resolved locally    : -88981347
+Either revert the changes to the migration, or run repair to update the schema history.
+Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1360)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1192)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:1232)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1711)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1658)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 60 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'spring.datasource.dynamic-com.medcase.datasource.properties.DynamicDataSourceProviderProperties': Validate failed: Migrations have failed validation
+Migration checksum mismatch for migration version 01.01.00.011
+-> Applied to database : -947389218
+-> Resolved locally    : -88981347
+Either revert the changes to the migration, or run repair to update the schema history.
+Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1815)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:2015)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1978)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeanCollection(DefaultListableBeanFactory.java:1870)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1840)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1718)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1658)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 74 common frames omitted
+Caused by: org.flywaydb.core.api.exception.FlywayValidateException: Validate failed: Migrations have failed validation
+Migration checksum mismatch for migration version 01.01.00.011
+-> Applied to database : -947389218
+-> Resolved locally    : -88981347
+Either revert the changes to the migration, or run repair to update the schema history.
+Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
+	at org.flywaydb.core.Flyway.lambda$migrate$3(Flyway.java:187)
+	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:236)
+	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:120)
+	at org.flywaydb.core.Flyway.migrate(Flyway.java:181)
+	at com.medcase.datasource.properties.DynamicDataSourceProviderProperties.doFlyway(DynamicDataSourceProviderProperties.java:95)
+	at com.medcase.datasource.properties.DynamicDataSourceProviderProperties.afterPropertiesSet(DynamicDataSourceProviderProperties.java:39)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1862)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1811)
+	... 89 common frames omitted
+2026-09-12 22:21:48.189 |  INFO 16215 | main            | com.medcase.MedcaseApplication          :   54 |  | Starting MedcaseApplication using Java 17.0.20 with PID 16215 (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes started by suyunhong in /Users/suyunhong/suyh-develop/github/medcase-api)
+2026-09-12 22:21:48.190 | DEBUG 16215 | main            | com.medcase.MedcaseApplication          :   55 |  | Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-09-12 22:21:48.191 |  INFO 16215 | main            | com.medcase.MedcaseApplication          :  658 |  | The following 1 profile is active: "suyh"
+2026-09-12 22:21:48.282 |  INFO 16215 | kground-preinit | ibernate.validator.internal.util.Version:   18 |  | HV000001: Hibernate Validator 9.1.0.Final
+2026-09-12 22:21:48.610 |  INFO 16215 | main            | y.config.RepositoryConfigurationDelegate:  291 |  | Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-12 22:21:48.611 |  INFO 16215 | main            | y.config.RepositoryConfigurationDelegate:  145 |  | Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-12 22:21:48.636 |  INFO 16215 | main            | y.config.RepositoryConfigurationDelegate:  213 |  | Finished Spring Data repository scanning in 17 ms. Found 0 Redis repository interfaces.
+2026-09-12 22:21:49.143 |  INFO 16215 | main            | ingframework.boot.tomcat.TomcatWebServer:  114 |  | Tomcat initialized with port 8080 (http)
+2026-09-12 22:21:49.150 |  INFO 16215 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Initializing ProtocolHandler ["http-nio-8080"]
+2026-09-12 22:21:49.150 |  INFO 16215 | main            | org.apache.catalina.core.StandardService:  168 |  | Starting service [Tomcat]
+2026-09-12 22:21:49.151 |  INFO 16215 | main            | org.apache.catalina.core.StandardEngine :  168 |  | Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-09-12 22:21:49.176 |  INFO 16215 | main            | servlet.WebApplicationContextInitializer:   77 |  | Root WebApplicationContext: initialization completed in 965 ms
+2026-09-12 22:21:49.233 |  WARN 16215 | main            | lver.dns.DnsServerAddressStreamProviders:   70 |  | Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'
+2026-09-12 22:21:49.413 | DEBUG 16215 | main            | rity.filter.JwtAuthenticationTokenFilter:  236 |  | Filter 'jwtAuthenticationTokenFilter' configured for use
+2026-09-12 22:21:49.522 |  INFO 16215 | main            | com.zaxxer.hikari.HikariDataSource      :  109 |  | HikariPool-1 - Starting...
+2026-09-12 22:22:00.003 |  INFO 16215 | main            | com.zaxxer.hikari.pool.HikariPool       :  580 |  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1107c465
+2026-09-12 22:22:00.005 |  INFO 16215 | main            | com.zaxxer.hikari.HikariDataSource      :  122 |  | HikariPool-1 - Start completed.
+2026-09-12 22:22:00.064 |  INFO 16215 | main            | org.flywaydb.core.FlywayExecutor        :   41 |  | Database: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000 (MySQL 8.0)
+2026-09-12 22:22:00.690 |  INFO 16215 | main            | lywaydb.core.internal.command.DbValidate:   41 |  | Successfully validated 13 migrations (execution time 00:00.214s)
+2026-09-12 22:22:01.019 |  INFO 16215 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Current version of schema `suyh_medcase`: 01.01.00.011
+2026-09-12 22:22:01.143 |  INFO 16215 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Migrating schema `suyh_medcase` to version "01.01.00.012 - login-record-status"
+2026-09-12 22:22:01.308 | ERROR 16215 | main            | flywaydb.core.internal.command.DbMigrate:   50 |  | Migration of schema `suyh_medcase` to version "01.01.00.012 - login-record-status" failed! Please restore backups and roll back database and code!
+2026-09-12 22:22:01.794 |  WARN 16215 | main            | ConfigServletWebServerApplicationContext:  629 |  | Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'casePortalController' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/controller/CasePortalController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'caseService' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/service/CaseService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'caseMapper' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/mapper/CaseMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory': Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/baomidou/mybatisplus/autoconfigure/MybatisPlusAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [com/baomidou/dynamic/datasource/spring/boot/autoconfigure/DynamicDataSourceAutoConfiguration.class]: Unsatisfied dependency expressed through method 'dataSource' parameter 0: Error creating bean with name 'spring.datasource.dynamic-com.medcase.datasource.properties.DynamicDataSourceProviderProperties': Failed to execute script V01_01_00_012__login-record-status.sql
+---------------------------------------------------------------
+SQL State  : 42S22
+Error Code : 1054
+Message    : Unknown column 'status' in 'sys_login_record'
+Location   : db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql)
+Line       : 2
+Statement  : Run Flyway with -X option to see the actual statement causing the problem
+
+2026-09-12 22:22:01.812 |  INFO 16215 | main            | org.apache.catalina.core.StandardService:  168 |  | Stopping service [Tomcat]
+2026-09-12 22:22:01.824 |  INFO 16215 | main            | .logging.ConditionEvaluationReportLogger:   82 |  | 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-09-12 22:22:01.834 | ERROR 16215 | main            | g.springframework.boot.SpringApplication:  863 |  | Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'casePortalController' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/controller/CasePortalController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'caseService' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/service/CaseService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'caseMapper' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/mapper/CaseMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory': Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/baomidou/mybatisplus/autoconfigure/MybatisPlusAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [com/baomidou/dynamic/datasource/spring/boot/autoconfigure/DynamicDataSourceAutoConfiguration.class]: Unsatisfied dependency expressed through method 'dataSource' parameter 0: Error creating bean with name 'spring.datasource.dynamic-com.medcase.datasource.properties.DynamicDataSourceProviderProperties': Failed to execute script V01_01_00_012__login-record-status.sql
+---------------------------------------------------------------
+SQL State  : 42S22
+Error Code : 1054
+Message    : Unknown column 'status' in 'sys_login_record'
+Location   : db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql)
+Line       : 2
+Statement  : Run Flyway with -X option to see the actual statement causing the problem
+
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1380)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1219)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1225)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1191)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1121)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:994)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at com.medcase.MedcaseApplication.main(MedcaseApplication.java:16)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'caseService' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/service/CaseService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'caseMapper' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/mapper/CaseMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory': Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/baomidou/mybatisplus/autoconfigure/MybatisPlusAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [com/baomidou/dynamic/datasource/spring/boot/autoconfigure/DynamicDataSourceAutoConfiguration.class]: Unsatisfied dependency expressed through method 'dataSource' parameter 0: Error creating bean with name 'spring.datasource.dynamic-com.medcase.datasource.properties.DynamicDataSourceProviderProperties': Failed to execute script V01_01_00_012__login-record-status.sql
+---------------------------------------------------------------
+SQL State  : 42S22
+Error Code : 1054
+Message    : Unknown column 'status' in 'sys_login_record'
+Location   : db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql)
+Line       : 2
+Statement  : Run Flyway with -X option to see the actual statement causing the problem
+
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1380)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1219)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:1232)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1711)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1658)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 21 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'caseMapper' defined in file [/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/com/medcase/biz/mapper/CaseMapper.class]: Unsatisfied dependency expressed through bean property 'sqlSessionFactory': Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/baomidou/mybatisplus/autoconfigure/MybatisPlusAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [com/baomidou/dynamic/datasource/spring/boot/autoconfigure/DynamicDataSourceAutoConfiguration.class]: Unsatisfied dependency expressed through method 'dataSource' parameter 0: Error creating bean with name 'spring.datasource.dynamic-com.medcase.datasource.properties.DynamicDataSourceProviderProperties': Failed to execute script V01_01_00_012__login-record-status.sql
+---------------------------------------------------------------
+SQL State  : 42S22
+Error Code : 1054
+Message    : Unknown column 'status' in 'sys_login_record'
+Location   : db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql)
+Line       : 2
+Statement  : Run Flyway with -X option to see the actual statement causing the problem
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireByType(AbstractAutowireCapableBeanFactory.java:1541)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1435)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:1232)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1711)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1658)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 35 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/baomidou/mybatisplus/autoconfigure/MybatisPlusAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionFactory' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [com/baomidou/dynamic/datasource/spring/boot/autoconfigure/DynamicDataSourceAutoConfiguration.class]: Unsatisfied dependency expressed through method 'dataSource' parameter 0: Error creating bean with name 'spring.datasource.dynamic-com.medcase.datasource.properties.DynamicDataSourceProviderProperties': Failed to execute script V01_01_00_012__login-record-status.sql
+---------------------------------------------------------------
+SQL State  : 42S22
+Error Code : 1054
+Message    : Unknown column 'status' in 'sys_login_record'
+Location   : db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql)
+Line       : 2
+Statement  : Run Flyway with -X option to see the actual statement causing the problem
+
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1360)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1192)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1769)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1658)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireByType(AbstractAutowireCapableBeanFactory.java:1526)
+	... 47 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataSource' defined in class path resource [com/baomidou/dynamic/datasource/spring/boot/autoconfigure/DynamicDataSourceAutoConfiguration.class]: Unsatisfied dependency expressed through method 'dataSource' parameter 0: Error creating bean with name 'spring.datasource.dynamic-com.medcase.datasource.properties.DynamicDataSourceProviderProperties': Failed to execute script V01_01_00_012__login-record-status.sql
+---------------------------------------------------------------
+SQL State  : 42S22
+Error Code : 1054
+Message    : Unknown column 'status' in 'sys_login_record'
+Location   : db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql)
+Line       : 2
+Statement  : Run Flyway with -X option to see the actual statement causing the problem
+
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1360)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1192)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:1232)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1711)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1658)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 60 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'spring.datasource.dynamic-com.medcase.datasource.properties.DynamicDataSourceProviderProperties': Failed to execute script V01_01_00_012__login-record-status.sql
+---------------------------------------------------------------
+SQL State  : 42S22
+Error Code : 1054
+Message    : Unknown column 'status' in 'sys_login_record'
+Location   : db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql)
+Line       : 2
+Statement  : Run Flyway with -X option to see the actual statement causing the problem
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1815)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:2015)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1978)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeanCollection(DefaultListableBeanFactory.java:1870)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1840)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1718)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1658)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 74 common frames omitted
+Caused by: org.flywaydb.core.internal.exception.FlywayMigrateException: Failed to execute script V01_01_00_012__login-record-status.sql
+---------------------------------------------------------------
+SQL State  : 42S22
+Error Code : 1054
+Message    : Unknown column 'status' in 'sys_login_record'
+Location   : db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql)
+Line       : 2
+Statement  : Run Flyway with -X option to see the actual statement causing the problem
+
+	at org.flywaydb.core.internal.command.DbMigrate.doMigrateGroup(DbMigrate.java:399)
+	at org.flywaydb.core.internal.command.DbMigrate.lambda$applyMigrations$1(DbMigrate.java:283)
+	at org.flywaydb.core.internal.jdbc.TransactionalExecutionTemplate.execute(TransactionalExecutionTemplate.java:59)
+	at org.flywaydb.core.internal.command.DbMigrate.applyMigrations(DbMigrate.java:282)
+	at org.flywaydb.core.internal.command.DbMigrate.migrateGroup(DbMigrate.java:255)
+	at org.flywaydb.core.internal.command.DbMigrate.lambda$migrateAll$0(DbMigrate.java:153)
+	at org.flywaydb.database.mysql.MySQLNamedLockTemplate.execute(MySQLNamedLockTemplate.java:62)
+	at org.flywaydb.database.mysql.MySQLConnection.lock(MySQLConnection.java:159)
+	at org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory.lock(JdbcTableSchemaHistory.java:165)
+	at org.flywaydb.core.internal.command.DbMigrate.migrateAll(DbMigrate.java:153)
+	at org.flywaydb.core.internal.command.DbMigrate.migrate(DbMigrate.java:104)
+	at org.flywaydb.core.Flyway.lambda$migrate$3(Flyway.java:231)
+	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:236)
+	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:120)
+	at org.flywaydb.core.Flyway.migrate(Flyway.java:181)
+	at com.medcase.datasource.properties.DynamicDataSourceProviderProperties.doFlyway(DynamicDataSourceProviderProperties.java:95)
+	at com.medcase.datasource.properties.DynamicDataSourceProviderProperties.afterPropertiesSet(DynamicDataSourceProviderProperties.java:39)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1862)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1811)
+	... 89 common frames omitted
+Caused by: org.flywaydb.core.internal.sqlscript.FlywaySqlScriptException: Failed to execute script V01_01_00_012__login-record-status.sql
+---------------------------------------------------------------
+SQL State  : 42S22
+Error Code : 1054
+Message    : Unknown column 'status' in 'sys_login_record'
+Location   : db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes/db/migration/master/V01_01_00/V01_01_00_012__login-record-status.sql)
+Line       : 2
+Statement  : Run Flyway with -X option to see the actual statement causing the problem
+
+	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.handleException(DefaultSqlScriptExecutor.java:251)
+	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.executeStatement(DefaultSqlScriptExecutor.java:212)
+	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.execute(DefaultSqlScriptExecutor.java:134)
+	at org.flywaydb.core.internal.resolver.sql.SqlMigrationExecutor.executeOnce(SqlMigrationExecutor.java:75)
+	at org.flywaydb.core.internal.resolver.sql.SqlMigrationExecutor.lambda$execute$0(SqlMigrationExecutor.java:66)
+	at org.flywaydb.core.internal.database.DefaultExecutionStrategy.execute(DefaultExecutionStrategy.java:31)
+	at org.flywaydb.core.internal.resolver.sql.SqlMigrationExecutor.execute(SqlMigrationExecutor.java:65)
+	at org.flywaydb.core.internal.command.DbMigrate.doMigrateGroup(DbMigrate.java:391)
+	... 107 common frames omitted
+Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'status' in 'sys_login_record'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:112)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:114)
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:839)
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:687)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.flywaydb.core.internal.jdbc.JdbcTemplate.executeStatement(JdbcTemplate.java:229)
+	at org.flywaydb.core.internal.sqlscript.ParsedSqlStatement.execute(ParsedSqlStatement.java:88)
+	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.executeStatement(DefaultSqlScriptExecutor.java:207)
+	... 113 common frames omitted
+2026-09-12 22:23:01.922 |  INFO 16327 | main            | com.medcase.MedcaseApplication          :   54 |  | Starting MedcaseApplication using Java 17.0.20 with PID 16327 (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes started by suyunhong in /Users/suyunhong/suyh-develop/github/medcase-api)
+2026-09-12 22:23:01.923 | DEBUG 16327 | main            | com.medcase.MedcaseApplication          :   55 |  | Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-09-12 22:23:01.924 |  INFO 16327 | main            | com.medcase.MedcaseApplication          :  658 |  | The following 1 profile is active: "suyh"
+2026-09-12 22:23:02.007 |  INFO 16327 | kground-preinit | ibernate.validator.internal.util.Version:   18 |  | HV000001: Hibernate Validator 9.1.0.Final
+2026-09-12 22:23:02.284 |  INFO 16327 | main            | y.config.RepositoryConfigurationDelegate:  291 |  | Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-12 22:23:02.285 |  INFO 16327 | main            | y.config.RepositoryConfigurationDelegate:  145 |  | Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-12 22:23:02.309 |  INFO 16327 | main            | y.config.RepositoryConfigurationDelegate:  213 |  | Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2026-09-12 22:23:02.797 |  INFO 16327 | main            | ingframework.boot.tomcat.TomcatWebServer:  114 |  | Tomcat initialized with port 8080 (http)
+2026-09-12 22:23:02.803 |  INFO 16327 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Initializing ProtocolHandler ["http-nio-8080"]
+2026-09-12 22:23:02.804 |  INFO 16327 | main            | org.apache.catalina.core.StandardService:  168 |  | Starting service [Tomcat]
+2026-09-12 22:23:02.804 |  INFO 16327 | main            | org.apache.catalina.core.StandardEngine :  168 |  | Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-09-12 22:23:02.827 |  INFO 16327 | main            | servlet.WebApplicationContextInitializer:   77 |  | Root WebApplicationContext: initialization completed in 885 ms
+2026-09-12 22:23:02.880 |  WARN 16327 | main            | lver.dns.DnsServerAddressStreamProviders:   70 |  | Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'
+2026-09-12 22:23:03.053 | DEBUG 16327 | main            | rity.filter.JwtAuthenticationTokenFilter:  236 |  | Filter 'jwtAuthenticationTokenFilter' configured for use
+2026-09-12 22:23:03.157 |  INFO 16327 | main            | com.zaxxer.hikari.HikariDataSource      :  109 |  | HikariPool-1 - Starting...
+2026-09-12 22:23:13.671 |  INFO 16327 | main            | com.zaxxer.hikari.pool.HikariPool       :  580 |  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@26c2f767
+2026-09-12 22:23:13.673 |  INFO 16327 | main            | com.zaxxer.hikari.HikariDataSource      :  122 |  | HikariPool-1 - Start completed.
+2026-09-12 22:23:13.729 |  INFO 16327 | main            | org.flywaydb.core.FlywayExecutor        :   41 |  | Database: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000 (MySQL 8.0)
+2026-09-12 22:23:14.379 |  INFO 16327 | main            | lywaydb.core.internal.command.DbValidate:   41 |  | Successfully validated 12 migrations (execution time 00:00.230s)
+2026-09-12 22:23:14.704 |  INFO 16327 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Current version of schema `suyh_medcase`: 01.01.00.011
+2026-09-12 22:23:14.737 |  INFO 16327 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Schema `suyh_medcase` is up to date. No migration necessary.
+2026-09-12 22:23:14.920 |  INFO 16327 | main            | amic.datasource.DynamicRoutingDataSource:  158 |  | dynamic-datasource - add a datasource named [master] success
+2026-09-12 22:23:14.920 |  INFO 16327 | main            | amic.datasource.DynamicRoutingDataSource:  241 |  | dynamic-datasource initial loaded [1] datasource,primary datasource named [master]
+2026-09-12 22:23:15.234 | DEBUG 16327 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config
+2026-09-12 22:23:15.239 | DEBUG 16327 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==> Parameters: 
+2026-09-12 22:23:15.283 | DEBUG 16327 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | <==      Total: 9
+2026-09-12 22:23:21.067 |  WARN 16327 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysRoleMenuEntity".
+2026-09-12 22:23:21.068 |  WARN 16327 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysRoleMenuEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-12 22:23:21.081 |  WARN 16327 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserRoleEntity".
+2026-09-12 22:23:21.081 |  WARN 16327 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserRoleEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-12 22:23:21.119 |  WARN 16327 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserPostEntity".
+2026-09-12 22:23:21.119 |  WARN 16327 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserPostEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-12 22:23:21.658 |  INFO 16327 | main            | r$InitializeUserDetailsManagerConfigurer:  110 |  | Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-09-12 22:23:21.893 |  INFO 16327 | main            | pring.MybatisPlusApplicationContextAware:   43 |  | Register ApplicationContext instances org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext@6d868997
+2026-09-12 22:23:22.099 |  INFO 16327 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Starting ProtocolHandler ["http-nio-8080"]
+2026-09-12 22:23:22.111 |  INFO 16327 | main            | ingframework.boot.tomcat.TomcatWebServer:  240 |  | Tomcat started on port 8080 (http) with context path '/medcase'
+2026-09-12 22:23:22.115 |  INFO 16327 | main            | com.medcase.MedcaseApplication          :   60 |  | Started MedcaseApplication in 20.456 seconds (process running for 20.882)
+2026-09-12 22:23:22.117 |  INFO 16327 | main            | .medcase.common.config.StartupInfoLogger:   50 |  | 
+----------------------------------------------------------
+Application Ready
+Spring Boot     : 4.1.0
+Project Version : unknown
+Build Time      : unknown
+Active Profile  : suyh
+Database Enabled : true
+Database Primary : master
+Database Strict  : true
+Database JDBC URL: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000
+Database Driver  : com.mysql.cj.jdbc.Driver
+Database Pool Min : 10
+Database Pool Max : 20
+Database Conn Timeout: 60000
+Database Idle Timeout: 300000
+Database Max Lifetime: 900000
+Redis Host       : qu-yun.isuyh.com
+Redis Port       : 6379
+Redis Database   : 1
+Redis Timeout    : 10s
+Redis Pool Min   : 0
+Redis Pool Max   : 8
+Redis Pool Active: 8
+Redis Pool Wait  : -1ms
+SMS Enabled      : false
+Git Branch      : unknown
+Git Commit      : unknown
+Git Commit Time : unknown
+Git Dirty       : unknown
+----------------------------------------------------------
+2026-09-12 22:38:50.904 |  INFO 16327 | nio-8080-exec-1 | inerBase.[Tomcat].[localhost].[/medcase]:  168 |  | Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-12 22:38:50.906 |  INFO 16327 | nio-8080-exec-1 | gframework.web.servlet.DispatcherServlet:  523 |  | Initializing Servlet 'dispatcherServlet'
+2026-09-12 22:38:50.908 |  INFO 16327 | nio-8080-exec-1 | gframework.web.servlet.DispatcherServlet:  545 |  | Completed initialization in 2 ms
+2026-09-12 22:38:54.049 | DEBUG 16327 | nio-8080-exec-2 | .mapper.SysConfigMapper.selectWithCursor:  135 | 24b9e6b39acb40228fe3fa6483fad205 | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config WHERE (config_key = ?)
+2026-09-12 22:38:54.055 | DEBUG 16327 | nio-8080-exec-2 | .mapper.SysConfigMapper.selectWithCursor:  135 | 24b9e6b39acb40228fe3fa6483fad205 | ==> Parameters: sys.login.blackIPList(String)
+2026-09-12 22:38:54.089 | DEBUG 16327 | nio-8080-exec-2 | .mapper.SysConfigMapper.selectWithCursor:  135 | 24b9e6b39acb40228fe3fa6483fad205 | <==      Total: 1
+2026-09-12 22:38:54.159 | DEBUG 16327 | nio-8080-exec-2 | em.mapper.SysUserMapper.selectWithCursor:  135 | 24b9e6b39acb40228fe3fa6483fad205 | ==>  Preparing: SELECT user_id,dept_id,user_name,nick_name,supplier_id,user_type,id_card_number,id_card_front,id_card_back,title,qualification_certificate,review_reason,email,phonenumber,sex,avatar,password,status,del_flag,pwd_update_date,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_user WHERE (user_name = ? AND user_type = ? AND del_flag = ?)
+2026-09-12 22:38:54.162 | DEBUG 16327 | nio-8080-exec-2 | em.mapper.SysUserMapper.selectWithCursor:  135 | 24b9e6b39acb40228fe3fa6483fad205 | ==> Parameters: admin(String), 00(String), 0(String)
+2026-09-12 22:38:54.193 | DEBUG 16327 | nio-8080-exec-2 | em.mapper.SysUserMapper.selectWithCursor:  135 | 24b9e6b39acb40228fe3fa6483fad205 | <==      Total: 1
+2026-09-12 22:38:54.197 | DEBUG 16327 | nio-8080-exec-2 | stem.mapper.SysUserRoleMapper.selectList:  135 | 24b9e6b39acb40228fe3fa6483fad205 | ==>  Preparing: SELECT user_id,role_id FROM sys_user_role WHERE (user_id = ?)
+2026-09-12 22:38:54.198 | DEBUG 16327 | nio-8080-exec-2 | stem.mapper.SysUserRoleMapper.selectList:  135 | 24b9e6b39acb40228fe3fa6483fad205 | ==> Parameters: 1(Long)
+2026-09-12 22:38:54.225 | DEBUG 16327 | nio-8080-exec-2 | stem.mapper.SysUserRoleMapper.selectList:  135 | 24b9e6b39acb40228fe3fa6483fad205 | <==      Total: 0
+2026-09-12 22:38:54.231 | DEBUG 16327 | nio-8080-exec-2 | e.system.mapper.SysRoleMapper.selectList:  135 | 24b9e6b39acb40228fe3fa6483fad205 | ==>  Preparing: SELECT role_id,role_name,role_key,role_sort,menu_check_strictly,status,del_flag,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_role
+2026-09-12 22:38:54.233 | DEBUG 16327 | nio-8080-exec-2 | e.system.mapper.SysRoleMapper.selectList:  135 | 24b9e6b39acb40228fe3fa6483fad205 | ==> Parameters: 
+2026-09-12 22:38:54.263 | DEBUG 16327 | nio-8080-exec-2 | e.system.mapper.SysRoleMapper.selectList:  135 | 24b9e6b39acb40228fe3fa6483fad205 | <==      Total: 3
+2026-09-12 22:38:54.435 |  INFO 16327 | schedule-pool-1 | sys-user                                :   56 |  | [127.0.0.1]内网IP[admin][true][登录成功]
+2026-09-12 22:38:54.437 |  INFO 16327 | nio-8080-exec-2 | asjes.parse.useragent.utils.YauaaVersion:  104 | 24b9e6b39acb40228fe3fa6483fad205 | Yauaa 8.2.0 (v8.2.0 @ 2026-07-24T13:01:09Z)
+2026-09-12 22:38:54.505 |  INFO 16327 | nio-8080-exec-2 | sjes.parse.useragent.config.ConfigLoader:  309 | 24b9e6b39acb40228fe3fa6483fad205 | - Loaded 123 files in   66 ms using expression: classpath*:UserAgents/**/*.yaml
+2026-09-12 22:38:55.034 |  INFO 16327 | nio-8080-exec-2 | ragent.analyze.UserAgentStringMatchMaker:  282 | 24b9e6b39acb40228fe3fa6483fad205 | Building all needed matchers for the requested 11 fields.
+2026-09-12 22:38:55.053 |  INFO 16327 | schedule-pool-1 | ragent.analyze.UserAgentStringMatchMaker:  336 |  | Initializing Analyzer data structures
+2026-09-12 22:38:55.550 |  INFO 16327 | schedule-pool-1 | ragent.analyze.UserAgentStringMatchMaker:  347 |  | Built in 496 msec : Hashmap 199731, Ranges map:3004
+2026-09-12 22:38:55.611 | DEBUG 16327 | schedule-pool-1 | e.system.mapper.LoginRecordMapper.insert:  135 |  | ==>  Preparing: INSERT INTO sys_login_record ( user_id, user_type, user_name, success, ipaddr, login_location, browser, os, msg, login_time ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )
+2026-09-12 22:38:55.612 | DEBUG 16327 | schedule-pool-1 | e.system.mapper.LoginRecordMapper.insert:  135 |  | ==> Parameters: 1(Long), 00(String), admin(String), true(Boolean), 127.0.0.1(String), 内网IP(String), Chrome 152(String), Mac OS >=10.15.7(String), 登录成功(String), 2026-09-12 22:38:55.583(Timestamp)
+2026-09-12 22:38:55.671 | DEBUG 16327 | schedule-pool-1 | e.system.mapper.LoginRecordMapper.insert:  135 |  | <==    Updates: 1
+2026-09-12 22:38:55.938 | DEBUG 16327 | nio-8080-exec-4 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 73472a0c25504902ab7a0eab6ded88ba | ==>  Preparing: select distinct m.id, m.parent_id, m.menu_name, m.route_path, m.vue_component_path, m.route_name, m.visible, m.status, ifnull(m.perms,'') as perms, m.is_cache, m.menu_type, m.icon, m.order_num, m.create_time from sys_menu m where m.menu_type in ('M', 'C') and m.status = 0 order by m.parent_id, m.order_num
+2026-09-12 22:38:55.939 | DEBUG 16327 | nio-8080-exec-4 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 73472a0c25504902ab7a0eab6ded88ba | ==> Parameters: 
+2026-09-12 22:38:55.972 | DEBUG 16327 | nio-8080-exec-4 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 73472a0c25504902ab7a0eab6ded88ba | <==      Total: 23
+2026-09-12 22:38:56.214 | DEBUG 16327 | nio-8080-exec-5 | .SysNoticeReadMapper.selectTopNoticeList:  135 | 64e3dbbe2a1e4bd3b255261e25414111 | ==>  Preparing: select n.notice_id as noticeId, n.notice_title as noticeTitle, n.notice_type as noticeType, n.status, n.create_by as createBy, n.create_time as createTime from sys_notice n where n.status = '0' order by n.notice_id desc limit ?
+2026-09-12 22:38:56.215 | DEBUG 16327 | nio-8080-exec-5 | .SysNoticeReadMapper.selectTopNoticeList:  135 | 64e3dbbe2a1e4bd3b255261e25414111 | ==> Parameters: 5(Integer)
+2026-09-12 22:38:56.244 | DEBUG 16327 | nio-8080-exec-5 | .SysNoticeReadMapper.selectTopNoticeList:  135 | 64e3dbbe2a1e4bd3b255261e25414111 | <==      Total: 1
+2026-09-12 22:38:56.249 | DEBUG 16327 | nio-8080-exec-5 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | 64e3dbbe2a1e4bd3b255261e25414111 | ==>  Preparing: select r.notice_id from sys_notice_read r where r.user_id = ? and r.notice_id in ( ? )
+2026-09-12 22:38:56.250 | DEBUG 16327 | nio-8080-exec-5 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | 64e3dbbe2a1e4bd3b255261e25414111 | ==> Parameters: 1(Long), 10(Long)
+2026-09-12 22:38:56.278 | DEBUG 16327 | nio-8080-exec-5 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | 64e3dbbe2a1e4bd3b255261e25414111 | <==      Total: 1
+2026-09-12 22:39:00.277 | DEBUG 16327 | nio-8080-exec-7 | stem.mapper.SysDictDataMapper.selectList:  135 | bc42c9120bf54f9aba88f481dd0d227b | ==>  Preparing: SELECT dict_code,dict_sort,dict_label,dict_value,dict_type,css_class,list_class,is_default,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_data WHERE (status = ? AND dict_type = ?) ORDER BY dict_sort ASC
+2026-09-12 22:39:00.279 | DEBUG 16327 | nio-8080-exec-7 | stem.mapper.SysDictDataMapper.selectList:  135 | bc42c9120bf54f9aba88f481dd0d227b | ==> Parameters: 0(String), sys_normal_disable(String)
+2026-09-12 22:39:00.293 | DEBUG 16327 | nio-8080-exec-8 | stem.mapper.SysMenuMapper.selectMenuList:  135 | 2a2441e82a054b70934ab405e15415e3 | ==>  Preparing: select id, menu_name, parent_id, order_num, route_path, vue_component_path, route_name, is_cache, menu_type, visible, status, ifnull(perms,'') as perms, icon, create_time from sys_menu order by parent_id, order_num
+2026-09-12 22:39:00.294 | DEBUG 16327 | nio-8080-exec-8 | stem.mapper.SysMenuMapper.selectMenuList:  135 | 2a2441e82a054b70934ab405e15415e3 | ==> Parameters: 
+2026-09-12 22:39:00.335 | DEBUG 16327 | nio-8080-exec-7 | stem.mapper.SysDictDataMapper.selectList:  135 | bc42c9120bf54f9aba88f481dd0d227b | <==      Total: 2
+2026-09-12 22:39:00.349 | DEBUG 16327 | nio-8080-exec-8 | stem.mapper.SysMenuMapper.selectMenuList:  135 | 2a2441e82a054b70934ab405e15415e3 | <==      Total: 72
+2026-09-12 22:39:02.878 | DEBUG 16327 | nio-8080-exec-9 | stem.mapper.SysMenuMapper.selectMenuList:  135 | c12bec560cc94d3087646a571fe3e260 | ==>  Preparing: select id, menu_name, parent_id, order_num, route_path, vue_component_path, route_name, is_cache, menu_type, visible, status, ifnull(perms,'') as perms, icon, create_time from sys_menu order by parent_id, order_num
+2026-09-12 22:39:02.880 | DEBUG 16327 | nio-8080-exec-9 | stem.mapper.SysMenuMapper.selectMenuList:  135 | c12bec560cc94d3087646a571fe3e260 | ==> Parameters: 
+2026-09-12 22:39:02.923 | DEBUG 16327 | nio-8080-exec-9 | stem.mapper.SysMenuMapper.selectMenuList:  135 | c12bec560cc94d3087646a571fe3e260 | <==      Total: 72
+2026-09-12 22:55:12.647 | DEBUG 16327 | io-8080-exec-10 | mapper.AuditLogMapper.selectList_mpCount:  135 | d79be8ad94e742ec950941933acd2512 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_audit_record
+2026-09-12 22:55:12.649 | DEBUG 16327 | io-8080-exec-10 | mapper.AuditLogMapper.selectList_mpCount:  135 | d79be8ad94e742ec950941933acd2512 | ==> Parameters: 
+2026-09-12 22:55:12.682 | DEBUG 16327 | io-8080-exec-10 | mapper.AuditLogMapper.selectList_mpCount:  135 | d79be8ad94e742ec950941933acd2512 | <==      Total: 1
+2026-09-12 22:55:20.269 | DEBUG 16327 | io-8080-exec-12 | stem.mapper.SysDictDataMapper.selectList:  135 | feb647dc64ff43879806d363ec8f6487 | ==>  Preparing: SELECT dict_code,dict_sort,dict_label,dict_value,dict_type,css_class,list_class,is_default,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_data WHERE (status = ? AND dict_type = ?) ORDER BY dict_sort ASC
+2026-09-12 22:55:20.271 | DEBUG 16327 | io-8080-exec-12 | stem.mapper.SysDictDataMapper.selectList:  135 | feb647dc64ff43879806d363ec8f6487 | ==> Parameters: 0(String), sys_notice_type(String)
+2026-09-12 22:55:20.281 | DEBUG 16327 | io-8080-exec-13 | apper.SysNoticeMapper.selectList_mpCount:  135 | a896faeda8ed43cb9eef7c94b4eb3dfa | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_notice
+2026-09-12 22:55:20.282 | DEBUG 16327 | io-8080-exec-13 | apper.SysNoticeMapper.selectList_mpCount:  135 | a896faeda8ed43cb9eef7c94b4eb3dfa | ==> Parameters: 
+2026-09-12 22:55:20.304 | DEBUG 16327 | io-8080-exec-12 | stem.mapper.SysDictDataMapper.selectList:  135 | feb647dc64ff43879806d363ec8f6487 | <==      Total: 2
+2026-09-12 22:55:20.309 | DEBUG 16327 | io-8080-exec-11 | stem.mapper.SysDictDataMapper.selectList:  135 | 7538430170c84418ba25a4b2b953fdfc | ==>  Preparing: SELECT dict_code,dict_sort,dict_label,dict_value,dict_type,css_class,list_class,is_default,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_data WHERE (status = ? AND dict_type = ?) ORDER BY dict_sort ASC
+2026-09-12 22:55:20.314 | DEBUG 16327 | io-8080-exec-13 | apper.SysNoticeMapper.selectList_mpCount:  135 | a896faeda8ed43cb9eef7c94b4eb3dfa | <==      Total: 1
+2026-09-12 22:55:20.315 | DEBUG 16327 | io-8080-exec-11 | stem.mapper.SysDictDataMapper.selectList:  135 | 7538430170c84418ba25a4b2b953fdfc | ==> Parameters: 0(String), sys_notice_status(String)
+2026-09-12 22:55:20.319 | DEBUG 16327 | io-8080-exec-13 | system.mapper.SysNoticeMapper.selectList:  135 | a896faeda8ed43cb9eef7c94b4eb3dfa | ==>  Preparing: SELECT notice_id,notice_title,notice_type,notice_content,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_notice ORDER BY notice_id DESC LIMIT ?
+2026-09-12 22:55:20.320 | DEBUG 16327 | io-8080-exec-13 | system.mapper.SysNoticeMapper.selectList:  135 | a896faeda8ed43cb9eef7c94b4eb3dfa | ==> Parameters: 10(Long)
+2026-09-12 22:55:20.347 | DEBUG 16327 | io-8080-exec-11 | stem.mapper.SysDictDataMapper.selectList:  135 | 7538430170c84418ba25a4b2b953fdfc | <==      Total: 2
+2026-09-12 22:55:20.353 | DEBUG 16327 | io-8080-exec-13 | system.mapper.SysNoticeMapper.selectList:  135 | a896faeda8ed43cb9eef7c94b4eb3dfa | <==      Total: 1
+2026-09-12 22:55:26.748 | DEBUG 16327 | io-8080-exec-14 | stem.mapper.SysDictDataMapper.selectList:  135 | b12611a819b64bdbb40a8f4a56c50c0e | ==>  Preparing: SELECT dict_code,dict_sort,dict_label,dict_value,dict_type,css_class,list_class,is_default,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_data WHERE (status = ? AND dict_type = ?) ORDER BY dict_sort ASC
+2026-09-12 22:55:26.751 | DEBUG 16327 | io-8080-exec-14 | stem.mapper.SysDictDataMapper.selectList:  135 | b12611a819b64bdbb40a8f4a56c50c0e | ==> Parameters: 0(String), sys_yes_no(String)
+2026-09-12 22:55:26.759 | DEBUG 16327 | io-8080-exec-15 | apper.SysConfigMapper.selectList_mpCount:  135 | f78489675e0e4e14be5c1d8fc5e2a8b2 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_config
+2026-09-12 22:55:26.761 | DEBUG 16327 | io-8080-exec-15 | apper.SysConfigMapper.selectList_mpCount:  135 | f78489675e0e4e14be5c1d8fc5e2a8b2 | ==> Parameters: 
+2026-09-12 22:55:26.787 | DEBUG 16327 | io-8080-exec-14 | stem.mapper.SysDictDataMapper.selectList:  135 | b12611a819b64bdbb40a8f4a56c50c0e | <==      Total: 2
+2026-09-12 22:55:26.792 | DEBUG 16327 | io-8080-exec-15 | apper.SysConfigMapper.selectList_mpCount:  135 | f78489675e0e4e14be5c1d8fc5e2a8b2 | <==      Total: 1
+2026-09-12 22:55:26.796 | DEBUG 16327 | io-8080-exec-15 | system.mapper.SysConfigMapper.selectList:  135 | f78489675e0e4e14be5c1d8fc5e2a8b2 | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config LIMIT ?
+2026-09-12 22:55:26.797 | DEBUG 16327 | io-8080-exec-15 | system.mapper.SysConfigMapper.selectList:  135 | f78489675e0e4e14be5c1d8fc5e2a8b2 | ==> Parameters: 10(Long)
+2026-09-12 22:55:26.834 | DEBUG 16327 | io-8080-exec-15 | system.mapper.SysConfigMapper.selectList:  135 | f78489675e0e4e14be5c1d8fc5e2a8b2 | <==      Total: 9
+2026-09-12 22:55:29.519 | DEBUG 16327 | io-8080-exec-16 | per.SysDictTypeMapper.selectList_mpCount:  135 | b7c248c647484888a1dd9b60e8dda0f3 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_dict_type
+2026-09-12 22:55:29.520 | DEBUG 16327 | io-8080-exec-16 | per.SysDictTypeMapper.selectList_mpCount:  135 | b7c248c647484888a1dd9b60e8dda0f3 | ==> Parameters: 
+2026-09-12 22:55:29.551 | DEBUG 16327 | io-8080-exec-16 | per.SysDictTypeMapper.selectList_mpCount:  135 | b7c248c647484888a1dd9b60e8dda0f3 | <==      Total: 1
+2026-09-12 22:55:29.552 | DEBUG 16327 | io-8080-exec-16 | stem.mapper.SysDictTypeMapper.selectList:  135 | b7c248c647484888a1dd9b60e8dda0f3 | ==>  Preparing: SELECT dict_id,dict_name,dict_type,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_type LIMIT ?
+2026-09-12 22:55:29.553 | DEBUG 16327 | io-8080-exec-16 | stem.mapper.SysDictTypeMapper.selectList:  135 | b7c248c647484888a1dd9b60e8dda0f3 | ==> Parameters: 10(Long)
+2026-09-12 22:55:29.586 | DEBUG 16327 | io-8080-exec-16 | stem.mapper.SysDictTypeMapper.selectList:  135 | b7c248c647484888a1dd9b60e8dda0f3 | <==      Total: 8
+2026-09-12 22:55:38.351 | DEBUG 16327 | io-8080-exec-17 | stem.mapper.SysDictTypeMapper.selectById:  135 | e5286aaac9ac4ffb8d0d90178d607379 | ==>  Preparing: SELECT dict_id,dict_name,dict_type,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_type WHERE dict_id=?
+2026-09-12 22:55:38.353 | DEBUG 16327 | io-8080-exec-17 | stem.mapper.SysDictTypeMapper.selectById:  135 | e5286aaac9ac4ffb8d0d90178d607379 | ==> Parameters: 1(Long)
+2026-09-12 22:55:38.385 | DEBUG 16327 | io-8080-exec-17 | stem.mapper.SysDictTypeMapper.selectById:  135 | e5286aaac9ac4ffb8d0d90178d607379 | <==      Total: 1
+2026-09-12 22:55:54.903 | DEBUG 16327 | io-8080-exec-18 | stem.mapper.SysDictTypeMapper.selectById:  135 | 38ff6817765a4f75a598fbfb0870d573 | ==>  Preparing: SELECT dict_id,dict_name,dict_type,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_type WHERE dict_id=?
+2026-09-12 22:55:54.903 | DEBUG 16327 | io-8080-exec-19 | stem.mapper.SysDictTypeMapper.selectList:  135 | 2711e266ce6c44989c9a21430ad51787 | ==>  Preparing: SELECT dict_id,dict_name,dict_type,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_type
+2026-09-12 22:55:54.905 | DEBUG 16327 | io-8080-exec-19 | stem.mapper.SysDictTypeMapper.selectList:  135 | 2711e266ce6c44989c9a21430ad51787 | ==> Parameters: 
+2026-09-12 22:55:54.905 | DEBUG 16327 | io-8080-exec-18 | stem.mapper.SysDictTypeMapper.selectById:  135 | 38ff6817765a4f75a598fbfb0870d573 | ==> Parameters: 6(Long)
+2026-09-12 22:55:54.936 | DEBUG 16327 | io-8080-exec-18 | stem.mapper.SysDictTypeMapper.selectById:  135 | 38ff6817765a4f75a598fbfb0870d573 | <==      Total: 1
+2026-09-12 22:55:54.939 | DEBUG 16327 | io-8080-exec-19 | stem.mapper.SysDictTypeMapper.selectList:  135 | 2711e266ce6c44989c9a21430ad51787 | <==      Total: 8
+2026-09-12 22:55:55.011 | DEBUG 16327 | io-8080-exec-20 | per.SysDictDataMapper.selectList_mpCount:  135 | 6db9fc0e510c4fe99c670b1b79051d4b | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_dict_data WHERE (dict_type = ?)
+2026-09-12 22:55:55.012 | DEBUG 16327 | io-8080-exec-20 | per.SysDictDataMapper.selectList_mpCount:  135 | 6db9fc0e510c4fe99c670b1b79051d4b | ==> Parameters: sys_yes_no(String)
+2026-09-12 22:55:55.042 | DEBUG 16327 | io-8080-exec-20 | per.SysDictDataMapper.selectList_mpCount:  135 | 6db9fc0e510c4fe99c670b1b79051d4b | <==      Total: 1
+2026-09-12 22:55:55.043 | DEBUG 16327 | io-8080-exec-20 | stem.mapper.SysDictDataMapper.selectList:  135 | 6db9fc0e510c4fe99c670b1b79051d4b | ==>  Preparing: SELECT dict_code,dict_sort,dict_label,dict_value,dict_type,css_class,list_class,is_default,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_data WHERE (dict_type = ?) ORDER BY dict_sort ASC LIMIT ?
+2026-09-12 22:55:55.044 | DEBUG 16327 | io-8080-exec-20 | stem.mapper.SysDictDataMapper.selectList:  135 | 6db9fc0e510c4fe99c670b1b79051d4b | ==> Parameters: sys_yes_no(String), 10(Long)
+2026-09-12 22:55:55.076 | DEBUG 16327 | io-8080-exec-20 | stem.mapper.SysDictDataMapper.selectList:  135 | 6db9fc0e510c4fe99c670b1b79051d4b | <==      Total: 2
+2026-09-12 22:56:05.113 | DEBUG 16327 | io-8080-exec-21 | per.SysDictTypeMapper.selectList_mpCount:  135 | 3d366cc2a54c40c993497e707c610ca9 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_dict_type
+2026-09-12 22:56:05.114 | DEBUG 16327 | io-8080-exec-21 | per.SysDictTypeMapper.selectList_mpCount:  135 | 3d366cc2a54c40c993497e707c610ca9 | ==> Parameters: 
+2026-09-12 22:56:05.143 | DEBUG 16327 | io-8080-exec-21 | per.SysDictTypeMapper.selectList_mpCount:  135 | 3d366cc2a54c40c993497e707c610ca9 | <==      Total: 1
+2026-09-12 22:56:05.145 | DEBUG 16327 | io-8080-exec-21 | stem.mapper.SysDictTypeMapper.selectList:  135 | 3d366cc2a54c40c993497e707c610ca9 | ==>  Preparing: SELECT dict_id,dict_name,dict_type,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_type LIMIT ?
+2026-09-12 22:56:05.146 | DEBUG 16327 | io-8080-exec-21 | stem.mapper.SysDictTypeMapper.selectList:  135 | 3d366cc2a54c40c993497e707c610ca9 | ==> Parameters: 10(Long)
+2026-09-12 22:56:05.177 | DEBUG 16327 | io-8080-exec-21 | stem.mapper.SysDictTypeMapper.selectList:  135 | 3d366cc2a54c40c993497e707c610ca9 | <==      Total: 8
+2026-09-12 22:56:35.061 | DEBUG 16327 | io-8080-exec-22 | per.SysDictDataMapper.selectList_mpCount:  135 | 535b613effff4230b4e32412378e5dfb | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_dict_data WHERE (dict_type = ?)
+2026-09-12 22:56:35.063 | DEBUG 16327 | io-8080-exec-22 | per.SysDictDataMapper.selectList_mpCount:  135 | 535b613effff4230b4e32412378e5dfb | ==> Parameters: sys_notice_type(String)
+2026-09-12 22:56:35.094 | DEBUG 16327 | io-8080-exec-22 | per.SysDictDataMapper.selectList_mpCount:  135 | 535b613effff4230b4e32412378e5dfb | <==      Total: 1
+2026-09-12 22:56:35.095 | DEBUG 16327 | io-8080-exec-22 | stem.mapper.SysDictDataMapper.selectList:  135 | 535b613effff4230b4e32412378e5dfb | ==>  Preparing: SELECT dict_code,dict_sort,dict_label,dict_value,dict_type,css_class,list_class,is_default,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_data WHERE (dict_type = ?) ORDER BY dict_sort ASC LIMIT ?
+2026-09-12 22:56:35.096 | DEBUG 16327 | io-8080-exec-22 | stem.mapper.SysDictDataMapper.selectList:  135 | 535b613effff4230b4e32412378e5dfb | ==> Parameters: sys_notice_type(String), 100(Long)
+2026-09-12 22:56:35.127 | DEBUG 16327 | io-8080-exec-22 | stem.mapper.SysDictDataMapper.selectList:  135 | 535b613effff4230b4e32412378e5dfb | <==      Total: 2
+2026-09-12 22:57:03.958 | DEBUG 16327 | io-8080-exec-24 | stem.mapper.SysDictTypeMapper.selectById:  135 | 5e3db326aa144b68839c1ad0d53e1e11 | ==>  Preparing: SELECT dict_id,dict_name,dict_type,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_type WHERE dict_id=?
+2026-09-12 22:57:03.959 | DEBUG 16327 | io-8080-exec-25 | stem.mapper.SysDictTypeMapper.selectList:  135 | 435aa54d589744539102d0ffa96c5d82 | ==>  Preparing: SELECT dict_id,dict_name,dict_type,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_type
+2026-09-12 22:57:03.960 | DEBUG 16327 | io-8080-exec-25 | stem.mapper.SysDictTypeMapper.selectList:  135 | 435aa54d589744539102d0ffa96c5d82 | ==> Parameters: 
+2026-09-12 22:57:03.960 | DEBUG 16327 | io-8080-exec-24 | stem.mapper.SysDictTypeMapper.selectById:  135 | 5e3db326aa144b68839c1ad0d53e1e11 | ==> Parameters: 9(Long)
+2026-09-12 22:57:03.991 | DEBUG 16327 | io-8080-exec-24 | stem.mapper.SysDictTypeMapper.selectById:  135 | 5e3db326aa144b68839c1ad0d53e1e11 | <==      Total: 1
+2026-09-12 22:57:03.991 | DEBUG 16327 | io-8080-exec-25 | stem.mapper.SysDictTypeMapper.selectList:  135 | 435aa54d589744539102d0ffa96c5d82 | <==      Total: 8
+2026-09-12 22:57:04.053 | DEBUG 16327 | io-8080-exec-26 | per.SysDictDataMapper.selectList_mpCount:  135 | a3a52d06c0fc4092af12546e378b6a21 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_dict_data WHERE (dict_type = ?)
+2026-09-12 22:57:04.054 | DEBUG 16327 | io-8080-exec-26 | per.SysDictDataMapper.selectList_mpCount:  135 | a3a52d06c0fc4092af12546e378b6a21 | ==> Parameters: sys_oper_type(String)
+2026-09-12 22:57:04.085 | DEBUG 16327 | io-8080-exec-26 | per.SysDictDataMapper.selectList_mpCount:  135 | a3a52d06c0fc4092af12546e378b6a21 | <==      Total: 1
+2026-09-12 22:57:04.086 | DEBUG 16327 | io-8080-exec-26 | stem.mapper.SysDictDataMapper.selectList:  135 | a3a52d06c0fc4092af12546e378b6a21 | ==>  Preparing: SELECT dict_code,dict_sort,dict_label,dict_value,dict_type,css_class,list_class,is_default,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_data WHERE (dict_type = ?) ORDER BY dict_sort ASC LIMIT ?
+2026-09-12 22:57:04.087 | DEBUG 16327 | io-8080-exec-26 | stem.mapper.SysDictDataMapper.selectList:  135 | a3a52d06c0fc4092af12546e378b6a21 | ==> Parameters: sys_oper_type(String), 10(Long)
+2026-09-12 22:57:04.123 | DEBUG 16327 | io-8080-exec-26 | stem.mapper.SysDictDataMapper.selectList:  135 | a3a52d06c0fc4092af12546e378b6a21 | <==      Total: 7
+2026-09-12 22:57:08.910 | DEBUG 16327 | io-8080-exec-27 | per.SysDictTypeMapper.selectList_mpCount:  135 | e81fbe76a2634dac8785b1dd090b566c | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_dict_type
+2026-09-12 22:57:08.912 | DEBUG 16327 | io-8080-exec-27 | per.SysDictTypeMapper.selectList_mpCount:  135 | e81fbe76a2634dac8785b1dd090b566c | ==> Parameters: 
+2026-09-12 22:57:08.941 | DEBUG 16327 | io-8080-exec-27 | per.SysDictTypeMapper.selectList_mpCount:  135 | e81fbe76a2634dac8785b1dd090b566c | <==      Total: 1
+2026-09-12 22:57:08.942 | DEBUG 16327 | io-8080-exec-27 | stem.mapper.SysDictTypeMapper.selectList:  135 | e81fbe76a2634dac8785b1dd090b566c | ==>  Preparing: SELECT dict_id,dict_name,dict_type,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_type LIMIT ?
+2026-09-12 22:57:08.943 | DEBUG 16327 | io-8080-exec-27 | stem.mapper.SysDictTypeMapper.selectList:  135 | e81fbe76a2634dac8785b1dd090b566c | ==> Parameters: 10(Long)
+2026-09-12 22:57:08.974 | DEBUG 16327 | io-8080-exec-27 | stem.mapper.SysDictTypeMapper.selectList:  135 | e81fbe76a2634dac8785b1dd090b566c | <==      Total: 8
+2026-09-12 22:57:16.314 | DEBUG 16327 | io-8080-exec-28 | per.SysDictTypeMapper.selectList_mpCount:  135 | ca0f973789a84785a8c688e04f37d037 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_dict_type
+2026-09-12 22:57:16.315 | DEBUG 16327 | io-8080-exec-28 | per.SysDictTypeMapper.selectList_mpCount:  135 | ca0f973789a84785a8c688e04f37d037 | ==> Parameters: 
+2026-09-12 22:57:16.345 | DEBUG 16327 | io-8080-exec-28 | per.SysDictTypeMapper.selectList_mpCount:  135 | ca0f973789a84785a8c688e04f37d037 | <==      Total: 1
+2026-09-12 22:57:16.346 | DEBUG 16327 | io-8080-exec-28 | stem.mapper.SysDictTypeMapper.selectList:  135 | ca0f973789a84785a8c688e04f37d037 | ==>  Preparing: SELECT dict_id,dict_name,dict_type,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_type LIMIT ?
+2026-09-12 22:57:16.348 | DEBUG 16327 | io-8080-exec-28 | stem.mapper.SysDictTypeMapper.selectList:  135 | ca0f973789a84785a8c688e04f37d037 | ==> Parameters: 10(Long)
+2026-09-12 22:57:16.380 | DEBUG 16327 | io-8080-exec-28 | stem.mapper.SysDictTypeMapper.selectList:  135 | ca0f973789a84785a8c688e04f37d037 | <==      Total: 8
+2026-09-12 22:57:21.512 | DEBUG 16327 | io-8080-exec-30 | stem.mapper.SysDictTypeMapper.selectList:  135 | a7086a484562488cbd4b68aabead6c39 | ==>  Preparing: SELECT dict_id,dict_name,dict_type,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_type
+2026-09-12 22:57:21.512 | DEBUG 16327 | io-8080-exec-29 | stem.mapper.SysDictTypeMapper.selectById:  135 | 18bcf50a7b1145a08a435a81717181db | ==>  Preparing: SELECT dict_id,dict_name,dict_type,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_type WHERE dict_id=?
+2026-09-12 22:57:21.514 | DEBUG 16327 | io-8080-exec-30 | stem.mapper.SysDictTypeMapper.selectList:  135 | a7086a484562488cbd4b68aabead6c39 | ==> Parameters: 
+2026-09-12 22:57:21.514 | DEBUG 16327 | io-8080-exec-29 | stem.mapper.SysDictTypeMapper.selectById:  135 | 18bcf50a7b1145a08a435a81717181db | ==> Parameters: 2(Long)
+2026-09-12 22:57:21.545 | DEBUG 16327 | io-8080-exec-29 | stem.mapper.SysDictTypeMapper.selectById:  135 | 18bcf50a7b1145a08a435a81717181db | <==      Total: 1
+2026-09-12 22:57:21.545 | DEBUG 16327 | io-8080-exec-30 | stem.mapper.SysDictTypeMapper.selectList:  135 | a7086a484562488cbd4b68aabead6c39 | <==      Total: 8
+2026-09-12 22:57:21.605 | DEBUG 16327 | io-8080-exec-31 | per.SysDictDataMapper.selectList_mpCount:  135 | 9a7085d834214acc85d3871a41f87c36 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_dict_data WHERE (dict_type = ?)
+2026-09-12 22:57:21.606 | DEBUG 16327 | io-8080-exec-31 | per.SysDictDataMapper.selectList_mpCount:  135 | 9a7085d834214acc85d3871a41f87c36 | ==> Parameters: sys_show_hide(String)
+2026-09-12 22:57:21.636 | DEBUG 16327 | io-8080-exec-31 | per.SysDictDataMapper.selectList_mpCount:  135 | 9a7085d834214acc85d3871a41f87c36 | <==      Total: 1
+2026-09-12 22:57:21.637 | DEBUG 16327 | io-8080-exec-31 | stem.mapper.SysDictDataMapper.selectList:  135 | 9a7085d834214acc85d3871a41f87c36 | ==>  Preparing: SELECT dict_code,dict_sort,dict_label,dict_value,dict_type,css_class,list_class,is_default,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_data WHERE (dict_type = ?) ORDER BY dict_sort ASC LIMIT ?
+2026-09-12 22:57:21.638 | DEBUG 16327 | io-8080-exec-31 | stem.mapper.SysDictDataMapper.selectList:  135 | 9a7085d834214acc85d3871a41f87c36 | ==> Parameters: sys_show_hide(String), 10(Long)
+2026-09-12 22:57:21.669 | DEBUG 16327 | io-8080-exec-31 | stem.mapper.SysDictDataMapper.selectList:  135 | 9a7085d834214acc85d3871a41f87c36 | <==      Total: 2
+2026-09-12 22:57:39.947 | DEBUG 16327 | io-8080-exec-32 | per.SysDictDataMapper.selectList_mpCount:  135 | ee7afab7c36e4bd4a030923760b55b11 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_dict_data WHERE (dict_type = ?)
+2026-09-12 22:57:39.949 | DEBUG 16327 | io-8080-exec-32 | per.SysDictDataMapper.selectList_mpCount:  135 | ee7afab7c36e4bd4a030923760b55b11 | ==> Parameters: sys_show_hide(String)
+2026-09-12 22:57:39.984 | DEBUG 16327 | io-8080-exec-32 | per.SysDictDataMapper.selectList_mpCount:  135 | ee7afab7c36e4bd4a030923760b55b11 | <==      Total: 1
+2026-09-12 22:57:39.985 | DEBUG 16327 | io-8080-exec-32 | stem.mapper.SysDictDataMapper.selectList:  135 | ee7afab7c36e4bd4a030923760b55b11 | ==>  Preparing: SELECT dict_code,dict_sort,dict_label,dict_value,dict_type,css_class,list_class,is_default,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_data WHERE (dict_type = ?) ORDER BY dict_sort ASC LIMIT ?
+2026-09-12 22:57:39.987 | DEBUG 16327 | io-8080-exec-32 | stem.mapper.SysDictDataMapper.selectList:  135 | ee7afab7c36e4bd4a030923760b55b11 | ==> Parameters: sys_show_hide(String), 10(Long)
+2026-09-12 22:57:40.018 | DEBUG 16327 | io-8080-exec-32 | stem.mapper.SysDictDataMapper.selectList:  135 | ee7afab7c36e4bd4a030923760b55b11 | <==      Total: 2
+2026-09-12 22:57:48.199 | DEBUG 16327 | io-8080-exec-34 | stem.mapper.SysDictTypeMapper.selectList:  135 | 7e912814b28e4c3c8acda7b93e996fab | ==>  Preparing: SELECT dict_id,dict_name,dict_type,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_type
+2026-09-12 22:57:48.200 | DEBUG 16327 | io-8080-exec-34 | stem.mapper.SysDictTypeMapper.selectList:  135 | 7e912814b28e4c3c8acda7b93e996fab | ==> Parameters: 
+2026-09-12 22:57:48.232 | DEBUG 16327 | io-8080-exec-34 | stem.mapper.SysDictTypeMapper.selectList:  135 | 7e912814b28e4c3c8acda7b93e996fab | <==      Total: 8
+2026-09-12 22:57:48.253 | DEBUG 16327 | io-8080-exec-35 | per.SysDictDataMapper.selectList_mpCount:  135 | 8320a628a39a44f4a989f7dfcd390ca9 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_dict_data WHERE (dict_type = ?)
+2026-09-12 22:57:48.254 | DEBUG 16327 | io-8080-exec-35 | per.SysDictDataMapper.selectList_mpCount:  135 | 8320a628a39a44f4a989f7dfcd390ca9 | ==> Parameters: sys_show_hide(String)
+2026-09-12 22:57:48.283 | DEBUG 16327 | io-8080-exec-35 | per.SysDictDataMapper.selectList_mpCount:  135 | 8320a628a39a44f4a989f7dfcd390ca9 | <==      Total: 1
+2026-09-12 22:57:48.285 | DEBUG 16327 | io-8080-exec-35 | stem.mapper.SysDictDataMapper.selectList:  135 | 8320a628a39a44f4a989f7dfcd390ca9 | ==>  Preparing: SELECT dict_code,dict_sort,dict_label,dict_value,dict_type,css_class,list_class,is_default,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_data WHERE (dict_type = ?) ORDER BY dict_sort ASC LIMIT ?
+2026-09-12 22:57:48.285 | DEBUG 16327 | io-8080-exec-35 | stem.mapper.SysDictDataMapper.selectList:  135 | 8320a628a39a44f4a989f7dfcd390ca9 | ==> Parameters: sys_show_hide(String), 10(Long)
+2026-09-12 22:57:48.316 | DEBUG 16327 | io-8080-exec-35 | stem.mapper.SysDictDataMapper.selectList:  135 | 8320a628a39a44f4a989f7dfcd390ca9 | <==      Total: 2
+2026-09-12 22:57:50.945 | DEBUG 16327 | io-8080-exec-36 | per.SysDictTypeMapper.selectList_mpCount:  135 | 23912545fd2d40ee99bda06f7329cccd | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_dict_type
+2026-09-12 22:57:50.946 | DEBUG 16327 | io-8080-exec-36 | per.SysDictTypeMapper.selectList_mpCount:  135 | 23912545fd2d40ee99bda06f7329cccd | ==> Parameters: 
+2026-09-12 22:57:50.976 | DEBUG 16327 | io-8080-exec-36 | per.SysDictTypeMapper.selectList_mpCount:  135 | 23912545fd2d40ee99bda06f7329cccd | <==      Total: 1
+2026-09-12 22:57:50.977 | DEBUG 16327 | io-8080-exec-36 | stem.mapper.SysDictTypeMapper.selectList:  135 | 23912545fd2d40ee99bda06f7329cccd | ==>  Preparing: SELECT dict_id,dict_name,dict_type,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_type LIMIT ?
+2026-09-12 22:57:50.979 | DEBUG 16327 | io-8080-exec-36 | stem.mapper.SysDictTypeMapper.selectList:  135 | 23912545fd2d40ee99bda06f7329cccd | ==> Parameters: 10(Long)
+2026-09-12 22:57:51.011 | DEBUG 16327 | io-8080-exec-36 | stem.mapper.SysDictTypeMapper.selectList:  135 | 23912545fd2d40ee99bda06f7329cccd | <==      Total: 8
+2026-09-12 22:57:56.948 | DEBUG 16327 | io-8080-exec-37 | per.SysDictDataMapper.selectList_mpCount:  135 | 351d4e2e23ef4ecdad194151476f9e2b | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_dict_data WHERE (dict_type = ?)
+2026-09-12 22:57:56.950 | DEBUG 16327 | io-8080-exec-37 | per.SysDictDataMapper.selectList_mpCount:  135 | 351d4e2e23ef4ecdad194151476f9e2b | ==> Parameters: sys_oper_type(String)
+2026-09-12 22:57:56.984 | DEBUG 16327 | io-8080-exec-37 | per.SysDictDataMapper.selectList_mpCount:  135 | 351d4e2e23ef4ecdad194151476f9e2b | <==      Total: 1
+2026-09-12 22:57:56.985 | DEBUG 16327 | io-8080-exec-37 | stem.mapper.SysDictDataMapper.selectList:  135 | 351d4e2e23ef4ecdad194151476f9e2b | ==>  Preparing: SELECT dict_code,dict_sort,dict_label,dict_value,dict_type,css_class,list_class,is_default,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_data WHERE (dict_type = ?) ORDER BY dict_sort ASC LIMIT ?
+2026-09-12 22:57:56.986 | DEBUG 16327 | io-8080-exec-37 | stem.mapper.SysDictDataMapper.selectList:  135 | 351d4e2e23ef4ecdad194151476f9e2b | ==> Parameters: sys_oper_type(String), 100(Long)
+2026-09-12 22:57:57.018 | DEBUG 16327 | io-8080-exec-37 | stem.mapper.SysDictDataMapper.selectList:  135 | 351d4e2e23ef4ecdad194151476f9e2b | <==      Total: 7
+2026-09-12 23:01:06.627 | DEBUG 16327 | io-8080-exec-38 | per.SysDictTypeMapper.selectList_mpCount:  135 | 083fe0834f8a458c8ca4f4516d225337 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_dict_type
+2026-09-12 23:01:06.629 | DEBUG 16327 | io-8080-exec-38 | per.SysDictTypeMapper.selectList_mpCount:  135 | 083fe0834f8a458c8ca4f4516d225337 | ==> Parameters: 
+2026-09-12 23:01:06.658 | DEBUG 16327 | io-8080-exec-38 | per.SysDictTypeMapper.selectList_mpCount:  135 | 083fe0834f8a458c8ca4f4516d225337 | <==      Total: 1
+2026-09-12 23:01:06.659 | DEBUG 16327 | io-8080-exec-38 | stem.mapper.SysDictTypeMapper.selectList:  135 | 083fe0834f8a458c8ca4f4516d225337 | ==>  Preparing: SELECT dict_id,dict_name,dict_type,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_type LIMIT ?
+2026-09-12 23:01:06.660 | DEBUG 16327 | io-8080-exec-38 | stem.mapper.SysDictTypeMapper.selectList:  135 | 083fe0834f8a458c8ca4f4516d225337 | ==> Parameters: 10(Long)
+2026-09-12 23:01:06.691 | DEBUG 16327 | io-8080-exec-38 | stem.mapper.SysDictTypeMapper.selectList:  135 | 083fe0834f8a458c8ca4f4516d225337 | <==      Total: 8
+2026-09-12 23:12:17.835 | DEBUG 16327 | io-8080-exec-40 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | e3ed38c4fbcd4e318a11cf915fdd19fd | ==>  Preparing: select distinct m.id, m.parent_id, m.menu_name, m.route_path, m.vue_component_path, m.route_name, m.visible, m.status, ifnull(m.perms,'') as perms, m.is_cache, m.menu_type, m.icon, m.order_num, m.create_time from sys_menu m where m.menu_type in ('M', 'C') and m.status = 0 order by m.parent_id, m.order_num
+2026-09-12 23:12:17.839 | DEBUG 16327 | io-8080-exec-40 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | e3ed38c4fbcd4e318a11cf915fdd19fd | ==> Parameters: 
+2026-09-12 23:12:17.873 | DEBUG 16327 | io-8080-exec-40 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | e3ed38c4fbcd4e318a11cf915fdd19fd | <==      Total: 23
+2026-09-12 23:12:18.030 | DEBUG 16327 | io-8080-exec-44 | .SysNoticeReadMapper.selectTopNoticeList:  135 | b595da58eed54eddbe4a1642c2b95f9c | ==>  Preparing: select n.notice_id as noticeId, n.notice_title as noticeTitle, n.notice_type as noticeType, n.status, n.create_by as createBy, n.create_time as createTime from sys_notice n where n.status = '0' order by n.notice_id desc limit ?
+2026-09-12 23:12:18.031 | DEBUG 16327 | io-8080-exec-44 | .SysNoticeReadMapper.selectTopNoticeList:  135 | b595da58eed54eddbe4a1642c2b95f9c | ==> Parameters: 5(Integer)
+2026-09-12 23:12:18.061 | DEBUG 16327 | io-8080-exec-44 | .SysNoticeReadMapper.selectTopNoticeList:  135 | b595da58eed54eddbe4a1642c2b95f9c | <==      Total: 1
+2026-09-12 23:12:18.062 | DEBUG 16327 | io-8080-exec-44 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | b595da58eed54eddbe4a1642c2b95f9c | ==>  Preparing: select r.notice_id from sys_notice_read r where r.user_id = ? and r.notice_id in ( ? )
+2026-09-12 23:12:18.063 | DEBUG 16327 | io-8080-exec-44 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | b595da58eed54eddbe4a1642c2b95f9c | ==> Parameters: 1(Long), 10(Long)
+2026-09-12 23:12:18.065 | DEBUG 16327 | io-8080-exec-41 | stem.mapper.SysDictDataMapper.selectList:  135 | d2fe62f16e5042a3a4f30f5a3d855b37 | ==>  Preparing: SELECT dict_code,dict_sort,dict_label,dict_value,dict_type,css_class,list_class,is_default,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_data WHERE (status = ? AND dict_type = ?) ORDER BY dict_sort ASC
+2026-09-12 23:12:18.066 | DEBUG 16327 | io-8080-exec-41 | stem.mapper.SysDictDataMapper.selectList:  135 | d2fe62f16e5042a3a4f30f5a3d855b37 | ==> Parameters: 0(String), sys_normal_disable(String)
+2026-09-12 23:12:18.070 | DEBUG 16327 | io-8080-exec-42 | per.SysDictTypeMapper.selectList_mpCount:  135 | 590ad26ec0ab454c82ab965f2d5a021a | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_dict_type
+2026-09-12 23:12:18.070 | DEBUG 16327 | io-8080-exec-42 | per.SysDictTypeMapper.selectList_mpCount:  135 | 590ad26ec0ab454c82ab965f2d5a021a | ==> Parameters: 
+2026-09-12 23:12:18.090 | DEBUG 16327 | io-8080-exec-44 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | b595da58eed54eddbe4a1642c2b95f9c | <==      Total: 1
+2026-09-12 23:12:18.098 | DEBUG 16327 | io-8080-exec-42 | per.SysDictTypeMapper.selectList_mpCount:  135 | 590ad26ec0ab454c82ab965f2d5a021a | <==      Total: 1
+2026-09-12 23:12:18.098 | DEBUG 16327 | io-8080-exec-41 | stem.mapper.SysDictDataMapper.selectList:  135 | d2fe62f16e5042a3a4f30f5a3d855b37 | <==      Total: 2
+2026-09-12 23:12:18.099 | DEBUG 16327 | io-8080-exec-42 | stem.mapper.SysDictTypeMapper.selectList:  135 | 590ad26ec0ab454c82ab965f2d5a021a | ==>  Preparing: SELECT dict_id,dict_name,dict_type,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_type LIMIT ?
+2026-09-12 23:12:18.101 | DEBUG 16327 | io-8080-exec-42 | stem.mapper.SysDictTypeMapper.selectList:  135 | 590ad26ec0ab454c82ab965f2d5a021a | ==> Parameters: 10(Long)
+2026-09-12 23:12:18.131 | DEBUG 16327 | io-8080-exec-42 | stem.mapper.SysDictTypeMapper.selectList:  135 | 590ad26ec0ab454c82ab965f2d5a021a | <==      Total: 8
+2026-09-12 23:12:43.814 | DEBUG 16327 | io-8080-exec-46 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 7075a22b025c408bab600e4e102bfcf6 | ==>  Preparing: select distinct m.id, m.parent_id, m.menu_name, m.route_path, m.vue_component_path, m.route_name, m.visible, m.status, ifnull(m.perms,'') as perms, m.is_cache, m.menu_type, m.icon, m.order_num, m.create_time from sys_menu m where m.menu_type in ('M', 'C') and m.status = 0 order by m.parent_id, m.order_num
+2026-09-12 23:12:43.816 | DEBUG 16327 | io-8080-exec-46 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 7075a22b025c408bab600e4e102bfcf6 | ==> Parameters: 
+2026-09-12 23:12:43.844 | DEBUG 16327 | io-8080-exec-46 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 7075a22b025c408bab600e4e102bfcf6 | <==      Total: 23
+2026-09-12 23:12:43.966 | DEBUG 16327 | io-8080-exec-49 | .SysNoticeReadMapper.selectTopNoticeList:  135 | b4dcaee0d1b34245bb081fa7532585ab | ==>  Preparing: select n.notice_id as noticeId, n.notice_title as noticeTitle, n.notice_type as noticeType, n.status, n.create_by as createBy, n.create_time as createTime from sys_notice n where n.status = '0' order by n.notice_id desc limit ?
+2026-09-12 23:12:43.967 | DEBUG 16327 | io-8080-exec-49 | .SysNoticeReadMapper.selectTopNoticeList:  135 | b4dcaee0d1b34245bb081fa7532585ab | ==> Parameters: 5(Integer)
+2026-09-12 23:12:43.994 | DEBUG 16327 | io-8080-exec-49 | .SysNoticeReadMapper.selectTopNoticeList:  135 | b4dcaee0d1b34245bb081fa7532585ab | <==      Total: 1
+2026-09-12 23:12:43.995 | DEBUG 16327 | io-8080-exec-49 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | b4dcaee0d1b34245bb081fa7532585ab | ==>  Preparing: select r.notice_id from sys_notice_read r where r.user_id = ? and r.notice_id in ( ? )
+2026-09-12 23:12:43.996 | DEBUG 16327 | io-8080-exec-49 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | b4dcaee0d1b34245bb081fa7532585ab | ==> Parameters: 1(Long), 10(Long)
+2026-09-12 23:12:44.001 | DEBUG 16327 | io-8080-exec-48 | per.SysDictTypeMapper.selectList_mpCount:  135 | 284401bfa77c4a60bd17448bb4409753 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_dict_type
+2026-09-12 23:12:44.002 | DEBUG 16327 | io-8080-exec-48 | per.SysDictTypeMapper.selectList_mpCount:  135 | 284401bfa77c4a60bd17448bb4409753 | ==> Parameters: 
+2026-09-12 23:12:44.021 | DEBUG 16327 | io-8080-exec-49 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | b4dcaee0d1b34245bb081fa7532585ab | <==      Total: 1
+2026-09-12 23:12:44.033 | DEBUG 16327 | io-8080-exec-48 | per.SysDictTypeMapper.selectList_mpCount:  135 | 284401bfa77c4a60bd17448bb4409753 | <==      Total: 1
+2026-09-12 23:12:44.034 | DEBUG 16327 | io-8080-exec-48 | stem.mapper.SysDictTypeMapper.selectList:  135 | 284401bfa77c4a60bd17448bb4409753 | ==>  Preparing: SELECT dict_id,dict_name,dict_type,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_type LIMIT ?
+2026-09-12 23:12:44.035 | DEBUG 16327 | io-8080-exec-48 | stem.mapper.SysDictTypeMapper.selectList:  135 | 284401bfa77c4a60bd17448bb4409753 | ==> Parameters: 10(Long)
+2026-09-12 23:12:44.065 | DEBUG 16327 | io-8080-exec-48 | stem.mapper.SysDictTypeMapper.selectList:  135 | 284401bfa77c4a60bd17448bb4409753 | <==      Total: 8
+2026-09-12 23:18:13.213 | DEBUG 16327 | io-8080-exec-52 | apper.SysConfigMapper.selectList_mpCount:  135 | 597e5aa306674138831bcf9d75068026 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_config
+2026-09-12 23:18:13.215 | DEBUG 16327 | io-8080-exec-52 | apper.SysConfigMapper.selectList_mpCount:  135 | 597e5aa306674138831bcf9d75068026 | ==> Parameters: 
+2026-09-12 23:18:13.244 | DEBUG 16327 | io-8080-exec-52 | apper.SysConfigMapper.selectList_mpCount:  135 | 597e5aa306674138831bcf9d75068026 | <==      Total: 1
+2026-09-12 23:18:13.245 | DEBUG 16327 | io-8080-exec-52 | system.mapper.SysConfigMapper.selectList:  135 | 597e5aa306674138831bcf9d75068026 | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config LIMIT ?
+2026-09-12 23:18:13.246 | DEBUG 16327 | io-8080-exec-52 | system.mapper.SysConfigMapper.selectList:  135 | 597e5aa306674138831bcf9d75068026 | ==> Parameters: 10(Long)
+2026-09-12 23:18:13.279 | DEBUG 16327 | io-8080-exec-52 | system.mapper.SysConfigMapper.selectList:  135 | 597e5aa306674138831bcf9d75068026 | <==      Total: 9
+2026-09-12 23:18:54.110 | DEBUG 16327 | io-8080-exec-53 | system.mapper.SysConfigMapper.selectById:  135 | c46eac3a3c7d49b7bc175e3f3bbe3c9c | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config WHERE config_id=?
+2026-09-12 23:18:54.112 | DEBUG 16327 | io-8080-exec-53 | system.mapper.SysConfigMapper.selectById:  135 | c46eac3a3c7d49b7bc175e3f3bbe3c9c | ==> Parameters: 6(Long)
+2026-09-12 23:18:54.141 | DEBUG 16327 | io-8080-exec-53 | system.mapper.SysConfigMapper.selectById:  135 | c46eac3a3c7d49b7bc175e3f3bbe3c9c | <==      Total: 1
+2026-09-12 23:19:15.015 | DEBUG 16327 | io-8080-exec-54 | system.mapper.SysConfigMapper.selectById:  135 | f24c5ab3b99e48dbb8b7c826d0227719 | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config WHERE config_id=?
+2026-09-12 23:19:15.017 | DEBUG 16327 | io-8080-exec-54 | system.mapper.SysConfigMapper.selectById:  135 | f24c5ab3b99e48dbb8b7c826d0227719 | ==> Parameters: 8(Long)
+2026-09-12 23:19:15.046 | DEBUG 16327 | io-8080-exec-54 | system.mapper.SysConfigMapper.selectById:  135 | f24c5ab3b99e48dbb8b7c826d0227719 | <==      Total: 1
+2026-09-12 23:25:04.996 |  INFO 16327 | ionShutdownHook | ngframework.boot.tomcat.GracefulShutdown:   54 |  | Commencing graceful shutdown. Waiting for active requests to complete
+2026-09-12 23:25:07.023 |  INFO 16327 | tomcat-shutdown | ngframework.boot.tomcat.GracefulShutdown:   76 |  | Graceful shutdown complete
+2026-09-12 23:25:07.046 |  INFO 16327 | ionShutdownHook | sys-user                                :   30 |  | ====关闭后台任务任务线程池====
+2026-09-12 23:25:07.050 |  INFO 16327 | ionShutdownHook | amic.datasource.DynamicRoutingDataSource:  215 |  | dynamic-datasource start closing ....
+2026-09-12 23:25:07.051 |  INFO 16327 | ionShutdownHook | com.zaxxer.hikari.HikariDataSource      :  349 |  | HikariPool-1 - Shutdown initiated...
+2026-09-12 23:25:07.342 |  INFO 16327 | ionShutdownHook | com.zaxxer.hikari.HikariDataSource      :  351 |  | HikariPool-1 - Shutdown completed.
+2026-09-12 23:25:07.342 |  INFO 16327 | ionShutdownHook | rce.destroyer.DefaultDataSourceDestroyer:   98 |  | dynamic-datasource close the datasource named [master] success,
+2026-09-12 23:25:07.342 |  INFO 16327 | ionShutdownHook | amic.datasource.DynamicRoutingDataSource:  219 |  | dynamic-datasource all closed success,bye
+2026-09-12 23:25:10.557 |  INFO 22320 | main            | com.medcase.MedcaseApplication          :   54 |  | Starting MedcaseApplication using Java 17.0.20 with PID 22320 (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes started by suyunhong in /Users/suyunhong/suyh-develop/github/medcase-api)
+2026-09-12 23:25:10.558 | DEBUG 22320 | main            | com.medcase.MedcaseApplication          :   55 |  | Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-09-12 23:25:10.558 |  INFO 22320 | main            | com.medcase.MedcaseApplication          :  658 |  | The following 1 profile is active: "suyh"
+2026-09-12 23:25:10.642 |  INFO 22320 | kground-preinit | ibernate.validator.internal.util.Version:   18 |  | HV000001: Hibernate Validator 9.1.0.Final
+2026-09-12 23:25:10.949 |  INFO 22320 | main            | y.config.RepositoryConfigurationDelegate:  291 |  | Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-12 23:25:10.950 |  INFO 22320 | main            | y.config.RepositoryConfigurationDelegate:  145 |  | Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-12 23:25:10.973 |  INFO 22320 | main            | y.config.RepositoryConfigurationDelegate:  213 |  | Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2026-09-12 23:25:11.455 |  INFO 22320 | main            | ingframework.boot.tomcat.TomcatWebServer:  114 |  | Tomcat initialized with port 8080 (http)
+2026-09-12 23:25:11.461 |  INFO 22320 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Initializing ProtocolHandler ["http-nio-8080"]
+2026-09-12 23:25:11.462 |  INFO 22320 | main            | org.apache.catalina.core.StandardService:  168 |  | Starting service [Tomcat]
+2026-09-12 23:25:11.462 |  INFO 22320 | main            | org.apache.catalina.core.StandardEngine :  168 |  | Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-09-12 23:25:11.485 |  INFO 22320 | main            | servlet.WebApplicationContextInitializer:   77 |  | Root WebApplicationContext: initialization completed in 909 ms
+2026-09-12 23:25:11.544 |  WARN 22320 | main            | lver.dns.DnsServerAddressStreamProviders:   70 |  | Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'
+2026-09-12 23:25:11.715 | DEBUG 22320 | main            | rity.filter.JwtAuthenticationTokenFilter:  236 |  | Filter 'jwtAuthenticationTokenFilter' configured for use
+2026-09-12 23:25:11.823 |  INFO 22320 | main            | com.zaxxer.hikari.HikariDataSource      :  109 |  | HikariPool-1 - Starting...
+2026-09-12 23:25:22.355 |  INFO 22320 | main            | com.zaxxer.hikari.pool.HikariPool       :  580 |  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@64df8422
+2026-09-12 23:25:22.358 |  INFO 22320 | main            | com.zaxxer.hikari.HikariDataSource      :  122 |  | HikariPool-1 - Start completed.
+2026-09-12 23:25:22.422 |  INFO 22320 | main            | org.flywaydb.core.FlywayExecutor        :   41 |  | Database: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000 (MySQL 8.0)
+2026-09-12 23:25:23.111 |  INFO 22320 | main            | lywaydb.core.internal.command.DbValidate:   41 |  | Successfully validated 13 migrations (execution time 00:00.232s)
+2026-09-12 23:25:23.490 |  INFO 22320 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Current version of schema `suyh_medcase`: 01.01.00.011
+2026-09-12 23:25:23.652 |  INFO 22320 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Migrating schema `suyh_medcase` to version "01.01.00.012 - drop-menu-is-cache"
+2026-09-12 23:25:24.396 |  INFO 22320 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Successfully applied 1 migration to schema `suyh_medcase`, now at version v01.01.00.012 (execution time 00:00.253s)
+2026-09-12 23:25:24.590 |  INFO 22320 | main            | amic.datasource.DynamicRoutingDataSource:  158 |  | dynamic-datasource - add a datasource named [master] success
+2026-09-12 23:25:24.591 |  INFO 22320 | main            | amic.datasource.DynamicRoutingDataSource:  241 |  | dynamic-datasource initial loaded [1] datasource,primary datasource named [master]
+2026-09-12 23:25:24.911 | DEBUG 22320 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config
+2026-09-12 23:25:24.917 | DEBUG 22320 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==> Parameters: 
+2026-09-12 23:25:24.956 | DEBUG 22320 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | <==      Total: 9
+2026-09-12 23:25:30.816 |  WARN 22320 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysRoleMenuEntity".
+2026-09-12 23:25:30.816 |  WARN 22320 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysRoleMenuEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-12 23:25:30.829 |  WARN 22320 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserRoleEntity".
+2026-09-12 23:25:30.829 |  WARN 22320 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserRoleEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-12 23:25:30.871 |  WARN 22320 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserPostEntity".
+2026-09-12 23:25:30.871 |  WARN 22320 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserPostEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-12 23:25:31.408 |  INFO 22320 | main            | r$InitializeUserDetailsManagerConfigurer:  110 |  | Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-09-12 23:25:31.625 |  INFO 22320 | main            | pring.MybatisPlusApplicationContextAware:   43 |  | Register ApplicationContext instances org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext@6d868997
+2026-09-12 23:25:31.840 |  INFO 22320 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Starting ProtocolHandler ["http-nio-8080"]
+2026-09-12 23:25:31.851 |  INFO 22320 | main            | ingframework.boot.tomcat.TomcatWebServer:  240 |  | Tomcat started on port 8080 (http) with context path '/medcase'
+2026-09-12 23:25:31.855 |  INFO 22320 | main            | com.medcase.MedcaseApplication          :   60 |  | Started MedcaseApplication in 21.55 seconds (process running for 21.967)
+2026-09-12 23:25:31.857 |  INFO 22320 | main            | .medcase.common.config.StartupInfoLogger:   50 |  | 
+----------------------------------------------------------
+Application Ready
+Spring Boot     : 4.1.0
+Project Version : 1.1.0
+Build Time      : 2026-09-12T15:22:46.007Z
+Active Profile  : suyh
+Database Enabled : true
+Database Primary : master
+Database Strict  : true
+Database JDBC URL: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000
+Database Driver  : com.mysql.cj.jdbc.Driver
+Database Pool Min : 10
+Database Pool Max : 20
+Database Conn Timeout: 60000
+Database Idle Timeout: 300000
+Database Max Lifetime: 900000
+Redis Host       : qu-yun.isuyh.com
+Redis Port       : 6379
+Redis Database   : 1
+Redis Timeout    : 10s
+Redis Pool Min   : 0
+Redis Pool Max   : 8
+Redis Pool Active: 8
+Redis Pool Wait  : -1ms
+SMS Enabled      : false
+Git Branch      : develop
+Git Commit      : f25011a
+Git Commit Time : 2026-09-12T14:23:26Z
+Git Dirty       : true
+----------------------------------------------------------
+2026-09-12 23:27:51.867 |  INFO 22320 | nio-8080-exec-1 | inerBase.[Tomcat].[localhost].[/medcase]:  168 |  | Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-12 23:27:51.868 |  INFO 22320 | nio-8080-exec-1 | gframework.web.servlet.DispatcherServlet:  523 |  | Initializing Servlet 'dispatcherServlet'
+2026-09-12 23:27:51.871 |  INFO 22320 | nio-8080-exec-1 | gframework.web.servlet.DispatcherServlet:  545 |  | Completed initialization in 3 ms
+2026-09-12 23:27:52.340 | DEBUG 22320 | nio-8080-exec-2 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 15a37b4fcfda40a781d817a675fbd84b | ==>  Preparing: select distinct m.id, m.parent_id, m.menu_name, m.route_path, m.vue_component_path, m.route_name, m.visible, m.status, ifnull(m.perms,'') as perms, m.menu_type, m.icon, m.order_num, m.create_time from sys_menu m where m.menu_type in ('M', 'C') and m.status = 0 order by m.parent_id, m.order_num
+2026-09-12 23:27:52.341 | DEBUG 22320 | nio-8080-exec-2 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 15a37b4fcfda40a781d817a675fbd84b | ==> Parameters: 
+2026-09-12 23:27:52.382 | DEBUG 22320 | nio-8080-exec-2 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 15a37b4fcfda40a781d817a675fbd84b | <==      Total: 23
+2026-09-12 23:27:52.601 | DEBUG 22320 | nio-8080-exec-5 | .SysNoticeReadMapper.selectTopNoticeList:  135 | 345140d576664d94afc087828e420980 | ==>  Preparing: select n.notice_id as noticeId, n.notice_title as noticeTitle, n.notice_type as noticeType, n.status, n.create_by as createBy, n.create_time as createTime from sys_notice n where n.status = '0' order by n.notice_id desc limit ?
+2026-09-12 23:27:52.602 | DEBUG 22320 | nio-8080-exec-5 | .SysNoticeReadMapper.selectTopNoticeList:  135 | 345140d576664d94afc087828e420980 | ==> Parameters: 5(Integer)
+2026-09-12 23:27:52.635 | DEBUG 22320 | nio-8080-exec-5 | .SysNoticeReadMapper.selectTopNoticeList:  135 | 345140d576664d94afc087828e420980 | <==      Total: 1
+2026-09-12 23:27:52.637 | DEBUG 22320 | nio-8080-exec-5 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | 345140d576664d94afc087828e420980 | ==>  Preparing: select r.notice_id from sys_notice_read r where r.user_id = ? and r.notice_id in ( ? )
+2026-09-12 23:27:52.637 | DEBUG 22320 | nio-8080-exec-5 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | 345140d576664d94afc087828e420980 | ==> Parameters: 1(Long), 10(Long)
+2026-09-12 23:27:52.638 | DEBUG 22320 | nio-8080-exec-3 | stem.mapper.SysDictDataMapper.selectList:  135 | 91ff6bcaddc649f5b76f05c28a8c1dab | ==>  Preparing: SELECT dict_code,dict_sort,dict_label,dict_value,dict_type,css_class,list_class,is_default,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_data WHERE (status = ? AND dict_type = ?) ORDER BY dict_sort ASC
+2026-09-12 23:27:52.639 | DEBUG 22320 | nio-8080-exec-3 | stem.mapper.SysDictDataMapper.selectList:  135 | 91ff6bcaddc649f5b76f05c28a8c1dab | ==> Parameters: 0(String), sys_yes_no(String)
+2026-09-12 23:27:52.665 | DEBUG 22320 | nio-8080-exec-3 | stem.mapper.SysDictDataMapper.selectList:  135 | 91ff6bcaddc649f5b76f05c28a8c1dab | <==      Total: 2
+2026-09-12 23:27:52.667 | DEBUG 22320 | nio-8080-exec-5 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | 345140d576664d94afc087828e420980 | <==      Total: 1
+2026-09-12 23:27:52.678 | DEBUG 22320 | nio-8080-exec-4 | apper.SysConfigMapper.selectList_mpCount:  135 | 858a4e9824af4a03a269d7f666008f3b | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_config
+2026-09-12 23:27:52.678 | DEBUG 22320 | nio-8080-exec-4 | apper.SysConfigMapper.selectList_mpCount:  135 | 858a4e9824af4a03a269d7f666008f3b | ==> Parameters: 
+2026-09-12 23:27:52.710 | DEBUG 22320 | nio-8080-exec-4 | apper.SysConfigMapper.selectList_mpCount:  135 | 858a4e9824af4a03a269d7f666008f3b | <==      Total: 1
+2026-09-12 23:27:52.711 | DEBUG 22320 | nio-8080-exec-4 | system.mapper.SysConfigMapper.selectList:  135 | 858a4e9824af4a03a269d7f666008f3b | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config LIMIT ?
+2026-09-12 23:27:52.712 | DEBUG 22320 | nio-8080-exec-4 | system.mapper.SysConfigMapper.selectList:  135 | 858a4e9824af4a03a269d7f666008f3b | ==> Parameters: 10(Long)
+2026-09-12 23:27:52.745 | DEBUG 22320 | nio-8080-exec-4 | system.mapper.SysConfigMapper.selectList:  135 | 858a4e9824af4a03a269d7f666008f3b | <==      Total: 9
+2026-09-12 23:27:53.729 |  INFO 22320 | ionShutdownHook | ngframework.boot.tomcat.GracefulShutdown:   54 |  | Commencing graceful shutdown. Waiting for active requests to complete
+2026-09-12 23:27:55.740 |  INFO 22320 | tomcat-shutdown | ngframework.boot.tomcat.GracefulShutdown:   76 |  | Graceful shutdown complete
+2026-09-12 23:27:55.758 |  INFO 22320 | ionShutdownHook | sys-user                                :   30 |  | ====关闭后台任务任务线程池====
+2026-09-12 23:27:55.762 |  INFO 22320 | ionShutdownHook | amic.datasource.DynamicRoutingDataSource:  215 |  | dynamic-datasource start closing ....
+2026-09-12 23:27:55.763 |  INFO 22320 | ionShutdownHook | com.zaxxer.hikari.HikariDataSource      :  349 |  | HikariPool-1 - Shutdown initiated...
+2026-09-12 23:27:56.055 |  INFO 22320 | ionShutdownHook | com.zaxxer.hikari.HikariDataSource      :  351 |  | HikariPool-1 - Shutdown completed.
+2026-09-12 23:27:56.055 |  INFO 22320 | ionShutdownHook | rce.destroyer.DefaultDataSourceDestroyer:   98 |  | dynamic-datasource close the datasource named [master] success,
+2026-09-12 23:27:56.055 |  INFO 22320 | ionShutdownHook | amic.datasource.DynamicRoutingDataSource:  219 |  | dynamic-datasource all closed success,bye
+2026-09-12 23:27:57.402 |  INFO 22578 | main            | com.medcase.MedcaseApplication          :   54 |  | Starting MedcaseApplication using Java 17.0.20 with PID 22578 (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes started by suyunhong in /Users/suyunhong/suyh-develop/github/medcase-api)
+2026-09-12 23:27:57.403 | DEBUG 22578 | main            | com.medcase.MedcaseApplication          :   55 |  | Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-09-12 23:27:57.404 |  INFO 22578 | main            | com.medcase.MedcaseApplication          :  658 |  | The following 1 profile is active: "suyh"
+2026-09-12 23:27:57.525 |  INFO 22578 | kground-preinit | ibernate.validator.internal.util.Version:   18 |  | HV000001: Hibernate Validator 9.1.0.Final
+2026-09-12 23:27:57.833 |  INFO 22578 | main            | y.config.RepositoryConfigurationDelegate:  291 |  | Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-12 23:27:57.835 |  INFO 22578 | main            | y.config.RepositoryConfigurationDelegate:  145 |  | Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-12 23:27:57.858 |  INFO 22578 | main            | y.config.RepositoryConfigurationDelegate:  213 |  | Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2026-09-12 23:27:58.605 |  INFO 22578 | main            | ingframework.boot.tomcat.TomcatWebServer:  114 |  | Tomcat initialized with port 8080 (http)
+2026-09-12 23:27:58.612 |  INFO 22578 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Initializing ProtocolHandler ["http-nio-8080"]
+2026-09-12 23:27:58.613 |  INFO 22578 | main            | org.apache.catalina.core.StandardService:  168 |  | Starting service [Tomcat]
+2026-09-12 23:27:58.614 |  INFO 22578 | main            | org.apache.catalina.core.StandardEngine :  168 |  | Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-09-12 23:27:58.642 |  INFO 22578 | main            | servlet.WebApplicationContextInitializer:   77 |  | Root WebApplicationContext: initialization completed in 1212 ms
+2026-09-12 23:27:58.705 |  WARN 22578 | main            | lver.dns.DnsServerAddressStreamProviders:   70 |  | Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'
+2026-09-12 23:27:58.905 | DEBUG 22578 | main            | rity.filter.JwtAuthenticationTokenFilter:  236 |  | Filter 'jwtAuthenticationTokenFilter' configured for use
+2026-09-12 23:27:59.021 |  INFO 22578 | main            | com.zaxxer.hikari.HikariDataSource      :  109 |  | HikariPool-1 - Starting...
+2026-09-12 23:28:09.499 |  INFO 22578 | main            | com.zaxxer.hikari.pool.HikariPool       :  580 |  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@64df8422
+2026-09-12 23:28:09.500 |  INFO 22578 | main            | com.zaxxer.hikari.HikariDataSource      :  122 |  | HikariPool-1 - Start completed.
+2026-09-12 23:28:09.557 |  INFO 22578 | main            | org.flywaydb.core.FlywayExecutor        :   41 |  | Database: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000 (MySQL 8.0)
+2026-09-12 23:28:10.099 |  INFO 22578 | main            | lywaydb.core.internal.command.DbValidate:   41 |  | Successfully validated 13 migrations (execution time 00:00.186s)
+2026-09-12 23:28:10.394 |  INFO 22578 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Current version of schema `suyh_medcase`: 01.01.00.012
+2026-09-12 23:28:10.425 |  INFO 22578 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Schema `suyh_medcase` is up to date. No migration necessary.
+2026-09-12 23:28:10.588 |  INFO 22578 | main            | amic.datasource.DynamicRoutingDataSource:  158 |  | dynamic-datasource - add a datasource named [master] success
+2026-09-12 23:28:10.588 |  INFO 22578 | main            | amic.datasource.DynamicRoutingDataSource:  241 |  | dynamic-datasource initial loaded [1] datasource,primary datasource named [master]
+2026-09-12 23:28:10.969 | DEBUG 22578 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config
+2026-09-12 23:28:10.975 | DEBUG 22578 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==> Parameters: 
+2026-09-12 23:28:11.008 | DEBUG 22578 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | <==      Total: 9
+2026-09-12 23:28:11.769 |  WARN 22578 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysRoleMenuEntity".
+2026-09-12 23:28:11.769 |  WARN 22578 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysRoleMenuEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-12 23:28:11.784 |  WARN 22578 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserRoleEntity".
+2026-09-12 23:28:11.785 |  WARN 22578 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserRoleEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-12 23:28:11.833 |  WARN 22578 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserPostEntity".
+2026-09-12 23:28:11.834 |  WARN 22578 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserPostEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-12 23:28:12.498 |  INFO 22578 | main            | r$InitializeUserDetailsManagerConfigurer:  110 |  | Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-09-12 23:28:12.783 |  INFO 22578 | main            | pring.MybatisPlusApplicationContextAware:   43 |  | Register ApplicationContext instances org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext@6d868997
+2026-09-12 23:28:13.051 |  INFO 22578 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Starting ProtocolHandler ["http-nio-8080"]
+2026-09-12 23:28:13.061 |  INFO 22578 | main            | ingframework.boot.tomcat.TomcatWebServer:  240 |  | Tomcat started on port 8080 (http) with context path '/medcase'
+2026-09-12 23:28:13.066 |  INFO 22578 | main            | com.medcase.MedcaseApplication          :   60 |  | Started MedcaseApplication in 15.936 seconds (process running for 16.28)
+2026-09-12 23:28:13.068 |  INFO 22578 | main            | .medcase.common.config.StartupInfoLogger:   50 |  | 
+----------------------------------------------------------
+Application Ready
+Spring Boot     : 4.1.0
+Project Version : 1.1.0
+Build Time      : 2026-09-12T15:22:46.007Z
+Active Profile  : suyh
+Database Enabled : true
+Database Primary : master
+Database Strict  : true
+Database JDBC URL: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000
+Database Driver  : com.mysql.cj.jdbc.Driver
+Database Pool Min : 10
+Database Pool Max : 20
+Database Conn Timeout: 60000
+Database Idle Timeout: 300000
+Database Max Lifetime: 900000
+Redis Host       : qu-yun.isuyh.com
+Redis Port       : 6379
+Redis Database   : 1
+Redis Timeout    : 10s
+Redis Pool Min   : 0
+Redis Pool Max   : 8
+Redis Pool Active: 8
+Redis Pool Wait  : -1ms
+SMS Enabled      : false
+Git Branch      : develop
+Git Commit      : f25011a
+Git Commit Time : 2026-09-12T14:23:26Z
+Git Dirty       : true
+----------------------------------------------------------

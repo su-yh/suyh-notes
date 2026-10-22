@@ -1,0 +1,499 @@
+2026-09-11 21:09:51.335 |  INFO 7981 | main            | com.medcase.MedcaseApplication          :   54 |  | Starting MedcaseApplication using Java 17.0.20 with PID 7981 (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes started by suyunhong in /Users/suyunhong/suyh-develop/github/medcase-api)
+2026-09-11 21:09:51.339 | DEBUG 7981 | main            | com.medcase.MedcaseApplication          :   55 |  | Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-09-11 21:09:51.339 |  INFO 7981 | main            | com.medcase.MedcaseApplication          :  658 |  | The following 1 profile is active: "suyh"
+2026-09-11 21:09:51.498 |  INFO 7981 | kground-preinit | ibernate.validator.internal.util.Version:   18 |  | HV000001: Hibernate Validator 9.1.0.Final
+2026-09-11 21:09:51.881 |  INFO 7981 | main            | y.config.RepositoryConfigurationDelegate:  291 |  | Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-11 21:09:51.882 |  INFO 7981 | main            | y.config.RepositoryConfigurationDelegate:  145 |  | Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-11 21:09:51.910 |  INFO 7981 | main            | y.config.RepositoryConfigurationDelegate:  213 |  | Finished Spring Data repository scanning in 20 ms. Found 0 Redis repository interfaces.
+2026-09-11 21:09:52.494 |  INFO 7981 | main            | ingframework.boot.tomcat.TomcatWebServer:  114 |  | Tomcat initialized with port 8080 (http)
+2026-09-11 21:09:52.501 |  INFO 7981 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Initializing ProtocolHandler ["http-nio-8080"]
+2026-09-11 21:09:52.501 |  INFO 7981 | main            | org.apache.catalina.core.StandardService:  168 |  | Starting service [Tomcat]
+2026-09-11 21:09:52.501 |  INFO 7981 | main            | org.apache.catalina.core.StandardEngine :  168 |  | Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-09-11 21:09:52.531 |  INFO 7981 | main            | servlet.WebApplicationContextInitializer:   77 |  | Root WebApplicationContext: initialization completed in 1163 ms
+2026-09-11 21:09:52.595 |  WARN 7981 | main            | lver.dns.DnsServerAddressStreamProviders:   70 |  | Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'
+2026-09-11 21:09:52.803 | DEBUG 7981 | main            | rity.filter.JwtAuthenticationTokenFilter:  236 |  | Filter 'jwtAuthenticationTokenFilter' configured for use
+2026-09-11 21:09:52.921 |  INFO 7981 | main            | com.zaxxer.hikari.HikariDataSource      :  109 |  | HikariPool-1 - Starting...
+2026-09-11 21:10:04.740 |  INFO 7981 | main            | com.zaxxer.hikari.pool.HikariPool       :  580 |  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@558ed473
+2026-09-11 21:10:04.743 |  INFO 7981 | main            | com.zaxxer.hikari.HikariDataSource      :  122 |  | HikariPool-1 - Start completed.
+2026-09-11 21:10:04.801 |  INFO 7981 | main            | org.flywaydb.core.FlywayExecutor        :   41 |  | Database: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000 (MySQL 8.0)
+2026-09-11 21:10:05.443 |  INFO 7981 | main            | lywaydb.core.internal.command.DbValidate:   41 |  | Successfully validated 10 migrations (execution time 00:00.209s)
+2026-09-11 21:10:05.785 |  INFO 7981 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Current version of schema `suyh_medcase`: 01.01.00.009
+2026-09-11 21:10:05.817 |  INFO 7981 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Schema `suyh_medcase` is up to date. No migration necessary.
+2026-09-11 21:10:06.003 |  INFO 7981 | main            | amic.datasource.DynamicRoutingDataSource:  158 |  | dynamic-datasource - add a datasource named [master] success
+2026-09-11 21:10:06.003 |  INFO 7981 | main            | amic.datasource.DynamicRoutingDataSource:  241 |  | dynamic-datasource initial loaded [1] datasource,primary datasource named [master]
+2026-09-11 21:10:06.381 |  WARN 7981 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysRoleMenuEntity".
+2026-09-11 21:10:06.382 |  WARN 7981 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysRoleMenuEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-11 21:10:06.396 |  WARN 7981 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserRoleEntity".
+2026-09-11 21:10:06.396 |  WARN 7981 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserRoleEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-11 21:10:06.437 |  WARN 7981 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserPostEntity".
+2026-09-11 21:10:06.438 |  WARN 7981 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserPostEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-11 21:10:06.532 | DEBUG 7981 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config
+2026-09-11 21:10:06.538 | DEBUG 7981 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==> Parameters: 
+2026-09-11 21:10:06.576 | DEBUG 7981 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | <==      Total: 9
+2026-09-11 21:10:13.105 |  INFO 7981 | main            | r$InitializeUserDetailsManagerConfigurer:  110 |  | Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-09-11 21:10:13.364 |  INFO 7981 | main            | pring.MybatisPlusApplicationContextAware:   43 |  | Register ApplicationContext instances org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext@7ea4d397
+2026-09-11 21:10:13.616 |  INFO 7981 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Starting ProtocolHandler ["http-nio-8080"]
+2026-09-11 21:10:13.625 |  INFO 7981 | main            | ingframework.boot.tomcat.TomcatWebServer:  240 |  | Tomcat started on port 8080 (http) with context path '/medcase'
+2026-09-11 21:10:13.631 |  INFO 7981 | main            | com.medcase.MedcaseApplication          :   60 |  | Started MedcaseApplication in 22.949 seconds (process running for 25.72)
+2026-09-11 21:10:13.633 |  INFO 7981 | main            | .medcase.common.config.StartupInfoLogger:   50 |  | 
+----------------------------------------------------------
+Application Ready
+Spring Boot     : 4.1.0
+Project Version : unknown
+Build Time      : unknown
+Active Profile  : suyh
+Database Enabled : true
+Database Primary : master
+Database Strict  : true
+Database JDBC URL: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000
+Database Driver  : com.mysql.cj.jdbc.Driver
+Database Pool Min : 10
+Database Pool Max : 20
+Database Conn Timeout: 60000
+Database Idle Timeout: 300000
+Database Max Lifetime: 900000
+Redis Host       : qu-yun.isuyh.com
+Redis Port       : 6379
+Redis Database   : 1
+Redis Timeout    : 10s
+Redis Pool Min   : 0
+Redis Pool Max   : 8
+Redis Pool Active: 8
+Redis Pool Wait  : -1ms
+SMS Enabled      : false
+Git Branch      : unknown
+Git Commit      : unknown
+Git Commit Time : unknown
+Git Dirty       : unknown
+----------------------------------------------------------
+2026-09-11 21:10:18.132 |  INFO 7981 | nio-8080-exec-1 | inerBase.[Tomcat].[localhost].[/medcase]:  168 |  | Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-11 21:10:18.133 |  INFO 7981 | nio-8080-exec-1 | gframework.web.servlet.DispatcherServlet:  523 |  | Initializing Servlet 'dispatcherServlet'
+2026-09-11 21:10:18.134 |  INFO 7981 | nio-8080-exec-1 | gframework.web.servlet.DispatcherServlet:  545 |  | Completed initialization in 1 ms
+2026-09-11 21:10:23.544 | DEBUG 7981 | nio-8080-exec-2 | .mapper.SysConfigMapper.selectWithCursor:  135 | 3d5788a42b2b4e4da12a80ab13d54049 | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config WHERE (config_key = ?)
+2026-09-11 21:10:23.546 | DEBUG 7981 | nio-8080-exec-2 | .mapper.SysConfigMapper.selectWithCursor:  135 | 3d5788a42b2b4e4da12a80ab13d54049 | ==> Parameters: sys.login.blackIPList(String)
+2026-09-11 21:10:23.579 | DEBUG 7981 | nio-8080-exec-2 | .mapper.SysConfigMapper.selectWithCursor:  135 | 3d5788a42b2b4e4da12a80ab13d54049 | <==      Total: 1
+2026-09-11 21:10:23.651 | DEBUG 7981 | nio-8080-exec-2 | em.mapper.SysUserMapper.selectWithCursor:  135 | 3d5788a42b2b4e4da12a80ab13d54049 | ==>  Preparing: SELECT user_id,dept_id,user_name,nick_name,supplier_id,user_type,id_card_number,id_card_front,id_card_back,title,qualification_certificate,review_reason,email,phonenumber,sex,avatar,password,status,del_flag,login_ip,login_date,pwd_update_date,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_user WHERE (user_name = ? AND user_type = ? AND del_flag = ?)
+2026-09-11 21:10:23.653 | DEBUG 7981 | nio-8080-exec-2 | em.mapper.SysUserMapper.selectWithCursor:  135 | 3d5788a42b2b4e4da12a80ab13d54049 | ==> Parameters: admin(String), 00(String), 0(String)
+2026-09-11 21:10:23.687 | DEBUG 7981 | nio-8080-exec-2 | em.mapper.SysUserMapper.selectWithCursor:  135 | 3d5788a42b2b4e4da12a80ab13d54049 | <==      Total: 1
+2026-09-11 21:10:23.691 | DEBUG 7981 | nio-8080-exec-2 | stem.mapper.SysUserRoleMapper.selectList:  135 | 3d5788a42b2b4e4da12a80ab13d54049 | ==>  Preparing: SELECT user_id,role_id FROM sys_user_role WHERE (user_id = ?)
+2026-09-11 21:10:23.693 | DEBUG 7981 | nio-8080-exec-2 | stem.mapper.SysUserRoleMapper.selectList:  135 | 3d5788a42b2b4e4da12a80ab13d54049 | ==> Parameters: 1(Long)
+2026-09-11 21:10:23.723 | DEBUG 7981 | nio-8080-exec-2 | stem.mapper.SysUserRoleMapper.selectList:  135 | 3d5788a42b2b4e4da12a80ab13d54049 | <==      Total: 0
+2026-09-11 21:10:23.730 | DEBUG 7981 | nio-8080-exec-2 | e.system.mapper.SysRoleMapper.selectList:  135 | 3d5788a42b2b4e4da12a80ab13d54049 | ==>  Preparing: SELECT role_id,role_name,role_key,role_sort,menu_check_strictly,status,del_flag,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_role
+2026-09-11 21:10:23.731 | DEBUG 7981 | nio-8080-exec-2 | e.system.mapper.SysRoleMapper.selectList:  135 | 3d5788a42b2b4e4da12a80ab13d54049 | ==> Parameters: 
+2026-09-11 21:10:23.765 | DEBUG 7981 | nio-8080-exec-2 | e.system.mapper.SysRoleMapper.selectList:  135 | 3d5788a42b2b4e4da12a80ab13d54049 | <==      Total: 3
+2026-09-11 21:10:23.929 | DEBUG 7981 | nio-8080-exec-2 | dcase.system.mapper.SysUserMapper.update:  135 | 3d5788a42b2b4e4da12a80ab13d54049 | ==>  Preparing: UPDATE sys_user SET login_ip=?, login_date=?, update_user_id=?, update_by=?, update_time=? WHERE (user_id = ?)
+2026-09-11 21:10:23.930 | DEBUG 7981 | nio-8080-exec-2 | dcase.system.mapper.SysUserMapper.update:  135 | 3d5788a42b2b4e4da12a80ab13d54049 | ==> Parameters: 127.0.0.1(String), 2026-09-11 21:10:23.921(Timestamp), 0(Long), system(String), 2026-09-11 21:10:23.929(Timestamp), 1(Long)
+2026-09-11 21:10:23.932 |  INFO 7981 | schedule-pool-1 | sys-user                                :   53 |  | [127.0.0.1]内网IP[admin][Success][登录成功]
+2026-09-11 21:10:23.948 |  INFO 7981 | schedule-pool-1 | asjes.parse.useragent.utils.YauaaVersion:  104 |  | Yauaa 8.2.0 (v8.2.0 @ 2026-07-24T13:01:09Z)
+2026-09-11 21:10:23.994 | DEBUG 7981 | nio-8080-exec-2 | dcase.system.mapper.SysUserMapper.update:  135 | 3d5788a42b2b4e4da12a80ab13d54049 | <==    Updates: 1
+2026-09-11 21:10:24.024 |  INFO 7981 | schedule-pool-1 | sjes.parse.useragent.config.ConfigLoader:  309 |  | - Loaded 123 files in   72 ms using expression: classpath*:UserAgents/**/*.yaml
+2026-09-11 21:10:24.609 |  INFO 7981 | schedule-pool-1 | ragent.analyze.UserAgentStringMatchMaker:  282 |  | Building all needed matchers for the requested 11 fields.
+2026-09-11 21:10:24.635 |  INFO 7981 | schedule-pool-1 | ragent.analyze.UserAgentStringMatchMaker:  336 |  | Initializing Analyzer data structures
+2026-09-11 21:10:25.220 |  INFO 7981 | schedule-pool-1 | ragent.analyze.UserAgentStringMatchMaker:  347 |  | Built in 584 msec : Hashmap 199731, Ranges map:3004
+2026-09-11 21:10:25.295 | DEBUG 7981 | schedule-pool-1 | system.mapper.SysLogininforMapper.insert:  135 |  | ==>  Preparing: INSERT INTO sys_logininfor ( user_name, status, ipaddr, login_location, browser, os, msg ) VALUES ( ?, ?, ?, ?, ?, ?, ? )
+2026-09-11 21:10:25.295 | DEBUG 7981 | schedule-pool-1 | system.mapper.SysLogininforMapper.insert:  135 |  | ==> Parameters: admin(String), 0(String), 127.0.0.1(String), 内网IP(String), Chrome 152(String), Mac OS >=10.15.7(String), 登录成功(String)
+2026-09-11 21:10:25.357 | DEBUG 7981 | schedule-pool-1 | system.mapper.SysLogininforMapper.insert:  135 |  | <==    Updates: 1
+2026-09-11 21:10:25.681 | DEBUG 7981 | nio-8080-exec-4 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 7fc1fe1189ae4a478d7c8323062f37c2 | ==>  Preparing: select distinct m.id, m.parent_id, m.menu_name, m.route_path, m.vue_component_path, m.route_name, m.visible, m.status, ifnull(m.perms,'') as perms, m.is_cache, m.menu_type, m.icon, m.order_num, m.create_time from sys_menu m where m.menu_type in ('M', 'C') and m.status = 0 order by m.parent_id, m.order_num
+2026-09-11 21:10:25.682 | DEBUG 7981 | nio-8080-exec-4 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 7fc1fe1189ae4a478d7c8323062f37c2 | ==> Parameters: 
+2026-09-11 21:10:25.717 | DEBUG 7981 | nio-8080-exec-4 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 7fc1fe1189ae4a478d7c8323062f37c2 | <==      Total: 24
+2026-09-11 21:10:25.876 | DEBUG 7981 | nio-8080-exec-5 | .SysNoticeReadMapper.selectTopNoticeList:  135 | 5564551a1d914af2a5d19ea407f94377 | ==>  Preparing: select n.notice_id as noticeId, n.notice_title as noticeTitle, n.notice_type as noticeType, n.status, n.create_by as createBy, n.create_time as createTime from sys_notice n where n.status = '0' order by n.notice_id desc limit ?
+2026-09-11 21:10:25.876 | DEBUG 7981 | nio-8080-exec-5 | .SysNoticeReadMapper.selectTopNoticeList:  135 | 5564551a1d914af2a5d19ea407f94377 | ==> Parameters: 5(Integer)
+2026-09-11 21:10:25.908 | DEBUG 7981 | nio-8080-exec-5 | .SysNoticeReadMapper.selectTopNoticeList:  135 | 5564551a1d914af2a5d19ea407f94377 | <==      Total: 1
+2026-09-11 21:10:25.911 | DEBUG 7981 | nio-8080-exec-5 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | 5564551a1d914af2a5d19ea407f94377 | ==>  Preparing: select r.notice_id from sys_notice_read r where r.user_id = ? and r.notice_id in ( ? )
+2026-09-11 21:10:25.911 | DEBUG 7981 | nio-8080-exec-5 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | 5564551a1d914af2a5d19ea407f94377 | ==> Parameters: 1(Long), 10(Long)
+2026-09-11 21:10:25.941 | DEBUG 7981 | nio-8080-exec-5 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | 5564551a1d914af2a5d19ea407f94377 | <==      Total: 0
+2026-09-11 21:10:38.145 | DEBUG 7981 | nio-8080-exec-8 | system.mapper.SysNoticeMapper.selectById:  135 | 7400544d34944eea9b0cdef9d388d289 | ==>  Preparing: SELECT notice_id,notice_title,notice_type,notice_content,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_notice WHERE notice_id=?
+2026-09-11 21:10:38.147 | DEBUG 7981 | nio-8080-exec-8 | system.mapper.SysNoticeMapper.selectById:  135 | 7400544d34944eea9b0cdef9d388d289 | ==> Parameters: 10(Long)
+2026-09-11 21:10:38.147 | DEBUG 7981 | nio-8080-exec-7 | system.mapper.SysNoticeReadMapper.insert:  135 | ada53b9b77ec40d8b4437efca0dde4d9 | ==>  Preparing: INSERT INTO sys_notice_read ( notice_id, user_id, read_time ) VALUES ( ?, ?, ? )
+2026-09-11 21:10:38.148 | DEBUG 7981 | nio-8080-exec-7 | system.mapper.SysNoticeReadMapper.insert:  135 | ada53b9b77ec40d8b4437efca0dde4d9 | ==> Parameters: 10(Long), 1(Long), 2026-09-11 21:10:38.119(Timestamp)
+2026-09-11 21:10:38.180 | DEBUG 7981 | nio-8080-exec-8 | system.mapper.SysNoticeMapper.selectById:  135 | 7400544d34944eea9b0cdef9d388d289 | <==      Total: 1
+2026-09-11 21:10:38.206 | DEBUG 7981 | nio-8080-exec-7 | system.mapper.SysNoticeReadMapper.insert:  135 | ada53b9b77ec40d8b4437efca0dde4d9 | <==    Updates: 1
+2026-09-11 21:10:45.490 | DEBUG 7981 | nio-8080-exec-9 | stem.mapper.SysDictDataMapper.selectList:  135 | 219ae7e77f344a088e3cfe711cb1dc52 | ==>  Preparing: SELECT dict_code,dict_sort,dict_label,dict_value,dict_type,css_class,list_class,is_default,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_data WHERE (status = ? AND dict_type = ?) ORDER BY dict_sort ASC
+2026-09-11 21:10:45.491 | DEBUG 7981 | nio-8080-exec-9 | stem.mapper.SysDictDataMapper.selectList:  135 | 219ae7e77f344a088e3cfe711cb1dc52 | ==> Parameters: 0(String), sys_user_sex(String)
+2026-09-11 21:10:45.524 | DEBUG 7981 | nio-8080-exec-9 | stem.mapper.SysDictDataMapper.selectList:  135 | 219ae7e77f344a088e3cfe711cb1dc52 | <==      Total: 3
+2026-09-11 21:10:45.551 | DEBUG 7981 | io-8080-exec-10 | biz.mapper.UserMapper.selectList_mpCount:  135 | b46ae35aa2784a8b980a0b1f7c0aeff8 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE del_flag = 0 AND (user_type = ?)
+2026-09-11 21:10:45.551 | DEBUG 7981 | io-8080-exec-10 | biz.mapper.UserMapper.selectList_mpCount:  135 | b46ae35aa2784a8b980a0b1f7c0aeff8 | ==> Parameters: 01(String)
+2026-09-11 21:10:45.581 | DEBUG 7981 | io-8080-exec-10 | biz.mapper.UserMapper.selectList_mpCount:  135 | b46ae35aa2784a8b980a0b1f7c0aeff8 | <==      Total: 1
+2026-09-11 21:10:45.583 | DEBUG 7981 | io-8080-exec-10 | medcase.biz.mapper.UserMapper.selectList:  135 | b46ae35aa2784a8b980a0b1f7c0aeff8 | ==>  Preparing: SELECT user_id,user_name,nick_name,supplier_id,sex,id_card_number,title,id_card_front,id_card_back,qualification_certificate,user_type,phonenumber,password,status,review_reason,del_flag,login_ip,login_date,pwd_update_date,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_user WHERE del_flag=0 AND (user_type = ?) ORDER BY create_time DESC LIMIT ?
+2026-09-11 21:10:45.584 | DEBUG 7981 | io-8080-exec-10 | medcase.biz.mapper.UserMapper.selectList:  135 | b46ae35aa2784a8b980a0b1f7c0aeff8 | ==> Parameters: 01(String), 10(Long)
+2026-09-11 21:10:45.625 | DEBUG 7981 | io-8080-exec-10 | medcase.biz.mapper.UserMapper.selectList:  135 | b46ae35aa2784a8b980a0b1f7c0aeff8 | <==      Total: 2
+2026-09-11 21:10:49.631 | DEBUG 7981 | io-8080-exec-11 | stem.mapper.SysDictDataMapper.selectList:  135 | dd44e9ca554341b881c8e1be7b33a3ca | ==>  Preparing: SELECT dict_code,dict_sort,dict_label,dict_value,dict_type,css_class,list_class,is_default,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_data WHERE (status = ? AND dict_type = ?) ORDER BY dict_sort ASC
+2026-09-11 21:10:49.632 | DEBUG 7981 | io-8080-exec-11 | stem.mapper.SysDictDataMapper.selectList:  135 | dd44e9ca554341b881c8e1be7b33a3ca | ==> Parameters: 0(String), sys_normal_disable(String)
+2026-09-11 21:10:49.641 | DEBUG 7981 | io-8080-exec-12 | mapper.SupplierMapper.selectList_mpCount:  135 | 27167675126b49e8ab0b520c38b8410b | ==>  Preparing: SELECT COUNT(*) AS total FROM medcase_supplier
+2026-09-11 21:10:49.642 | DEBUG 7981 | io-8080-exec-12 | mapper.SupplierMapper.selectList_mpCount:  135 | 27167675126b49e8ab0b520c38b8410b | ==> Parameters: 
+2026-09-11 21:10:49.663 | DEBUG 7981 | io-8080-exec-11 | stem.mapper.SysDictDataMapper.selectList:  135 | dd44e9ca554341b881c8e1be7b33a3ca | <==      Total: 2
+2026-09-11 21:10:49.670 | DEBUG 7981 | io-8080-exec-12 | mapper.SupplierMapper.selectList_mpCount:  135 | 27167675126b49e8ab0b520c38b8410b | <==      Total: 1
+2026-09-11 21:10:49.671 | DEBUG 7981 | io-8080-exec-12 | ase.biz.mapper.SupplierMapper.selectList:  135 | 27167675126b49e8ab0b520c38b8410b | ==>  Preparing: SELECT id,nick_name,sex,phonenumber,email,id_card_number,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM medcase_supplier ORDER BY create_time DESC LIMIT ?
+2026-09-11 21:10:49.672 | DEBUG 7981 | io-8080-exec-12 | ase.biz.mapper.SupplierMapper.selectList:  135 | 27167675126b49e8ab0b520c38b8410b | ==> Parameters: 10(Long)
+2026-09-11 21:10:49.700 | DEBUG 7981 | io-8080-exec-12 | ase.biz.mapper.SupplierMapper.selectList:  135 | 27167675126b49e8ab0b520c38b8410b | <==      Total: 1
+2026-09-11 21:10:50.948 | DEBUG 7981 | io-8080-exec-13 | biz.mapper.UserMapper.selectList_mpCount:  135 | 6ed8fed22ab94c2fa2c3f8cf8b4d3b1a | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE del_flag = 0 AND (supplier_id = ?)
+2026-09-11 21:10:50.950 | DEBUG 7981 | io-8080-exec-13 | biz.mapper.UserMapper.selectList_mpCount:  135 | 6ed8fed22ab94c2fa2c3f8cf8b4d3b1a | ==> Parameters: 100(Long)
+2026-09-11 21:10:50.982 | DEBUG 7981 | io-8080-exec-13 | biz.mapper.UserMapper.selectList_mpCount:  135 | 6ed8fed22ab94c2fa2c3f8cf8b4d3b1a | <==      Total: 1
+2026-09-11 21:10:50.986 | DEBUG 7981 | io-8080-exec-13 | medcase.biz.mapper.UserMapper.selectList:  135 | 6ed8fed22ab94c2fa2c3f8cf8b4d3b1a | ==>  Preparing: SELECT user_id,user_name,nick_name,supplier_id,sex,id_card_number,title,id_card_front,id_card_back,qualification_certificate,user_type,phonenumber,password,status,review_reason,del_flag,login_ip,login_date,pwd_update_date,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_user WHERE del_flag=0 AND (supplier_id = ?) ORDER BY create_time DESC LIMIT ?
+2026-09-11 21:10:50.987 | DEBUG 7981 | io-8080-exec-13 | medcase.biz.mapper.UserMapper.selectList:  135 | 6ed8fed22ab94c2fa2c3f8cf8b4d3b1a | ==> Parameters: 100(Long), 10(Long)
+2026-09-11 21:10:51.028 | DEBUG 7981 | io-8080-exec-13 | medcase.biz.mapper.UserMapper.selectList:  135 | 6ed8fed22ab94c2fa2c3f8cf8b4d3b1a | <==      Total: 4
+2026-09-11 21:10:52.691 | DEBUG 7981 | io-8080-exec-14 | ase.biz.mapper.SupplierMapper.selectById:  135 | 847a88d1875c4b03b58b6507b31360bd | ==>  Preparing: SELECT id,nick_name,sex,phonenumber,email,id_card_number,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM medcase_supplier WHERE id=?
+2026-09-11 21:10:52.694 | DEBUG 7981 | io-8080-exec-14 | ase.biz.mapper.SupplierMapper.selectById:  135 | 847a88d1875c4b03b58b6507b31360bd | ==> Parameters: 100(Long)
+2026-09-11 21:10:52.729 | DEBUG 7981 | io-8080-exec-14 | ase.biz.mapper.SupplierMapper.selectById:  135 | 847a88d1875c4b03b58b6507b31360bd | <==      Total: 1
+2026-09-11 21:10:52.733 | DEBUG 7981 | io-8080-exec-14 | medcase.biz.mapper.UserMapper.selectById:  135 | 847a88d1875c4b03b58b6507b31360bd | ==>  Preparing: SELECT user_id,user_name,nick_name,supplier_id,sex,id_card_number,title,id_card_front,id_card_back,qualification_certificate,user_type,phonenumber,password,status,review_reason,del_flag,login_ip,login_date,pwd_update_date,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_user WHERE user_id=? AND del_flag=0
+2026-09-11 21:10:52.735 | DEBUG 7981 | io-8080-exec-14 | medcase.biz.mapper.UserMapper.selectById:  135 | 847a88d1875c4b03b58b6507b31360bd | ==> Parameters: 103(Long)
+2026-09-11 21:10:52.770 | DEBUG 7981 | io-8080-exec-14 | medcase.biz.mapper.UserMapper.selectById:  135 | 847a88d1875c4b03b58b6507b31360bd | <==      Total: 1
+2026-09-11 21:10:52.789 | DEBUG 7981 | io-8080-exec-14 | biz.mapper.CaseMapper.selectList_mpCount:  135 | 847a88d1875c4b03b58b6507b31360bd | ==>  Preparing: SELECT COUNT(*) AS total FROM medcase_case WHERE delete_flag = 0 AND (user_id = ?)
+2026-09-11 21:10:52.791 | DEBUG 7981 | io-8080-exec-14 | biz.mapper.CaseMapper.selectList_mpCount:  135 | 847a88d1875c4b03b58b6507b31360bd | ==> Parameters: 103(Long)
+2026-09-11 21:10:52.822 | DEBUG 7981 | io-8080-exec-14 | biz.mapper.CaseMapper.selectList_mpCount:  135 | 847a88d1875c4b03b58b6507b31360bd | <==      Total: 1
+2026-09-11 21:10:52.823 | DEBUG 7981 | io-8080-exec-14 | medcase.biz.mapper.CaseMapper.selectList:  135 | 847a88d1875c4b03b58b6507b31360bd | ==>  Preparing: SELECT id,user_id,user_nickname,user_type,case_name,content,attachments,status,review_reason,reviewer_id,reviewer_nickname,settler_id,settler_nickname,submit_time,review_time,settled_time,delete_flag,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM medcase_case WHERE delete_flag=0 AND (user_id = ?) ORDER BY create_time DESC LIMIT ?
+2026-09-11 21:10:52.824 | DEBUG 7981 | io-8080-exec-14 | medcase.biz.mapper.CaseMapper.selectList:  135 | 847a88d1875c4b03b58b6507b31360bd | ==> Parameters: 103(Long), 10(Long)
+2026-09-11 21:10:52.858 | DEBUG 7981 | io-8080-exec-14 | medcase.biz.mapper.CaseMapper.selectList:  135 | 847a88d1875c4b03b58b6507b31360bd | <==      Total: 1
+2026-09-11 21:11:03.251 | DEBUG 7981 | io-8080-exec-15 | ase.biz.mapper.SupplierMapper.selectById:  135 | a8e2afecf1f94e5f9db61b8992d6070c | ==>  Preparing: SELECT id,nick_name,sex,phonenumber,email,id_card_number,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM medcase_supplier WHERE id=?
+2026-09-11 21:11:03.254 | DEBUG 7981 | io-8080-exec-15 | ase.biz.mapper.SupplierMapper.selectById:  135 | a8e2afecf1f94e5f9db61b8992d6070c | ==> Parameters: 100(Long)
+2026-09-11 21:11:03.287 | DEBUG 7981 | io-8080-exec-15 | ase.biz.mapper.SupplierMapper.selectById:  135 | a8e2afecf1f94e5f9db61b8992d6070c | <==      Total: 1
+2026-09-11 21:11:03.290 | DEBUG 7981 | io-8080-exec-15 | medcase.biz.mapper.UserMapper.selectById:  135 | a8e2afecf1f94e5f9db61b8992d6070c | ==>  Preparing: SELECT user_id,user_name,nick_name,supplier_id,sex,id_card_number,title,id_card_front,id_card_back,qualification_certificate,user_type,phonenumber,password,status,review_reason,del_flag,login_ip,login_date,pwd_update_date,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_user WHERE user_id=? AND del_flag=0
+2026-09-11 21:11:03.292 | DEBUG 7981 | io-8080-exec-15 | medcase.biz.mapper.UserMapper.selectById:  135 | a8e2afecf1f94e5f9db61b8992d6070c | ==> Parameters: 102(Long)
+2026-09-11 21:11:03.328 | DEBUG 7981 | io-8080-exec-15 | medcase.biz.mapper.UserMapper.selectById:  135 | a8e2afecf1f94e5f9db61b8992d6070c | <==      Total: 1
+2026-09-11 21:11:03.345 | DEBUG 7981 | io-8080-exec-15 | biz.mapper.CaseMapper.selectList_mpCount:  135 | a8e2afecf1f94e5f9db61b8992d6070c | ==>  Preparing: SELECT COUNT(*) AS total FROM medcase_case WHERE delete_flag = 0 AND (user_id = ?)
+2026-09-11 21:11:03.346 | DEBUG 7981 | io-8080-exec-15 | biz.mapper.CaseMapper.selectList_mpCount:  135 | a8e2afecf1f94e5f9db61b8992d6070c | ==> Parameters: 102(Long)
+2026-09-11 21:11:03.378 | DEBUG 7981 | io-8080-exec-15 | biz.mapper.CaseMapper.selectList_mpCount:  135 | a8e2afecf1f94e5f9db61b8992d6070c | <==      Total: 1
+2026-09-11 21:11:03.379 | DEBUG 7981 | io-8080-exec-15 | medcase.biz.mapper.CaseMapper.selectList:  135 | a8e2afecf1f94e5f9db61b8992d6070c | ==>  Preparing: SELECT id,user_id,user_nickname,user_type,case_name,content,attachments,status,review_reason,reviewer_id,reviewer_nickname,settler_id,settler_nickname,submit_time,review_time,settled_time,delete_flag,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM medcase_case WHERE delete_flag=0 AND (user_id = ?) ORDER BY create_time DESC LIMIT ?
+2026-09-11 21:11:03.381 | DEBUG 7981 | io-8080-exec-15 | medcase.biz.mapper.CaseMapper.selectList:  135 | a8e2afecf1f94e5f9db61b8992d6070c | ==> Parameters: 102(Long), 10(Long)
+2026-09-11 21:11:03.423 | DEBUG 7981 | io-8080-exec-15 | medcase.biz.mapper.CaseMapper.selectList:  135 | a8e2afecf1f94e5f9db61b8992d6070c | <==      Total: 1
+2026-09-11 21:11:09.485 | DEBUG 7981 | io-8080-exec-16 | biz.mapper.UserMapper.selectList_mpCount:  135 | eec2e8de72184ae78caff3202fb97523 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE del_flag = 0 AND (supplier_id = ? AND nick_name LIKE ?)
+2026-09-11 21:11:09.487 | DEBUG 7981 | io-8080-exec-16 | biz.mapper.UserMapper.selectList_mpCount:  135 | eec2e8de72184ae78caff3202fb97523 | ==> Parameters: 100(Long), %云%(String)
+2026-09-11 21:11:09.519 | DEBUG 7981 | io-8080-exec-16 | biz.mapper.UserMapper.selectList_mpCount:  135 | eec2e8de72184ae78caff3202fb97523 | <==      Total: 1
+2026-09-11 21:11:09.521 | DEBUG 7981 | io-8080-exec-16 | medcase.biz.mapper.UserMapper.selectList:  135 | eec2e8de72184ae78caff3202fb97523 | ==>  Preparing: SELECT user_id,user_name,nick_name,supplier_id,sex,id_card_number,title,id_card_front,id_card_back,qualification_certificate,user_type,phonenumber,password,status,review_reason,del_flag,login_ip,login_date,pwd_update_date,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_user WHERE del_flag=0 AND (supplier_id = ? AND nick_name LIKE ?) ORDER BY create_time DESC LIMIT ?
+2026-09-11 21:11:09.523 | DEBUG 7981 | io-8080-exec-16 | medcase.biz.mapper.UserMapper.selectList:  135 | eec2e8de72184ae78caff3202fb97523 | ==> Parameters: 100(Long), %云%(String), 10(Long)
+2026-09-11 21:11:09.557 | DEBUG 7981 | io-8080-exec-16 | medcase.biz.mapper.UserMapper.selectList:  135 | eec2e8de72184ae78caff3202fb97523 | <==      Total: 2
+2026-09-11 21:11:14.025 | DEBUG 7981 | io-8080-exec-17 | biz.mapper.UserMapper.selectList_mpCount:  135 | 8c2a7dd0b2654dd2b7c17f265c80046d | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE del_flag = 0 AND (supplier_id = ? AND nick_name LIKE ?)
+2026-09-11 21:11:14.027 | DEBUG 7981 | io-8080-exec-17 | biz.mapper.UserMapper.selectList_mpCount:  135 | 8c2a7dd0b2654dd2b7c17f265c80046d | ==> Parameters: 100(Long), %弘%(String)
+2026-09-11 21:11:14.059 | DEBUG 7981 | io-8080-exec-17 | biz.mapper.UserMapper.selectList_mpCount:  135 | 8c2a7dd0b2654dd2b7c17f265c80046d | <==      Total: 1
+2026-09-11 21:11:14.060 | DEBUG 7981 | io-8080-exec-17 | medcase.biz.mapper.UserMapper.selectList:  135 | 8c2a7dd0b2654dd2b7c17f265c80046d | ==>  Preparing: SELECT user_id,user_name,nick_name,supplier_id,sex,id_card_number,title,id_card_front,id_card_back,qualification_certificate,user_type,phonenumber,password,status,review_reason,del_flag,login_ip,login_date,pwd_update_date,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_user WHERE del_flag=0 AND (supplier_id = ? AND nick_name LIKE ?) ORDER BY create_time DESC LIMIT ?
+2026-09-11 21:11:14.062 | DEBUG 7981 | io-8080-exec-17 | medcase.biz.mapper.UserMapper.selectList:  135 | 8c2a7dd0b2654dd2b7c17f265c80046d | ==> Parameters: 100(Long), %弘%(String), 10(Long)
+2026-09-11 21:11:14.099 | DEBUG 7981 | io-8080-exec-17 | medcase.biz.mapper.UserMapper.selectList:  135 | 8c2a7dd0b2654dd2b7c17f265c80046d | <==      Total: 4
+2026-09-11 21:11:18.542 | DEBUG 7981 | io-8080-exec-19 | biz.mapper.UserMapper.selectList_mpCount:  135 | b543ce9462aa4c8a9b8be06944d34fc0 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE del_flag = 0 AND (supplier_id = ? AND phonenumber LIKE ?)
+2026-09-11 21:11:18.544 | DEBUG 7981 | io-8080-exec-19 | biz.mapper.UserMapper.selectList_mpCount:  135 | b543ce9462aa4c8a9b8be06944d34fc0 | ==> Parameters: 100(Long), %177%(String)
+2026-09-11 21:11:18.575 | DEBUG 7981 | io-8080-exec-19 | biz.mapper.UserMapper.selectList_mpCount:  135 | b543ce9462aa4c8a9b8be06944d34fc0 | <==      Total: 1
+2026-09-11 21:11:18.577 | DEBUG 7981 | io-8080-exec-19 | medcase.biz.mapper.UserMapper.selectList:  135 | b543ce9462aa4c8a9b8be06944d34fc0 | ==>  Preparing: SELECT user_id,user_name,nick_name,supplier_id,sex,id_card_number,title,id_card_front,id_card_back,qualification_certificate,user_type,phonenumber,password,status,review_reason,del_flag,login_ip,login_date,pwd_update_date,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_user WHERE del_flag=0 AND (supplier_id = ? AND phonenumber LIKE ?) ORDER BY create_time DESC LIMIT ?
+2026-09-11 21:11:18.579 | DEBUG 7981 | io-8080-exec-19 | medcase.biz.mapper.UserMapper.selectList:  135 | b543ce9462aa4c8a9b8be06944d34fc0 | ==> Parameters: 100(Long), %177%(String), 10(Long)
+2026-09-11 21:11:18.624 | DEBUG 7981 | io-8080-exec-19 | medcase.biz.mapper.UserMapper.selectList:  135 | b543ce9462aa4c8a9b8be06944d34fc0 | <==      Total: 4
+2026-09-11 21:11:23.448 | DEBUG 7981 | io-8080-exec-18 | biz.mapper.UserMapper.selectList_mpCount:  135 | 5c586674deaa4bc3af6d4d0484967cc4 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE del_flag = 0 AND (supplier_id = ? AND phonenumber LIKE ?)
+2026-09-11 21:11:23.451 | DEBUG 7981 | io-8080-exec-18 | biz.mapper.UserMapper.selectList_mpCount:  135 | 5c586674deaa4bc3af6d4d0484967cc4 | ==> Parameters: 100(Long), %178%(String)
+2026-09-11 21:11:23.481 | DEBUG 7981 | io-8080-exec-18 | biz.mapper.UserMapper.selectList_mpCount:  135 | 5c586674deaa4bc3af6d4d0484967cc4 | <==      Total: 1
+2026-09-11 21:11:25.039 | DEBUG 7981 | io-8080-exec-21 | biz.mapper.UserMapper.selectList_mpCount:  135 | 8a7fcc7822ce47829250f53f2a7a3783 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE del_flag = 0 AND (supplier_id = ? AND phonenumber LIKE ?)
+2026-09-11 21:11:25.041 | DEBUG 7981 | io-8080-exec-21 | biz.mapper.UserMapper.selectList_mpCount:  135 | 8a7fcc7822ce47829250f53f2a7a3783 | ==> Parameters: 100(Long), %178%(String)
+2026-09-11 21:11:25.071 | DEBUG 7981 | io-8080-exec-21 | biz.mapper.UserMapper.selectList_mpCount:  135 | 8a7fcc7822ce47829250f53f2a7a3783 | <==      Total: 1
+2026-09-11 21:11:29.093 | DEBUG 7981 | io-8080-exec-22 | biz.mapper.UserMapper.selectList_mpCount:  135 | 07dd7d36031a4b3c8bead9dedc051bd0 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_user WHERE del_flag = 0 AND (supplier_id = ?)
+2026-09-11 21:11:29.094 | DEBUG 7981 | io-8080-exec-22 | biz.mapper.UserMapper.selectList_mpCount:  135 | 07dd7d36031a4b3c8bead9dedc051bd0 | ==> Parameters: 100(Long)
+2026-09-11 21:11:29.125 | DEBUG 7981 | io-8080-exec-22 | biz.mapper.UserMapper.selectList_mpCount:  135 | 07dd7d36031a4b3c8bead9dedc051bd0 | <==      Total: 1
+2026-09-11 21:11:29.126 | DEBUG 7981 | io-8080-exec-22 | medcase.biz.mapper.UserMapper.selectList:  135 | 07dd7d36031a4b3c8bead9dedc051bd0 | ==>  Preparing: SELECT user_id,user_name,nick_name,supplier_id,sex,id_card_number,title,id_card_front,id_card_back,qualification_certificate,user_type,phonenumber,password,status,review_reason,del_flag,login_ip,login_date,pwd_update_date,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_user WHERE del_flag=0 AND (supplier_id = ?) ORDER BY create_time DESC LIMIT ?
+2026-09-11 21:11:29.127 | DEBUG 7981 | io-8080-exec-22 | medcase.biz.mapper.UserMapper.selectList:  135 | 07dd7d36031a4b3c8bead9dedc051bd0 | ==> Parameters: 100(Long), 10(Long)
+2026-09-11 21:11:29.162 | DEBUG 7981 | io-8080-exec-22 | medcase.biz.mapper.UserMapper.selectList:  135 | 07dd7d36031a4b3c8bead9dedc051bd0 | <==      Total: 4
+2026-09-11 23:27:09.079 |  INFO 7981 | ionShutdownHook | ngframework.boot.tomcat.GracefulShutdown:   54 |  | Commencing graceful shutdown. Waiting for active requests to complete
+2026-09-11 23:27:11.105 |  INFO 7981 | tomcat-shutdown | ngframework.boot.tomcat.GracefulShutdown:   76 |  | Graceful shutdown complete
+2026-09-11 23:27:11.177 |  INFO 7981 | ionShutdownHook | sys-user                                :   30 |  | ====关闭后台任务任务线程池====
+2026-09-11 23:27:11.180 |  INFO 7981 | ionShutdownHook | amic.datasource.DynamicRoutingDataSource:  215 |  | dynamic-datasource start closing ....
+2026-09-11 23:27:11.182 |  INFO 7981 | ionShutdownHook | com.zaxxer.hikari.HikariDataSource      :  349 |  | HikariPool-1 - Shutdown initiated...
+2026-09-11 23:27:11.467 |  INFO 7981 | ionShutdownHook | com.zaxxer.hikari.HikariDataSource      :  351 |  | HikariPool-1 - Shutdown completed.
+2026-09-11 23:27:11.467 |  INFO 7981 | ionShutdownHook | rce.destroyer.DefaultDataSourceDestroyer:   98 |  | dynamic-datasource close the datasource named [master] success,
+2026-09-11 23:27:11.468 |  INFO 7981 | ionShutdownHook | amic.datasource.DynamicRoutingDataSource:  219 |  | dynamic-datasource all closed success,bye
+2026-09-11 23:27:14.778 |  INFO 21207 | main            | com.medcase.MedcaseApplication          :   54 |  | Starting MedcaseApplication using Java 17.0.20 with PID 21207 (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes started by suyunhong in /Users/suyunhong/suyh-develop/github/medcase-api)
+2026-09-11 23:27:14.779 | DEBUG 21207 | main            | com.medcase.MedcaseApplication          :   55 |  | Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-09-11 23:27:14.780 |  INFO 21207 | main            | com.medcase.MedcaseApplication          :  658 |  | The following 1 profile is active: "suyh"
+2026-09-11 23:27:14.865 |  INFO 21207 | kground-preinit | ibernate.validator.internal.util.Version:   18 |  | HV000001: Hibernate Validator 9.1.0.Final
+2026-09-11 23:27:15.167 |  INFO 21207 | main            | y.config.RepositoryConfigurationDelegate:  291 |  | Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-11 23:27:15.169 |  INFO 21207 | main            | y.config.RepositoryConfigurationDelegate:  145 |  | Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-11 23:27:15.192 |  INFO 21207 | main            | y.config.RepositoryConfigurationDelegate:  213 |  | Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2026-09-11 23:27:15.693 |  INFO 21207 | main            | ingframework.boot.tomcat.TomcatWebServer:  114 |  | Tomcat initialized with port 8080 (http)
+2026-09-11 23:27:15.700 |  INFO 21207 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Initializing ProtocolHandler ["http-nio-8080"]
+2026-09-11 23:27:15.700 |  INFO 21207 | main            | org.apache.catalina.core.StandardService:  168 |  | Starting service [Tomcat]
+2026-09-11 23:27:15.700 |  INFO 21207 | main            | org.apache.catalina.core.StandardEngine :  168 |  | Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-09-11 23:27:15.725 |  INFO 21207 | main            | servlet.WebApplicationContextInitializer:   77 |  | Root WebApplicationContext: initialization completed in 927 ms
+2026-09-11 23:27:15.777 |  WARN 21207 | main            | lver.dns.DnsServerAddressStreamProviders:   70 |  | Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'
+2026-09-11 23:27:15.947 | DEBUG 21207 | main            | rity.filter.JwtAuthenticationTokenFilter:  236 |  | Filter 'jwtAuthenticationTokenFilter' configured for use
+2026-09-11 23:27:16.050 |  INFO 21207 | main            | com.zaxxer.hikari.HikariDataSource      :  109 |  | HikariPool-1 - Starting...
+2026-09-11 23:27:26.569 |  INFO 21207 | main            | com.zaxxer.hikari.pool.HikariPool       :  580 |  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6166aac5
+2026-09-11 23:27:26.571 |  INFO 21207 | main            | com.zaxxer.hikari.HikariDataSource      :  122 |  | HikariPool-1 - Start completed.
+2026-09-11 23:27:26.620 |  INFO 21207 | main            | org.flywaydb.core.FlywayExecutor        :   41 |  | Database: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000 (MySQL 8.0)
+2026-09-11 23:27:27.295 |  INFO 21207 | main            | lywaydb.core.internal.command.DbValidate:   41 |  | Successfully validated 11 migrations (execution time 00:00.235s)
+2026-09-11 23:27:27.650 |  INFO 21207 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Current version of schema `suyh_medcase`: 01.01.00.009
+2026-09-11 23:27:27.809 |  INFO 21207 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Migrating schema `suyh_medcase` to version "01.01.00.010 - remove-oper-log"
+2026-09-11 23:27:28.635 |  INFO 21207 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Successfully applied 1 migration to schema `suyh_medcase`, now at version v01.01.00.010 (execution time 00:00.343s)
+2026-09-11 23:27:28.822 |  INFO 21207 | main            | amic.datasource.DynamicRoutingDataSource:  158 |  | dynamic-datasource - add a datasource named [master] success
+2026-09-11 23:27:28.823 |  INFO 21207 | main            | amic.datasource.DynamicRoutingDataSource:  241 |  | dynamic-datasource initial loaded [1] datasource,primary datasource named [master]
+2026-09-11 23:27:29.205 |  WARN 21207 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysRoleMenuEntity".
+2026-09-11 23:27:29.205 |  WARN 21207 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysRoleMenuEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-11 23:27:29.223 |  WARN 21207 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserRoleEntity".
+2026-09-11 23:27:29.223 |  WARN 21207 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserRoleEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-11 23:27:29.276 |  WARN 21207 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserPostEntity".
+2026-09-11 23:27:29.276 |  WARN 21207 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserPostEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-11 23:27:29.382 | DEBUG 21207 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config
+2026-09-11 23:27:29.389 | DEBUG 21207 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==> Parameters: 
+2026-09-11 23:27:29.430 | DEBUG 21207 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | <==      Total: 9
+2026-09-11 23:27:35.865 |  INFO 21207 | main            | r$InitializeUserDetailsManagerConfigurer:  110 |  | Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-09-11 23:27:36.097 |  INFO 21207 | main            | pring.MybatisPlusApplicationContextAware:   43 |  | Register ApplicationContext instances org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext@6d868997
+2026-09-11 23:27:36.315 |  INFO 21207 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Starting ProtocolHandler ["http-nio-8080"]
+2026-09-11 23:27:36.328 |  INFO 21207 | main            | ingframework.boot.tomcat.TomcatWebServer:  240 |  | Tomcat started on port 8080 (http) with context path '/medcase'
+2026-09-11 23:27:36.332 |  INFO 21207 | main            | com.medcase.MedcaseApplication          :   60 |  | Started MedcaseApplication in 21.823 seconds (process running for 22.157)
+2026-09-11 23:27:36.334 |  INFO 21207 | main            | .medcase.common.config.StartupInfoLogger:   50 |  | 
+----------------------------------------------------------
+Application Ready
+Spring Boot     : 4.1.0
+Project Version : 1.1.0
+Build Time      : 2026-09-11T15:15:45.542Z
+Active Profile  : suyh
+Database Enabled : true
+Database Primary : master
+Database Strict  : true
+Database JDBC URL: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000
+Database Driver  : com.mysql.cj.jdbc.Driver
+Database Pool Min : 10
+Database Pool Max : 20
+Database Conn Timeout: 60000
+Database Idle Timeout: 300000
+Database Max Lifetime: 900000
+Redis Host       : qu-yun.isuyh.com
+Redis Port       : 6379
+Redis Database   : 1
+Redis Timeout    : 10s
+Redis Pool Min   : 0
+Redis Pool Max   : 8
+Redis Pool Active: 8
+Redis Pool Wait  : -1ms
+SMS Enabled      : false
+Git Branch      : develop
+Git Commit      : ebd1ca2
+Git Commit Time : 2026-09-10T14:31:37Z
+Git Dirty       : true
+----------------------------------------------------------
+2026-09-11 23:28:02.098 |  INFO 21207 | nio-8080-exec-1 | inerBase.[Tomcat].[localhost].[/medcase]:  168 |  | Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-11 23:28:02.099 |  INFO 21207 | nio-8080-exec-1 | gframework.web.servlet.DispatcherServlet:  523 |  | Initializing Servlet 'dispatcherServlet'
+2026-09-11 23:28:02.101 |  INFO 21207 | nio-8080-exec-1 | gframework.web.servlet.DispatcherServlet:  545 |  | Completed initialization in 2 ms
+2026-09-11 23:28:05.662 |  WARN 21207 | nio-8080-exec-2 | e.mvc.error.BaseHandlerExceptionResolver:  248 | c28f6ea158b9427382ce8573106dfdc5 | Resolved [error code: error.code.admin.login.captcha.invalid, msg: 验证码错误]
+2026-09-11 23:28:05.669 |  INFO 21207 | schedule-pool-1 | sys-user                                :   51 |  | [127.0.0.1]内网IP[admin][Error][验证码错误]
+2026-09-11 23:28:05.698 |  INFO 21207 | schedule-pool-1 | asjes.parse.useragent.utils.YauaaVersion:  104 |  | Yauaa 8.2.0 (v8.2.0 @ 2026-07-24T13:01:09Z)
+2026-09-11 23:28:05.781 |  INFO 21207 | schedule-pool-1 | sjes.parse.useragent.config.ConfigLoader:  309 |  | - Loaded 123 files in   78 ms using expression: classpath*:UserAgents/**/*.yaml
+2026-09-11 23:28:06.382 |  INFO 21207 | schedule-pool-1 | ragent.analyze.UserAgentStringMatchMaker:  282 |  | Building all needed matchers for the requested 11 fields.
+2026-09-11 23:28:06.405 |  INFO 21207 | schedule-pool-1 | ragent.analyze.UserAgentStringMatchMaker:  336 |  | Initializing Analyzer data structures
+2026-09-11 23:28:07.031 |  INFO 21207 | schedule-pool-1 | ragent.analyze.UserAgentStringMatchMaker:  347 |  | Built in 625 msec : Hashmap 199731, Ranges map:3004
+2026-09-11 23:28:07.100 | DEBUG 21207 | schedule-pool-1 | system.mapper.SysLogininforMapper.insert:  135 |  | ==>  Preparing: INSERT INTO sys_logininfor ( user_name, status, ipaddr, login_location, browser, os, msg ) VALUES ( ?, ?, ?, ?, ?, ?, ? )
+2026-09-11 23:28:07.100 | DEBUG 21207 | schedule-pool-1 | system.mapper.SysLogininforMapper.insert:  135 |  | ==> Parameters: admin(String), 1(String), 127.0.0.1(String), 内网IP(String), Chrome 152(String), Mac OS >=10.15.7(String), 验证码错误(String)
+2026-09-11 23:28:07.163 | DEBUG 21207 | schedule-pool-1 | system.mapper.SysLogininforMapper.insert:  135 |  | <==    Updates: 1
+2026-09-11 23:28:17.169 | DEBUG 21207 | nio-8080-exec-4 | .mapper.SysConfigMapper.selectWithCursor:  135 | 2e06e3e3987b44f88526edbeefcca130 | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config WHERE (config_key = ?)
+2026-09-11 23:28:17.175 | DEBUG 21207 | nio-8080-exec-4 | .mapper.SysConfigMapper.selectWithCursor:  135 | 2e06e3e3987b44f88526edbeefcca130 | ==> Parameters: sys.login.blackIPList(String)
+2026-09-11 23:28:17.211 | DEBUG 21207 | nio-8080-exec-4 | .mapper.SysConfigMapper.selectWithCursor:  135 | 2e06e3e3987b44f88526edbeefcca130 | <==      Total: 1
+2026-09-11 23:28:17.288 | DEBUG 21207 | nio-8080-exec-4 | em.mapper.SysUserMapper.selectWithCursor:  135 | 2e06e3e3987b44f88526edbeefcca130 | ==>  Preparing: SELECT user_id,dept_id,user_name,nick_name,supplier_id,user_type,id_card_number,id_card_front,id_card_back,title,qualification_certificate,review_reason,email,phonenumber,sex,avatar,password,status,del_flag,login_ip,login_date,pwd_update_date,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_user WHERE (user_name = ? AND user_type = ? AND del_flag = ?)
+2026-09-11 23:28:17.291 | DEBUG 21207 | nio-8080-exec-4 | em.mapper.SysUserMapper.selectWithCursor:  135 | 2e06e3e3987b44f88526edbeefcca130 | ==> Parameters: admin(String), 00(String), 0(String)
+2026-09-11 23:28:17.327 | DEBUG 21207 | nio-8080-exec-4 | em.mapper.SysUserMapper.selectWithCursor:  135 | 2e06e3e3987b44f88526edbeefcca130 | <==      Total: 1
+2026-09-11 23:28:17.331 | DEBUG 21207 | nio-8080-exec-4 | stem.mapper.SysUserRoleMapper.selectList:  135 | 2e06e3e3987b44f88526edbeefcca130 | ==>  Preparing: SELECT user_id,role_id FROM sys_user_role WHERE (user_id = ?)
+2026-09-11 23:28:17.333 | DEBUG 21207 | nio-8080-exec-4 | stem.mapper.SysUserRoleMapper.selectList:  135 | 2e06e3e3987b44f88526edbeefcca130 | ==> Parameters: 1(Long)
+2026-09-11 23:28:17.364 | DEBUG 21207 | nio-8080-exec-4 | stem.mapper.SysUserRoleMapper.selectList:  135 | 2e06e3e3987b44f88526edbeefcca130 | <==      Total: 0
+2026-09-11 23:28:17.368 | DEBUG 21207 | nio-8080-exec-4 | e.system.mapper.SysRoleMapper.selectList:  135 | 2e06e3e3987b44f88526edbeefcca130 | ==>  Preparing: SELECT role_id,role_name,role_key,role_sort,menu_check_strictly,status,del_flag,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_role
+2026-09-11 23:28:17.369 | DEBUG 21207 | nio-8080-exec-4 | e.system.mapper.SysRoleMapper.selectList:  135 | 2e06e3e3987b44f88526edbeefcca130 | ==> Parameters: 
+2026-09-11 23:28:17.402 | DEBUG 21207 | nio-8080-exec-4 | e.system.mapper.SysRoleMapper.selectList:  135 | 2e06e3e3987b44f88526edbeefcca130 | <==      Total: 3
+2026-09-11 23:28:17.557 | DEBUG 21207 | nio-8080-exec-4 | dcase.system.mapper.SysUserMapper.update:  135 | 2e06e3e3987b44f88526edbeefcca130 | ==>  Preparing: UPDATE sys_user SET login_ip=?, login_date=?, update_user_id=?, update_by=?, update_time=? WHERE (user_id = ?)
+2026-09-11 23:28:17.558 | DEBUG 21207 | nio-8080-exec-4 | dcase.system.mapper.SysUserMapper.update:  135 | 2e06e3e3987b44f88526edbeefcca130 | ==> Parameters: 127.0.0.1(String), 2026-09-11 23:28:17.55(Timestamp), 0(Long), system(String), 2026-09-11 23:28:17.557(Timestamp), 1(Long)
+2026-09-11 23:28:17.561 |  INFO 21207 | schedule-pool-1 | sys-user                                :   51 |  | [127.0.0.1]内网IP[admin][Success][登录成功]
+2026-09-11 23:28:17.586 | DEBUG 21207 | schedule-pool-1 | system.mapper.SysLogininforMapper.insert:  135 |  | ==>  Preparing: INSERT INTO sys_logininfor ( user_name, status, ipaddr, login_location, browser, os, msg ) VALUES ( ?, ?, ?, ?, ?, ?, ? )
+2026-09-11 23:28:17.587 | DEBUG 21207 | schedule-pool-1 | system.mapper.SysLogininforMapper.insert:  135 |  | ==> Parameters: admin(String), 0(String), 127.0.0.1(String), 内网IP(String), Chrome 152(String), Mac OS >=10.15.7(String), 登录成功(String)
+2026-09-11 23:28:17.622 | DEBUG 21207 | nio-8080-exec-4 | dcase.system.mapper.SysUserMapper.update:  135 | 2e06e3e3987b44f88526edbeefcca130 | <==    Updates: 1
+2026-09-11 23:28:17.641 | DEBUG 21207 | schedule-pool-1 | system.mapper.SysLogininforMapper.insert:  135 |  | <==    Updates: 1
+2026-09-11 23:28:18.029 | DEBUG 21207 | nio-8080-exec-6 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 04ab9929f1ec46af878b55b311afeab9 | ==>  Preparing: select distinct m.id, m.parent_id, m.menu_name, m.route_path, m.vue_component_path, m.route_name, m.visible, m.status, ifnull(m.perms,'') as perms, m.is_cache, m.menu_type, m.icon, m.order_num, m.create_time from sys_menu m where m.menu_type in ('M', 'C') and m.status = 0 order by m.parent_id, m.order_num
+2026-09-11 23:28:18.030 | DEBUG 21207 | nio-8080-exec-6 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 04ab9929f1ec46af878b55b311afeab9 | ==> Parameters: 
+2026-09-11 23:28:18.068 | DEBUG 21207 | nio-8080-exec-6 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 04ab9929f1ec46af878b55b311afeab9 | <==      Total: 24
+2026-09-11 23:28:18.214 | DEBUG 21207 | nio-8080-exec-7 | .SysNoticeReadMapper.selectTopNoticeList:  135 | d33c9fe16bf641988ebc12f67d75463c | ==>  Preparing: select n.notice_id as noticeId, n.notice_title as noticeTitle, n.notice_type as noticeType, n.status, n.create_by as createBy, n.create_time as createTime from sys_notice n where n.status = '0' order by n.notice_id desc limit ?
+2026-09-11 23:28:18.215 | DEBUG 21207 | nio-8080-exec-7 | .SysNoticeReadMapper.selectTopNoticeList:  135 | d33c9fe16bf641988ebc12f67d75463c | ==> Parameters: 5(Integer)
+2026-09-11 23:28:18.247 | DEBUG 21207 | nio-8080-exec-7 | .SysNoticeReadMapper.selectTopNoticeList:  135 | d33c9fe16bf641988ebc12f67d75463c | <==      Total: 1
+2026-09-11 23:28:18.251 | DEBUG 21207 | nio-8080-exec-7 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | d33c9fe16bf641988ebc12f67d75463c | ==>  Preparing: select r.notice_id from sys_notice_read r where r.user_id = ? and r.notice_id in ( ? )
+2026-09-11 23:28:18.252 | DEBUG 21207 | nio-8080-exec-7 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | d33c9fe16bf641988ebc12f67d75463c | ==> Parameters: 1(Long), 10(Long)
+2026-09-11 23:28:18.282 | DEBUG 21207 | nio-8080-exec-7 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | d33c9fe16bf641988ebc12f67d75463c | <==      Total: 1
+2026-09-11 23:28:26.723 | DEBUG 21207 | nio-8080-exec-9 | mapper.AuditLogMapper.selectList_mpCount:  135 | 4e2064d409a2435287f9538f6b7bd664 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_audit_record
+2026-09-11 23:28:26.723 | DEBUG 21207 | nio-8080-exec-9 | mapper.AuditLogMapper.selectList_mpCount:  135 | 4e2064d409a2435287f9538f6b7bd664 | ==> Parameters: 
+2026-09-11 23:28:26.756 | DEBUG 21207 | nio-8080-exec-9 | mapper.AuditLogMapper.selectList_mpCount:  135 | 4e2064d409a2435287f9538f6b7bd664 | <==      Total: 1
+2026-09-11 23:28:34.886 | DEBUG 21207 | io-8080-exec-11 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 36ed590774304c7d99cb7fc1c6dfd50b | ==>  Preparing: select distinct m.id, m.parent_id, m.menu_name, m.route_path, m.vue_component_path, m.route_name, m.visible, m.status, ifnull(m.perms,'') as perms, m.is_cache, m.menu_type, m.icon, m.order_num, m.create_time from sys_menu m where m.menu_type in ('M', 'C') and m.status = 0 order by m.parent_id, m.order_num
+2026-09-11 23:28:34.887 | DEBUG 21207 | io-8080-exec-11 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 36ed590774304c7d99cb7fc1c6dfd50b | ==> Parameters: 
+2026-09-11 23:28:34.920 | DEBUG 21207 | io-8080-exec-11 | m.mapper.SysMenuMapper.selectMenuTreeAll:  135 | 36ed590774304c7d99cb7fc1c6dfd50b | <==      Total: 24
+2026-09-11 23:28:35.065 | DEBUG 21207 | io-8080-exec-13 | .SysNoticeReadMapper.selectTopNoticeList:  135 | 25dddca1033141528e9d41c608ad48d8 | ==>  Preparing: select n.notice_id as noticeId, n.notice_title as noticeTitle, n.notice_type as noticeType, n.status, n.create_by as createBy, n.create_time as createTime from sys_notice n where n.status = '0' order by n.notice_id desc limit ?
+2026-09-11 23:28:35.066 | DEBUG 21207 | io-8080-exec-13 | .SysNoticeReadMapper.selectTopNoticeList:  135 | 25dddca1033141528e9d41c608ad48d8 | ==> Parameters: 5(Integer)
+2026-09-11 23:28:35.097 | DEBUG 21207 | io-8080-exec-13 | .SysNoticeReadMapper.selectTopNoticeList:  135 | 25dddca1033141528e9d41c608ad48d8 | <==      Total: 1
+2026-09-11 23:28:35.098 | DEBUG 21207 | io-8080-exec-13 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | 25dddca1033141528e9d41c608ad48d8 | ==>  Preparing: select r.notice_id from sys_notice_read r where r.user_id = ? and r.notice_id in ( ? )
+2026-09-11 23:28:35.099 | DEBUG 21207 | io-8080-exec-13 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | 25dddca1033141528e9d41c608ad48d8 | ==> Parameters: 1(Long), 10(Long)
+2026-09-11 23:28:35.100 | DEBUG 21207 | io-8080-exec-12 | mapper.AuditLogMapper.selectList_mpCount:  135 | e3a8db0992324262bb4e04ade429e301 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_audit_record
+2026-09-11 23:28:35.101 | DEBUG 21207 | io-8080-exec-12 | mapper.AuditLogMapper.selectList_mpCount:  135 | e3a8db0992324262bb4e04ade429e301 | ==> Parameters: 
+2026-09-11 23:28:35.128 | DEBUG 21207 | io-8080-exec-12 | mapper.AuditLogMapper.selectList_mpCount:  135 | e3a8db0992324262bb4e04ade429e301 | <==      Total: 1
+2026-09-11 23:28:35.130 | DEBUG 21207 | io-8080-exec-13 | .SysNoticeReadMapper.selectReadNoticeIds:  135 | 25dddca1033141528e9d41c608ad48d8 | <==      Total: 1
+2026-09-11 23:29:06.507 | DEBUG 21207 | io-8080-exec-16 | stem.mapper.SysMenuMapper.selectMenuList:  135 | c3c3f111807343d48b934c87b4f8e04c | ==>  Preparing: select id, menu_name, parent_id, order_num, route_path, vue_component_path, route_name, is_cache, menu_type, visible, status, ifnull(perms,'') as perms, icon, create_time from sys_menu order by parent_id, order_num
+2026-09-11 23:29:06.508 | DEBUG 21207 | io-8080-exec-15 | stem.mapper.SysDictDataMapper.selectList:  135 | 233eb59a095044b5bde9f88a4beedf8f | ==>  Preparing: SELECT dict_code,dict_sort,dict_label,dict_value,dict_type,css_class,list_class,is_default,status,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_dict_data WHERE (status = ? AND dict_type = ?) ORDER BY dict_sort ASC
+2026-09-11 23:29:06.509 | DEBUG 21207 | io-8080-exec-16 | stem.mapper.SysMenuMapper.selectMenuList:  135 | c3c3f111807343d48b934c87b4f8e04c | ==> Parameters: 
+2026-09-11 23:29:06.510 | DEBUG 21207 | io-8080-exec-15 | stem.mapper.SysDictDataMapper.selectList:  135 | 233eb59a095044b5bde9f88a4beedf8f | ==> Parameters: 0(String), sys_normal_disable(String)
+2026-09-11 23:29:06.544 | DEBUG 21207 | io-8080-exec-15 | stem.mapper.SysDictDataMapper.selectList:  135 | 233eb59a095044b5bde9f88a4beedf8f | <==      Total: 2
+2026-09-11 23:29:06.556 | DEBUG 21207 | io-8080-exec-16 | stem.mapper.SysMenuMapper.selectMenuList:  135 | c3c3f111807343d48b934c87b4f8e04c | <==      Total: 76
+2026-09-11 23:29:21.291 | DEBUG 21207 | io-8080-exec-17 | stem.mapper.SysMenuMapper.selectMenuList:  135 | 99cc65fc3fe64d7b962cdddebbdb6025 | ==>  Preparing: select id, menu_name, parent_id, order_num, route_path, vue_component_path, route_name, is_cache, menu_type, visible, status, ifnull(perms,'') as perms, icon, create_time from sys_menu order by parent_id, order_num
+2026-09-11 23:29:21.293 | DEBUG 21207 | io-8080-exec-17 | stem.mapper.SysMenuMapper.selectMenuList:  135 | 99cc65fc3fe64d7b962cdddebbdb6025 | ==> Parameters: 
+2026-09-11 23:29:21.341 | DEBUG 21207 | io-8080-exec-17 | stem.mapper.SysMenuMapper.selectMenuList:  135 | 99cc65fc3fe64d7b962cdddebbdb6025 | <==      Total: 76
+2026-09-11 23:29:21.403 | DEBUG 21207 | io-8080-exec-18 | e.system.mapper.SysMenuMapper.selectById:  135 | ab806c744f9642139f869d7f731570ed | ==>  Preparing: SELECT id,menu_name,parent_id,order_num,route_path,vue_component_path,route_name,is_cache,menu_type,visible,status,perms,icon,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_menu WHERE id=?
+2026-09-11 23:29:21.404 | DEBUG 21207 | io-8080-exec-18 | e.system.mapper.SysMenuMapper.selectById:  135 | ab806c744f9642139f869d7f731570ed | ==> Parameters: 500(Long)
+2026-09-11 23:29:21.437 | DEBUG 21207 | io-8080-exec-18 | e.system.mapper.SysMenuMapper.selectById:  135 | ab806c744f9642139f869d7f731570ed | <==      Total: 1
+2026-09-11 23:29:31.328 | DEBUG 21207 | io-8080-exec-19 | mapper.AuditLogMapper.selectList_mpCount:  135 | dcca0c44c3f74046a1d50a5938a45b63 | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_audit_record
+2026-09-11 23:29:31.330 | DEBUG 21207 | io-8080-exec-19 | mapper.AuditLogMapper.selectList_mpCount:  135 | dcca0c44c3f74046a1d50a5938a45b63 | ==> Parameters: 
+2026-09-11 23:29:31.361 | DEBUG 21207 | io-8080-exec-19 | mapper.AuditLogMapper.selectList_mpCount:  135 | dcca0c44c3f74046a1d50a5938a45b63 | <==      Total: 1
+2026-09-11 23:29:33.030 | DEBUG 21207 | io-8080-exec-20 | mapper.AuditLogMapper.selectList_mpCount:  135 | 39fcf9c0b481455fba25b50cd05f873d | ==>  Preparing: SELECT COUNT(*) AS total FROM sys_audit_record
+2026-09-11 23:29:33.032 | DEBUG 21207 | io-8080-exec-20 | mapper.AuditLogMapper.selectList_mpCount:  135 | 39fcf9c0b481455fba25b50cd05f873d | ==> Parameters: 
+2026-09-11 23:29:33.064 | DEBUG 21207 | io-8080-exec-20 | mapper.AuditLogMapper.selectList_mpCount:  135 | 39fcf9c0b481455fba25b50cd05f873d | <==      Total: 1
+2026-09-11 23:30:10.155 |  INFO 21207 | ionShutdownHook | ngframework.boot.tomcat.GracefulShutdown:   54 |  | Commencing graceful shutdown. Waiting for active requests to complete
+2026-09-11 23:30:12.184 |  INFO 21207 | tomcat-shutdown | ngframework.boot.tomcat.GracefulShutdown:   76 |  | Graceful shutdown complete
+2026-09-11 23:30:12.220 |  INFO 21207 | ionShutdownHook | sys-user                                :   30 |  | ====关闭后台任务任务线程池====
+2026-09-11 23:30:12.224 |  INFO 21207 | ionShutdownHook | amic.datasource.DynamicRoutingDataSource:  215 |  | dynamic-datasource start closing ....
+2026-09-11 23:30:12.225 |  INFO 21207 | ionShutdownHook | com.zaxxer.hikari.HikariDataSource      :  349 |  | HikariPool-1 - Shutdown initiated...
+2026-09-11 23:30:12.509 |  INFO 21207 | ionShutdownHook | com.zaxxer.hikari.HikariDataSource      :  351 |  | HikariPool-1 - Shutdown completed.
+2026-09-11 23:30:12.509 |  INFO 21207 | ionShutdownHook | rce.destroyer.DefaultDataSourceDestroyer:   98 |  | dynamic-datasource close the datasource named [master] success,
+2026-09-11 23:30:12.509 |  INFO 21207 | ionShutdownHook | amic.datasource.DynamicRoutingDataSource:  219 |  | dynamic-datasource all closed success,bye
+2026-09-11 23:30:13.979 |  INFO 21538 | main            | com.medcase.MedcaseApplication          :   54 |  | Starting MedcaseApplication using Java 17.0.20 with PID 21538 (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes started by suyunhong in /Users/suyunhong/suyh-develop/github/medcase-api)
+2026-09-11 23:30:13.981 | DEBUG 21538 | main            | com.medcase.MedcaseApplication          :   55 |  | Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-09-11 23:30:13.981 |  INFO 21538 | main            | com.medcase.MedcaseApplication          :  658 |  | The following 1 profile is active: "suyh"
+2026-09-11 23:30:14.062 |  INFO 21538 | kground-preinit | ibernate.validator.internal.util.Version:   18 |  | HV000001: Hibernate Validator 9.1.0.Final
+2026-09-11 23:30:14.383 |  INFO 21538 | main            | y.config.RepositoryConfigurationDelegate:  291 |  | Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-11 23:30:14.384 |  INFO 21538 | main            | y.config.RepositoryConfigurationDelegate:  145 |  | Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-11 23:30:14.407 |  INFO 21538 | main            | y.config.RepositoryConfigurationDelegate:  213 |  | Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2026-09-11 23:30:14.896 |  INFO 21538 | main            | ingframework.boot.tomcat.TomcatWebServer:  114 |  | Tomcat initialized with port 8080 (http)
+2026-09-11 23:30:14.902 |  INFO 21538 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Initializing ProtocolHandler ["http-nio-8080"]
+2026-09-11 23:30:14.903 |  INFO 21538 | main            | org.apache.catalina.core.StandardService:  168 |  | Starting service [Tomcat]
+2026-09-11 23:30:14.903 |  INFO 21538 | main            | org.apache.catalina.core.StandardEngine :  168 |  | Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-09-11 23:30:14.926 |  INFO 21538 | main            | servlet.WebApplicationContextInitializer:   77 |  | Root WebApplicationContext: initialization completed in 927 ms
+2026-09-11 23:30:14.986 |  WARN 21538 | main            | lver.dns.DnsServerAddressStreamProviders:   70 |  | Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'
+2026-09-11 23:30:15.162 | DEBUG 21538 | main            | rity.filter.JwtAuthenticationTokenFilter:  236 |  | Filter 'jwtAuthenticationTokenFilter' configured for use
+2026-09-11 23:30:15.268 |  INFO 21538 | main            | com.zaxxer.hikari.HikariDataSource      :  109 |  | HikariPool-1 - Starting...
+2026-09-11 23:30:25.770 |  INFO 21538 | main            | com.zaxxer.hikari.pool.HikariPool       :  580 |  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@64df8422
+2026-09-11 23:30:25.772 |  INFO 21538 | main            | com.zaxxer.hikari.HikariDataSource      :  122 |  | HikariPool-1 - Start completed.
+2026-09-11 23:30:25.833 |  INFO 21538 | main            | org.flywaydb.core.FlywayExecutor        :   41 |  | Database: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000 (MySQL 8.0)
+2026-09-11 23:30:26.462 |  INFO 21538 | main            | lywaydb.core.internal.command.DbValidate:   41 |  | Successfully validated 11 migrations (execution time 00:00.214s)
+2026-09-11 23:30:26.799 |  INFO 21538 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Current version of schema `suyh_medcase`: 01.01.00.010
+2026-09-11 23:30:26.834 |  INFO 21538 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Schema `suyh_medcase` is up to date. No migration necessary.
+2026-09-11 23:30:27.019 |  INFO 21538 | main            | amic.datasource.DynamicRoutingDataSource:  158 |  | dynamic-datasource - add a datasource named [master] success
+2026-09-11 23:30:27.020 |  INFO 21538 | main            | amic.datasource.DynamicRoutingDataSource:  241 |  | dynamic-datasource initial loaded [1] datasource,primary datasource named [master]
+2026-09-11 23:30:27.357 |  WARN 21538 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysRoleMenuEntity".
+2026-09-11 23:30:27.358 |  WARN 21538 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysRoleMenuEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-11 23:30:27.371 |  WARN 21538 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserRoleEntity".
+2026-09-11 23:30:27.371 |  WARN 21538 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserRoleEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-11 23:30:27.413 |  WARN 21538 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserPostEntity".
+2026-09-11 23:30:27.413 |  WARN 21538 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserPostEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-11 23:30:27.470 | DEBUG 21538 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config
+2026-09-11 23:30:27.479 | DEBUG 21538 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==> Parameters: 
+2026-09-11 23:30:27.515 | DEBUG 21538 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | <==      Total: 9
+2026-09-11 23:30:33.783 |  INFO 21538 | main            | r$InitializeUserDetailsManagerConfigurer:  110 |  | Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-09-11 23:30:34.009 |  INFO 21538 | main            | pring.MybatisPlusApplicationContextAware:   43 |  | Register ApplicationContext instances org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext@6d868997
+2026-09-11 23:30:34.228 |  INFO 21538 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Starting ProtocolHandler ["http-nio-8080"]
+2026-09-11 23:30:34.240 |  INFO 21538 | main            | ingframework.boot.tomcat.TomcatWebServer:  240 |  | Tomcat started on port 8080 (http) with context path '/medcase'
+2026-09-11 23:30:34.245 |  INFO 21538 | main            | com.medcase.MedcaseApplication          :   60 |  | Started MedcaseApplication in 20.535 seconds (process running for 20.964)
+2026-09-11 23:30:34.247 |  INFO 21538 | main            | .medcase.common.config.StartupInfoLogger:   50 |  | 
+----------------------------------------------------------
+Application Ready
+Spring Boot     : 4.1.0
+Project Version : 1.1.0
+Build Time      : 2026-09-11T15:15:45.542Z
+Active Profile  : suyh
+Database Enabled : true
+Database Primary : master
+Database Strict  : true
+Database JDBC URL: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000
+Database Driver  : com.mysql.cj.jdbc.Driver
+Database Pool Min : 10
+Database Pool Max : 20
+Database Conn Timeout: 60000
+Database Idle Timeout: 300000
+Database Max Lifetime: 900000
+Redis Host       : qu-yun.isuyh.com
+Redis Port       : 6379
+Redis Database   : 1
+Redis Timeout    : 10s
+Redis Pool Min   : 0
+Redis Pool Max   : 8
+Redis Pool Active: 8
+Redis Pool Wait  : -1ms
+SMS Enabled      : false
+Git Branch      : develop
+Git Commit      : ebd1ca2
+Git Commit Time : 2026-09-10T14:31:37Z
+Git Dirty       : true
+----------------------------------------------------------
+2026-09-11 23:42:55.965 |  INFO 21538 | ionShutdownHook | ngframework.boot.tomcat.GracefulShutdown:   54 |  | Commencing graceful shutdown. Waiting for active requests to complete
+2026-09-11 23:42:57.989 |  INFO 21538 | tomcat-shutdown | ngframework.boot.tomcat.GracefulShutdown:   76 |  | Graceful shutdown complete
+2026-09-11 23:42:58.019 |  INFO 21538 | ionShutdownHook | sys-user                                :   30 |  | ====关闭后台任务任务线程池====
+2026-09-11 23:42:58.025 |  INFO 21538 | ionShutdownHook | amic.datasource.DynamicRoutingDataSource:  215 |  | dynamic-datasource start closing ....
+2026-09-11 23:42:58.027 |  INFO 21538 | ionShutdownHook | com.zaxxer.hikari.HikariDataSource      :  349 |  | HikariPool-1 - Shutdown initiated...
+2026-09-11 23:42:58.305 |  INFO 21538 | ionShutdownHook | com.zaxxer.hikari.HikariDataSource      :  351 |  | HikariPool-1 - Shutdown completed.
+2026-09-11 23:42:58.305 |  INFO 21538 | ionShutdownHook | rce.destroyer.DefaultDataSourceDestroyer:   98 |  | dynamic-datasource close the datasource named [master] success,
+2026-09-11 23:42:58.305 |  INFO 21538 | ionShutdownHook | amic.datasource.DynamicRoutingDataSource:  219 |  | dynamic-datasource all closed success,bye
+2026-09-11 23:43:00.793 |  INFO 22780 | main            | com.medcase.MedcaseApplication          :   54 |  | Starting MedcaseApplication using Java 17.0.20 with PID 22780 (/Users/suyunhong/suyh-develop/github/medcase-api/medcase-api/target/classes started by suyunhong in /Users/suyunhong/suyh-develop/github/medcase-api)
+2026-09-11 23:43:00.794 | DEBUG 22780 | main            | com.medcase.MedcaseApplication          :   55 |  | Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-09-11 23:43:00.795 |  INFO 22780 | main            | com.medcase.MedcaseApplication          :  658 |  | The following 1 profile is active: "suyh"
+2026-09-11 23:43:00.876 |  INFO 22780 | kground-preinit | ibernate.validator.internal.util.Version:   18 |  | HV000001: Hibernate Validator 9.1.0.Final
+2026-09-11 23:43:01.183 |  INFO 22780 | main            | y.config.RepositoryConfigurationDelegate:  291 |  | Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-11 23:43:01.185 |  INFO 22780 | main            | y.config.RepositoryConfigurationDelegate:  145 |  | Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-11 23:43:01.208 |  INFO 22780 | main            | y.config.RepositoryConfigurationDelegate:  213 |  | Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2026-09-11 23:43:01.697 |  INFO 22780 | main            | ingframework.boot.tomcat.TomcatWebServer:  114 |  | Tomcat initialized with port 8080 (http)
+2026-09-11 23:43:01.703 |  INFO 22780 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Initializing ProtocolHandler ["http-nio-8080"]
+2026-09-11 23:43:01.703 |  INFO 22780 | main            | org.apache.catalina.core.StandardService:  168 |  | Starting service [Tomcat]
+2026-09-11 23:43:01.703 |  INFO 22780 | main            | org.apache.catalina.core.StandardEngine :  168 |  | Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-09-11 23:43:01.726 |  INFO 22780 | main            | servlet.WebApplicationContextInitializer:   77 |  | Root WebApplicationContext: initialization completed in 913 ms
+2026-09-11 23:43:01.787 |  WARN 22780 | main            | lver.dns.DnsServerAddressStreamProviders:   70 |  | Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'
+2026-09-11 23:43:01.962 | DEBUG 22780 | main            | rity.filter.JwtAuthenticationTokenFilter:  236 |  | Filter 'jwtAuthenticationTokenFilter' configured for use
+2026-09-11 23:43:02.070 |  INFO 22780 | main            | com.zaxxer.hikari.HikariDataSource      :  109 |  | HikariPool-1 - Starting...
+2026-09-11 23:43:12.586 |  INFO 22780 | main            | com.zaxxer.hikari.pool.HikariPool       :  580 |  | HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7e36d508
+2026-09-11 23:43:12.589 |  INFO 22780 | main            | com.zaxxer.hikari.HikariDataSource      :  122 |  | HikariPool-1 - Start completed.
+2026-09-11 23:43:12.661 |  INFO 22780 | main            | org.flywaydb.core.FlywayExecutor        :   41 |  | Database: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000 (MySQL 8.0)
+2026-09-11 23:43:13.315 |  INFO 22780 | main            | lywaydb.core.internal.command.DbValidate:   41 |  | Successfully validated 11 migrations (execution time 00:00.231s)
+2026-09-11 23:43:13.654 |  INFO 22780 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Current version of schema `suyh_medcase`: 01.01.00.010
+2026-09-11 23:43:13.687 |  INFO 22780 | main            | flywaydb.core.internal.command.DbMigrate:   41 |  | Schema `suyh_medcase` is up to date. No migration necessary.
+2026-09-11 23:43:13.872 |  INFO 22780 | main            | amic.datasource.DynamicRoutingDataSource:  158 |  | dynamic-datasource - add a datasource named [master] success
+2026-09-11 23:43:13.873 |  INFO 22780 | main            | amic.datasource.DynamicRoutingDataSource:  241 |  | dynamic-datasource initial loaded [1] datasource,primary datasource named [master]
+2026-09-11 23:43:14.316 |  WARN 22780 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysRoleMenuEntity".
+2026-09-11 23:43:14.316 |  WARN 22780 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysRoleMenuEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-11 23:43:14.332 |  WARN 22780 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserRoleEntity".
+2026-09-11 23:43:14.332 |  WARN 22780 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserRoleEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-11 23:43:14.375 |  WARN 22780 | main            | ybatisplus.core.metadata.TableInfoHelper:  382 |  | Can not find table primary key in Class: "com.medcase.system.entity.SysUserPostEntity".
+2026-09-11 23:43:14.375 |  WARN 22780 | main            | tisplus.core.injector.DefaultSqlInjector:   57 |  | class com.medcase.system.entity.SysUserPostEntity Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-09-11 23:43:14.473 | DEBUG 22780 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==>  Preparing: SELECT config_id,config_name,config_key,config_value,config_type,remark,create_user_id,create_by,create_time,update_user_id,update_by,update_time FROM sys_config
+2026-09-11 23:43:14.480 | DEBUG 22780 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | ==> Parameters: 
+2026-09-11 23:43:14.517 | DEBUG 22780 | main            | system.mapper.SysConfigMapper.selectList:  135 |  | <==      Total: 9
+2026-09-11 23:43:20.827 |  INFO 22780 | main            | r$InitializeUserDetailsManagerConfigurer:  110 |  | Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-09-11 23:43:21.048 |  INFO 22780 | main            | pring.MybatisPlusApplicationContextAware:   43 |  | Register ApplicationContext instances org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext@6d868997
+2026-09-11 23:43:21.264 |  INFO 22780 | main            | g.apache.coyote.http11.Http11NioProtocol:  168 |  | Starting ProtocolHandler ["http-nio-8080"]
+2026-09-11 23:43:21.272 |  INFO 22780 | main            | ingframework.boot.tomcat.TomcatWebServer:  240 |  | Tomcat started on port 8080 (http) with context path '/medcase'
+2026-09-11 23:43:21.277 |  INFO 22780 | main            | com.medcase.MedcaseApplication          :   60 |  | Started MedcaseApplication in 20.743 seconds (process running for 21.068)
+2026-09-11 23:43:21.279 |  INFO 22780 | main            | .medcase.common.config.StartupInfoLogger:   50 |  | 
+----------------------------------------------------------
+Application Ready
+Spring Boot     : 4.1.0
+Project Version : 1.1.0
+Build Time      : 2026-09-11T15:37:50.993Z
+Active Profile  : suyh
+Database Enabled : true
+Database Primary : master
+Database Strict  : true
+Database JDBC URL: jdbc:mysql://qu-yun.isuyh.com/suyh_medcase?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&connectTimeout=30000&socketTimeout=60000
+Database Driver  : com.mysql.cj.jdbc.Driver
+Database Pool Min : 10
+Database Pool Max : 20
+Database Conn Timeout: 60000
+Database Idle Timeout: 300000
+Database Max Lifetime: 900000
+Redis Host       : qu-yun.isuyh.com
+Redis Port       : 6379
+Redis Database   : 1
+Redis Timeout    : 10s
+Redis Pool Min   : 0
+Redis Pool Max   : 8
+Redis Pool Active: 8
+Redis Pool Wait  : -1ms
+SMS Enabled      : false
+Git Branch      : develop
+Git Commit      : cc98a78
+Git Commit Time : 2026-09-11T15:30:05Z
+Git Dirty       : true
+----------------------------------------------------------
+2026-09-11 23:44:31.021 |  INFO 22780 | ionShutdownHook | ngframework.boot.tomcat.GracefulShutdown:   54 |  | Commencing graceful shutdown. Waiting for active requests to complete
+2026-09-11 23:44:33.040 |  INFO 22780 | tomcat-shutdown | ngframework.boot.tomcat.GracefulShutdown:   76 |  | Graceful shutdown complete
+2026-09-11 23:44:33.050 |  INFO 22780 | ionShutdownHook | sys-user                                :   30 |  | ====关闭后台任务任务线程池====
+2026-09-11 23:44:33.054 |  INFO 22780 | ionShutdownHook | amic.datasource.DynamicRoutingDataSource:  215 |  | dynamic-datasource start closing ....
+2026-09-11 23:44:33.055 |  INFO 22780 | ionShutdownHook | com.zaxxer.hikari.HikariDataSource      :  349 |  | HikariPool-1 - Shutdown initiated...
+2026-09-11 23:44:35.423 |  INFO 22780 | ionShutdownHook | com.zaxxer.hikari.HikariDataSource      :  351 |  | HikariPool-1 - Shutdown completed.
+2026-09-11 23:44:35.423 |  INFO 22780 | ionShutdownHook | rce.destroyer.DefaultDataSourceDestroyer:   98 |  | dynamic-datasource close the datasource named [master] success,
+2026-09-11 23:44:35.424 |  INFO 22780 | ionShutdownHook | amic.datasource.DynamicRoutingDataSource:  219 |  | dynamic-datasource all closed success,bye

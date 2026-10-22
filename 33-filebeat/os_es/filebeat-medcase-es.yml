@@ -29,6 +29,7 @@ filebeat.inputs:
     # 部署到 Linux 服务器后，请把 paths 改为服务器上的真实绝对路径
     paths:
       - /Users/suyunhong/suyh-develop/github/suyh-notes/33-filebeat/logs/medcase.log
+#      - /Users/suyunhong/suyh-develop/github/suyh-notes/33-filebeat/logs/*/medcase*.log
 
     # 首次运行时从文件开头读取（可用于回填历史日志）
     start_position: beginning
