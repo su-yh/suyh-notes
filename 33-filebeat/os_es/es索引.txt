@@ -307,3 +307,35 @@ GET /suyh-efe-log-20261022/_search?pretty
   ]
 }
 
+
+
+
+
+
+
+
+# ==========================================================================================================================================================
+
+# ① 看当前索引里 log.original 的真实类型
+GET /suyh-efe-log-20261022/_mapping/field/log.original
+
+# ② 关键：模拟这个索引会匹配哪些模板、最终映射是什么
+POST /_index_template/_simulate/suyh-efe-log-20261022
+
+# ③ 确认模板本身是否已创建且 log.original 是 text
+GET /_index_template/suyh-efe-log-template
+
+# 删除旧索引
+DELETE /suyh-efe-log-20261022
+# 创建索引
+PUT suyh-efe-log-20261022
+{
+  "aliases": {
+    "suyh-efe-log": {
+      "is_write_index": true
+    }
+  }
+}
+# 建完先验证映射已变 text
+GET /suyh-efe-log-20261022/_mapping/field/log.original
+
