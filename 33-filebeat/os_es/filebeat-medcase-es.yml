@@ -21,7 +21,7 @@ path.logs: /Users/suyunhong/suyh-develop/github/suyh-notes/33-filebeat/medcase/l
 
 filebeat.inputs:
   - type: log
-    id: medcase-logs-es
+    id: suyh-medcase-logs-es
     enabled: true
 
     # 日志路径：只采集当前正在写入的 medcase.log
@@ -189,7 +189,7 @@ output.elasticsearch:
 
   # 按日志日期（Asia/Shanghai）分索引，如 medcase-log-20261021
   # （log.date 为已按目标时区换算好的 yyyyMMdd 整数，比 %{+yyyy.MM.dd} 更符合上海时区）
-  index: "medcase-log-%{[log.date]}"
+  index: "suyh-medcase-log-%{[log.date]}"
 
   # bulk 批量写入参数（可按需调整）
   bulk_max_size: 1600

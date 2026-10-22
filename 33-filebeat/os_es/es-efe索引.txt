@@ -126,142 +126,21 @@ PUT _index_template/suyh-efe-log-template
               }
             }
           }
-        },
-        "host": {
-          "properties": {
-            "name": {
-              "type": "keyword"
-            },
-            "hostname": {
-              "type": "keyword"
-            },
-            "architecture": {
-              "type": "keyword"
-            },
-            "os": {
-              "properties": {
-                "platform": {
-                  "type": "keyword"
-                },
-                "version": {
-                  "type": "keyword"
-                },
-                "family": {
-                  "type": "keyword"
-                },
-                "name": {
-                  "type": "keyword"
-                },
-                "kernel": {
-                  "type": "keyword"
-                },
-                "build": {
-                  "type": "keyword"
-                }
-              }
-            },
-            "id": {
-              "type": "keyword"
-            },
-            "containerized": {
-              "type": "boolean"
-            },
-            "ip": {
-              "type": "ip"
-            },
-            "mac": {
-              "type": "keyword"
-            }
-          }
-        },
-        "tags": {
-          "type": "keyword"
-        },
-        "input": {
-          "properties": {
-            "type": {
-              "type": "keyword"
-            }
-          }
-        },
-        "ecs": {
-          "properties": {
-            "version": {
-              "type": "keyword"
-            }
-          }
-        },
-        "agent": {
-          "properties": {
-            "id": {
-              "type": "keyword"
-            },
-            "type": {
-              "type": "keyword"
-            },
-            "ephemeral_id": {
-              "type": "keyword"
-            },
-            "hostname": {
-              "type": "keyword"
-            },
-            "name": {
-              "type": "keyword"
-            },
-            "version": {
-              "type": "keyword"
-            }
-          }
-        },
-        "cloud": {
-          "properties": {
-            "provider": {
-              "type": "keyword"
-            },
-            "instance": {
-              "properties": {
-                "id": {
-                  "type": "keyword"
-                }
-              }
-            },
-            "account": {
-              "properties": {
-                "id": {
-                  "type": "keyword"
-                }
-              }
-            },
-            "availability_zone": {
-              "type": "keyword"
-            },
-            "region": {
-              "type": "keyword"
-            },
-            "machine": {
-              "properties": {
-                "type": {
-                  "type": "keyword"
-                }
-              }
-            },
-            "project": {
-              "properties": {
-                "id": {
-                  "type": "keyword"
-                }
-              }
-            }
-          }
-        },
-        "fields": {
-          "type": "object",
-          "dynamic": true
         }
       }
     },
     "aliases": {
       "suyh-efe-log": {}
+    }
+  }
+}
+
+# 创建首个索引
+PUT suyh-efe-log-20261022
+{
+  "aliases": {
+    "suyh-efe-log": {
+      "is_write_index": true
     }
   }
 }
@@ -275,15 +154,7 @@ GET _index_template/suyh-efe-log-template
 
 # 删除索引
 DELETE /suyh-efe-log-*
-# 创建索引
-PUT suyh-efe-log-20261022
-{
-  "aliases": {
-    "suyh-efe-log": {
-      "is_write_index": true
-    }
-  }
-}
+
 
 # 查询索引的数量
 GET /suyh-efe-log-20261022/_count
