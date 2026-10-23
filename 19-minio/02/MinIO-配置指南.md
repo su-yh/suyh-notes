@@ -58,7 +58,7 @@
 
 创建一个仅针对 `medcase-dev` 桶的自定义策略，用于后续绑定到用户。
 
-1. 左侧菜单点击 **Identity → Policies（身份 → 策略）**。
+1. 左侧菜单点击 **Policies（策略）**。
 
 2. 点击 **Create Policy**。
 
